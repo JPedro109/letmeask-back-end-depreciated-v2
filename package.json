@@ -1,0 +1,9 @@
+{
+  "name": "api-despesas",
+  "version": "1.0.0",
+  "description": "Aplicação voltada para interação de usuários por meio de salas de perguntas e respostas",
+  "main": "dist/server.js",
+  "repository": "https://github.com/JPedro109/letmeask-back-end.git",
+  "author": "João Pedro <joaopedromoraesnsilva@gmail.com>",
+  "license": "MIT"
+}
