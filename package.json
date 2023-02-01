@@ -5,5 +5,11 @@
   "main": "dist/server.js",
   "repository": "https://github.com/JPedro109/letmeask-back-end.git",
   "author": "João Pedro <joaopedromoraesnsilva@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "postinstall": "husky install"
+  },
+  "devDependencies": {
+    "husky": "^8.0.3"
+  }
 }
