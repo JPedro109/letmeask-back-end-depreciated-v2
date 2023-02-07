@@ -9,3 +9,7 @@ export * from "./delete-user/dtos";
 export * from "./get-username/use-case";
 export * from "./get-username/protocol";
 export * from "./get-username/dtos"; 
+
+export * from "./recover-user-password/use-case";
+export * from "./recover-user-password/protocol";
+export * from "./recover-user-password/dtos"; 
