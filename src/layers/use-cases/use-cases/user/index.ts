@@ -13,3 +13,7 @@ export * from "./get-username/dtos";
 export * from "./recover-user-password/use-case";
 export * from "./recover-user-password/protocol";
 export * from "./recover-user-password/dtos"; 
+
+export * from "./send-user-email-update-link/use-case";
+export * from "./send-user-email-update-link/protocol";
+export * from "./send-user-email-update-link/dtos"; 
