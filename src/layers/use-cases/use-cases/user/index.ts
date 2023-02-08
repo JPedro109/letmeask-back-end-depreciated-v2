@@ -21,3 +21,7 @@ export * from "./send-user-email-update-link/dtos";
 export * from "./send-user-password-recovery-link/use-case";
 export * from "./send-user-password-recovery-link/protocol";
 export * from "./send-user-password-recovery-link/dtos"; 
+
+export * from "./update-user-email/use-case";
+export * from "./update-user-email/protocol";
+export * from "./update-user-email/dtos";
