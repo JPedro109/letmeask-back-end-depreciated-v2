@@ -29,3 +29,7 @@ export * from "./update-user-email/dtos";
 export * from "./update-user-password/use-case";
 export * from "./update-user-password/protocol";
 export * from "./update-user-password/dtos";
+
+export * from "./update-username/use-case";
+export * from "./update-username/protocol";
+export * from "./update-username/dtos";
