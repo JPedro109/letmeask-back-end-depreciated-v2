@@ -33,3 +33,7 @@ export * from "./update-user-password/dtos";
 export * from "./update-username/use-case";
 export * from "./update-username/protocol";
 export * from "./update-username/dtos";
+
+export * from "./user-login/use-case";
+export * from "./user-login/protocol";
+export * from "./user-login/dtos";
