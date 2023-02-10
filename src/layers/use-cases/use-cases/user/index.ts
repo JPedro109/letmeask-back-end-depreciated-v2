@@ -37,3 +37,7 @@ export * from "./update-username/dtos";
 export * from "./user-login/use-case";
 export * from "./user-login/protocol";
 export * from "./user-login/dtos";
+
+export * from "./user-verify-email/use-case";
+export * from "./user-verify-email/protocol";
+export * from "./user-verify-email/dtos";
