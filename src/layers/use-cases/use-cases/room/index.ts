@@ -9,3 +9,7 @@ export * from "./delete-room/protocol";
 export * from "./get-room/use-case";
 export * from "./get-room/dtos";
 export * from "./get-room/protocol";
+
+export * from "./get-room-code/use-case";
+export * from "./get-room-code/dtos";
+export * from "./get-room-code/protocol";
