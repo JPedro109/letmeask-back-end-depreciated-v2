@@ -13,3 +13,7 @@ export * from "./get-room/protocol";
 export * from "./get-room-code/use-case";
 export * from "./get-room-code/dtos";
 export * from "./get-room-code/protocol";
+
+export * from "./get-user-room-code/use-case";
+export * from "./get-user-room-code/dtos";
+export * from "./get-user-room-code/protocol";
