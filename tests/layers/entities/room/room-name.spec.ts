@@ -18,8 +18,8 @@ describe("Object Value - RoomName", () => {
 		expect(sut).toBeInstanceOf(InvalidRoomNameError);
 	});
 
-	test("Should not create room name, because the room name is not less than 12 characters" , () => {
-		const invalidRoomName = "c".repeat(13);
+	test("Should not create room name, because the room name is not less than 19 characters" , () => {
+		const invalidRoomName = "c".repeat(20);
 
 		const sut = RoomName.create(invalidRoomName);
 

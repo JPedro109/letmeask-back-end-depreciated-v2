@@ -20,7 +20,7 @@ export class RoomName {
 	private static validate(roomName: string): boolean {
 		if(!roomName) return false;
 
-		if(roomName.length < 2 || roomName.length > 12) return false;
+		if(roomName.length < 2 || roomName.length > 18) return false;
 
 		return true;
 	}
