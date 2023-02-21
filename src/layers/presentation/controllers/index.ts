@@ -7,5 +7,6 @@ export * from "./user/send-user-password-recovery-link-controller";
 export * from "./user/update-user-email-controller";
 export * from "./user/update-user-password-controller";
 export * from "./user/update-username-controller";
+export * from "./user/user-login-controller";
 
 export * from "./utils";
