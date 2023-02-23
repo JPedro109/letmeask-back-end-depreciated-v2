@@ -11,5 +11,6 @@ export * from "./user/user-login-controller";
 export * from "./user/user-verify-email-controller";
 
 export * from "./room/create-room-controller";
+export * from "./room/delete-room-controller";
 
 export * from "./utils";
