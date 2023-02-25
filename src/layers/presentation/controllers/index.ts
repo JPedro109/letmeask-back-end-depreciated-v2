@@ -17,5 +17,6 @@ export * from "./room/get-room-controller";
 export * from "./room/get-user-room-code-controller";
 
 export * from "./question/create-question";
+export * from "./question/delete-question";
 
 export * from "./utils";
