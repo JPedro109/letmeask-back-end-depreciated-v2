@@ -1,7 +1,7 @@
-# Despesas - Back-end - Api
+# Letmeask - Back-end - Api
 
-# 🔗 Despesas
-<p>🚀  Aplicação voltada para administração de despesas</p>
+# 🔗 Letmeask
+<p>🚀  AAplicação voltada interação de usuários por meio de salas de perguntas e respostas</p>
 
 # Status da Aplicação
 <p>🚧 Aplicação Em Desenvolvimento</p>
@@ -12,10 +12,9 @@
 - Atualização de Senha
 - Recuperação de Senha
 - Exclusão de Usuário
-- Criação de Despesas
-- Atualização de Despesas
-- Leitura de Despesas
-- Exclusão de Despesas
+- Criação, Leitura e Exclusão de Salas
+- Criação, Leitura e Exclusão de Perguntas
+- Criação, Leitura e Exclusão de Respostas
 
 # Tecnologias
 - Node
