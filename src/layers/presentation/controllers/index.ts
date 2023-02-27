@@ -20,4 +20,6 @@ export * from "./question/create-question";
 export * from "./question/delete-question";
 export * from "./question/get-user-questions";
 
+export * from "./response/create-response-controller";
+
 export * from "./utils";
