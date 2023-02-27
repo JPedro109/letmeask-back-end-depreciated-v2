@@ -1,5 +1,5 @@
 {
-  "name": "api-despesas",
+  "name": "api-letmeask",
   "version": "1.0.0",
   "description": "Aplicação voltada para interação de usuários por meio de salas de perguntas e respostas",
   "main": "dist/server.js",
