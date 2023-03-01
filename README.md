@@ -1,7 +1,7 @@
 # Letmeask - Back-end - Api
 
 # 🔗 Letmeask
-<p>🚀  AAplicação voltada interação de usuários por meio de salas de perguntas e respostas</p>
+<p>🚀 Aplicação voltada interação de usuários por meio de salas de perguntas e respostas</p>
 
 # Status da Aplicação
 <p>🚧 Aplicação Em Desenvolvimento</p>
