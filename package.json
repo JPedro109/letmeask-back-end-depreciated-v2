@@ -8,6 +8,8 @@
   "license": "MIT",
   "scripts": {
     "postinstall": "husky install",
+    "migrate:generate": "prisma migrate dev && prisma generate",
+    "migrate:execute": "prisma migrate deploy",
     "test": "jest --passWithNoTests --detectOpenHandles --silent",
     "test:coverage": "yarn test --coverage",
     "test:staged": "yarn test --findRelatedTests",
