@@ -1,10 +1,10 @@
 # Letmeask - Back-end - Api
+[![Coverage Status](https://coveralls.io/repos/github/JPedro109/letmeask-back-end/badge.svg?branch=staging)](https://coveralls.io/github/JPedro109/letmeask-back-end?branch=staging)
 
-# 🔗 Letmeask
 <p>🚀 Aplicação voltada para interação de usuários por meio de salas de perguntas e respostas</p>
 
 # Status da Aplicação
-<p>🚧 Aplicação Em Desenvolvimento</p>
+<p>🔥 Aplicação Finalizada</p>
 
 # Features
 - Cadastro de Usuário
