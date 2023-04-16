@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model user {
+    id                             String     @default(uuid()) @id
+    email                          String     @unique
+    username                       String
+    password                       String
+    verified_email                 Boolean?
+    managed_room                   String?
+    created_at                     DateTime?  @default(now())
+    updated_at                     DateTime?
+    user_verification_code         user_verification_code[]
+    room                           room?
+    question                       question[]
+}
+
+model user_verification_code {
+    id                             String    @default(uuid()) @id
+    user_id                        String             
+    verification_code              String    @unique()
+    verification_code_expiry_date  BigInt    @default(0)
+    valid                          Boolean
+    password_recovery              Boolean
+    created_at                     DateTime? @default(now())
+    updated_at                     DateTime?
+    user       user                @relation(fields: [user_id], references: [id], onUpdate: Cascade, onDelete: Cascade)
+}
+
+model room {
+    id         String     @default(uuid()) @id
+    user_id    String     @unique
+    code       String     @unique
+    name       String
+    created_at DateTime   @default(now())
+    question   question[]
+    user       user       @relation(fields: [user_id], references: [id], onUpdate: Cascade, onDelete: Cascade)
+}
+
+model question {
+    id         String    @default(uuid()) @id
+    user_id    String
+    room_code  String
+    question   String
+    created_at DateTime  @default(now())
+    response   response?
+    user       user      @relation(fields: [user_id], references: [id], onUpdate: Cascade, onDelete: Cascade)
+    room       room      @relation(fields: [room_code], references: [code], onUpdate: Cascade, onDelete: Cascade)
+}
+
+model response {
+    id          String   @default(uuid()) @id
+    question_id String   @unique
+    response    String
+    created_at  DateTime @default(now())
+    question    question @relation(fields: [question_id], references: [id], onUpdate: Cascade, onDelete: Cascade)
+}
