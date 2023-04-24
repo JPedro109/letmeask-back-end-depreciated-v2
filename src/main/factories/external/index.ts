@@ -11,10 +11,13 @@ import {
 	ResponseRepositoryAdapter,
 	UnitOfWorkAdapter,
 	CacheAdapter,
-	LogRepositoryAdapter
+	LogRepositoryAdapter,
+	QueueAdapter
 } from "@/layers/external";
 
 export const cryptographyAdapter = new CryptographyAdapter();
+
+export const queueAdapter = new QueueAdapter();
 
 export const generationAdapter = new GenerationAdapter();
 
