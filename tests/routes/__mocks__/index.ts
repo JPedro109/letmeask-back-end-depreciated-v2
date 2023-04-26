@@ -1,4 +1,4 @@
-import { DatabaseSQLHelper, MockRepository } from "@/layers/external";
+import { DatabaseSQLHelper, QueueHelper, MockRepository } from "@/layers/external";
 import { app } from "@/main/app";
 
 import request from "supertest";
@@ -8,10 +8,12 @@ export const setup = () => {
 
 	beforeAll(async () => {
 		await DatabaseSQLHelper.connect();
+		await QueueHelper.connect();
 	});
 
 	afterAll(async () => {
 		await DatabaseSQLHelper.disconnect();
+		await QueueHelper.disconnect();
 	});
     
 	beforeEach(async () => {
