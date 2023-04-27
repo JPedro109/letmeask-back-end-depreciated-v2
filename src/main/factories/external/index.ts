@@ -23,7 +23,7 @@ export const generationAdapter = new GenerationAdapter();
 
 export const jsonWebTokenAdapter = new JsonWebTokenAdapter();
 
-export const mailServiceAdapter = new MailServiceAdapter();
+export const mailServiceAdapter = new MailServiceAdapter(queueAdapter);
 
 export const userRepositoryAdapter = new UserRepositoryAdapter();
 
