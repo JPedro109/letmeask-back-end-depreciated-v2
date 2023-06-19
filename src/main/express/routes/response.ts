@@ -2,9 +2,9 @@ import {
 	createResponseController, 
 } from "@/main/factories/presentation";
 import { authenticateUserMiddleware } from "@/main/factories/presentation/middlewares";
-import { adaptRoute, adaptMiddleware } from "@/main/express/adapters";
+import { ExpressAdapter } from "@/main/express/adapter";
 import { Router } from "express";
 
 export default (router: Router): void => {
-	router.post("/responses", adaptMiddleware(authenticateUserMiddleware), adaptRoute(createResponseController));
+	router.post("/responses", ExpressAdapter.middleware(authenticateUserMiddleware), ExpressAdapter.route(createResponseController));
 };

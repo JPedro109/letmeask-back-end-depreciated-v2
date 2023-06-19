@@ -12,19 +12,19 @@ import {
 	userVerifyEmailController 
 } from "@/main/factories/presentation";
 import { authenticateUserMiddleware } from "@/main/factories/presentation/middlewares";
-import { adaptRoute, adaptMiddleware } from "@/main/express/adapters";
+import { ExpressAdapter } from "@/main/express/adapter";
 import { Router } from "express";
 
 export default (router: Router): void => {
-	router.post("/users", adaptRoute(createUserController));
-	router.patch("/users/verify-email", adaptRoute(userVerifyEmailController));
-	router.post("/users/login", adaptRoute(userLoginController));
-	router.delete("/users", adaptMiddleware(authenticateUserMiddleware), adaptRoute(deleteUserController));
-	router.post("/users/send-email-update-link", adaptMiddleware(authenticateUserMiddleware), adaptRoute(sendUserEmailUpdateLinkController));
-	router.post("/users/send-password-recovery-link", adaptRoute(sendUserPasswordRecoveryLinkController));
-	router.patch("/users/email", adaptMiddleware(authenticateUserMiddleware), adaptRoute(updateUserEmailController));
-	router.patch("/users/username", adaptMiddleware(authenticateUserMiddleware), adaptRoute(updateUsernameController));
-	router.get("/users/username", adaptMiddleware(authenticateUserMiddleware), adaptRoute(getUsernameController));
-	router.patch("/users/password-recover", adaptRoute(recoverUserPasswordController));
-	router.patch("/users/password", adaptMiddleware(authenticateUserMiddleware), adaptRoute(updateUserPasswordController));
+	router.post("/users", ExpressAdapter.route(createUserController));
+	router.patch("/users/verify-email", ExpressAdapter.route(userVerifyEmailController));
+	router.post("/users/login", ExpressAdapter.route(userLoginController));
+	router.delete("/users", ExpressAdapter.middleware(authenticateUserMiddleware), ExpressAdapter.route(deleteUserController));
+	router.post("/users/send-email-update-link", ExpressAdapter.middleware(authenticateUserMiddleware), ExpressAdapter.route(sendUserEmailUpdateLinkController));
+	router.post("/users/send-password-recovery-link", ExpressAdapter.route(sendUserPasswordRecoveryLinkController));
+	router.patch("/users/email", ExpressAdapter.middleware(authenticateUserMiddleware), ExpressAdapter.route(updateUserEmailController));
+	router.patch("/users/username", ExpressAdapter.middleware(authenticateUserMiddleware), ExpressAdapter.route(updateUsernameController));
+	router.get("/users/username", ExpressAdapter.middleware(authenticateUserMiddleware), ExpressAdapter.route(getUsernameController));
+	router.patch("/users/password-recover", ExpressAdapter.route(recoverUserPasswordController));
+	router.patch("/users/password", ExpressAdapter.middleware(authenticateUserMiddleware), ExpressAdapter.route(updateUserPasswordController));
 };

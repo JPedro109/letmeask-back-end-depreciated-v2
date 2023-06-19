@@ -4,11 +4,11 @@ import {
 	getUserQuestionsController, 
 } from "@/main/factories/presentation";
 import { authenticateUserMiddleware } from "@/main/factories/presentation/middlewares";
-import { adaptRoute, adaptMiddleware } from "@/main/express/adapters";
+import { ExpressAdapter } from "@/main/express/adapter";
 import { Router } from "express";
 
 export default (router: Router): void => {
-	router.post("/questions", adaptMiddleware(authenticateUserMiddleware), adaptRoute(createQuestionController));
-	router.get("/questions", adaptMiddleware(authenticateUserMiddleware), adaptRoute(getUserQuestionsController));
-	router.delete("/questions/:questionId", adaptMiddleware(authenticateUserMiddleware), adaptRoute(deleteQuestionController));
+	router.post("/questions", ExpressAdapter.middleware(authenticateUserMiddleware), ExpressAdapter.route(createQuestionController));
+	router.get("/questions", ExpressAdapter.middleware(authenticateUserMiddleware), ExpressAdapter.route(getUserQuestionsController));
+	router.delete("/questions/:questionId", ExpressAdapter.middleware(authenticateUserMiddleware), ExpressAdapter.route(deleteQuestionController));
 };
