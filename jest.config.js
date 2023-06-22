@@ -5,7 +5,7 @@ module.exports = {
 		"<rootDir>/src/**",
 		"!<rootDir>/src/server.ts",
 		"!<rootDir>/src/main/**/@types/**",
-		"!<rootDir>/src/main/**/adapters/**",
+		"!<rootDir>/src/main/**/adapter/**",
 		"!<rootDir>/src/main/**/middlewares/**",
 	],
 	moduleNameMapper: {
