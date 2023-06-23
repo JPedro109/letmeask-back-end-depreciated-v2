@@ -17,7 +17,7 @@ export class DeleteRoomController implements HttpProtocol {
 	async handle(request: HttpRequest): Promise<HttpResponse> {
 		const userId = request.userId;
 
-		const { roomCode } = request.params;
+		const { roomCode } = request.data;
 
 		const validation = Validate.fields(
 			[

@@ -8,7 +8,7 @@ export class DeleteUserController implements HttpProtocol {
 	async handle(request: HttpRequest): Promise<HttpResponse> {
 		const id = request.userId;		
 
-		const { password, passwordConfirm } = request.body;
+		const { password, passwordConfirm } = request.data;
 
 		const validation = Validate.fields(
 			[

@@ -8,7 +8,7 @@ export class SendUserEmailUpdateLinkController implements HttpProtocol {
 	async handle(request: HttpRequest): Promise<HttpResponse> {
 		const id = request.userId;
 
-		const { email } = request.body;
+		const { email } = request.data;
 
 		const validation = Validate.fields(
 			[

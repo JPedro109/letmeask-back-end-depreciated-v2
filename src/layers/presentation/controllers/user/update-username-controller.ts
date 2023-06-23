@@ -8,7 +8,7 @@ export class UpdateUsernameController implements HttpProtocol {
 	async handle(request: HttpRequest): Promise<HttpResponse> {
 		const id = request.userId;
 
-		const { username } = request.body;
+		const { username } = request.data;
 
 		const validation = Validate.fields([
 			{ name: "id", type: "string" },

@@ -27,7 +27,7 @@ describe("Presentation - UpdateUserEmailController", () => {
 
 		const result = await sut.handle({ 
 			userId: body.id as string,
-			query: {
+			data: {
 				email: body.email,
 				code: body.code
 			} 
@@ -43,7 +43,7 @@ describe("Presentation - UpdateUserEmailController", () => {
 
 		const result = await sut.handle({ 
 			userId: body.id as string,
-			query: {
+			data: {
 				email: body.email,
 				code: body.code
 			} 
@@ -58,7 +58,7 @@ describe("Presentation - UpdateUserEmailController", () => {
 
 		const result = await sut.handle({ 
 			userId: body.id as string,
-			query: {
+			data: {
 				email: body.email,
 				code: body.code
 			} 
@@ -73,7 +73,7 @@ describe("Presentation - UpdateUserEmailController", () => {
 
 		const result = await sut.handle({ 
 			userId: body.id as string,
-			query: {
+			data: {
 				email: body.email,
 				code: body.code
 			} 
@@ -89,7 +89,7 @@ describe("Presentation - UpdateUserEmailController", () => {
 
 		const result = await sut.handle({ 
 			userId: body.id as string,
-			query: {
+			data: {
 				email: body.email,
 				code: body.code
 			} 
@@ -104,7 +104,7 @@ describe("Presentation - UpdateUserEmailController", () => {
 
 		const result = await sut.handle({ 
 			userId: body.id as string,
-			query: {
+			data: {
 				email: body.email,
 				code: body.code
 			} 
@@ -120,7 +120,7 @@ describe("Presentation - UpdateUserEmailController", () => {
 
 		const result = await sut.handle({ 
 			userId: body.id as string,
-			query: {
+			data: {
 				email: body.email,
 				code: body.code
 			} 
@@ -135,7 +135,7 @@ describe("Presentation - UpdateUserEmailController", () => {
 
 		const result = await sut.handle({ 
 			userId: body.id as string,
-			query: {
+			data: {
 				email: body.email,
 				code: body.code
 			} 

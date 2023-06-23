@@ -8,7 +8,7 @@ export class UpdateUserEmailController implements HttpProtocol {
 	async handle(request: HttpRequest): Promise<HttpResponse> {
 		const id = request.userId;
 
-		const { email, code } = request.query;
+		const { email, code } = request.data;
 
 		const validation = Validate.fields(
 			[

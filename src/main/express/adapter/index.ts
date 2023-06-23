@@ -5,9 +5,7 @@ export class ExpressAdapter {
 	static route = (route: HttpProtocol) => {
 		return async (req: Request, res: Response) => {
 			const { response, statusCode } = await route.handle({
-				body: req.body,
-				query: req.query,
-				params: req.params,
+				data: { ...req.body, ...req.query, ...req.params },
 				userId: req.userId
 			});			
 
@@ -18,9 +16,7 @@ export class ExpressAdapter {
 	static middleware = (middleware: HttpProtocol) => {
 		return async (req: Request, res: Response, next: NextFunction) => {
 			const { response, statusCode } = await middleware.handle({
-				body: req.body,
-				query: req.query,
-				params: req.params,
+				data: { ...req.body, ...req.query, ...req.params },
 				userId: req.userId,
 				headers: req.headers
 			});

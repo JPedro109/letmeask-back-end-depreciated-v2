@@ -8,7 +8,7 @@ export class CreateRoomController implements HttpProtocol {
 	async handle(request: HttpRequest): Promise<HttpResponse> {
 		const userId = request.userId;
 
-		const { roomName } = request.body;
+		const { roomName } = request.data;
 
 		const validation = Validate.fields(
 			[

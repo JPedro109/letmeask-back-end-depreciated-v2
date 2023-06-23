@@ -24,93 +24,93 @@ describe("Presentation - CreateUserController", () => {
     
 
 	test("Should not create user, because email is empty", async () => {
-		const body = makeBody("", "username", "Password1234", "Password1234");
+		const data = makeBody("", "username", "Password1234", "Password1234");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ body });
+		const result = await sut.handle({ data });
         
 		expect(result).toEqual(badRequest(new MissingParamError("email")));
 	});
 
 	test("Should not create user, because username is empty", async () => {
-		const body = makeBody("email@test.com", "", "Password1234", "Password1234");
+		const data = makeBody("email@test.com", "", "Password1234", "Password1234");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ body });
+		const result = await sut.handle({ data });
         
 		expect(result).toEqual(badRequest(new MissingParamError("username")));
 	});
 
 	test("Should not create user, because password is empty", async () => {
-		const body = makeBody("email@test.com", "username", "", "Password1234");
+		const data = makeBody("email@test.com", "username", "", "Password1234");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ body });
+		const result = await sut.handle({ data });
         
 		expect(result).toEqual(badRequest(new MissingParamError("password")));
 	});
 
 	test("Should not create user, because passwordConfirm is empty", async () => {
-		const body = makeBody("email@test.com", "username", "Password1234", "");
+		const data = makeBody("email@test.com", "username", "Password1234", "");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ body });
+		const result = await sut.handle({ data });
         
 		expect(result).toEqual(badRequest(new MissingParamError("passwordConfirm")));
 	});
 
 	test("Should not create user, because email is with type error", async () => {
-		const body = makeBody(100, "username", "Password1234", "Password1234");
+		const data = makeBody(100, "username", "Password1234", "Password1234");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ body });
+		const result = await sut.handle({ data });
         
 		expect(result).toEqual(badRequest(new InvalidTypeError("email")));
 	});
 
 	test("Should not create user, because username is with type error", async () => {
-		const body = makeBody("email@test.com", 100, "Password1234", "Password1234");
+		const data = makeBody("email@test.com", 100, "Password1234", "Password1234");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ body });
+		const result = await sut.handle({ data });
         
 		expect(result).toEqual(badRequest(new InvalidTypeError("username")));
 	});
 
 	test("Should not create user, because password is with type error", async () => {
-		const body = makeBody("email@test.com", "username", 100, "Password1234");
+		const data = makeBody("email@test.com", "username", 100, "Password1234");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ body });
+		const result = await sut.handle({ data });
         
 		expect(result).toEqual(badRequest(new InvalidTypeError("password")));
 	});
 
 	test("Should not create user, because passwordConfirm is with type error", async () => {
-		const body = makeBody("email@test.com", "username", "Password1234", 100);
+		const data = makeBody("email@test.com", "username", "Password1234", 100);
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ body });
+		const result = await sut.handle({ data });
         
 		expect(result).toEqual(badRequest(new InvalidTypeError("passwordConfirm")));
 	});
 
 	test("Should not create user, because use case returned error", async () => {
-		const body = makeBody("email.com", "username", "password", "password");
+		const data = makeBody("email.com", "username", "password", "password");
 		const { sut, createUserStub } = makeSut();
 		jest.spyOn(createUserStub, "execute").mockReturnValueOnce(Promise.resolve(new Error("error")));
 
-		const result = await sut.handle({ body });
+		const result = await sut.handle({ data });
         
 		expect(result).toEqual(badRequest(new Error("error")));
 	});
 
 	test("Should create user", async () => {
-		const body = makeBody("email@test.com", "username", "Password1234", "Password1234");
+		const data = makeBody("email@test.com", "username", "Password1234", "Password1234");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ body });
+		const result = await sut.handle({ data });
         
-		expect(result).toEqual(created(body.email));
+		expect(result).toEqual(created(data.email));
 	});
 });

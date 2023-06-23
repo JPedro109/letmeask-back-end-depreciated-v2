@@ -17,7 +17,7 @@ export class DeleteQuestionController implements HttpProtocol {
 	async handle(request: HttpRequest): Promise<HttpResponse> {
 		const userId = request.userId;
 
-		const { questionId } = request.params;
+		const { questionId } = request.data;
 
 		const validation = Validate.fields(
 			[

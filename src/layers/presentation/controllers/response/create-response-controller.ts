@@ -8,7 +8,7 @@ export class CreateResponseController implements HttpProtocol {
 	async handle(request: HttpRequest): Promise<HttpResponse> {
 		const userId = request.userId;
         
-		const { questionId, response } = request.body;
+		const { questionId, response } = request.data;
 
 		const validation = Validate.fields(
 			[

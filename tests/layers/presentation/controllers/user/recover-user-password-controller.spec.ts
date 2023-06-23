@@ -24,17 +24,15 @@ const makeBody = (email: unknown, code: unknown, password: unknown, passwordConf
 describe("Presentation - RecoverUserPasswordController", () => {
     
 	test("Should not recover user password, because email is empty", async () => {
-		const body = makeBody("", "code", "Password1234", "Password1234");
+		const data = makeBody("", "code", "Password1234", "Password1234");
 		const { sut } = makeSut();
 
 		const result = await sut.handle({ 
-			body: {
-				password: body.password,
-				passwordConfirm: body.passwordConfirm
-			},
-			query: {
-				email: body.email,
-				code: body.code,
+			data: {
+				password: data.password,
+				passwordConfirm: data.passwordConfirm,
+				email: data.email,
+				code: data.code,
 			}
 		});
         
@@ -42,17 +40,15 @@ describe("Presentation - RecoverUserPasswordController", () => {
 	});
 
 	test("Should not recover user password, because code is empty", async () => {
-		const body = makeBody("email@test.com", "", "Password1234", "Password1234");
+		const data = makeBody("email@test.com", "", "Password1234", "Password1234");
 		const { sut } = makeSut();
 
 		const result = await sut.handle({ 
-			body: {
-				password: body.password,
-				passwordConfirm: body.passwordConfirm
-			},
-			query: {
-				email: body.email,
-				code: body.code,
+			data: {
+				password: data.password,
+				passwordConfirm: data.passwordConfirm,
+				email: data.email,
+				code: data.code,
 			}
 		});
         
@@ -60,17 +56,15 @@ describe("Presentation - RecoverUserPasswordController", () => {
 	});
 
 	test("Should not recover user password, because password is empty", async () => {
-		const body = makeBody("email@test.com", "code", "", "Password1234");
+		const data = makeBody("email@test.com", "code", "", "Password1234");
 		const { sut } = makeSut();
 
 		const result = await sut.handle({ 
-			body: {
-				password: body.password,
-				passwordConfirm: body.passwordConfirm
-			},
-			query: {
-				email: body.email,
-				code: body.code,
+			data: {
+				password: data.password,
+				passwordConfirm: data.passwordConfirm,
+				email: data.email,
+				code: data.code,
 			}
 		});
         
@@ -78,17 +72,15 @@ describe("Presentation - RecoverUserPasswordController", () => {
 	});
 
 	test("Should not recover user password, because password confirm is empty", async () => {
-		const body = makeBody("email@test.com", "code", "Password1234", "");
+		const data = makeBody("email@test.com", "code", "Password1234", "");
 		const { sut } = makeSut();
 
 		const result = await sut.handle({ 
-			body: {
-				password: body.password,
-				passwordConfirm: body.passwordConfirm
-			},
-			query: {
-				email: body.email,
-				code: body.code,
+			data: {
+				password: data.password,
+				passwordConfirm: data.passwordConfirm,
+				email: data.email,
+				code: data.code,
 			}
 		});
         
@@ -96,17 +88,15 @@ describe("Presentation - RecoverUserPasswordController", () => {
 	});
 
 	test("Should not recover user password, because email is with type error", async () => {
-		const body = makeBody(100, "code", "Password1234", "Password1234");
+		const data = makeBody(100, "code", "Password1234", "Password1234");
 		const { sut } = makeSut();
 
 		const result = await sut.handle({ 
-			body: {
-				password: body.password,
-				passwordConfirm: body.passwordConfirm
-			},
-			query: {
-				email: body.email,
-				code: body.code,
+			data: {
+				password: data.password,
+				passwordConfirm: data.passwordConfirm,
+				email: data.email,
+				code: data.code,
 			}
 		});
         
@@ -114,17 +104,15 @@ describe("Presentation - RecoverUserPasswordController", () => {
 	});
 
 	test("Should not recover user password, because code is with type error", async () => {
-		const body = makeBody("email@test.com", 100, "Password1234", "Password1234");
+		const data = makeBody("email@test.com", 100, "Password1234", "Password1234");
 		const { sut } = makeSut();
 
 		const result = await sut.handle({ 
-			body: {
-				password: body.password,
-				passwordConfirm: body.passwordConfirm
-			},
-			query: {
-				email: body.email,
-				code: body.code,
+			data: {
+				password: data.password,
+				passwordConfirm: data.passwordConfirm,
+				email: data.email,
+				code: data.code,
 			}
 		});
         
@@ -132,17 +120,15 @@ describe("Presentation - RecoverUserPasswordController", () => {
 	});
 
 	test("Should not recover user password, because password is with type error", async () => {
-		const body = makeBody("email@test.com", "code", 100, "Password1234");
+		const data = makeBody("email@test.com", "code", 100, "Password1234");
 		const { sut } = makeSut();
 
 		const result = await sut.handle({ 
-			body: {
-				password: body.password,
-				passwordConfirm: body.passwordConfirm
-			},
-			query: {
-				email: body.email,
-				code: body.code,
+			data: {
+				password: data.password,
+				passwordConfirm: data.passwordConfirm,
+				email: data.email,
+				code: data.code,
 			}
 		});
         
@@ -150,17 +136,15 @@ describe("Presentation - RecoverUserPasswordController", () => {
 	});
 
 	test("Should not recover user password, because password confirm is with type error", async () => {
-		const body = makeBody("email@test.com", "code", "Password1234", 100);
+		const data = makeBody("email@test.com", "code", "Password1234", 100);
 		const { sut } = makeSut();
 
 		const result = await sut.handle({ 
-			body: {
-				password: body.password,
-				passwordConfirm: body.passwordConfirm
-			},
-			query: {
-				email: body.email,
-				code: body.code,
+			data: {
+				password: data.password,
+				passwordConfirm: data.passwordConfirm,
+				email: data.email,
+				code: data.code,
 			}
 		});
         
@@ -168,18 +152,16 @@ describe("Presentation - RecoverUserPasswordController", () => {
 	});
 
 	test("Should not recover user password, because use case returned invalid param error", async () => {
-		const body = makeBody("email@test.com", "token_invalid", "password", "password");
+		const data = makeBody("email@test.com", "token_invalid", "password", "password");
 		const { sut, recoverUserPasswordStub } = makeSut();
 		jest.spyOn(recoverUserPasswordStub, "execute").mockResolvedValueOnce(Promise.resolve(new InvalidParamError("error")));
 
 		const result = await sut.handle({ 
-			body: {
-				password: body.password,
-				passwordConfirm: body.passwordConfirm
-			},
-			query: {
-				email: body.email,
-				code: body.code,
+			data: {
+				password: data.password,
+				passwordConfirm: data.passwordConfirm,
+				email: data.email,
+				code: data.code,
 			}
 		});
         
@@ -187,18 +169,16 @@ describe("Presentation - RecoverUserPasswordController", () => {
 	});
 
 	test("Should not recover user password, because use case returned not found error", async () => {
-		const body = makeBody("email.com", "token_invalid", "password", "password");
+		const data = makeBody("email.com", "token_invalid", "password", "password");
 		const { sut, recoverUserPasswordStub } = makeSut();
 		jest.spyOn(recoverUserPasswordStub, "execute").mockResolvedValueOnce(Promise.resolve(new NotFoundError("error")));
 
 		const result = await sut.handle({ 
-			body: {
-				password: body.password,
-				passwordConfirm: body.passwordConfirm
-			},
-			query: {
-				email: body.email,
-				code: body.code,
+			data: {
+				password: data.password,
+				passwordConfirm: data.passwordConfirm,
+				email: data.email,
+				code: data.code,
 			}
 		});
         
@@ -206,21 +186,19 @@ describe("Presentation - RecoverUserPasswordController", () => {
 	});
 
 	test("Should recover user password", async () => {
-		const body = makeBody("email@test.com", "code", "Password1234", "Password1234");
+		const data = makeBody("email@test.com", "code", "Password1234", "Password1234");
 		const { sut } = makeSut();
 
 		const result = await sut.handle({ 
-			body: {
-				password: body.password,
-				passwordConfirm: body.passwordConfirm
-			},
-			query: {
-				email: body.email,
-				code: body.code,
+			data: {
+				password: data.password,
+				passwordConfirm: data.passwordConfirm,
+				email: data.email,
+				code: data.code,
 			}
 		});
         
-		expect(result).toEqual(ok(body.email));
+		expect(result).toEqual(ok(data.email));
 	});
 
 });
