@@ -1,5 +1,5 @@
 import { setup, login } from "../__mocks__";
-import { app } from "@/main/app";
+import { setupExpress } from "@/main/express";
 import request from "supertest";
 
 const makeBodyCreateResponse = (questionId: unknown, response: unknown) => {
@@ -17,7 +17,7 @@ describe("/api/responses - POST", () => {
 		const body = makeBodyCreateResponse("", "response");
 
 		const token = await login("email_verified_and_with_room@test.com");
-		const response = await request(app)
+		const response = await request(setupExpress())
 			.post("/api/responses")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
@@ -30,7 +30,7 @@ describe("/api/responses - POST", () => {
 		const body = makeBodyCreateResponse("11", "");
 
 		const token = await login("email_verified_and_with_room@test.com");
-		const response = await request(app)
+		const response = await request(setupExpress())
 			.post("/api/responses")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
@@ -43,7 +43,7 @@ describe("/api/responses - POST", () => {
 		const body = makeBodyCreateResponse(100, "response");
 
 		const token = await login("email_verified_and_with_room@test.com");
-		const response = await request(app)
+		const response = await request(setupExpress())
 			.post("/api/responses")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
@@ -56,7 +56,7 @@ describe("/api/responses - POST", () => {
 		const body = makeBodyCreateResponse("11", 100);
 
 		const token = await login("email_verified_and_with_room@test.com");
-		const response = await request(app)
+		const response = await request(setupExpress())
 			.post("/api/responses")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
@@ -69,7 +69,7 @@ describe("/api/responses - POST", () => {
 		const body = makeBodyCreateResponse("11", "response");
 
 		const token = await login("email_verified_and_with_room@test.com");
-		const response = await request(app)
+		const response = await request(setupExpress())
 			.post("/api/responses")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
@@ -82,7 +82,7 @@ describe("/api/responses - POST", () => {
 		const body = makeBodyCreateResponse("11", "response");
 
 		const token = await login("email_verified_code_expiry@test.com");
-		const response = await request(app)
+		const response = await request(setupExpress())
 			.post("/api/responses")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
@@ -95,7 +95,7 @@ describe("/api/responses - POST", () => {
 		const body = makeBodyCreateResponse("13", "response");
 
 		const token = await login("email_verified_and_with_room@test.com");
-		const response = await request(app)
+		const response = await request(setupExpress())
 			.post("/api/responses")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);

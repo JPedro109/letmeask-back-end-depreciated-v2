@@ -1,7 +1,7 @@
 jest.setTimeout(10000);
 
 import { login, setup } from "../__mocks__";
-import { app } from "@/main/app";
+import { setupExpress } from "@/main/express";
 import request from "supertest";
 
 const makeBodyUpdateUserEmail = (email: string, code: string) => {
@@ -20,7 +20,7 @@ describe("/api/users/email - PATCH", () => {
         
 		const token = await login("email_verified_and_with_room@test.com");
 
-		const response = await request(app)
+		const response = await request(setupExpress())
 			.patch(`/api/users/email?email=${body.email}&code=${body.code}`)
 			.set("authorization", `Bearer ${token}`);
 
@@ -33,7 +33,7 @@ describe("/api/users/email - PATCH", () => {
         
 		const token = await login("email_verified_and_with_room@test.com");
 
-		const response = await request(app)
+		const response = await request(setupExpress())
 			.patch(`/api/users/email?email=${body.email}&code=${body.code}`)
 			.set("authorization", `Bearer ${token}`);
 
@@ -46,7 +46,7 @@ describe("/api/users/email - PATCH", () => {
         
 		const token = await login("email_verified_and_with_room@test.com");
 
-		const response = await request(app)
+		const response = await request(setupExpress())
 			.patch(`/api/users/email?email=${body.email}&code=${body.code}`)
 			.set("authorization", `Bearer ${token}`);
 
@@ -59,7 +59,7 @@ describe("/api/users/email - PATCH", () => {
         
 		const token = await login("email_verified_code_expiry@test.com");
 
-		const response = await request(app)
+		const response = await request(setupExpress())
 			.patch(`/api/users/email?email=${body.email}&code=${body.code}`)
 			.set("authorization", `Bearer ${token}`);
 
@@ -72,7 +72,7 @@ describe("/api/users/email - PATCH", () => {
         
 		const token = await login("email_verified_and_with_room@test.com");
 
-		const response = await request(app)
+		const response = await request(setupExpress())
 			.patch(`/api/users/email?email=${body.email}&code=${body.code}`)
 			.set("authorization", `Bearer ${token}`);
 

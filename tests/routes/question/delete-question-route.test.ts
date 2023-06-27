@@ -1,5 +1,5 @@
 import { setup, login } from "../__mocks__";
-import { app } from "@/main/app";
+import { setupExpress } from "@/main/express";
 import request from "supertest";
 
 describe("/api/questions - DELETE", () => {
@@ -9,7 +9,7 @@ describe("/api/questions - DELETE", () => {
 	test("Should not delete question, because question is not exists", async () => {
 		const token = await login("email_verified_and_with_room@test.com");
 
-		const response = await request(app)
+		const response = await request(setupExpress())
 			.delete("/api/questions/0")
 			.set("authorization", `Bearer ${token}`);
 
@@ -20,7 +20,7 @@ describe("/api/questions - DELETE", () => {
 	test("Should delete the question with room admin", async () => {
 		const token = await login("email_verified_and_with_room@test.com");
 
-		const response = await request(app)
+		const response = await request(setupExpress())
 			.delete("/api/questions/11")
 			.set("authorization", `Bearer ${token}`);
 
@@ -32,7 +32,7 @@ describe("/api/questions - DELETE", () => {
 	test("Should delete the question with question creator", async () => {
 		const token = await login("email_verified_code_expiry@test.com");
 
-		const response = await request(app)
+		const response = await request(setupExpress())
 			.delete("/api/questions/11")
 			.set("authorization", `Bearer ${token}`);
 

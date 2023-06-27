@@ -1,5 +1,5 @@
 import { setup, login } from "../__mocks__";
-import { app } from "@/main/app";
+import { setupExpress } from "@/main/express";
 import request from "supertest";
 
 describe("/api/rooms/exists/:roomCode - GET", () => {
@@ -9,7 +9,7 @@ describe("/api/rooms/exists/:roomCode - GET", () => {
 	test("Should not get true, because room is not exists", async () => {
 		const token = await login("email_verified_code_expiry@test.com");
 
-		const response = await request(app)
+		const response = await request(setupExpress())
 			.get("/api/rooms/exists/000001")
 			.set("authorization", `Bearer ${token}`);
 
@@ -20,7 +20,7 @@ describe("/api/rooms/exists/:roomCode - GET", () => {
 	test("Should get room", async () => {
 		const token = await login("email_verified_code_expiry@test.com");
 
-		const response = await request(app)
+		const response = await request(setupExpress())
 			.get("/api/rooms/exists/000000")
 			.set("authorization", `Bearer ${token}`);
 

@@ -1,7 +1,7 @@
 jest.setTimeout(10000);
 
 import { setup } from "../__mocks__";
-import { app } from "@/main/app";
+import { setupExpress } from "@/main/express";
 import request from "supertest";
 
 const makeBodyVerifyEmailUser = (id: string, code: string) => {
@@ -18,7 +18,7 @@ describe("/api/users/verify-email - PATCH", () => {
 	test("Should not verify email user, because email is empty", async () => {
 		const body = makeBodyVerifyEmailUser("", "code");
 
-		const response = await request(app)
+		const response = await request(setupExpress())
 			.patch(`/api/users/verify-email?email=${body.id}&code=${body.code}`)
 			.send(body);
 
@@ -29,7 +29,7 @@ describe("/api/users/verify-email - PATCH", () => {
 	test("Should not verify email user, because code is empty", async () => {
 		const body = makeBodyVerifyEmailUser("email_not_verified@test.com", "");
 
-		const response = await request(app)
+		const response = await request(setupExpress())
 			.patch(`/api/users/verify-email?email=${body.id}&code=${body.code}`)
 			.send(body);
 
@@ -40,7 +40,7 @@ describe("/api/users/verify-email - PATCH", () => {
 	test("Should not verify email user, because code is incorrect", async () => {
 		const body = makeBodyVerifyEmailUser("email_not_verified@test.com", "invalid_code");
 
-		const response = await request(app)
+		const response = await request(setupExpress())
 			.patch(`/api/users/verify-email?email=${body.id}&code=${body.code}`)
 			.send(body);
 
@@ -51,7 +51,7 @@ describe("/api/users/verify-email - PATCH", () => {
 	test("Should not verify email user, because email already is verified", async () => {
 		const body = makeBodyVerifyEmailUser("email_verified_and_with_room@test.com", "code");
 
-		const response = await request(app)
+		const response = await request(setupExpress())
 			.patch(`/api/users/verify-email?email=${body.id}&code=${body.code}`)
 			.send(body);
 
@@ -62,7 +62,7 @@ describe("/api/users/verify-email - PATCH", () => {
 	test("Should verify email user", async () => {
 		const body = makeBodyVerifyEmailUser("email_not_verified@test.com", "email_verification_code");
 
-		const response = await request(app)
+		const response = await request(setupExpress())
 			.patch(`/api/users/verify-email?email=${body.id}&code=${body.code}`)
 			.send(body);
 
