@@ -12,7 +12,7 @@ import {
 	userVerifyEmailController 
 } from "@/main/factories/presentation";
 import { authenticateUserMiddleware } from "@/main/factories/presentation/middlewares";
-import { ExpressAdapter } from "@/main/express/adapter";
+import { ExpressAdapter } from "@/main/rest/adapter";
 import { Router } from "express";
 
 export default (router: Router): void => {

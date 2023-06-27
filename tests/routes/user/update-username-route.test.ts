@@ -1,7 +1,7 @@
 jest.setTimeout(10000);
 
 import { login, setup } from "../__mocks__";
-import { setupExpress } from "@/main/express";
+import { setupRest } from "@/main/rest";
 import request from "supertest";
 
 const makeBodyUpdateUsername = (username: unknown) => {
@@ -19,7 +19,7 @@ describe("/api/users/username - PATCH", () => {
 
 		const token = await login("email_verified_and_with_room@test.com");
 
-		const response = await request(setupExpress())
+		const response = await request(setupRest())
 			.patch("/api/users/username")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
@@ -33,7 +33,7 @@ describe("/api/users/username - PATCH", () => {
 
 		const token = await login("email_verified_and_with_room@test.com");
 
-		const response = await request(setupExpress())
+		const response = await request(setupRest())
 			.patch("/api/users/username")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
@@ -47,7 +47,7 @@ describe("/api/users/username - PATCH", () => {
 
 		const token = await login("email_verified_and_with_room@test.com");
 
-		const response = await request(setupExpress())
+		const response = await request(setupRest())
 			.patch("/api/users/username")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
@@ -61,7 +61,7 @@ describe("/api/users/username - PATCH", () => {
 
 		const token = await login("email_verified_and_with_room@test.com");
 
-		const response = await request(setupExpress())
+		const response = await request(setupRest())
 			.patch("/api/users/username")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);

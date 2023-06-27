@@ -1,5 +1,5 @@
 import { DatabaseSQLHelper, QueueHelper, MockRepository } from "@/layers/external";
-import { setupExpress } from "@/main/express";
+import { setupRest } from "@/main/rest";
 
 import request from "supertest";
 
@@ -27,7 +27,7 @@ export const setup = () => {
 };
 
 export const login = async (email: string) => {
-	return (await request(setupExpress())
+	return (await request(setupRest())
 		.post("/api/users/login")
 		.send({
 			email,

@@ -1,7 +1,7 @@
 jest.setTimeout(10000);
 
 import { setup, login } from "../__mocks__";
-import { setupExpress } from "@/main/express";
+import { setupRest } from "@/main/rest";
 import request from "supertest";
 
 const makeBody = (password: unknown, passwordConfirm: unknown) => {
@@ -20,7 +20,7 @@ describe("/api/users - DELETE", () => {
 
 		const token = await login("email_verified_and_with_room@test.com");
 
-		const response = await request(setupExpress())
+		const response = await request(setupRest())
 			.delete("/api/users")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
@@ -34,7 +34,7 @@ describe("/api/users - DELETE", () => {
 
 		const token = await login("email_verified_and_with_room@test.com");
 
-		const response = await request(setupExpress())
+		const response = await request(setupRest())
 			.delete("/api/users")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
@@ -48,7 +48,7 @@ describe("/api/users - DELETE", () => {
 
 		const token = await login("email_verified_and_with_room@test.com");
 
-		const response = await request(setupExpress())
+		const response = await request(setupRest())
 			.delete("/api/users")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
@@ -62,7 +62,7 @@ describe("/api/users - DELETE", () => {
 
 		const token = await login("email_verified_and_with_room@test.com");
 
-		const response = await request(setupExpress())
+		const response = await request(setupRest())
 			.delete("/api/users")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
@@ -76,7 +76,7 @@ describe("/api/users - DELETE", () => {
         
 		const token = await login("email_verified_and_with_room@test.com");
 
-		const response = await request(setupExpress())
+		const response = await request(setupRest())
 			.delete("/api/users")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
@@ -91,7 +91,7 @@ describe("/api/users - DELETE", () => {
         
 		const token = await login("email_verified_and_with_room@test.com");
 
-		const response = await request(setupExpress())
+		const response = await request(setupRest())
 			.delete("/api/users")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
@@ -106,7 +106,7 @@ describe("/api/users - DELETE", () => {
         
 		const token = await login("email_verified_and_with_room@test.com");
 
-		const response = await request(setupExpress())
+		const response = await request(setupRest())
 			.delete("/api/users")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);

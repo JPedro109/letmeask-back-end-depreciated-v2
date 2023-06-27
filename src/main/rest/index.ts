@@ -13,7 +13,7 @@ const setupRoutes =  (app: Express): void => {
 	});
 };
 
-export const setupExpress = () => {
+export const setupRest = () => {
 	const initExpress = express();
 
 	initExpress.use(bodyParser);
