@@ -1,4 +1,4 @@
-import { setup, login } from "../__mocks__";
+import { setup, loginRest } from "../__mocks__";
 import { setupRest } from "@/main/rest";
 import request from "supertest";
 
@@ -14,7 +14,7 @@ describe("/api/rooms - POST", () => {
 
 	test("Should not create room, because the room name is empty", async () => {
 		const body = makeBodyCreateRoom("");
-		const token = await login("email_verified_code_expiry@test.com");
+		const token = await loginRest("email_verified_code_expiry@test.com");
 
 		const response = await request(setupRest())
 			.post("/api/rooms")
@@ -27,7 +27,7 @@ describe("/api/rooms - POST", () => {
 
 	test("Should not create room, because the room name with is type error", async () => {
 		const body = makeBodyCreateRoom(100);
-		const token = await login("email_verified_code_expiry@test.com");
+		const token = await loginRest("email_verified_code_expiry@test.com");
 
 		const response = await request(setupRest())
 			.post("/api/rooms")
@@ -40,7 +40,7 @@ describe("/api/rooms - POST", () => {
 
 	test("Should not create room, because user alredy created has a room", async () => {
 		const body = makeBodyCreateRoom("room-two");
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.post("/api/rooms")
@@ -53,7 +53,7 @@ describe("/api/rooms - POST", () => {
 
 	test("Should create room", async () => {
 		const body = makeBodyCreateRoom("room-two");
-		const token = await login("email_verified_code_expiry@test.com");
+		const token = await loginRest("email_verified_code_expiry@test.com");
 
 		const response = await request(setupRest())
 			.post("/api/rooms")

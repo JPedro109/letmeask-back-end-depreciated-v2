@@ -1,4 +1,4 @@
-import { setup, login } from "../__mocks__";
+import { setup, loginRest } from "../__mocks__";
 import { setupRest } from "@/main/rest";
 import request from "supertest";
 
@@ -7,7 +7,7 @@ describe("/api/rooms/:roomCode - GET", () => {
 	setup();
 
 	test("Should not get room, because code is invalid", async () => {
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.get("/api/rooms/000")
@@ -18,7 +18,7 @@ describe("/api/rooms/:roomCode - GET", () => {
 	});
 
 	test("Should not get room, because room is not exists", async () => {
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.get("/api/rooms/000001")
@@ -29,7 +29,7 @@ describe("/api/rooms/:roomCode - GET", () => {
 	});
 
 	test("Should get room", async () => {
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.get("/api/rooms/000000")

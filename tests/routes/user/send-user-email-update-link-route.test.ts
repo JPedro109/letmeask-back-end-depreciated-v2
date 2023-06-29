@@ -1,6 +1,6 @@
 jest.setTimeout(10000);
 
-import { login, setup } from "../__mocks__";
+import { loginRest, setup } from "../__mocks__";
 import { setupRest } from "@/main/rest";
 import request from "supertest";
 
@@ -17,7 +17,7 @@ describe("/api/users/send-email-update-link - POST", () => {
 	test("Should not send user email update link, because email is empty", async () => {
 		const body = makeBodySendUserEmailUpdateLink("");
 
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.post("/api/users/send-email-update-link")
@@ -31,7 +31,7 @@ describe("/api/users/send-email-update-link - POST", () => {
 	test("Should not send user email update link, because email is with type error", async () => {
 		const body = makeBodySendUserEmailUpdateLink(100);
 
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.post("/api/users/send-email-update-link")
@@ -45,7 +45,7 @@ describe("/api/users/send-email-update-link - POST", () => {
 	test("Should not send user email update link, because email is invalid", async () => {
 		const body = makeBodySendUserEmailUpdateLink("email.com");
 
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.post("/api/users/send-email-update-link")
@@ -59,7 +59,7 @@ describe("/api/users/send-email-update-link - POST", () => {
 	test("Should not send user email update link, because email already is register", async () => {
 		const body = makeBodySendUserEmailUpdateLink("email_verified_and_with_room@test.com");
 
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.post("/api/users/send-email-update-link")
@@ -73,7 +73,7 @@ describe("/api/users/send-email-update-link - POST", () => {
 	test("Should send user email update link", async () => {
 		const body = makeBodySendUserEmailUpdateLink("email@test.com");
 
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.post("/api/users/send-email-update-link")

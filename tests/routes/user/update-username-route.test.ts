@@ -1,6 +1,6 @@
 jest.setTimeout(10000);
 
-import { login, setup } from "../__mocks__";
+import { loginRest, setup } from "../__mocks__";
 import { setupRest } from "@/main/rest";
 import request from "supertest";
 
@@ -17,7 +17,7 @@ describe("/api/users/username - PATCH", () => {
 	test("Should not update username, because username is empty", async () => {
 		const body = makeBodyUpdateUsername("");
 
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.patch("/api/users/username")
@@ -31,7 +31,7 @@ describe("/api/users/username - PATCH", () => {
 	test("Should not update username, because username is with type error", async () => {
 		const body = makeBodyUpdateUsername(100);
 
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.patch("/api/users/username")
@@ -45,7 +45,7 @@ describe("/api/users/username - PATCH", () => {
 	test("Should not update username, because username is invalid", async () => {
 		const body = makeBodyUpdateUsername("u".repeat(300));
 
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.patch("/api/users/username")
@@ -59,7 +59,7 @@ describe("/api/users/username - PATCH", () => {
 	test("Should update username", async () => {
 		const body = makeBodyUpdateUsername("username_two");
 
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.patch("/api/users/username")

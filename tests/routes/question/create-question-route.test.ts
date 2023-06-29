@@ -1,4 +1,4 @@
-import { setup, login } from "../__mocks__";
+import { setup, loginRest } from "../__mocks__";
 import { setupRest } from "@/main/rest";
 import request from "supertest";
 
@@ -15,7 +15,7 @@ describe("/api/questions - POST", () => {
 
 	test("Should not create question, because room code field is empty", async () => {
 		const body = makeBodyCreateQuestion("", "question");
-		const token = await login("email_verified_code_expiry@test.com");
+		const token = await loginRest("email_verified_code_expiry@test.com");
 
 		const response = await request(setupRest())
 			.post("/api/questions")
@@ -28,7 +28,7 @@ describe("/api/questions - POST", () => {
 
 	test("Should not create question, because question field is empty", async () => {
 		const body = makeBodyCreateQuestion("000000", "");
-		const token = await login("email_verified_code_expiry@test.com");
+		const token = await loginRest("email_verified_code_expiry@test.com");
 
 		const response = await request(setupRest())
 			.post("/api/questions")
@@ -41,7 +41,7 @@ describe("/api/questions - POST", () => {
 
 	test("Should not create question, because room code field is with type error", async () => {
 		const body = makeBodyCreateQuestion(100, "question");
-		const token = await login("email_verified_code_expiry@test.com");
+		const token = await loginRest("email_verified_code_expiry@test.com");
 
 		const response = await request(setupRest())
 			.post("/api/questions")
@@ -54,7 +54,7 @@ describe("/api/questions - POST", () => {
 
 	test("Should not create question, because question field is with type error", async () => {
 		const body = makeBodyCreateQuestion("000000", 100);
-		const token = await login("email_verified_code_expiry@test.com");
+		const token = await loginRest("email_verified_code_expiry@test.com");
 
 		const response = await request(setupRest())
 			.post("/api/questions")
@@ -68,7 +68,7 @@ describe("/api/questions - POST", () => {
 	test("Should not create question, because room is not exists", async () => {
 		const body = makeBodyCreateQuestion("000001", "question");
 
-		const token = await login("email_verified_code_expiry@test.com");
+		const token = await loginRest("email_verified_code_expiry@test.com");
 		const response = await request(setupRest())
 			.post("/api/questions")
 			.set("authorization", `Bearer ${token}`)
@@ -80,7 +80,7 @@ describe("/api/questions - POST", () => {
 
 	test("Should not create question, because the user is room admin", async () => {
 		const body = makeBodyCreateQuestion("000000", "question");
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.post("/api/questions")
@@ -94,7 +94,7 @@ describe("/api/questions - POST", () => {
 	test("Should create question", async () => {
 		const body = makeBodyCreateQuestion("000000", "question");
 
-		const token = await login("email_verified_code_expiry@test.com");
+		const token = await loginRest("email_verified_code_expiry@test.com");
 		const response = await request(setupRest())
 			.post("/api/questions")
 			.set("authorization", `Bearer ${token}`)

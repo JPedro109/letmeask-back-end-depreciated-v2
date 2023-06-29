@@ -26,7 +26,7 @@ export const setup = () => {
 
 };
 
-export const login = async (email: string) => {
+export const loginRest = async (email: string) => {
 	return (await request(setupRest())
 		.post("/api/users/login")
 		.send({

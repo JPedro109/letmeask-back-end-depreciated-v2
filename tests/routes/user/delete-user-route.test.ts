@@ -1,6 +1,6 @@
 jest.setTimeout(10000);
 
-import { setup, login } from "../__mocks__";
+import { setup, loginRest } from "../__mocks__";
 import { setupRest } from "@/main/rest";
 import request from "supertest";
 
@@ -18,7 +18,7 @@ describe("/api/users - DELETE", () => {
 	test("Should not delete user, because password is empty", async () => {
 		const body = makeBody("", "Password1234");
 
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.delete("/api/users")
@@ -32,7 +32,7 @@ describe("/api/users - DELETE", () => {
 	test("Should not delete user, because passwordConfirm is empty", async () => {
 		const body = makeBody("Password1234", "");
 
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.delete("/api/users")
@@ -46,7 +46,7 @@ describe("/api/users - DELETE", () => {
 	test("Should not delete user, because password is with type error", async () => {
 		const body = makeBody(100, "Password1234");
 
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.delete("/api/users")
@@ -60,7 +60,7 @@ describe("/api/users - DELETE", () => {
 	test("Should not delete user, because passwordConfirm is with type error", async () => {
 		const body = makeBody("Password1234", 100);
 
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.delete("/api/users")
@@ -74,7 +74,7 @@ describe("/api/users - DELETE", () => {
 	test("Should not delete user, because passwords is not match", async () => {
 		const body = makeBody("Password1234", "Password12345");
         
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.delete("/api/users")
@@ -89,7 +89,7 @@ describe("/api/users - DELETE", () => {
 	test("Should not delete user, because password is invalid", async () => {
 		const body = makeBody("password", "password");
         
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.delete("/api/users")
@@ -104,7 +104,7 @@ describe("/api/users - DELETE", () => {
 	test("Should delete user", async () => {
 		const body = makeBody("Password1234", "Password1234");
         
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.delete("/api/users")

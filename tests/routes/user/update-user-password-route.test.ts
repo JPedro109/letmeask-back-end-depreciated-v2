@@ -1,6 +1,6 @@
 jest.setTimeout(10000);
 
-import { login, setup } from "../__mocks__";
+import { loginRest, setup } from "../__mocks__";
 import { setupRest } from "@/main/rest";
 import request from "supertest";
 
@@ -19,7 +19,7 @@ describe("/api/users/password - PATCH", () => {
 	test("Should not update user password, because password is empty", async () => {
 		const body = makeSutUpdateUserPassword("", "Password12345", "Password12345");
        
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.patch("/api/users/password")
@@ -33,7 +33,7 @@ describe("/api/users/password - PATCH", () => {
 	test("Should not update user password, because new password is empty", async () => {
 		const body = makeSutUpdateUserPassword("Password1234", "", "Password12345");
         
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.patch("/api/users/password")
@@ -47,7 +47,7 @@ describe("/api/users/password - PATCH", () => {
 	test("Should not update user password, because new password confirm is empty", async () => {
 		const body = makeSutUpdateUserPassword("Password1234", "Password12345", "");
         
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.patch("/api/users/password")
@@ -61,7 +61,7 @@ describe("/api/users/password - PATCH", () => {
 	test("Should not update user password, because password is with type error", async () => {
 		const body = makeSutUpdateUserPassword(100, "Password12345", "Password12345");
        
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.patch("/api/users/password")
@@ -75,7 +75,7 @@ describe("/api/users/password - PATCH", () => {
 	test("Should not update user password, because new password is with type error", async () => {
 		const body = makeSutUpdateUserPassword("Password1234", 100, "Password12345");
         
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.patch("/api/users/password")
@@ -89,7 +89,7 @@ describe("/api/users/password - PATCH", () => {
 	test("Should not update user password, because new password confirm is with type error", async () => {
 		const body = makeSutUpdateUserPassword("Password1234", "Password12345", 100);
         
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.patch("/api/users/password")
@@ -103,7 +103,7 @@ describe("/api/users/password - PATCH", () => {
 	test("Should not update user password, because password is not match with registered passwod in database", async () => {
 		const body = makeSutUpdateUserPassword("password", "Password12345", "Password12345");
         
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.patch("/api/users/password")
@@ -117,7 +117,7 @@ describe("/api/users/password - PATCH", () => {
 	test("Should not update user password, because new is not respect password rules", async () => {
 		const body = makeSutUpdateUserPassword("Password1234", "password", "password");
         
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.patch("/api/users/password")
@@ -131,7 +131,7 @@ describe("/api/users/password - PATCH", () => {
 	test("Should not update user password, because passwords is not match", async () => {
 		const body = makeSutUpdateUserPassword("Password1234", "Password123456", "Password12345");
         
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.patch("/api/users/password")
@@ -145,7 +145,7 @@ describe("/api/users/password - PATCH", () => {
 	test("Should not update user password, because new password is match current password", async () => {
 		const body = makeSutUpdateUserPassword("Password1234", "Password1234", "Password1234");
         
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.patch("/api/users/password")
@@ -159,7 +159,7 @@ describe("/api/users/password - PATCH", () => {
 	test("Should update user password", async () => {
 		const body = makeSutUpdateUserPassword("Password1234", "Password12345", "Password12345");
         
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.patch("/api/users/password")

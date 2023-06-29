@@ -1,4 +1,4 @@
-import { setup, login } from "../__mocks__";
+import { setup, loginRest } from "../__mocks__";
 import { setupRest } from "@/main/rest";
 import request from "supertest";
 
@@ -7,7 +7,7 @@ describe("/api/rooms/:roomCode - Delete Room", () => {
 	setup();
 
 	test("Should not delete room, because room is not exists", async () => {
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.delete("/api/rooms/000001")
@@ -18,7 +18,7 @@ describe("/api/rooms/:roomCode - Delete Room", () => {
 	});
 
 	test("Should not delete room, because user is not the room admin", async () => {
-		const token = await login("email_verified_code_expiry@test.com");
+		const token = await loginRest("email_verified_code_expiry@test.com");
 
 		const response = await request(setupRest())
 			.delete("/api/rooms/000000")
@@ -29,7 +29,7 @@ describe("/api/rooms/:roomCode - Delete Room", () => {
 	});
 
 	test("Should delete room", async () => {
-		const token = await login("email_verified_and_with_room@test.com");
+		const token = await loginRest("email_verified_and_with_room@test.com");
 
 		const response = await request(setupRest())
 			.delete("/api/rooms/000000")
