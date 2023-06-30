@@ -1,6 +1,6 @@
 jest.setTimeout(10000);
 
-import { loginRest, setup } from "../__mocks__";
+import { loginRest, setup } from "../../__mocks__";
 import { setupRest } from "@/main/rest";
 import request from "supertest";
 
