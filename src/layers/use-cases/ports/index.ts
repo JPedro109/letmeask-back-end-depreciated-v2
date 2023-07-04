@@ -10,4 +10,6 @@ export * from "./json-web-token/error";
 
 export * from "./repositories";
 
+export * from "./queue/protocol";
+
 export * from "./mail/protocol";

@@ -19,7 +19,7 @@
 # Tecnologias
 - Node
 - Typescript
-- Nodemailer
+- RabbitMQ
 - MySQL
 - MongoDB
 - Jest
