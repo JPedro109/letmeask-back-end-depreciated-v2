@@ -1,9 +1,9 @@
-import { badRequestError, notFoundError, unauthorizedError, internalServerError } from "@/main/docs/components";
+import { badRequestError, internalServerError } from "@/main/rest/docs/components";
 
-export const userLogin =  {
+export const createUser = {
 	tags: [ "Usuário" ],
-	summary: "Faz o login do usuário",
-	parameters: [  
+	summary: "Faz a criação de um usuário",
+	parameters: [
 		{
 			in: "body",
 			name: "body",
@@ -11,31 +11,36 @@ export const userLogin =  {
 			schema: {
 				type: "object",
 				properties: {
+					
 					email: {
 						type: "string"
 					},
-					
+
+					username: {
+						type: "string"
+					},
+
 					password: {
 						type: "string"
-					},	
+					},
+
+					passwordConfirm: {
+						type: "string"
+					}
 				}
 			}
 		},
 	],
 	responses: {
 		
-		200: {
-			description: "Sucesso na autentificação do usuário",
+		201: {
+			description: "Sucesso na criação",
 			schema: {
 				type: "string"
 			}
 		},
 
 		400: badRequestError,
-
-		404: notFoundError,
-
-		401: unauthorizedError,
 
 		500: internalServerError
 	}

@@ -1,9 +1,9 @@
-import { badRequestError, notFoundError, unauthorizedError, internalServerError } from "@/main/docs/components";
-import { authorizationHeaderSchema } from "@/main/docs/schemas";
+import { badRequestError, notFoundError, unauthorizedError, internalServerError } from "@/main/rest/docs/components";
+import { authorizationHeaderSchema } from "@/main/rest/docs/schemas";
 
-export const updateUsername = {
+export const deleteUser = {
 	tags: [ "Usuário" ],
-	summary: "Faz a atualização do nome do usuário",
+	summary: "Faz a exclusão do usuário",
 	parameters: [
 		authorizationHeaderSchema,
 		
@@ -14,7 +14,11 @@ export const updateUsername = {
 			schema: {
 				type: "object",
 				properties: {
-					name: {
+					password: {
+						type: "string"
+					},
+
+					passwordConfirm: {
 						type: "string"
 					},
 				}
@@ -24,7 +28,7 @@ export const updateUsername = {
 	responses: {
 		
 		200: {
-			description: "Sucesso na atualização do nome",
+			description: "Sucesso na exclusão do usuário",
 			schema: {
 				type: "string"
 			}

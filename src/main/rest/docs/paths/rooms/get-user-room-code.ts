@@ -1,5 +1,5 @@
-import { badRequestError, notFoundError, unauthorizedError, internalServerError } from "@/main/docs/components";
-import { authorizationHeaderSchema } from "@/main/docs/schemas";
+import { badRequestError, notFoundError, unauthorizedError, internalServerError } from "@/main/rest/docs/components";
+import { authorizationHeaderSchema } from "@/main/rest/docs/schemas";
 
 export const getUserRoomCode = {
 	tags: [ "Sala" ],

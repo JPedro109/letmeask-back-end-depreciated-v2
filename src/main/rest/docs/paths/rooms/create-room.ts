@@ -1,6 +1,6 @@
-import { badRequestError, unauthorizedError, internalServerError } from "@/main/docs/components";
-import { roomModel } from "@/main/docs/models";
-import { authorizationHeaderSchema } from "@/main/docs/schemas";
+import { badRequestError, unauthorizedError, internalServerError } from "@/main/rest/docs/components";
+import { roomModel } from "@/main/rest/docs/models";
+import { authorizationHeaderSchema } from "@/main/rest/docs/schemas";
 
 export const createRoom = {
 	tags: [ "Sala" ],

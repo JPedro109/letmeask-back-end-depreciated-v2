@@ -1,5 +1,5 @@
-import { badRequestError, unauthorizedError, internalServerError } from "@/main/docs/components";
-import { authorizationHeaderSchema } from "@/main/docs/schemas";
+import { badRequestError, unauthorizedError, internalServerError } from "@/main/rest/docs/components";
+import { authorizationHeaderSchema } from "@/main/rest/docs/schemas";
 
 export const updateUserEmail =  {
 	tags: [ "Usuário" ],

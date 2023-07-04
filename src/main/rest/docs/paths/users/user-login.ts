@@ -1,8 +1,8 @@
-import { badRequestError, notFoundError, unauthorizedError, internalServerError } from "@/main/docs/components";
+import { badRequestError, notFoundError, unauthorizedError, internalServerError } from "@/main/rest/docs/components";
 
-export const sendUserPasswordRecoverLink = {
+export const userLogin =  {
 	tags: [ "Usuário" ],
-	summary: "Faz o envio do link de recuperação de senha do usuário",
+	summary: "Faz o login do usuário",
 	parameters: [  
 		{
 			in: "body",
@@ -13,7 +13,11 @@ export const sendUserPasswordRecoverLink = {
 				properties: {
 					email: {
 						type: "string"
-					}
+					},
+					
+					password: {
+						type: "string"
+					},	
 				}
 			}
 		},
@@ -21,7 +25,7 @@ export const sendUserPasswordRecoverLink = {
 	responses: {
 		
 		200: {
-			description: "Sucesso no envio do link",
+			description: "Sucesso na autentificação do usuário",
 			schema: {
 				type: "string"
 			}

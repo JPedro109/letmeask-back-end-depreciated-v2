@@ -1,6 +1,6 @@
-import { badRequestError, notFoundError, unauthorizedError, internalServerError } from "@/main/docs/components";
-import { questionModel } from "@/main/docs/models";
-import { authorizationHeaderSchema } from "@/main/docs/schemas";
+import { badRequestError, notFoundError, unauthorizedError, internalServerError } from "@/main/rest/docs/components";
+import { questionModel } from "@/main/rest/docs/models";
+import { authorizationHeaderSchema } from "@/main/rest/docs/schemas";
 
 export const getUserQuestions = {
 	tags: [ "Pergunta" ],
