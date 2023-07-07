@@ -5,7 +5,7 @@ import {
 	ResponseRepositoryAdapter,
 	UnitOfWorkAdapter,
 } from "@/layers/external";
-import { UserVerificationCodeRepositoryAdapter } from "@/layers/external/repositories/repositories/user-verification-code-repository";
+import { UserVerificationCodeRepositoryAdapter } from "@/layers/external/database";
 
 describe("External - UnitOfWorkAdapter", () => {
 
