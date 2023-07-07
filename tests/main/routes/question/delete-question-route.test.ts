@@ -1,10 +1,10 @@
-import { setup, loginRest } from "../../__mocks__";
+import { testRestSetup, loginRest } from "../../__mocks__";
 import { setupRest } from "@/main/rest";
 import request from "supertest";
 
 describe("/api/questions - DELETE", () => {
 
-	setup();
+	testRestSetup();
 
 	test("Should not delete question, because question is not exists", async () => {
 		const token = await loginRest("email_verified_and_with_room@test.com");

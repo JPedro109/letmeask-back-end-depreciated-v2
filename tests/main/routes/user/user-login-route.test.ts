@@ -1,6 +1,6 @@
 jest.setTimeout(10000);
 
-import { setup } from "../../__mocks__";
+import { testRestSetup } from "../../__mocks__";
 import { setupRest } from "@/main/rest";
 import request from "supertest";
 
@@ -13,7 +13,7 @@ const makeBody = (email: unknown, password: unknown) => {
 
 describe("/api/users/login - POST", () => {
     
-	setup();
+	testRestSetup();
 
 	test("Should not login user, because email is empty", async () => {
 		const body = makeBody("", "Password1234");

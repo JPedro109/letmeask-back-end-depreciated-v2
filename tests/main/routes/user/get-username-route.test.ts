@@ -1,12 +1,12 @@
 jest.setTimeout(10000);
 
-import { loginRest, setup } from "../../__mocks__";
+import { loginRest, testRestSetup } from "../../__mocks__";
 import { setupRest } from "@/main/rest";
 import request from "supertest";
 
 describe("/api/users/username - PATCH", () => {
     
-	setup();
+	testRestSetup();
 
 	test("Should get username", async () => {
 		const token = await loginRest("email_verified_and_with_room@test.com");

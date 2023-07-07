@@ -1,6 +1,6 @@
 jest.setTimeout(10000);
 
-import { loginRest, setup } from "../../__mocks__";
+import { loginRest, testRestSetup } from "../../__mocks__";
 import { setupRest } from "@/main/rest";
 import request from "supertest";
 
@@ -12,7 +12,7 @@ const makeBodySendUserEmailUpdateLink = (email: unknown) => {
 
 describe("/api/users/send-email-update-link - POST", () => {
     
-	setup();
+	testRestSetup();
 
 	test("Should not send user email update link, because email is empty", async () => {
 		const body = makeBodySendUserEmailUpdateLink("");

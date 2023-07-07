@@ -1,6 +1,6 @@
 jest.setTimeout(10000);
 
-import { setup } from "../../__mocks__";
+import { testRestSetup } from "../../__mocks__";
 import { setupRest } from "@/main/rest";
 import request from "supertest";
 
@@ -15,7 +15,7 @@ const makeBodyRecoverUserPassword = (email: string, code: string, password: unkn
 
 describe("/api/users/password-recover - PATCH", () => {
     
-	setup();
+	testRestSetup();
 
 	test("Should not recover user password, because email is empty", async () => {
 		const body = makeBodyRecoverUserPassword("", "code", "Password1234", "Password1234");

@@ -1,6 +1,6 @@
 jest.setTimeout(10000);
 
-import { loginRest, setup } from "../../__mocks__";
+import { loginRest, testRestSetup } from "../../__mocks__";
 import { setupRest } from "@/main/rest";
 import request from "supertest";
 
@@ -12,7 +12,7 @@ const makeBodyUpdateUsername = (username: unknown) => {
 
 describe("/api/users/username - PATCH", () => {
     
-	setup();
+	testRestSetup();
 
 	test("Should not update username, because username is empty", async () => {
 		const body = makeBodyUpdateUsername("");

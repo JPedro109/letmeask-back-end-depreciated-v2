@@ -1,6 +1,6 @@
 jest.setTimeout(10000);
 
-import { setup } from "../../__mocks__";
+import { testRestSetup } from "../../__mocks__";
 import { setupRest } from "@/main/rest";
 import request from "supertest";
 
@@ -12,7 +12,7 @@ const makeBodySendUserPasswordRecoverylink = (email: unknown) => {
 
 describe("/api/users/send-password-recovery-link - POST", () => {
     
-	setup();
+	testRestSetup();
 
 	test("Should not send user password recovery link, because email is empty", async () => {
 		const body = makeBodySendUserPasswordRecoverylink("");

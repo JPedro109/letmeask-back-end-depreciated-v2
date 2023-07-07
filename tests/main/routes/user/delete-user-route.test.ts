@@ -1,6 +1,6 @@
 jest.setTimeout(10000);
 
-import { setup, loginRest } from "../../__mocks__";
+import { testRestSetup, loginRest } from "../../__mocks__";
 import { setupRest } from "@/main/rest";
 import request from "supertest";
 
@@ -13,7 +13,7 @@ const makeBody = (password: unknown, passwordConfirm: unknown) => {
 
 describe("/api/users - DELETE", () => {
 
-	setup();
+	testRestSetup();
     
 	test("Should not delete user, because password is empty", async () => {
 		const body = makeBody("", "Password1234");
