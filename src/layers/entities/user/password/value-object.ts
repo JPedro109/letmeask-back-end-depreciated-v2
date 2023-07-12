@@ -2,15 +2,15 @@ import { InvalidPasswordError } from "./errors";
 
 export class Password {
 
-	private readonly _password: string;
+	private readonly password: string;
 	
 	private constructor(password: string) {
-		this._password = password;
+		this.password = password;
 		Object.freeze(this);
 	}
 
 	public get value() : string {
-		return this._password;
+		return this.password;
 	}
 	
 	static create(password: string) {
