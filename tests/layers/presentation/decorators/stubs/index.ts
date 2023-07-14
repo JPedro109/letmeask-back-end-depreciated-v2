@@ -1,4 +1,5 @@
-import { HttpProtocol, HttpRequest, HttpResponse, LogModel, LogRepositoryProtocol } from "@/layers/presentation";
+import { LogModel, LogRepositoryProtocol } from "@/layers/use-cases";
+import { HttpProtocol, HttpRequest, HttpResponse } from "@/layers/presentation";
 
 export class ControllerStub implements HttpProtocol {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars

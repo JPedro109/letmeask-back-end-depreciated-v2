@@ -1,5 +1,6 @@
+import { LogRepositoryProtocol } from "@/layers/use-cases";
 import { HttpProtocol } from "../protocols";
-import { HttpRequest, HttpResponse, LogRepositoryProtocol } from "../ports";
+import { HttpRequest, HttpResponse } from "../ports";
 import { server } from "../helpers";
 
 export class TreatmentDecorator implements HttpProtocol {

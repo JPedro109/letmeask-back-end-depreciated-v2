@@ -13,4 +13,7 @@ export * from "./question-repository/protocol";
 export * from "./response-repository/model";
 export * from "./response-repository/protocol";
 
+export * from "./log-repository/model";
+export * from "./log-repository/protocol";
+
 export * from "./unit-of-work/protocol";
