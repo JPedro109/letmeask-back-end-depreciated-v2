@@ -1,10 +1,10 @@
-import { testRestSetup, loginRest } from "../../__mocks__";
+import { setup, loginRest } from "../../__mocks__";
 import { setupRest } from "@/main/rest";
 import request from "supertest";
 
 describe("/api/rooms/:roomCode - Delete Room", () => {
 
-	testRestSetup();
+	setup();
 
 	test("Should not delete room, because room is not exists", async () => {
 		const token = await loginRest("email_verified_and_with_room@test.com");

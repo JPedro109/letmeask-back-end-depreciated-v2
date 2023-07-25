@@ -1,4 +1,4 @@
-import { testRestSetup, loginRest } from "../../__mocks__";
+import { setup, loginRest } from "../../__mocks__";
 import { setupRest } from "@/main/rest";
 import request from "supertest";
 
@@ -11,7 +11,7 @@ const makeBodyCreateQuestion = (roomCode: unknown, question: unknown) => {
 
 describe("/api/questions - POST", () => {
 
-	testRestSetup();
+	setup();
 
 	test("Should not create question, because room code field is empty", async () => {
 		const body = makeBodyCreateQuestion("", "question");

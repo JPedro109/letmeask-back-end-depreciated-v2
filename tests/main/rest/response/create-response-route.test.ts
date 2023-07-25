@@ -1,4 +1,4 @@
-import { testRestSetup, loginRest } from "../../__mocks__";
+import { setup, loginRest } from "../../__mocks__";
 import { setupRest } from "@/main/rest";
 import request from "supertest";
 
@@ -11,7 +11,7 @@ const makeBodyCreateResponse = (questionId: unknown, response: unknown) => {
 
 describe("/api/responses - POST", () => {
 
-	testRestSetup();
+	setup();
 
 	test("Should not create response, because question id field is empty", async () => {
 		const body = makeBodyCreateResponse("", "response");

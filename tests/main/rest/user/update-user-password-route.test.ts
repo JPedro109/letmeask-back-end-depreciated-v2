@@ -1,6 +1,6 @@
 jest.setTimeout(10000);
 
-import { loginRest, testRestSetup } from "../../__mocks__";
+import { loginRest, setup } from "../../__mocks__";
 import { setupRest } from "@/main/rest";
 import request from "supertest";
 
@@ -14,7 +14,7 @@ const makeSutUpdateUserPassword = (password: unknown, newPassword: unknown, newP
 
 describe("/api/users/password - PATCH", () => {
     
-	testRestSetup();
+	setup();
 
 	test("Should not update user password, because password is empty", async () => {
 		const body = makeSutUpdateUserPassword("", "Password12345", "Password12345");

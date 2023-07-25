@@ -3,7 +3,7 @@ import { setupRest } from "@/main/rest";
 
 import request from "supertest";
 
-export const testRestSetup = () => {
+export const setup = () => {
 	const mockRepository = new MockRepository();
 
 	beforeAll(async () => {

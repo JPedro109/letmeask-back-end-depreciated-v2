@@ -1,6 +1,6 @@
 jest.setTimeout(10000);
 
-import { testRestSetup } from "../../__mocks__";
+import { setup } from "../../__mocks__";
 import { setupRest } from "@/main/rest";
 import request from "supertest";
 
@@ -13,7 +13,7 @@ const makeBodyVerifyEmailUser = (id: string, code: string) => {
 
 describe("/api/users/verify-email - PATCH", () => {
     
-	testRestSetup();
+	setup();
 
 	test("Should not verify email user, because email is empty", async () => {
 		const body = makeBodyVerifyEmailUser("", "code");

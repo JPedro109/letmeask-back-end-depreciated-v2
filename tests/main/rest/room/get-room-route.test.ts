@@ -1,10 +1,10 @@
-import { testRestSetup, loginRest } from "../../__mocks__";
+import { setup, loginRest } from "../../__mocks__";
 import { setupRest } from "@/main/rest";
 import request from "supertest";
 
 describe("/api/rooms/:roomCode - GET", () => {
 
-	testRestSetup();
+	setup();
 
 	test("Should not get room, because code is invalid", async () => {
 		const token = await loginRest("email_verified_and_with_room@test.com");
