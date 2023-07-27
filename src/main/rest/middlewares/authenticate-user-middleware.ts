@@ -1,4 +1,4 @@
 import { authenticateUserMiddleware as authenticateUserMiddlewareFactory } from "@/main/factories/presentation/middlewares";
-import { ExpressAdapter } from "../adapter";
+import { RestAdapter } from "../adapter";
 
-export const authenticateUserMiddleware = ExpressAdapter.middleware(authenticateUserMiddlewareFactory);
+export const authenticateUserMiddleware = RestAdapter.middleware(authenticateUserMiddlewareFactory);

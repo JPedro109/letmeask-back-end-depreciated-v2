@@ -1,7 +1,7 @@
 import { HttpProtocol } from "@/layers/presentation";
 import { Request, Response, NextFunction } from "express";
 
-export class ExpressAdapter {
+export class RestAdapter {
 	static route = (route: HttpProtocol) => {
 		return async (req: Request, res: Response) => {
 			const { response, statusCode } = await route.handle({
