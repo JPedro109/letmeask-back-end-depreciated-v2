@@ -1,13 +1,13 @@
 import { HttpProtocol } from "@/layers/presentation";
 import { GraphQLError } from "graphql";
 
-export class ApolloAdapter {
+export class GraphQLAdapter {
 	static handle = async (
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		route: HttpProtocol, parent: any, args: any, context: any, middlewares?: HttpProtocol[]
 	) => {
     
-		for(const index in middlewares) await ApolloAdapter.middleware(middlewares[index], parent, args, context);
+		for(const index in middlewares) await GraphQLAdapter.middleware(middlewares[index], parent, args, context);
 
 		let data = {};
 

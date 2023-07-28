@@ -1,4 +1,4 @@
-import { ApolloAdapter } from "../adapter";
+import { GraphQLAdapter } from "../adapter";
 import { 
 	authenticateUserMiddleware, 
 	createResponseController,
@@ -6,7 +6,7 @@ import {
 
 export const responseMutations = {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	createResponse: async (parent: any, args: any, context: any) => await ApolloAdapter.handle(
+	createResponse: async (parent: any, args: any, context: any) => await GraphQLAdapter.handle(
 		createResponseController, 
 		parent, 
 		args, 

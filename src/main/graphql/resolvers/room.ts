@@ -1,4 +1,4 @@
-import { ApolloAdapter } from "../adapter";
+import { GraphQLAdapter } from "../adapter";
 import { 
 	authenticateUserMiddleware, 
 	createRoomController, 
@@ -10,7 +10,7 @@ import {
 
 export const roomMutations = {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	createRoom: async (parent: any, args: any, context: any) => await ApolloAdapter.handle(
+	createRoom: async (parent: any, args: any, context: any) => await GraphQLAdapter.handle(
 		createRoomController, 
 		parent, 
 		args, 
@@ -18,7 +18,7 @@ export const roomMutations = {
 		[ authenticateUserMiddleware ]
 	),
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	deleteRoom: async (parent: any, args: any, context: any) => await ApolloAdapter.handle(
+	deleteRoom: async (parent: any, args: any, context: any) => await GraphQLAdapter.handle(
 		deleteRoomController, 
 		parent, 
 		args, 
@@ -29,7 +29,7 @@ export const roomMutations = {
 
 export const roomQueries = {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	getUserRoomCode: async (parent: any, args: any, context: any) => await ApolloAdapter.handle(
+	getUserRoomCode: async (parent: any, args: any, context: any) => await GraphQLAdapter.handle(
 		getUserRoomCodeController, 
 		parent, 
 		args, 
@@ -37,7 +37,7 @@ export const roomQueries = {
 		[ authenticateUserMiddleware ]
 	),
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	getRoomCode: async (parent: any, args: any, context: any) => await ApolloAdapter.handle(
+	getRoomCode: async (parent: any, args: any, context: any) => await GraphQLAdapter.handle(
 		getRoomCodeController, 
 		parent, 
 		args, 
@@ -45,7 +45,7 @@ export const roomQueries = {
 		[ authenticateUserMiddleware ]
 	),
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	getRoom: async (parent: any, args: any, context: any) => await ApolloAdapter.handle(
+	getRoom: async (parent: any, args: any, context: any) => await GraphQLAdapter.handle(
 		getRoomController, 
 		parent, 
 		args, 

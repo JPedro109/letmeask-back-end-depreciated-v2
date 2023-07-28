@@ -1,4 +1,4 @@
-import { ApolloAdapter } from "../adapter";
+import { GraphQLAdapter } from "../adapter";
 import { 
 	authenticateUserMiddleware,
 	createUserController,
@@ -16,13 +16,13 @@ import {
 
 export const userMutations = {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	createUser: async (parent: any, args: any, context: any) => await ApolloAdapter.handle(createUserController, parent, args, context),
+	createUser: async (parent: any, args: any, context: any) => await GraphQLAdapter.handle(createUserController, parent, args, context),
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	userVerifyEmail: async (parent: any, args: any, context: any) => await ApolloAdapter.handle(userVerifyEmailController, parent, args, context),
+	userVerifyEmail: async (parent: any, args: any, context: any) => await GraphQLAdapter.handle(userVerifyEmailController, parent, args, context),
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	userLogin: async (parent: any, args: any, context: any) => await ApolloAdapter.handle(userLoginController, parent, args, context),
+	userLogin: async (parent: any, args: any, context: any) => await GraphQLAdapter.handle(userLoginController, parent, args, context),
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	deleteUser: async (parent: any, args: any, context: any) => await ApolloAdapter.handle(
+	deleteUser: async (parent: any, args: any, context: any) => await GraphQLAdapter.handle(
 		deleteUserController, 
 		parent, 
 		args, 
@@ -30,7 +30,7 @@ export const userMutations = {
 		[ authenticateUserMiddleware ]
 	),
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	sendUserEmailUpdateLink: async (parent: any, args: any, context: any) => await ApolloAdapter.handle(
+	sendUserEmailUpdateLink: async (parent: any, args: any, context: any) => await GraphQLAdapter.handle(
 		sendUserEmailUpdateLinkController, 
 		parent, 
 		args, 
@@ -38,14 +38,14 @@ export const userMutations = {
 		[ authenticateUserMiddleware ]
 	),
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	sendUserPasswordRecoveryLink: async (parent: any, args: any, context: any) => await ApolloAdapter.handle(
+	sendUserPasswordRecoveryLink: async (parent: any, args: any, context: any) => await GraphQLAdapter.handle(
 		sendUserPasswordRecoveryLinkController, 
 		parent, 
 		args, 
 		context
 	),
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	updateUserEmail: async (parent: any, args: any, context: any) => await ApolloAdapter.handle(
+	updateUserEmail: async (parent: any, args: any, context: any) => await GraphQLAdapter.handle(
 		updateUserEmailController, 
 		parent, 
 		args, 
@@ -53,7 +53,7 @@ export const userMutations = {
 		[ authenticateUserMiddleware ]
 	),
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	updateUsername: async (parent: any, args: any, context: any) => await ApolloAdapter.handle(
+	updateUsername: async (parent: any, args: any, context: any) => await GraphQLAdapter.handle(
 		updateUsernameController, 
 		parent, 
 		args, 
@@ -61,14 +61,14 @@ export const userMutations = {
 		[ authenticateUserMiddleware ]
 	),
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	recoverUserPassword: async (parent: any, args: any, context: any) => await ApolloAdapter.handle(
+	recoverUserPassword: async (parent: any, args: any, context: any) => await GraphQLAdapter.handle(
 		recoverUserPasswordController, 
 		parent, 
 		args, 
 		context
 	),
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	updateUserPassword: async (parent: any, args: any, context: any) => await ApolloAdapter.handle(
+	updateUserPassword: async (parent: any, args: any, context: any) => await GraphQLAdapter.handle(
 		updateUserPasswordController, 
 		parent, 
 		args, 
@@ -79,7 +79,7 @@ export const userMutations = {
 
 export const userQueries = {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	getUsername: async (parent: any, args: any, context: any) => await ApolloAdapter.handle(
+	getUsername: async (parent: any, args: any, context: any) => await GraphQLAdapter.handle(
 		getUsernameController, 
 		parent, 
 		args, 
