@@ -1,4 +1,4 @@
 import { AuthenticateUserMiddleware } from "@/layers/presentation";
-import { jsonWebTokenAdapter } from "@/main/factories/external";
+import { authenticationAdapter } from "@/main/factories/external";
 
-export const authenticateUserMiddleware = new AuthenticateUserMiddleware(jsonWebTokenAdapter);
+export const authenticateUserMiddleware = new AuthenticateUserMiddleware(authenticationAdapter);

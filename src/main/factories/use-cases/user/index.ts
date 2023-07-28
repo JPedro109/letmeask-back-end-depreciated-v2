@@ -14,7 +14,7 @@ import {
 import { 
 	cryptographyAdapter, 
 	generationAdapter, 
-	jsonWebTokenAdapter, 
+	authenticationAdapter, 
 	mailServiceAdapter, 
 	makeUnitOfWork, 
 	userRepositoryAdapter, 
@@ -54,6 +54,6 @@ export const updateUserPassword = new UpdateUserPasswordUseCase(userRepositoryAd
 
 export const updateUsername = new UpdateUsernameUseCase(userRepositoryAdapter);
 
-export const userLogin = new UserLoginUseCase(userRepositoryAdapter, cryptographyAdapter, jsonWebTokenAdapter);
+export const userLogin = new UserLoginUseCase(userRepositoryAdapter, cryptographyAdapter, authenticationAdapter);
 
 export const userVerifyEmail = new UserVerifyEmailUseCase(userRepositoryAdapter);

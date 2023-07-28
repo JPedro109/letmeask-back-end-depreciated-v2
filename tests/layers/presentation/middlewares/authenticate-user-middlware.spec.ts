@@ -45,7 +45,7 @@ describe("Presentation - AuthenticateUserMiddleware", () => {
 	test("Should not authenticate user, because token is invalid", async () => {
 		const { authorization } = makeBody("Bearer invalid_token");
 		const { sut, jsonWebTokenStub } = makeSut();
-		jest.spyOn(jsonWebTokenStub, "verifyToken").mockReturnValueOnce(new JsonWebTokenInvalidError());
+		jest.spyOn(jsonWebTokenStub, "verifyJsonWebToken").mockReturnValueOnce(new JsonWebTokenInvalidError());
 
 		const result = await sut.handle({ headers: {
 			authorization

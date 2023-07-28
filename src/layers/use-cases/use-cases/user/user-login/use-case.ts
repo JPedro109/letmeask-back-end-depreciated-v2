@@ -1,4 +1,4 @@
-import { CryptographyProtocol, JsonWebTokenProtocol, UserRepositoryProtocol, UnauthorizedError } from "@/layers/use-cases";
+import { CryptographyProtocol, AuthenticationProtocol, UserRepositoryProtocol, UnauthorizedError } from "@/layers/use-cases";
 import { UserLoginUseCaseProtocol } from "./protocol";
 import { UserLoginDTO, UserLoginResponseDTO } from "./dtos";
 
@@ -7,7 +7,7 @@ export class UserLoginUseCase implements UserLoginUseCaseProtocol {
 	constructor(
 		private repository: UserRepositoryProtocol,
 		private cryptography: CryptographyProtocol,
-		private jsonWebToken: JsonWebTokenProtocol
+		private jsonWebToken: AuthenticationProtocol
 	) { }
 
 	async execute({ email, password }: UserLoginDTO): Promise<UserLoginResponseDTO> {
@@ -21,6 +21,6 @@ export class UserLoginUseCase implements UserLoginUseCaseProtocol {
 
 		if(!user.verifiedEmail) return new UnauthorizedError("Email não está verificado");
 
-		return this.jsonWebToken.createToken({ id: user.id, email }, 86400);
+		return this.jsonWebToken.createJsonWebToken({ id: user.id, email }, 86400);
 	}
 }

@@ -2,7 +2,7 @@ import { UnitOfWorkProtocol } from "@/layers/use-cases";
 import { 
 	CryptographyAdapter, 
 	GenerationAdapter, 
-	JsonWebTokenAdapter,
+	AuthenticationAdapter,
 	MailServiceAdapter, 
 	UserRepositoryAdapter,
 	UserVerificationCodeRepositoryAdapter,
@@ -21,7 +21,7 @@ export const queueAdapter = new QueueAdapter();
 
 export const generationAdapter = new GenerationAdapter();
 
-export const jsonWebTokenAdapter = new JsonWebTokenAdapter();
+export const authenticationAdapter = new AuthenticationAdapter();
 
 export const mailServiceAdapter = new MailServiceAdapter(queueAdapter);
 

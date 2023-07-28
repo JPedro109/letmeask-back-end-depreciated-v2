@@ -1,7 +1,7 @@
 import { JsonWebTokenInvalidError } from "./error";
 import { JsonWebTokenType } from "./type";
 
-export interface JsonWebTokenProtocol {
-	createToken(payload: object, expiryTimeInSeconds: number): string;
-	verifyToken(token: string): JsonWebTokenType | JsonWebTokenInvalidError;
+export interface AuthenticationProtocol {
+	createJsonWebToken(payload: object, expiryTimeInSeconds: number): string;
+	verifyJsonWebToken(token: string): JsonWebTokenType | JsonWebTokenInvalidError;
 }

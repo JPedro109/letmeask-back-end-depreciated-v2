@@ -1,9 +1,9 @@
-import { JsonWebTokenProtocol, UnauthorizedError } from "@/layers/use-cases";
+import { AuthenticationProtocol, UnauthorizedError } from "@/layers/use-cases";
 import { HttpProtocol, HttpRequest, HttpResponse, ok, unauthorized } from "@/layers/presentation";
 
 export class AuthenticateUserMiddleware implements HttpProtocol {
 
-	constructor(private readonly jsonWebToken: JsonWebTokenProtocol) { }
+	constructor(private readonly jsonWebToken: AuthenticationProtocol) { }
 
 	async handle(request: HttpRequest): Promise<HttpResponse> {
 		const { authorization } = request.headers;
@@ -14,7 +14,7 @@ export class AuthenticateUserMiddleware implements HttpProtocol {
 
 		if(bearer !== "Bearer") return unauthorized(new UnauthorizedError("Código inválido"));
     
-		const decode = this.jsonWebToken.verifyToken(token);
+		const decode = this.jsonWebToken.verifyJsonWebToken(token);
 
 		if(decode instanceof Error) return unauthorized(decode);
 
