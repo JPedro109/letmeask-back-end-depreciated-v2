@@ -4,9 +4,9 @@ export * from "./cryptography/protocol";
 
 export * from "./generation/protocol";
 
-export * from "./json-web-token/protocol";
-export * from "./json-web-token/type";
-export * from "./json-web-token/error";
+export * from "./authentication/protocol";
+export * from "./authentication/type";
+export * from "./authentication/error";
 
 export * from "./database";
 
