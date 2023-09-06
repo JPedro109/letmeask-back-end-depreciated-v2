@@ -26,7 +26,7 @@ describe("Presentation - DeleteQuestionController", () => {
 		const body = makeBody("", "question");
 		const { sut } = makeSut();
 
-		const response = await sut.handle(
+		const response = await sut.http(
 			{ 
 				userId: body.userId as string, 
 				data: { questionId: body.questionId } 
@@ -39,7 +39,7 @@ describe("Presentation - DeleteQuestionController", () => {
 		const body = makeBody("1", "");
 		const { sut } = makeSut();
 
-		const response = await sut.handle(
+		const response = await sut.http(
 			{ 
 				userId: body.userId as string, 
 				data: {  questionId: body.questionId } 
@@ -52,7 +52,7 @@ describe("Presentation - DeleteQuestionController", () => {
 		const body = makeBody(100, "1");
 		const { sut } = makeSut();
 
-		const response = await sut.handle(
+		const response = await sut.http(
 			{ 
 				userId: body.userId as string, 
 				data: {  questionId: body.questionId } 
@@ -65,7 +65,7 @@ describe("Presentation - DeleteQuestionController", () => {
 		const body = makeBody("1", 100);
 		const { sut } = makeSut();
 
-		const response = await sut.handle(
+		const response = await sut.http(
 			{ 
 				userId: body.userId as string, 
 				data: {  questionId: body.questionId } 
@@ -79,7 +79,7 @@ describe("Presentation - DeleteQuestionController", () => {
 		const { sut, deleteQuestionStub } = makeSut();
 		jest.spyOn(deleteQuestionStub, "execute").mockReturnValueOnce(Promise.resolve(new NotFoundError("error")));
 
-		const response = await sut.handle(
+		const response = await sut.http(
 			{ 
 				userId: body.userId as string, 
 				data: {  questionId: body.questionId } 
@@ -93,7 +93,7 @@ describe("Presentation - DeleteQuestionController", () => {
 		const { sut, deleteQuestionStub } = makeSut();
 		jest.spyOn(deleteQuestionStub, "execute").mockReturnValueOnce(Promise.resolve(new UnauthorizedError("error")));
 
-		const response = await sut.handle(
+		const response = await sut.http(
 			{ 
 				userId: body.userId as string, 
 				data: {  questionId: body.questionId } 
@@ -107,7 +107,7 @@ describe("Presentation - DeleteQuestionController", () => {
 		const { sut, deleteQuestionStub } = makeSut();
 		jest.spyOn(deleteQuestionStub, "execute").mockReturnValueOnce(Promise.resolve(new Error("error")));
 
-		const response = await sut.handle(
+		const response = await sut.http(
 			{ 
 				userId: body.userId as string, 
 				data: {  questionId: body.questionId } 
@@ -120,7 +120,7 @@ describe("Presentation - DeleteQuestionController", () => {
 		const body = makeBody("1", "1");
 		const { sut } = makeSut();
 
-		const response = await sut.handle(
+		const response = await sut.http(
 			{ 
 				userId: body.userId as string, 
 				data: {  questionId: body.questionId } 

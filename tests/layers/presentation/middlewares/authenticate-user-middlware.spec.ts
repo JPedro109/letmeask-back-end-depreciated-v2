@@ -24,7 +24,7 @@ describe("Presentation - AuthenticateUserMiddleware", () => {
 		const { authorization } = makeBody("");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ headers: {
+		const result = await sut.http({ headers: {
 			authorization
 		}});
 
@@ -35,7 +35,7 @@ describe("Presentation - AuthenticateUserMiddleware", () => {
 		const { authorization } = makeBody("B token");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ headers: {
+		const result = await sut.http({ headers: {
 			authorization
 		}});
 
@@ -47,7 +47,7 @@ describe("Presentation - AuthenticateUserMiddleware", () => {
 		const { sut, jsonWebTokenStub } = makeSut();
 		jest.spyOn(jsonWebTokenStub, "verifyJsonWebToken").mockReturnValueOnce(new JsonWebTokenInvalidError());
 
-		const result = await sut.handle({ headers: {
+		const result = await sut.http({ headers: {
 			authorization
 		}});
 
@@ -58,7 +58,7 @@ describe("Presentation - AuthenticateUserMiddleware", () => {
 		const { authorization } = makeBody("Bearer token");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ headers: {
+		const result = await sut.http({ headers: {
 			authorization
 		}});
 

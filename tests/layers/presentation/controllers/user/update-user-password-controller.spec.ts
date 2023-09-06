@@ -26,7 +26,7 @@ describe("Presentation - UpdateUserPasswordController", () => {
 		const data = makeBody("", "Password1234", "Password12345", "Password12345");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			userId: data.id as string,
 			data: {
 				password: data.password,
@@ -42,7 +42,7 @@ describe("Presentation - UpdateUserPasswordController", () => {
 		const data = makeBody("1", "", "Password12345", "Password12345");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			userId: data.id as string,
 			data: {
 				password: data.password,
@@ -58,7 +58,7 @@ describe("Presentation - UpdateUserPasswordController", () => {
 		const data = makeBody("1", "Password1234", "", "Password12345");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			userId: data.id as string,
 			data: {
 				password: data.password,
@@ -74,7 +74,7 @@ describe("Presentation - UpdateUserPasswordController", () => {
 		const data = makeBody("1", "Password1234", "Password12345", "");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			userId: data.id as string,
 			data: {
 				password: data.password,
@@ -90,7 +90,7 @@ describe("Presentation - UpdateUserPasswordController", () => {
 		const data = makeBody(100, "Password1234", "Password12345", "Password12345");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			userId: data.id as string,
 			data: {
 				password: data.password,
@@ -106,7 +106,7 @@ describe("Presentation - UpdateUserPasswordController", () => {
 		const data = makeBody("1", 100, "Password12345", "Password12345");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			userId: data.id as string,
 			data: {
 				password: data.password,
@@ -122,7 +122,7 @@ describe("Presentation - UpdateUserPasswordController", () => {
 		const data = makeBody("1", "Password1234", 100, "Password12345");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			userId: data.id as string,
 			data: {
 				password: data.password,
@@ -138,7 +138,7 @@ describe("Presentation - UpdateUserPasswordController", () => {
 		const data = makeBody("1", "Password1234", "Password12345", 100);
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			userId: data.id as string,
 			data: {
 				password: data.password,
@@ -155,7 +155,7 @@ describe("Presentation - UpdateUserPasswordController", () => {
 		const { sut, updateUserPasswordStub } = makeSut();
 		jest.spyOn(updateUserPasswordStub, "execute").mockReturnValueOnce(Promise.resolve(new Error("error")));
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			userId: data.id as string,
 			data: {
 				password: data.password,
@@ -171,7 +171,7 @@ describe("Presentation - UpdateUserPasswordController", () => {
 		const data = makeBody("1", "Password1234", "Password12345", "Password12345");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			userId: data.id as string,
 			data: {
 				password: data.password,

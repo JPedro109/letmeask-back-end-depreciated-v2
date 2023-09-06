@@ -27,7 +27,7 @@ describe("Presentation - CreateQuestionController", () => {
 		const data = makeBody("", "000000", "question");
 		const { sut } = makeSut();
 
-		const response = await sut.handle(
+		const response = await sut.http(
 			{ 
 				userId: data.userId as string, 
 				data: { roomCode: data.roomCode, question: data.question } 
@@ -40,7 +40,7 @@ describe("Presentation - CreateQuestionController", () => {
 		const data = makeBody("1", "", "question");
 		const { sut } = makeSut();
 
-		const response = await sut.handle(
+		const response = await sut.http(
 			{ 
 				userId: data.userId as string, 
 				data: { roomCode: data.roomCode, question: data.question } 
@@ -53,7 +53,7 @@ describe("Presentation - CreateQuestionController", () => {
 		const data = makeBody("1", "000000", "");
 		const { sut } = makeSut();
 
-		const response = await sut.handle(
+		const response = await sut.http(
 			{ 
 				userId: data.userId as string, 
 				data: { roomCode: data.roomCode, question: data.question } 
@@ -66,7 +66,7 @@ describe("Presentation - CreateQuestionController", () => {
 		const data = makeBody(100, "question", "question");
 		const { sut } = makeSut();
 
-		const response = await sut.handle(
+		const response = await sut.http(
 			{ 
 				userId: data.userId as string, 
 				data: { roomCode: data.roomCode, question: data.question } 
@@ -79,7 +79,7 @@ describe("Presentation - CreateQuestionController", () => {
 		const data = makeBody("1", 100, "question");
 		const { sut } = makeSut();
 
-		const response = await sut.handle(
+		const response = await sut.http(
 			{ 
 				userId: data.userId as string, 
 				data: { roomCode: data.roomCode, question: data.question } 
@@ -92,7 +92,7 @@ describe("Presentation - CreateQuestionController", () => {
 		const data = makeBody("1", "000000", 100);
 		const { sut } = makeSut();
 
-		const response = await sut.handle(
+		const response = await sut.http(
 			{ 
 				userId: data.userId as string, 
 				data: { roomCode: data.roomCode, question: data.question } 
@@ -106,7 +106,7 @@ describe("Presentation - CreateQuestionController", () => {
 		const { sut, createQuestionStub } = makeSut();
 		jest.spyOn(createQuestionStub, "execute").mockReturnValueOnce(Promise.resolve(new NotFoundError("error")));
 
-		const response = await sut.handle(
+		const response = await sut.http(
 			{ 
 				userId: data.userId as string, 
 				data: { roomCode: data.roomCode, question: data.question } 
@@ -121,7 +121,7 @@ describe("Presentation - CreateQuestionController", () => {
 		const { sut, createQuestionStub } = makeSut();
 		jest.spyOn(createQuestionStub, "execute").mockReturnValueOnce(Promise.resolve(new UnauthorizedError("error")));
 
-		const response = await sut.handle(
+		const response = await sut.http(
 			{ 
 				userId: data.userId as string, 
 				data: { roomCode: data.roomCode, question: data.question } 
@@ -135,7 +135,7 @@ describe("Presentation - CreateQuestionController", () => {
 		const { sut, createQuestionStub } = makeSut();
 		jest.spyOn(createQuestionStub, "execute").mockReturnValueOnce(Promise.resolve(new Error("error")));
 
-		const response = await sut.handle(
+		const response = await sut.http(
 			{ 
 				userId: data.userId as string, 
 				data: { roomCode: data.roomCode, question: data.question } 
@@ -148,7 +148,7 @@ describe("Presentation - CreateQuestionController", () => {
 		const data = makeBody("1", "1", "question");
 		const { sut } = makeSut();
 
-		const response = await sut.handle(
+		const response = await sut.http(
 			{ 
 				userId: data.userId as string, 
 				data: { roomCode: data.roomCode, question: data.question } 

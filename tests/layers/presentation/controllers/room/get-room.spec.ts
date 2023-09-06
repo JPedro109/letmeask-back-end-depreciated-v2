@@ -25,7 +25,7 @@ describe("Presentation - GetRoomController", () => {
 		const body = makeBody("");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ data: { roomCode: body.roomCode } });
+		const result = await sut.http({ data: { roomCode: body.roomCode } });
 
 		expect(result).toEqual(badRequest(new MissingParamError("roomCode")));
 	});
@@ -34,7 +34,7 @@ describe("Presentation - GetRoomController", () => {
 		const body = makeBody(100);
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ data: { roomCode: body.roomCode } });
+		const result = await sut.http({ data: { roomCode: body.roomCode } });
 
 		expect(result).toEqual(badRequest(new InvalidTypeError("roomCode")));
 	});
@@ -44,7 +44,7 @@ describe("Presentation - GetRoomController", () => {
 		const { sut, getRoomStub } = makeSut();
 		jest.spyOn(getRoomStub, "execute").mockReturnValueOnce(Promise.resolve(new NotFoundError("error")));
 
-		const result = await sut.handle({ data: { roomCode: body.roomCode } });
+		const result = await sut.http({ data: { roomCode: body.roomCode } });
 
 		expect(result).toEqual(notFound(new NotFoundError("error")));
 	});
@@ -54,7 +54,7 @@ describe("Presentation - GetRoomController", () => {
 		const { sut, getRoomStub } = makeSut();
 		jest.spyOn(getRoomStub, "execute").mockReturnValueOnce(Promise.resolve(new Error("error")));
 
-		const result = await sut.handle({ data: { roomCode: body.roomCode } });
+		const result = await sut.http({ data: { roomCode: body.roomCode } });
 
 		expect(result).toEqual(badRequest(new Error("error")));
 	});
@@ -63,7 +63,7 @@ describe("Presentation - GetRoomController", () => {
 		const body = makeBody("000000");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ data: { roomCode: body.roomCode } });
+		const result = await sut.http({ data: { roomCode: body.roomCode } });
 
 		expect(result).toEqual(ok(testRoomModel));
 	});

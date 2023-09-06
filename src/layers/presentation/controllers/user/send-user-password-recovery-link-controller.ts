@@ -5,7 +5,7 @@ export class SendUserPasswordRecoveryLinkController implements HttpProtocol {
 
 	constructor(private readonly useCase: SendUserPasswordRecoveryLinkUseCaseProtocol) { }
 
-	async handle(request: HttpRequest): Promise<HttpResponse> {
+	async http(request: HttpRequest): Promise<HttpResponse> {
 		const { email } = request.data;
 
 		const validation = Validate.fields(

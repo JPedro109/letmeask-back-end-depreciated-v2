@@ -22,7 +22,7 @@ describe("Presentation - GetUserQuestionsController", () => {
 		const body = makeBody("");
 		const { sut } = makeSut();
 
-		const response = await sut.handle({ userId: body.userId as string });
+		const response = await sut.http({ userId: body.userId as string });
 
 		expect(response).toEqual(badRequest(new MissingParamError("userId")));
 	});
@@ -31,7 +31,7 @@ describe("Presentation - GetUserQuestionsController", () => {
 		const body = makeBody(100);
 		const { sut } = makeSut();
 
-		const response = await sut.handle({ userId: body.userId as string });
+		const response = await sut.http({ userId: body.userId as string });
 
 		expect(response).toEqual(badRequest(new InvalidTypeError("userId")));
 	});
@@ -40,7 +40,7 @@ describe("Presentation - GetUserQuestionsController", () => {
 		const body = makeBody("1");
 		const { sut } = makeSut();
 
-		const response = await sut.handle({ userId: body.userId as string });
+		const response = await sut.http({ userId: body.userId as string });
 
 		expect(response).toEqual(ok([testQuestionModel]));
 	});

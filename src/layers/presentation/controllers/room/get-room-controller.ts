@@ -5,7 +5,7 @@ export class GetRoomController implements HttpProtocol {
 
 	constructor(private readonly useCase: GetRoomUseCaseProtocol) { }
 
-	async handle(request: HttpRequest): Promise<HttpResponse> {
+	async http(request: HttpRequest): Promise<HttpResponse> {
 		const { roomCode } = request.data;
 
 		const validation = Validate.fields(

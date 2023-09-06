@@ -15,7 +15,7 @@ export class GraphQLAdapter {
         
 		if(!args?.data) data = { ...args }; 
 
-		const { response, statusCode } = await route.handle({
+		const { response, statusCode } = await route.http({
 			data: data,
 			userId: context.userId
 		});			
@@ -38,7 +38,7 @@ export class GraphQLAdapter {
         
 		if(!args?.data) data = { ...args }; 
 
-		const { response, statusCode } = await middleware.handle({
+		const { response, statusCode } = await middleware.http({
 			data,
 			userId: context.userId,
 			headers: context.headers

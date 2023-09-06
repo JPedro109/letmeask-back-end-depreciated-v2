@@ -24,7 +24,7 @@ describe("Presentation - UserLoginController", () => {
 		const data = makeBody("", "Password1234");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ data });
+		const result = await sut.http({ data });
         
 		expect(result).toEqual(badRequest(new MissingParamError("email")));
 	});
@@ -33,7 +33,7 @@ describe("Presentation - UserLoginController", () => {
 		const data = makeBody("email@test.com", "");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ data });
+		const result = await sut.http({ data });
         
 		expect(result).toEqual(badRequest(new MissingParamError("password")));
 	});
@@ -42,7 +42,7 @@ describe("Presentation - UserLoginController", () => {
 		const data = makeBody(100, "Password1234");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ data });
+		const result = await sut.http({ data });
         
 		expect(result).toEqual(badRequest(new InvalidTypeError("email")));
 	});
@@ -51,7 +51,7 @@ describe("Presentation - UserLoginController", () => {
 		const data = makeBody("email@test.com", 100);
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ data });
+		const result = await sut.http({ data });
         
 		expect(result).toEqual(badRequest(new InvalidTypeError("password")));
 	});
@@ -61,7 +61,7 @@ describe("Presentation - UserLoginController", () => {
 		const { sut, userLoginStub } = makeSut();
 		jest.spyOn(userLoginStub, "execute").mockResolvedValueOnce(Promise.resolve(new Error("error")));
 
-		const result = await sut.handle({ data });
+		const result = await sut.http({ data });
         
 		expect(result).toEqual(unauthorized(new Error("error")));
 	});
@@ -70,7 +70,7 @@ describe("Presentation - UserLoginController", () => {
 		const data = makeBody("email@test.com", "Password1234");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ data });
+		const result = await sut.http({ data });
         
 		expect(result).toEqual(ok("code"));
 	});

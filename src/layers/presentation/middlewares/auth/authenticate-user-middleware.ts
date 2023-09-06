@@ -5,7 +5,7 @@ export class AuthenticateUserMiddleware implements HttpProtocol {
 
 	constructor(private readonly jsonWebToken: AuthenticationProtocol) { }
 
-	async handle(request: HttpRequest): Promise<HttpResponse> {
+	async http(request: HttpRequest): Promise<HttpResponse> {
 		const { authorization } = request.headers;
 
 		if (!authorization) return unauthorized(new UnauthorizedError("Você não está logado"));

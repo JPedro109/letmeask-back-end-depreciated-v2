@@ -24,7 +24,7 @@ describe("Presentation - SendUserPasswordRecoveryLinkController", () => {
 		const data = makeBody("");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ data });
+		const result = await sut.http({ data });
         
 		expect(result).toEqual(badRequest(new MissingParamError("email")));
 	});
@@ -33,7 +33,7 @@ describe("Presentation - SendUserPasswordRecoveryLinkController", () => {
 		const data = makeBody(100);
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ data });
+		const result = await sut.http({ data });
         
 		expect(result).toEqual(badRequest(new InvalidTypeError("email")));
 	});
@@ -43,7 +43,7 @@ describe("Presentation - SendUserPasswordRecoveryLinkController", () => {
 		const { sut, sendUserPasswordRecoveryLinkStub } = makeSut();
 		jest.spyOn(sendUserPasswordRecoveryLinkStub, "execute").mockResolvedValueOnce(Promise.resolve(new InvalidParamError("error")));
 
-		const result = await sut.handle({ data });
+		const result = await sut.http({ data });
         
 		expect(result).toEqual(badRequest(new InvalidParamError("error")));
 	});
@@ -53,7 +53,7 @@ describe("Presentation - SendUserPasswordRecoveryLinkController", () => {
 		const { sut, sendUserPasswordRecoveryLinkStub } = makeSut();
 		jest.spyOn(sendUserPasswordRecoveryLinkStub, "execute").mockResolvedValueOnce(Promise.resolve(new NotFoundError("error")));
 
-		const result = await sut.handle({ data });
+		const result = await sut.http({ data });
         
 		expect(result).toEqual(notFound(new NotFoundError("error")));
 	});
@@ -62,7 +62,7 @@ describe("Presentation - SendUserPasswordRecoveryLinkController", () => {
 		const data = makeBody("email@test.com");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ data });
+		const result = await sut.http({ data });
         
 		expect(result).toEqual(ok(data.email));
 	});

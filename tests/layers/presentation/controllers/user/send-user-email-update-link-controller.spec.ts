@@ -24,7 +24,7 @@ describe("Presentation - SendUserEmailUpdateLinkStub", () => {
 		const data = makeBody("", "email@test.com");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			userId: data.id as string,
 			data: {
 				email: data.email
@@ -38,7 +38,7 @@ describe("Presentation - SendUserEmailUpdateLinkStub", () => {
 		const data = makeBody("1", "");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			userId: data.id as string,
 			data: {
 				email: data.email
@@ -52,7 +52,7 @@ describe("Presentation - SendUserEmailUpdateLinkStub", () => {
 		const data = makeBody("1", 100);
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			userId: data.id as string,
 			data: {
 				email: data.email
@@ -66,7 +66,7 @@ describe("Presentation - SendUserEmailUpdateLinkStub", () => {
 		const data = makeBody(100, "email@test.com");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			userId: data.id as string,
 			data: {
 				email: data.email
@@ -81,7 +81,7 @@ describe("Presentation - SendUserEmailUpdateLinkStub", () => {
 		const { sut, sendUserEmailUpdateLinkStub } = makeSut();
 		jest.spyOn(sendUserEmailUpdateLinkStub, "execute").mockReturnValueOnce(Promise.resolve(new Error("error")));
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			userId: data.id as string,
 			data: {
 				email: data.email
@@ -95,7 +95,7 @@ describe("Presentation - SendUserEmailUpdateLinkStub", () => {
 		const data = makeBody("1", "email@test.com");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			userId: data.id as string,
 			data: {
 				email: data.email

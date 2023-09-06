@@ -27,7 +27,7 @@ describe("Presentation - CreateUserController", () => {
 		const data = makeBody("", "username", "Password1234", "Password1234");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ data });
+		const result = await sut.http({ data });
         
 		expect(result).toEqual(badRequest(new MissingParamError("email")));
 	});
@@ -36,7 +36,7 @@ describe("Presentation - CreateUserController", () => {
 		const data = makeBody("email@test.com", "", "Password1234", "Password1234");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ data });
+		const result = await sut.http({ data });
         
 		expect(result).toEqual(badRequest(new MissingParamError("username")));
 	});
@@ -45,7 +45,7 @@ describe("Presentation - CreateUserController", () => {
 		const data = makeBody("email@test.com", "username", "", "Password1234");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ data });
+		const result = await sut.http({ data });
         
 		expect(result).toEqual(badRequest(new MissingParamError("password")));
 	});
@@ -54,7 +54,7 @@ describe("Presentation - CreateUserController", () => {
 		const data = makeBody("email@test.com", "username", "Password1234", "");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ data });
+		const result = await sut.http({ data });
         
 		expect(result).toEqual(badRequest(new MissingParamError("passwordConfirm")));
 	});
@@ -63,7 +63,7 @@ describe("Presentation - CreateUserController", () => {
 		const data = makeBody(100, "username", "Password1234", "Password1234");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ data });
+		const result = await sut.http({ data });
         
 		expect(result).toEqual(badRequest(new InvalidTypeError("email")));
 	});
@@ -72,7 +72,7 @@ describe("Presentation - CreateUserController", () => {
 		const data = makeBody("email@test.com", 100, "Password1234", "Password1234");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ data });
+		const result = await sut.http({ data });
         
 		expect(result).toEqual(badRequest(new InvalidTypeError("username")));
 	});
@@ -81,7 +81,7 @@ describe("Presentation - CreateUserController", () => {
 		const data = makeBody("email@test.com", "username", 100, "Password1234");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ data });
+		const result = await sut.http({ data });
         
 		expect(result).toEqual(badRequest(new InvalidTypeError("password")));
 	});
@@ -90,7 +90,7 @@ describe("Presentation - CreateUserController", () => {
 		const data = makeBody("email@test.com", "username", "Password1234", 100);
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ data });
+		const result = await sut.http({ data });
         
 		expect(result).toEqual(badRequest(new InvalidTypeError("passwordConfirm")));
 	});
@@ -100,7 +100,7 @@ describe("Presentation - CreateUserController", () => {
 		const { sut, createUserStub } = makeSut();
 		jest.spyOn(createUserStub, "execute").mockReturnValueOnce(Promise.resolve(new Error("error")));
 
-		const result = await sut.handle({ data });
+		const result = await sut.http({ data });
         
 		expect(result).toEqual(badRequest(new Error("error")));
 	});
@@ -109,7 +109,7 @@ describe("Presentation - CreateUserController", () => {
 		const data = makeBody("email@test.com", "username", "Password1234", "Password1234");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ data });
+		const result = await sut.http({ data });
         
 		expect(result).toEqual(created(data.email));
 	});

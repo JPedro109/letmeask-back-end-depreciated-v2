@@ -14,7 +14,7 @@ export class DeleteQuestionController implements HttpProtocol {
 
 	constructor(private readonly useCase: DeleteQuestionUseCaseProtocol) { }
 
-	async handle(request: HttpRequest): Promise<HttpResponse> {
+	async http(request: HttpRequest): Promise<HttpResponse> {
 		const userId = request.userId;
 
 		const { questionId } = request.data;

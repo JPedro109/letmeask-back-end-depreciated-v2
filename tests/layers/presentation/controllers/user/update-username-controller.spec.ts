@@ -25,7 +25,7 @@ describe("Presentation - UpdateUsernameController", () => {
 		const data = makeBody("", "username");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ userId: data.id as string, data: { username: data.username } });
+		const result = await sut.http({ userId: data.id as string, data: { username: data.username } });
 
 		expect(result).toEqual(badRequest(new MissingParamError("id")));
 	});
@@ -34,7 +34,7 @@ describe("Presentation - UpdateUsernameController", () => {
 		const data = makeBody("1", "");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ userId: data.id as string, data: { username: data.username } });
+		const result = await sut.http({ userId: data.id as string, data: { username: data.username } });
 
 		expect(result).toEqual(badRequest(new MissingParamError("username")));
 	});
@@ -43,7 +43,7 @@ describe("Presentation - UpdateUsernameController", () => {
 		const data = makeBody(100, "username");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ userId: data.id as string, data: { username: data.username } });
+		const result = await sut.http({ userId: data.id as string, data: { username: data.username } });
 
 		expect(result).toEqual(badRequest(new InvalidTypeError("id")));
 	});
@@ -52,7 +52,7 @@ describe("Presentation - UpdateUsernameController", () => {
 		const data = makeBody("1", 100);
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ userId: data.id as string, data: { username: data.username } });
+		const result = await sut.http({ userId: data.id as string, data: { username: data.username } });
 
 		expect(result).toEqual(badRequest(new InvalidTypeError("username")));
 	});
@@ -62,7 +62,7 @@ describe("Presentation - UpdateUsernameController", () => {
 		const { sut, updateUsernameStub } = makeSut();
 		jest.spyOn(updateUsernameStub, "execute").mockResolvedValueOnce(Promise.resolve(new NotFoundError("error")));
 
-		const result = await sut.handle({ userId: data.id as string, data: { username: data.username } });
+		const result = await sut.http({ userId: data.id as string, data: { username: data.username } });
 
 		expect(result).toEqual(notFound(new NotFoundError("error")));
 	});
@@ -73,7 +73,7 @@ describe("Presentation - UpdateUsernameController", () => {
 		const { sut, updateUsernameStub } = makeSut();
 		jest.spyOn(updateUsernameStub, "execute").mockResolvedValueOnce(Promise.resolve(new Error("error")));
 
-		const result = await sut.handle({ userId: data.id as string, data: { username: data.username } });
+		const result = await sut.http({ userId: data.id as string, data: { username: data.username } });
 
 		expect(result).toEqual(badRequest(new Error("error")));
 	});
@@ -82,7 +82,7 @@ describe("Presentation - UpdateUsernameController", () => {
 		const data = makeBody("1", "username");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ userId: data.id as string, data: { username: data.username } });
+		const result = await sut.http({ userId: data.id as string, data: { username: data.username } });
 
 		expect(result).toEqual(ok(data.username));
 	});

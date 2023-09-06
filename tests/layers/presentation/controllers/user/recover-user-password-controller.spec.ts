@@ -27,7 +27,7 @@ describe("Presentation - RecoverUserPasswordController", () => {
 		const data = makeBody("", "code", "Password1234", "Password1234");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			data: {
 				password: data.password,
 				passwordConfirm: data.passwordConfirm,
@@ -43,7 +43,7 @@ describe("Presentation - RecoverUserPasswordController", () => {
 		const data = makeBody("email@test.com", "", "Password1234", "Password1234");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			data: {
 				password: data.password,
 				passwordConfirm: data.passwordConfirm,
@@ -59,7 +59,7 @@ describe("Presentation - RecoverUserPasswordController", () => {
 		const data = makeBody("email@test.com", "code", "", "Password1234");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			data: {
 				password: data.password,
 				passwordConfirm: data.passwordConfirm,
@@ -75,7 +75,7 @@ describe("Presentation - RecoverUserPasswordController", () => {
 		const data = makeBody("email@test.com", "code", "Password1234", "");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			data: {
 				password: data.password,
 				passwordConfirm: data.passwordConfirm,
@@ -91,7 +91,7 @@ describe("Presentation - RecoverUserPasswordController", () => {
 		const data = makeBody(100, "code", "Password1234", "Password1234");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			data: {
 				password: data.password,
 				passwordConfirm: data.passwordConfirm,
@@ -107,7 +107,7 @@ describe("Presentation - RecoverUserPasswordController", () => {
 		const data = makeBody("email@test.com", 100, "Password1234", "Password1234");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			data: {
 				password: data.password,
 				passwordConfirm: data.passwordConfirm,
@@ -123,7 +123,7 @@ describe("Presentation - RecoverUserPasswordController", () => {
 		const data = makeBody("email@test.com", "code", 100, "Password1234");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			data: {
 				password: data.password,
 				passwordConfirm: data.passwordConfirm,
@@ -139,7 +139,7 @@ describe("Presentation - RecoverUserPasswordController", () => {
 		const data = makeBody("email@test.com", "code", "Password1234", 100);
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			data: {
 				password: data.password,
 				passwordConfirm: data.passwordConfirm,
@@ -156,7 +156,7 @@ describe("Presentation - RecoverUserPasswordController", () => {
 		const { sut, recoverUserPasswordStub } = makeSut();
 		jest.spyOn(recoverUserPasswordStub, "execute").mockResolvedValueOnce(Promise.resolve(new InvalidParamError("error")));
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			data: {
 				password: data.password,
 				passwordConfirm: data.passwordConfirm,
@@ -173,7 +173,7 @@ describe("Presentation - RecoverUserPasswordController", () => {
 		const { sut, recoverUserPasswordStub } = makeSut();
 		jest.spyOn(recoverUserPasswordStub, "execute").mockResolvedValueOnce(Promise.resolve(new NotFoundError("error")));
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			data: {
 				password: data.password,
 				passwordConfirm: data.passwordConfirm,
@@ -189,7 +189,7 @@ describe("Presentation - RecoverUserPasswordController", () => {
 		const data = makeBody("email@test.com", "code", "Password1234", "Password1234");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			data: {
 				password: data.password,
 				passwordConfirm: data.passwordConfirm,

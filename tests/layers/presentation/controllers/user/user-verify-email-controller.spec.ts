@@ -25,7 +25,7 @@ describe("Presentation - UserVerifyEmailController", () => {
 		const data = makeBody("", "code");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			data: data
 		});
         
@@ -36,7 +36,7 @@ describe("Presentation - UserVerifyEmailController", () => {
 		const data = makeBody("email@test.com", "");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			data: data
 		});
         
@@ -47,7 +47,7 @@ describe("Presentation - UserVerifyEmailController", () => {
 		const data = makeBody(100, "code");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			data: data
 		});
         
@@ -58,7 +58,7 @@ describe("Presentation - UserVerifyEmailController", () => {
 		const data = makeBody("email@test.com", 100);
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			data: data
 		});
         
@@ -70,7 +70,7 @@ describe("Presentation - UserVerifyEmailController", () => {
 		const { sut, userVerifyEmailStub } = makeSut();
 		jest.spyOn(userVerifyEmailStub, "execute").mockResolvedValueOnce(new NotFoundError("error"));
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			data: data
 		});
         
@@ -82,7 +82,7 @@ describe("Presentation - UserVerifyEmailController", () => {
 		const { sut, userVerifyEmailStub } = makeSut();
 		jest.spyOn(userVerifyEmailStub, "execute").mockResolvedValueOnce(new UnauthorizedError("error"));
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			data: data
 		});
         
@@ -94,7 +94,7 @@ describe("Presentation - UserVerifyEmailController", () => {
 		const { sut, userVerifyEmailStub } = makeSut();
 		jest.spyOn(userVerifyEmailStub, "execute").mockResolvedValueOnce(new InvalidParamError("error"));
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			data: data
 		});
         
@@ -105,7 +105,7 @@ describe("Presentation - UserVerifyEmailController", () => {
 		const data = makeBody("email@test.com", "code");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			data: data
 		});
         

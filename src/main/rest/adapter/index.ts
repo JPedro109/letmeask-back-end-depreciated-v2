@@ -4,7 +4,7 @@ import { Request, Response, NextFunction } from "express";
 export class RestAdapter {
 	static route = (route: HttpProtocol) => {
 		return async (req: Request, res: Response) => {
-			const { response, statusCode } = await route.handle({
+			const { response, statusCode } = await route.http({
 				data: { ...req.body, ...req.query, ...req.params },
 				userId: req.userId
 			});			
@@ -15,7 +15,7 @@ export class RestAdapter {
 
 	static middleware = (middleware: HttpProtocol) => {
 		return async (req: Request, res: Response, next: NextFunction) => {
-			const { response, statusCode } = await middleware.handle({
+			const { response, statusCode } = await middleware.http({
 				data: { ...req.body, ...req.query, ...req.params },
 				userId: req.userId,
 				headers: req.headers
