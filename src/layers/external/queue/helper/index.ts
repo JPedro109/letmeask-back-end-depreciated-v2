@@ -14,6 +14,7 @@ export class QueueHelper {
 	}
 
 	static async disconnect(): Promise<void> {
-		await QueueHelper.connection.close();
+		await QueueHelper.connection?.close();
+		QueueHelper.connection = null;
 	}
 }
