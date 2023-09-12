@@ -1,4 +1,4 @@
-import { DatabaseSQLHelper, QueueHelper, MockRepository } from "@/layers/external";
+import { DatabaseSQLHelper, QueueHelper, MockRepository, DatabaseNoSQLHelper } from "@/layers/external";
 import { setupRest } from "@/main/rest";
 import { setupGraphQL } from "@/main/graphql";
 
@@ -9,11 +9,13 @@ export const setup = () => {
 
 	beforeAll(async () => {
 		await DatabaseSQLHelper.connect();
+		await DatabaseNoSQLHelper.connect();
 		await QueueHelper.connect();
 	});
 
 	afterAll(async () => {
 		await DatabaseSQLHelper.disconnect();
+		await DatabaseNoSQLHelper.disconnect();
 		await QueueHelper.disconnect();
 	});
     
