@@ -48,3 +48,5 @@ Por último crie a fila com o nome definido nas variáveis de ambiente na url ht
 ```sh
   docker exec -it api-letmeask yarn test
 ```
+
+OBS: O envio de email é feito pelo microsserviço que está nesse repositório https://github.com/JPedro109/email-sending-microservice
