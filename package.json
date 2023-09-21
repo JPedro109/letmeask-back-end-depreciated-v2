@@ -9,7 +9,7 @@
   "scripts": {
     "postinstall": "husky install",
     "migrate:generate": "prisma migrate dev && prisma generate",
-    "migrate:execute": "prisma migrate deploy",
+    "migrate:execute": "prisma generate && prisma migrate deploy",
     "dev": "yarn migrate:execute && ts-node-dev -r tsconfig-paths/register --files src/server.ts",
     "build": "rimraf dist && tsc -p tsconfig-build.json && tsc-alias -p tsconfig-build.json",
     "start": "yarn migrate:execute && yarn build && node dist/server.js",
