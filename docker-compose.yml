@@ -16,6 +16,8 @@ services:
      - queue
     ports:
       - 3333:3333
+    volumes:
+      - ./:/api-letmeask
 
   database-sql:
     image: mariadb
