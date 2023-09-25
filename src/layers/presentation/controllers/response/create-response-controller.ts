@@ -5,10 +5,10 @@ export class CreateResponseController implements HttpProtocol {
 
 	constructor(private readonly useCase: CreateResponseUseCaseProtocol) { }
 
-	async handle(request: HttpRequest): Promise<HttpResponse> {
+	async http(request: HttpRequest): Promise<HttpResponse> {
 		const userId = request.userId;
         
-		const { questionId, response } = request.body;
+		const { questionId, response } = request.data;
 
 		const validation = Validate.fields(
 			[

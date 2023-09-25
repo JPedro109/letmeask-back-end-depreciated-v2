@@ -23,15 +23,15 @@ const makeBody = (id: unknown, password: unknown, newPassword: unknown, newPassw
 describe("Presentation - UpdateUserPasswordController", () => {
     
 	test("Should not update user password, because id is empty", async () => {
-		const body = makeBody("", "Password1234", "Password12345", "Password12345");
+		const data = makeBody("", "Password1234", "Password12345", "Password12345");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
-			userId: body.id as string,
-			body: {
-				password: body.password,
-				newPassword: body.newPassword,
-				newPasswordConfirm: body.newPasswordConfirm,
+		const result = await sut.http({ 
+			userId: data.id as string,
+			data: {
+				password: data.password,
+				newPassword: data.newPassword,
+				newPasswordConfirm: data.newPasswordConfirm,
 			}
 		});
         
@@ -39,15 +39,15 @@ describe("Presentation - UpdateUserPasswordController", () => {
 	});
 	
 	test("Should not update user password, because password is empty", async () => {
-		const body = makeBody("1", "", "Password12345", "Password12345");
+		const data = makeBody("1", "", "Password12345", "Password12345");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
-			userId: body.id as string,
-			body: {
-				password: body.password,
-				newPassword: body.newPassword,
-				newPasswordConfirm: body.newPasswordConfirm,
+		const result = await sut.http({ 
+			userId: data.id as string,
+			data: {
+				password: data.password,
+				newPassword: data.newPassword,
+				newPasswordConfirm: data.newPasswordConfirm,
 			}
 		});
         
@@ -55,15 +55,15 @@ describe("Presentation - UpdateUserPasswordController", () => {
 	});
 
 	test("Should not update user password, because new password is empty", async () => {
-		const body = makeBody("1", "Password1234", "", "Password12345");
+		const data = makeBody("1", "Password1234", "", "Password12345");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
-			userId: body.id as string,
-			body: {
-				password: body.password,
-				newPassword: body.newPassword,
-				newPasswordConfirm: body.newPasswordConfirm,
+		const result = await sut.http({ 
+			userId: data.id as string,
+			data: {
+				password: data.password,
+				newPassword: data.newPassword,
+				newPasswordConfirm: data.newPasswordConfirm,
 			}
 		});
         
@@ -71,15 +71,15 @@ describe("Presentation - UpdateUserPasswordController", () => {
 	});
 
 	test("Should not update user password, because new password confirm is empty", async () => {
-		const body = makeBody("1", "Password1234", "Password12345", "");
+		const data = makeBody("1", "Password1234", "Password12345", "");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
-			userId: body.id as string,
-			body: {
-				password: body.password,
-				newPassword: body.newPassword,
-				newPasswordConfirm: body.newPasswordConfirm,
+		const result = await sut.http({ 
+			userId: data.id as string,
+			data: {
+				password: data.password,
+				newPassword: data.newPassword,
+				newPasswordConfirm: data.newPasswordConfirm,
 			}
 		});
         
@@ -87,15 +87,15 @@ describe("Presentation - UpdateUserPasswordController", () => {
 	});
 
 	test("Should not update user password, because id is with type error", async () => {
-		const body = makeBody(100, "Password1234", "Password12345", "Password12345");
+		const data = makeBody(100, "Password1234", "Password12345", "Password12345");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
-			userId: body.id as string,
-			body: {
-				password: body.password,
-				newPassword: body.newPassword,
-				newPasswordConfirm: body.newPasswordConfirm,
+		const result = await sut.http({ 
+			userId: data.id as string,
+			data: {
+				password: data.password,
+				newPassword: data.newPassword,
+				newPasswordConfirm: data.newPasswordConfirm,
 			}
 		});
         
@@ -103,15 +103,15 @@ describe("Presentation - UpdateUserPasswordController", () => {
 	});
 
 	test("Should not update user password, because password is with type error", async () => {
-		const body = makeBody("1", 100, "Password12345", "Password12345");
+		const data = makeBody("1", 100, "Password12345", "Password12345");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
-			userId: body.id as string,
-			body: {
-				password: body.password,
-				newPassword: body.newPassword,
-				newPasswordConfirm: body.newPasswordConfirm,
+		const result = await sut.http({ 
+			userId: data.id as string,
+			data: {
+				password: data.password,
+				newPassword: data.newPassword,
+				newPasswordConfirm: data.newPasswordConfirm,
 			}
 		});
         
@@ -119,15 +119,15 @@ describe("Presentation - UpdateUserPasswordController", () => {
 	});
 
 	test("Should not update user password, because new password is with type error", async () => {
-		const body = makeBody("1", "Password1234", 100, "Password12345");
+		const data = makeBody("1", "Password1234", 100, "Password12345");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
-			userId: body.id as string,
-			body: {
-				password: body.password,
-				newPassword: body.newPassword,
-				newPasswordConfirm: body.newPasswordConfirm,
+		const result = await sut.http({ 
+			userId: data.id as string,
+			data: {
+				password: data.password,
+				newPassword: data.newPassword,
+				newPasswordConfirm: data.newPasswordConfirm,
 			}
 		});
         
@@ -135,15 +135,15 @@ describe("Presentation - UpdateUserPasswordController", () => {
 	});
 
 	test("Should not update user password, because new password confirm is with type error", async () => {
-		const body = makeBody("1", "Password1234", "Password12345", 100);
+		const data = makeBody("1", "Password1234", "Password12345", 100);
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
-			userId: body.id as string,
-			body: {
-				password: body.password,
-				newPassword: body.newPassword,
-				newPasswordConfirm: body.newPasswordConfirm,
+		const result = await sut.http({ 
+			userId: data.id as string,
+			data: {
+				password: data.password,
+				newPassword: data.newPassword,
+				newPasswordConfirm: data.newPasswordConfirm,
 			}
 		});
         
@@ -151,16 +151,16 @@ describe("Presentation - UpdateUserPasswordController", () => {
 	});
 
 	test("Should not update user password, because use case returned error", async () => {
-		const body = makeBody("2", "password", "passwordone", "passwordone");
+		const data = makeBody("2", "password", "passwordone", "passwordone");
 		const { sut, updateUserPasswordStub } = makeSut();
 		jest.spyOn(updateUserPasswordStub, "execute").mockReturnValueOnce(Promise.resolve(new Error("error")));
 
-		const result = await sut.handle({ 
-			userId: body.id as string,
-			body: {
-				password: body.password,
-				newPassword: body.newPassword,
-				newPasswordConfirm: body.newPasswordConfirm,
+		const result = await sut.http({ 
+			userId: data.id as string,
+			data: {
+				password: data.password,
+				newPassword: data.newPassword,
+				newPasswordConfirm: data.newPasswordConfirm,
 			}
 		});
         
@@ -168,18 +168,18 @@ describe("Presentation - UpdateUserPasswordController", () => {
 	});
 
 	test("Should update user password", async () => {
-		const body = makeBody("1", "Password1234", "Password12345", "Password12345");
+		const data = makeBody("1", "Password1234", "Password12345", "Password12345");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
-			userId: body.id as string,
-			body: {
-				password: body.password,
-				newPassword: body.newPassword,
-				newPasswordConfirm: body.newPasswordConfirm,
+		const result = await sut.http({ 
+			userId: data.id as string,
+			data: {
+				password: data.password,
+				newPassword: data.newPassword,
+				newPasswordConfirm: data.newPasswordConfirm,
 			}
 		});
         
-		expect(result).toEqual(ok(body.id));
+		expect(result).toEqual(ok(data.id));
 	});
 });

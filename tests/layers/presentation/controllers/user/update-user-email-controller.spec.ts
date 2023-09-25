@@ -25,9 +25,9 @@ describe("Presentation - UpdateUserEmailController", () => {
 		const body = makeBody("", "email@test.com", "code");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			userId: body.id as string,
-			query: {
+			data: {
 				email: body.email,
 				code: body.code
 			} 
@@ -41,9 +41,9 @@ describe("Presentation - UpdateUserEmailController", () => {
 		const body = makeBody("1", "", "code");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			userId: body.id as string,
-			query: {
+			data: {
 				email: body.email,
 				code: body.code
 			} 
@@ -56,9 +56,9 @@ describe("Presentation - UpdateUserEmailController", () => {
 		const body = makeBody("1", "email@test.com", "");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			userId: body.id as string,
-			query: {
+			data: {
 				email: body.email,
 				code: body.code
 			} 
@@ -71,9 +71,9 @@ describe("Presentation - UpdateUserEmailController", () => {
 		const body = makeBody(100, "email@test.com", "code");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			userId: body.id as string,
-			query: {
+			data: {
 				email: body.email,
 				code: body.code
 			} 
@@ -87,9 +87,9 @@ describe("Presentation - UpdateUserEmailController", () => {
 		const body = makeBody("1", 100, "code");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			userId: body.id as string,
-			query: {
+			data: {
 				email: body.email,
 				code: body.code
 			} 
@@ -102,9 +102,9 @@ describe("Presentation - UpdateUserEmailController", () => {
 		const body = makeBody("1", "email@test.com", 100);
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			userId: body.id as string,
-			query: {
+			data: {
 				email: body.email,
 				code: body.code
 			} 
@@ -118,9 +118,9 @@ describe("Presentation - UpdateUserEmailController", () => {
 		const { sut, updateUserEmailStub } = makeSut();
 		jest.spyOn(updateUserEmailStub, "execute").mockReturnValueOnce(Promise.resolve(new Error("error")));
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			userId: body.id as string,
-			query: {
+			data: {
 				email: body.email,
 				code: body.code
 			} 
@@ -133,9 +133,9 @@ describe("Presentation - UpdateUserEmailController", () => {
 		const body = makeBody("1", "email@test.com", "code");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ 
+		const result = await sut.http({ 
 			userId: body.id as string,
-			query: {
+			data: {
 				email: body.email,
 				code: body.code
 			} 

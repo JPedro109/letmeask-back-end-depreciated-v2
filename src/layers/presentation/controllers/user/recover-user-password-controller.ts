@@ -5,10 +5,8 @@ export class RecoverUserPasswordController implements HttpProtocol {
 
 	constructor(private readonly useCase: RecoverUserPasswordUseCaseProtocol) { }
 
-	async handle(request: HttpRequest): Promise<HttpResponse> {
-		const { email, code } = request.query;
-
-		const { password, passwordConfirm } = request.body;
+	async http(request: HttpRequest): Promise<HttpResponse> {
+		const { email, code, password, passwordConfirm } = request.data;
 
 		const validation = Validate.fields(
 			[

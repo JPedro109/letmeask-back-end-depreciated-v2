@@ -1,19 +1,19 @@
-import { JsonWebTokenProtocol, JsonWebTokenInvalidError, JsonWebTokenType } from "@/layers/use-cases";
+import { AuthenticationProtocol, JsonWebTokenInvalidError, JsonWebTokenType } from "@/layers/use-cases";
 
-export class JsonWebTokenStub implements JsonWebTokenProtocol {
+export class JsonWebTokenStub implements AuthenticationProtocol {
 	public payload: object;
 	public expiryTimeInSeconds: number;
 	public token: string;
 	public secretKey: string;
 
-	createToken(payload: object, expiryTimeInSeconds: number): string {
+	createJsonWebToken(payload: object, expiryTimeInSeconds: number): string {
 		this.payload = payload;
 		this.expiryTimeInSeconds = expiryTimeInSeconds;
 
 		return "jwt";
 	}
 
-	verifyToken(token: string): JsonWebTokenType | JsonWebTokenInvalidError {
+	verifyJsonWebToken(token: string): JsonWebTokenType | JsonWebTokenInvalidError {
 		this.token = token;
 		
 		return {

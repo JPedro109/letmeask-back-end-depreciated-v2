@@ -24,7 +24,7 @@ describe("Presentation - GetUsernameController", () => {
 		const body = makeBody("");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ userId: body.id as string });
+		const result = await sut.http({ userId: body.id as string });
 
 		expect(result).toEqual(badRequest(new MissingParamError("id")));
 	});
@@ -34,7 +34,7 @@ describe("Presentation - GetUsernameController", () => {
 		const body = makeBody(100);
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ userId: body.id as string });
+		const result = await sut.http({ userId: body.id as string });
 
 		expect(result).toEqual(badRequest(new InvalidTypeError("id")));
 	});
@@ -44,7 +44,7 @@ describe("Presentation - GetUsernameController", () => {
 		const { sut, getUsernameSpy } = makeSut();
 		jest.spyOn(getUsernameSpy, "execute").mockResolvedValueOnce(Promise.resolve(new NotFoundError("error")));
 
-		const result = await sut.handle({ userId: body.id as string });
+		const result = await sut.http({ userId: body.id as string });
 
 		expect(result).toEqual(notFound(new NotFoundError("error")));
 	});
@@ -55,7 +55,7 @@ describe("Presentation - GetUsernameController", () => {
 		const { sut, getUsernameSpy } = makeSut();
 		jest.spyOn(getUsernameSpy, "execute").mockResolvedValueOnce(Promise.resolve(new Error("error")));
 
-		const result = await sut.handle({ userId: body.id as string });
+		const result = await sut.http({ userId: body.id as string });
 
 		expect(result).toEqual(badRequest(new Error("error")));
 	});
@@ -64,7 +64,7 @@ describe("Presentation - GetUsernameController", () => {
 		const body = makeBody("1");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ userId: body.id as string });
+		const result = await sut.http({ userId: body.id as string });
 
 		expect(result).toEqual(ok("username"));
 	});

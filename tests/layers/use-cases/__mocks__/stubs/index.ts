@@ -7,7 +7,7 @@ import {
 	UserRepositoryProtocol, 
 	CryptographyProtocol,
 	MailServiceProtocol, 
-	JsonWebTokenProtocol, 
+	AuthenticationProtocol, 
 	JsonWebTokenType, 
 	UserModel, 
 	RoomRepositoryProtocol, 
@@ -183,12 +183,12 @@ export class CryptographyStub implements CryptographyProtocol {
 	}
 }
 
-export class JsonWebTokenStub implements JsonWebTokenProtocol {
-	createToken(payload: object, expiryTimeInSeconds: number): string {
+export class JsonWebTokenStub implements AuthenticationProtocol {
+	createJsonWebToken(payload: object, expiryTimeInSeconds: number): string {
 		return "jwt";
 	}
 
-	verifyToken(token: string): JsonWebTokenType {
+	verifyJsonWebToken(token: string): JsonWebTokenType {
 		return {
 			id: "1",
 			email: "email@test.com"

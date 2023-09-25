@@ -5,10 +5,10 @@ export class DeleteUserController implements HttpProtocol {
 
 	constructor(private readonly useCase: DeleteUserUseCaseProtocol) { }
 
-	async handle(request: HttpRequest): Promise<HttpResponse> {
+	async http(request: HttpRequest): Promise<HttpResponse> {
 		const id = request.userId;		
 
-		const { password, passwordConfirm } = request.body;
+		const { password, passwordConfirm } = request.data;
 
 		const validation = Validate.fields(
 			[

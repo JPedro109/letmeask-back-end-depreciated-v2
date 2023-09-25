@@ -5,10 +5,10 @@ export class UpdateUserPasswordController implements HttpProtocol {
 
 	constructor(private readonly useCase: UpdateUserPasswordUseCaseProtocol) { }
 
-	async handle(request: HttpRequest): Promise<HttpResponse> {
+	async http(request: HttpRequest): Promise<HttpResponse> {
 		const id = request.userId;
 
-		const { password, newPassword, newPasswordConfirm } = request.body;
+		const { password, newPassword, newPasswordConfirm } = request.data;
 
 		const validation = Validate.fields(
 			[

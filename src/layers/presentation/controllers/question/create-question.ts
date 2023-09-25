@@ -14,10 +14,10 @@ export class CreateQuestionController implements HttpProtocol {
 
 	constructor(private readonly useCase: CreateQuestionUseCaseProtocol) { }
 
-	async handle(request: HttpRequest): Promise<HttpResponse> {
+	async http(request: HttpRequest): Promise<HttpResponse> {
 		const userId = request.userId;
 
-		const { roomCode, question } = request.body;
+		const { roomCode, question } = request.data;
 
 		const validation = Validate.fields(
 			[

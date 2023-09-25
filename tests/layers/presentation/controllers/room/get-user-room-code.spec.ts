@@ -23,7 +23,7 @@ describe("Presentation - GetUserRoomCodeController", () => {
 		const body = makeBody("");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ userId: body.userId as string });
+		const result = await sut.http({ userId: body.userId as string });
 
 		expect(result).toEqual(badRequest(new MissingParamError("userId")));
 	});
@@ -32,7 +32,7 @@ describe("Presentation - GetUserRoomCodeController", () => {
 		const body = makeBody(100);
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ userId: body.userId as string });
+		const result = await sut.http({ userId: body.userId as string });
 
 		expect(result).toEqual(badRequest(new InvalidTypeError("userId")));
 	});
@@ -41,7 +41,7 @@ describe("Presentation - GetUserRoomCodeController", () => {
 		const body = makeBody("1");
 		const { sut } = makeSut();
 
-		const result = await sut.handle({ userId: body.userId as string });
+		const result = await sut.http({ userId: body.userId as string });
 
 		expect(result).toEqual(ok("000000"));
 	});

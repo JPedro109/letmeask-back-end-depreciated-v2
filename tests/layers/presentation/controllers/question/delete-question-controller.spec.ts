@@ -26,10 +26,10 @@ describe("Presentation - DeleteQuestionController", () => {
 		const body = makeBody("", "question");
 		const { sut } = makeSut();
 
-		const response = await sut.handle(
+		const response = await sut.http(
 			{ 
 				userId: body.userId as string, 
-				params: { questionId: body.questionId } 
+				data: { questionId: body.questionId } 
 			});
 
 		expect(response).toEqual(badRequest(new MissingParamError("userId")));
@@ -39,10 +39,10 @@ describe("Presentation - DeleteQuestionController", () => {
 		const body = makeBody("1", "");
 		const { sut } = makeSut();
 
-		const response = await sut.handle(
+		const response = await sut.http(
 			{ 
 				userId: body.userId as string, 
-				params: {  questionId: body.questionId } 
+				data: {  questionId: body.questionId } 
 			});
 
 		expect(response).toEqual(badRequest(new MissingParamError("questionId")));
@@ -52,10 +52,10 @@ describe("Presentation - DeleteQuestionController", () => {
 		const body = makeBody(100, "1");
 		const { sut } = makeSut();
 
-		const response = await sut.handle(
+		const response = await sut.http(
 			{ 
 				userId: body.userId as string, 
-				params: {  questionId: body.questionId } 
+				data: {  questionId: body.questionId } 
 			});
 
 		expect(response).toEqual(badRequest(new InvalidTypeError("userId")));
@@ -65,10 +65,10 @@ describe("Presentation - DeleteQuestionController", () => {
 		const body = makeBody("1", 100);
 		const { sut } = makeSut();
 
-		const response = await sut.handle(
+		const response = await sut.http(
 			{ 
 				userId: body.userId as string, 
-				params: {  questionId: body.questionId } 
+				data: {  questionId: body.questionId } 
 			});
 
 		expect(response).toEqual(badRequest(new InvalidTypeError("questionId")));
@@ -79,10 +79,10 @@ describe("Presentation - DeleteQuestionController", () => {
 		const { sut, deleteQuestionStub } = makeSut();
 		jest.spyOn(deleteQuestionStub, "execute").mockReturnValueOnce(Promise.resolve(new NotFoundError("error")));
 
-		const response = await sut.handle(
+		const response = await sut.http(
 			{ 
 				userId: body.userId as string, 
-				params: {  questionId: body.questionId } 
+				data: {  questionId: body.questionId } 
 			});
 
 		expect(response).toEqual(notFound(new NotFoundError("error")));
@@ -93,10 +93,10 @@ describe("Presentation - DeleteQuestionController", () => {
 		const { sut, deleteQuestionStub } = makeSut();
 		jest.spyOn(deleteQuestionStub, "execute").mockReturnValueOnce(Promise.resolve(new UnauthorizedError("error")));
 
-		const response = await sut.handle(
+		const response = await sut.http(
 			{ 
 				userId: body.userId as string, 
-				params: {  questionId: body.questionId } 
+				data: {  questionId: body.questionId } 
 			});
 
 		expect(response).toEqual(unauthorized(new UnauthorizedError("error")));
@@ -107,10 +107,10 @@ describe("Presentation - DeleteQuestionController", () => {
 		const { sut, deleteQuestionStub } = makeSut();
 		jest.spyOn(deleteQuestionStub, "execute").mockReturnValueOnce(Promise.resolve(new Error("error")));
 
-		const response = await sut.handle(
+		const response = await sut.http(
 			{ 
 				userId: body.userId as string, 
-				params: {  questionId: body.questionId } 
+				data: {  questionId: body.questionId } 
 			});
 
 		expect(response).toEqual(badRequest(new Error("error")));
@@ -120,10 +120,10 @@ describe("Presentation - DeleteQuestionController", () => {
 		const body = makeBody("1", "1");
 		const { sut } = makeSut();
 
-		const response = await sut.handle(
+		const response = await sut.http(
 			{ 
 				userId: body.userId as string, 
-				params: {  questionId: body.questionId } 
+				data: {  questionId: body.questionId } 
 			});
 
 		expect(response).toEqual(ok(testQuestionModel));

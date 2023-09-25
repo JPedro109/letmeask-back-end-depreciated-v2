@@ -2,15 +2,15 @@ import { InvalidEmailError } from "./errors";
 
 export class Email {
 
-	private readonly _email: string;
+	private readonly email: string;
 
 	private constructor(email: string) {
-		this._email = email;
+		this.email = email;
 		Object.freeze(this);
 	}
 	
 	public get value() : string {
-		return this._email;
+		return this.email;
 	}
 
 	static create(email: string): Email | InvalidEmailError {

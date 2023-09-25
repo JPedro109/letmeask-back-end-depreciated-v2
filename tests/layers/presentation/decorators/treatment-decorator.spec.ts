@@ -8,7 +8,7 @@ describe("Presentation - TreatmentDecorator", () => {
 		const logRepositoryStub = new LogRepositoryStub();
 		const sut = new TreatmentDecorator(controllerStub, logRepositoryStub);
 
-		const result = await sut.handle({});
+		const result = await sut.http({});
 
 		expect(result).toEqual(server());
 	});

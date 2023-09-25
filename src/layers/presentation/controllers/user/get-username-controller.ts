@@ -5,7 +5,7 @@ export class GetUsernameController implements HttpProtocol {
 
 	constructor(private readonly useCase: GetUsernameUseCaseProtocol) { }
 
-	async handle(request: HttpRequest): Promise<HttpResponse> {
+	async http(request: HttpRequest): Promise<HttpResponse> {
 		const id = request.userId;
 
 		const validation = Validate.fields([

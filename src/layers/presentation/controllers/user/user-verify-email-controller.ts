@@ -5,8 +5,8 @@ export class UserVerifyEmailController implements HttpProtocol {
 
 	constructor(private readonly useCase: UserVerifyEmailUseCaseProtocol) { }
 
-	async handle(request: HttpRequest): Promise<HttpResponse> {
-		const { email, code } = request.query;
+	async http(request: HttpRequest): Promise<HttpResponse> {
+		const { email, code } = request.data;
 
 		const validation = Validate.fields(
 			[

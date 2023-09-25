@@ -5,10 +5,10 @@ export class SendUserEmailUpdateLinkController implements HttpProtocol {
 
 	constructor(private readonly useCase: SendUserEmailUpdateLinkUseCaseProtocol) { }
 
-	async handle(request: HttpRequest): Promise<HttpResponse> {
+	async http(request: HttpRequest): Promise<HttpResponse> {
 		const id = request.userId;
 
-		const { email } = request.body;
+		const { email } = request.data;
 
 		const validation = Validate.fields(
 			[

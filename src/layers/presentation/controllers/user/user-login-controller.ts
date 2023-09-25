@@ -5,8 +5,8 @@ export class UserLoginController implements HttpProtocol {
 
 	constructor(private readonly useCase: UserLoginUseCaseProtocol) { }
 
-	async handle(request: HttpRequest): Promise<HttpResponse> {
-		const { email, password } = request.body;
+	async http(request: HttpRequest): Promise<HttpResponse> {
+		const { email, password } = request.data;
 
 		const validation = Validate.fields(
 			[

@@ -14,10 +14,10 @@ export class DeleteRoomController implements HttpProtocol {
 
 	constructor(private readonly useCase: DeleteRoomUseCaseProtocol) { }
 
-	async handle(request: HttpRequest): Promise<HttpResponse> {
+	async http(request: HttpRequest): Promise<HttpResponse> {
 		const userId = request.userId;
 
-		const { roomCode } = request.params;
+		const { roomCode } = request.data;
 
 		const validation = Validate.fields(
 			[

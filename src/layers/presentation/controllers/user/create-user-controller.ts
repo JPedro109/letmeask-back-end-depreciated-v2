@@ -5,8 +5,8 @@ export class CreateUserController implements HttpProtocol {
 
 	constructor(private readonly useCase: CreateUserUseCaseProtocol) { }
 
-	async handle(request: HttpRequest): Promise<HttpResponse> {
-		const { email, password, passwordConfirm, username } = request.body;
+	async http(request: HttpRequest): Promise<HttpResponse> {
+		const { email, password, passwordConfirm, username } = request.data;
 
 		const validation = Validate.fields(
 			[
