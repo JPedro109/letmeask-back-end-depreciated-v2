@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Express } from "express";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import { cors, bodyParser } from "./middlewares";
@@ -19,8 +19,8 @@ const setupApolloServer = async () => {
 	return graphql;
 };
 
-export const setupGraphQL = () => {
-	const initExpress = express();
+export const setupGraphQL = (server?: Express) => {
+	const initExpress = server ?? express();
 
 	setupApolloServer().then(apollo => {
 		initExpress.use(
