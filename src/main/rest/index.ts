@@ -13,8 +13,8 @@ const setupRoutes =  (app: Express): void => {
 	});
 };
 
-export const setupRest = () => {
-	const initExpress = express();
+export const setupRest = (server?: Express) => {
+	const initExpress =  server ?? express();
 
 	initExpress.use(bodyParser);
 	initExpress.use(cors);
