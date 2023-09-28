@@ -4,7 +4,8 @@ import {
 	MailServiceProtocol, 
 	UserRepositoryProtocol, 
 	NotFoundError, 
-	UserVerificationCodeRepositoryProtocol 
+	UserVerificationCodeRepositoryProtocol, 
+	EmailBody
 } from "@/layers/use-cases";
 import { SendUserPasswordRecoveryLinkUseCaseProtocol } from "./protocol";
 import { SendUserPasswordRecoveryLinkDTO, SendUserPasswordRecoveryLinkResponseDTO } from "./dtos";
@@ -34,7 +35,7 @@ export class SendUserPasswordRecoveryLinkUseCase implements SendUserPasswordReco
 			user.id
 		);
 
-		await this.mailService.sendMail(email, "Recuperação de Senha", "recover-password-body", {
+		await this.mailService.sendMail(email, "Recuperação de Senha", EmailBody.RecoverPasswordBody, {
 			appUrl: APP_URL,
 			email: email,
 			code: verificationCode

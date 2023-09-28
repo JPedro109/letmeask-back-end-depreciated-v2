@@ -5,7 +5,8 @@ import {
 	MailServiceProtocol, 
 	InvalidParamError, 
 	CryptographyProtocol, 
-	GenerationProtocol
+	GenerationProtocol,
+	EmailBody
 } from "@/layers/use-cases";
 import { CreateUserUseCaseProtocol } from "./protocol";
 import { CreateUserDTO, CreateUserResponseDTO } from "./dtos";
@@ -38,7 +39,7 @@ export class CreateUserUseCase implements CreateUserUseCaseProtocol {
 		await this.unitOfWork.transaction(async () => {
 			const user = await userRepository.createUser(userOrError.email.value, userOrError.username.value, hashPassword);
 			await userVerificationCodeRepository.createUserVerificationCode(code, 0, false, user.id);
-			await this.mailService.sendMail(userOrError.email.value, "Criação de Usuário", "create-user-body", {
+			await this.mailService.sendMail(userOrError.email.value, "Criação de Usuário", EmailBody.CreateUserBody, {
 				appUrl: APP_URL,
 				email: userOrError.email.value,
 				code
