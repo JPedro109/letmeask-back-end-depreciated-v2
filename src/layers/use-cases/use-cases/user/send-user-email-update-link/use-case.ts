@@ -6,7 +6,8 @@ import {
 	GenerationProtocol, 
 	MailServiceProtocol, 
 	InvalidParamError, 
-	NotFoundError
+	NotFoundError,
+	EmailBody
 } from "@/layers/use-cases";
 import { SendUserEmailUpdateLinkUseCaseProtocol } from "./protocol";
 import { SendUserEmailUpdateLinkDTO, SendUserEmailUpdateLinkResponseDTO } from "./dtos";
@@ -44,7 +45,7 @@ export class SendUserEmailUpdateLinkUseCase implements SendUserEmailUpdateLinkUs
 			user.id
 		);
 
-		await this.mailService.sendMail(emailOrError.value, "Atualização de E-mail", "update-email-body", {
+		await this.mailService.sendMail(emailOrError.value, "Atualização de E-mail", EmailBody.UpdateEmailBody, {
 			appUrl: APP_URL,
 			email: emailOrError.value,
 			code: verificationCode

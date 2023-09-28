@@ -13,3 +13,4 @@ export * from "./database";
 export * from "./queue/protocol";
 
 export * from "./mail/protocol";
+export * from "./mail/enum";
