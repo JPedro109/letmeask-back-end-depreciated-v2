@@ -12,9 +12,10 @@ export class MailServiceAdapter implements MailServiceProtocol {
 			to,
 			subject,
 			template: html,
-			context
+			context,
+			service: "LETMEASK"
 		};
 
-		await this.queue.sendMessage(QUEUE_NAME, email);
+		await this.queue.sendMessage(QUEUE_NAME, { pattern: "send_email", data: email });
 	}
 }
