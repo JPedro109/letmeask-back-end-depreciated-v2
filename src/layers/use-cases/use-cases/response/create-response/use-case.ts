@@ -19,13 +19,13 @@ export class CreateResponseUseCase implements CreateResponseUseCaseProtocol {
         private readonly userRepository: UserRepositoryProtocol,
         private readonly questionRepository: QuestionRepositoryProtocol,
         private readonly roomRepository: RoomRepositoryProtocol,
-		private readonly _cache: CacheProtocol
+		private readonly cache: CacheProtocol
 	) { }
 
 	private async addCache(roomCode: string) {
-		this._cache.del(`room-${roomCode}`);
+		this.cache.del(`room-${roomCode}`);
 		const room = await this.roomRepository.getRoomByCode(roomCode);
-		this._cache.set<RoomModel>(`room-${roomCode}`, room, 3600);
+		this.cache.set<RoomModel>(`room-${roomCode}`, room, 3600);
 	}
 
 	async execute({ userId, questionId, response }: CreateResponseDTO): Promise<CreateResponseResponseDTO> {
