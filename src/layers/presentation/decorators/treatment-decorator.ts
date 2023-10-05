@@ -1,5 +1,5 @@
 import { LogRepositoryProtocol } from "@/layers/use-cases";
-import { HttpProtocol } from "../protocols";
+import { HttpProtocol } from "../ports";
 import { HttpRequest, HttpResponse } from "../ports";
 import { server } from "../helpers";
 
