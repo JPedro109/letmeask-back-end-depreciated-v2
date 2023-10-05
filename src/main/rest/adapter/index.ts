@@ -15,19 +15,19 @@ export class RestAdapter {
 
 	static middleware = (middleware: HttpProtocol) => {
 		return async (req: Request, res: Response, next: NextFunction) => {
-			const { response, statusCode } = await middleware.http({
+			const request = {
 				data: { ...req.body, ...req.query, ...req.params },
 				userId: req.userId,
 				headers: req.headers
-			});
+			};
+
+			const { response, statusCode } = await middleware.http(request);
 
 			if(statusCode > 399 && statusCode < 500 || response instanceof Error) 
 				return res.status(statusCode).json(response);			
 
-			const userId = response;
+			req.userId = request.userId;
 
-			if(response) req.userId = userId;
-		
 			return next();
 		};
 	};

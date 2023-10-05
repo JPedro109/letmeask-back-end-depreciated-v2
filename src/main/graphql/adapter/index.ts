@@ -38,18 +38,18 @@ export class GraphQLAdapter {
         
 		if(!args?.data) data = { ...args }; 
 
-		const { response, statusCode } = await middleware.http({
+		const request = {
 			data,
 			userId: context.userId,
 			headers: context.headers
-		});
+		};
+
+		const { response, statusCode } = await middleware.http(request);
 
 		if(statusCode > 399 && statusCode <= 500) throw new GraphQLError(response.message, {
 			extensions: { code: response.code },
 		});	
     
-		const userId = response;
-    
-		if(response) context.userId = userId;
+		context.userId = request.userId;
 	};
 }

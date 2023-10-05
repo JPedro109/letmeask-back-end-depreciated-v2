@@ -18,6 +18,8 @@ export class AuthUserMiddleware implements HttpProtocol {
 
 		if(decode instanceof Error) return unauthorized(decode);
 
+		request.userId = decode.id as string;
+
 		return ok(decode.id as string);
 	}
 }
