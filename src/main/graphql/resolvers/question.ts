@@ -1,6 +1,6 @@
 import { GraphQLAdapter } from "../adapter";
 import { 
-	authenticateUserMiddleware, 
+	authUserMiddleware, 
 	createQuestionController, 
 	deleteQuestionController, 
 	getUserQuestionsController 
@@ -13,7 +13,7 @@ export const questionMutations = {
 		parent, 
 		args, 
 		context,
-		[ authenticateUserMiddleware ]
+		[ authUserMiddleware ]
 	),
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -22,7 +22,7 @@ export const questionMutations = {
 		parent, 
 		args, 
 		context, 
-		[ authenticateUserMiddleware ]
+		[ authUserMiddleware ]
 	)
 };
 
@@ -34,6 +34,6 @@ export const questionQueries = {
 		parent, 
 		args, 
 		context, 
-		[ authenticateUserMiddleware ]
+		[ authUserMiddleware ]
 	)
 };

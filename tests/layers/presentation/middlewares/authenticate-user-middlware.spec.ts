@@ -1,10 +1,10 @@
 import { JsonWebTokenStub } from "./stubs";
 import { JsonWebTokenInvalidError, UnauthorizedError } from "@/layers/use-cases";
-import { AuthenticateUserMiddleware, ok, unauthorized } from "@/layers/presentation";
+import { AuthUserMiddleware, ok, unauthorized } from "@/layers/presentation";
 
 const makeSut = () => {
 	const jsonWebTokenStub = new JsonWebTokenStub();
-	const sut = new AuthenticateUserMiddleware(jsonWebTokenStub);
+	const sut = new AuthUserMiddleware(jsonWebTokenStub);
     
 	return {
 		sut,
@@ -18,7 +18,7 @@ const makeBody = (token: string) => {
 	};
 };
 
-describe("Presentation - AuthenticateUserMiddleware", () => {
+describe("Presentation - AuthUserMiddleware", () => {
 	
 	test("Should not authenticate user, because token is empty", async () => {
 		const { authorization } = makeBody("");
