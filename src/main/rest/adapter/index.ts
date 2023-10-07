@@ -9,6 +9,8 @@ export class RestAdapter {
 				userId: req.userId
 			});			
 
+			if(!response) return res.status(statusCode).json();
+
 			return res.status(statusCode).json(response);
 		};
 	};
