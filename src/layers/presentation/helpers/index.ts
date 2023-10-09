@@ -10,6 +10,11 @@ export const created = (data: unknown): HttpResponse => ({
 	response: data
 });
 
+export const noBody = (): HttpResponse => ({
+	statusCode: 204,
+	response: null
+});
+
 export const badRequest = (error: Error): HttpResponse => ({
 	statusCode: 400,
 	response: {
