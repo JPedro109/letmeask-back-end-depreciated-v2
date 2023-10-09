@@ -1,5 +1,5 @@
 import { AuthenticationProtocol, UnauthorizedError } from "@/layers/use-cases";
-import { HttpProtocol, HttpRequest, HttpResponse, ok, unauthorized } from "@/layers/presentation";
+import { HttpProtocol, HttpRequest, HttpResponse, noBody, unauthorized } from "@/layers/presentation";
 
 export class AuthUserMiddleware implements HttpProtocol {
 
@@ -20,6 +20,6 @@ export class AuthUserMiddleware implements HttpProtocol {
 
 		request.userId = decode.id as string;
 
-		return ok(decode.id as string);
+		return noBody();
 	}
 }

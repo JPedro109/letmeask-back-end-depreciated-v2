@@ -1,6 +1,6 @@
 import { JsonWebTokenStub } from "./stubs";
 import { JsonWebTokenInvalidError, UnauthorizedError } from "@/layers/use-cases";
-import { AuthUserMiddleware, ok, unauthorized } from "@/layers/presentation";
+import { AuthUserMiddleware, noBody, unauthorized } from "@/layers/presentation";
 
 const makeSut = () => {
 	const jsonWebTokenStub = new JsonWebTokenStub();
@@ -62,6 +62,6 @@ describe("Presentation - AuthUserMiddleware", () => {
 			authorization
 		}});
 
-		expect(result).toEqual(ok("1"));
+		expect(result).toEqual(noBody());
 	});
 });
