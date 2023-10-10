@@ -17,7 +17,10 @@ export class GraphQLAdapter {
 
 		const { response, statusCode } = await route.http({
 			data: data,
-			userId: context.userId
+			userId: context.userId,
+			headers: context.req.headers,
+			method: context.req.method,
+			path: context.req.originalUrl
 		});			
 
 		if(statusCode > 399 && statusCode <= 500) throw new GraphQLError(response.message, {
@@ -41,7 +44,9 @@ export class GraphQLAdapter {
 		const request = {
 			data,
 			userId: context.userId,
-			headers: context.headers
+			headers: context.req.headers,
+			method: context.req.method,
+			path: context.req.originalUrl
 		};
 
 		const { response, statusCode } = await middleware.http(request);

@@ -6,10 +6,13 @@ export class RestAdapter {
 		return async (req: Request, res: Response) => {
 			const { response, statusCode } = await route.http({
 				data: { ...req.body, ...req.query, ...req.params },
-				userId: req.userId
+				userId: req.userId,
+				headers: req.headers,
+				method: req.method,
+				path: req.originalUrl
 			});			
 
-			if(!response) return res.status(statusCode).json();
+			if(statusCode === 204) return res.status(statusCode).json();
 
 			return res.status(statusCode).json(response);
 		};
@@ -20,7 +23,9 @@ export class RestAdapter {
 			const request = {
 				data: { ...req.body, ...req.query, ...req.params },
 				userId: req.userId,
-				headers: req.headers
+				headers: req.headers,
+				method: req.method,
+				path: req.originalUrl
 			};
 
 			const { response, statusCode } = await middleware.http(request);

@@ -4,6 +4,8 @@ export type HttpRequest = {
 	headers?: any;
 	data?: any;
 	userId?: string;
+	method?: string;
+	path?: string;
 }
 
 export type HttpResponse = {
