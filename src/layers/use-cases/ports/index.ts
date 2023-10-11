@@ -14,3 +14,5 @@ export * from "./queue/protocol";
 
 export * from "./mail/protocol";
 export * from "./mail/enum";
+
+export * from "./log/protocol";
