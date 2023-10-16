@@ -8,12 +8,12 @@ import {
 	createQuestion,
 	getUserQuestions,
 	deleteQuestion,
-	logRepositoryAdapter,
+	logAdapter,
 } from "@/main/factories";
 
-export const createQuestionController = new TreatmentDecorator(new CreateQuestionController(createQuestion), logRepositoryAdapter);
+export const createQuestionController = new TreatmentDecorator(new CreateQuestionController(createQuestion), logAdapter);
 
 export const getUserQuestionsController 
-	= new TreatmentDecorator(new GetUserQuestionsController(getUserQuestions), logRepositoryAdapter);
+	= new TreatmentDecorator(new GetUserQuestionsController(getUserQuestions), logAdapter);
 
-export const deleteQuestionController = new TreatmentDecorator(new DeleteQuestionController(deleteQuestion), logRepositoryAdapter);
+export const deleteQuestionController = new TreatmentDecorator(new DeleteQuestionController(deleteQuestion), logAdapter);

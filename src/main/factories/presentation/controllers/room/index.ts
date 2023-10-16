@@ -12,16 +12,16 @@ import {
 	getUserRoomCode,
 	deleteRoom,
 	getRoomCode,
-	logRepositoryAdapter
+	logAdapter
 } from "@/main/factories";
 
-export const createRoomController = new TreatmentDecorator(new CreateRoomController(createRoom), logRepositoryAdapter);
+export const createRoomController = new TreatmentDecorator(new CreateRoomController(createRoom), logAdapter);
 
-export const getRoomController = new TreatmentDecorator(new GetRoomController(getRoom), logRepositoryAdapter);
+export const getRoomController = new TreatmentDecorator(new GetRoomController(getRoom), logAdapter);
 
 export const getUserRoomCodeController 
-	= new TreatmentDecorator(new GetUserRoomCodeController(getUserRoomCode), logRepositoryAdapter);
+	= new TreatmentDecorator(new GetUserRoomCodeController(getUserRoomCode), logAdapter);
 
-export const getRoomCodeController = new TreatmentDecorator(new GetRoomCodeController(getRoomCode), logRepositoryAdapter);
+export const getRoomCodeController = new TreatmentDecorator(new GetRoomCodeController(getRoomCode), logAdapter);
 
-export const deleteRoomController = new TreatmentDecorator(new DeleteRoomController(deleteRoom), logRepositoryAdapter);
+export const deleteRoomController = new TreatmentDecorator(new DeleteRoomController(deleteRoom), logAdapter);

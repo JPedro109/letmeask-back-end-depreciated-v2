@@ -1,12 +1,12 @@
-import { ControllerStub, LogRepositoryStub } from "./stubs";
+import { ControllerStub, LogAdapterStub } from "./stubs";
 import { TreatmentDecorator, server } from "@/layers/presentation";
 
 describe("Presentation - TreatmentDecorator", () => {
 	
 	test("Should return server error", async () => {
 		const controllerStub = new ControllerStub();
-		const logRepositoryStub = new LogRepositoryStub();
-		const sut = new TreatmentDecorator(controllerStub, logRepositoryStub);
+		const logAdapterStub = new LogAdapterStub();
+		const sut = new TreatmentDecorator(controllerStub, logAdapterStub);
 
 		const result = await sut.http({});
 

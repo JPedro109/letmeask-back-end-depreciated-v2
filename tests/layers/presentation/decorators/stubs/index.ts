@@ -1,4 +1,4 @@
-import { LogModel, LogRepositoryProtocol } from "@/layers/use-cases";
+import { LogProtocol } from "@/layers/use-cases";
 import { HttpProtocol, HttpRequest, HttpResponse } from "@/layers/presentation";
 
 export class ControllerStub implements HttpProtocol {
@@ -8,9 +8,25 @@ export class ControllerStub implements HttpProtocol {
 	}
 }
 
-export class LogRepositoryStub implements LogRepositoryProtocol {
+export class LogAdapterStub implements LogProtocol {
+
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	async createLog(message: string, stack: string, name: string): Promise<LogModel> {
-		return new LogModel("1", message, stack, name);
+	trace(title: string, message: string, trace: string): boolean {
+		throw new Error("Method not implemented.");
+	}
+
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	info(title: string, message: string): boolean {
+		return true;
+	}
+
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	warning(title: string, message: string): boolean {
+		return true;
+	}
+
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	error(title: string, message: string): boolean {
+		return true;
 	}
 }
