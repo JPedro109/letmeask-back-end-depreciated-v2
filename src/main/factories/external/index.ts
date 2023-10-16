@@ -14,6 +14,7 @@ import {
 	LogRepositoryAdapter,
 	QueueAdapter
 } from "@/layers/external";
+import { LogAdapter } from "@/layers/external/log";
 
 export const cryptographyAdapter = new CryptographyAdapter();
 
@@ -54,3 +55,5 @@ export const makeUnitOfWork = (): UnitOfWorkProtocol => {
 export const logRepositoryAdapter = new LogRepositoryAdapter();
 
 export const cacheAdapter = new CacheAdapter();
+
+export const logAdapter = new LogAdapter();
