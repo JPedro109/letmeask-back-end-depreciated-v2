@@ -11,17 +11,17 @@ describe("External - LogRepositoryAdapter", () => {
 		await DatabaseNoSQLHelper.disconnect();
 	});
     
-	test("Should create verification code | createLog", async () => {
-		const message = "message";
-		const stack = "stack";
-		const name = "name";
+	test("Should create the log | createLog", async () => {
+		const level = "[INFO]";
+		const title = "title";
+		const message = "{\"name\":\"test\"}";
 		const sut = new LogRepositoryAdapter();
 
-		const log = await sut.createLog(message, stack, name);
+		const log = await sut.createLog(level, title, message);
 
+		expect(log.level).toBe(level);
+		expect(log.title).toBe(title);
 		expect(log.message).toBe(message);
-		expect(log.stack).toBe(stack);
-		expect(log.name).toBe(name);
 	});
 
 });

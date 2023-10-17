@@ -6,14 +6,15 @@ export class LogRepositoryAdapter implements LogRepositoryProtocol {
 	private readonly collection: string = "logletmeask";
 
 	private toMapperLogModel(log: WithId<Document>) {
-		return new LogModel(log._id.toString(), log.message, log.stack, log.name);
+		return new LogModel(log._id.toString(), log.level, log.title, log.message, log?.trace);
 	}
 
-	async createLog(message: string, stack: string, name: string): Promise<LogModel> {
+	async createLog(level: string, title: string, message: string, trace?: string): Promise<LogModel> {
 		const logCollection = await DatabaseNoSQLHelper.getCollection(this.collection).insertOne({
+			level, 
+			title,
 			message,
-			stack,
-			name,
+			trace,
 			created_at: new Date()
 		});
 
