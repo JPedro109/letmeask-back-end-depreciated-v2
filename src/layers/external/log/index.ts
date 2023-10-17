@@ -1,12 +1,14 @@
 import { LogProtocol } from "@/layers/use-cases";
 
 export class LogAdapter implements LogProtocol {
+
 	trace(title: string, message: string, trace: string): boolean {
 		console.trace({
 			title,
 			message,
 			trace,
-			level: "[TRACE]"
+			level: "[TRACE]",
+			timestamp: new Date()
 		});
 		console.log();
         
@@ -17,7 +19,8 @@ export class LogAdapter implements LogProtocol {
 		console.info({
 			title,
 			message,
-			level: "[INFO]"
+			level: "[INFO]",
+			timestamp: new Date()
 		});
 		console.log();
         
@@ -28,7 +31,8 @@ export class LogAdapter implements LogProtocol {
 		console.warn({
 			title,
 			message,
-			level: "[WARNING]"
+			level: "[WARNING]",
+			timestamp: new Date()
 		});
 		console.log();
         
@@ -39,7 +43,8 @@ export class LogAdapter implements LogProtocol {
 		console.error({
 			title,
 			message,
-			level: "[ERROR]"
+			level: "[ERROR]",
+			timestamp: new Date()
 		});
 		console.log();
         
