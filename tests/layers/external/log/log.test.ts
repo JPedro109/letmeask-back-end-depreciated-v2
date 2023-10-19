@@ -1,3 +1,4 @@
+import { LogBashAdapter, LogNoSQLAdapter, LogRepositoryAdapter } from "@/layers/external";
 import { LogAdapter } from "@/layers/external/log";
 
 describe("External - LogAdapter", () => {
@@ -6,7 +7,9 @@ describe("External - LogAdapter", () => {
 		const title = "TEST";
 		const message = "{\"name\":\"test\"}";
 		const trace = "0000000000";
-		const sut = new LogAdapter();
+		const logBashAdapter = new LogBashAdapter();
+		const logNoSQLAdapter = new LogNoSQLAdapter(new LogRepositoryAdapter());
+		const sut = new LogAdapter(logBashAdapter, logNoSQLAdapter);
 		jest.spyOn(sut, "trace");
 
 		const result = sut.trace(title, message, trace);
@@ -19,7 +22,9 @@ describe("External - LogAdapter", () => {
 	test("Should return true | info", () => {
 		const title = "TEST";
 		const message = "{\"name\":\"test\"}";
-		const sut = new LogAdapter();
+		const logBashAdapter = new LogBashAdapter();
+		const logNoSQLAdapter = new LogNoSQLAdapter(new LogRepositoryAdapter());
+		const sut = new LogAdapter(logBashAdapter, logNoSQLAdapter);
 		jest.spyOn(sut, "info");
 
 		const result = sut.info(title, message);
@@ -32,7 +37,9 @@ describe("External - LogAdapter", () => {
 	test("Should return true | warning", () => {
 		const title = "TEST";
 		const message = "{\"name\":\"test\"}";
-		const sut = new LogAdapter();
+		const logBashAdapter = new LogBashAdapter();
+		const logNoSQLAdapter = new LogNoSQLAdapter(new LogRepositoryAdapter());
+		const sut = new LogAdapter(logBashAdapter, logNoSQLAdapter);
 		jest.spyOn(sut, "warning");
 
 		const result = sut.warning(title, message);
@@ -45,7 +52,9 @@ describe("External - LogAdapter", () => {
 	test("Should return true | error", () => {
 		const title = "TEST";
 		const message = "{\"name\":\"test\"}";
-		const sut = new LogAdapter();
+		const logBashAdapter = new LogBashAdapter();
+		const logNoSQLAdapter = new LogNoSQLAdapter(new LogRepositoryAdapter());
+		const sut = new LogAdapter(logBashAdapter, logNoSQLAdapter);
 		jest.spyOn(sut, "error");
 
 		const result = sut.error(title, message);
