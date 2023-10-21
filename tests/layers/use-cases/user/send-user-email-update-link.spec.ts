@@ -1,6 +1,6 @@
 import { 
 	GenerationStub,
-	MailServiceStub,
+	MailStub,
 	UserRepositoryStub, 
 	UserVerificationCodeRepositoryStub, 
 	testUserModel
@@ -12,19 +12,19 @@ import { SendUserEmailUpdateLinkUseCase, InvalidParamError, NotFoundError } from
 const makeSut = () => {
 	const userRepositoryStub = new UserRepositoryStub();
 	const userVerificationCodeRepositoryStub = new UserVerificationCodeRepositoryStub();
-	const mailServiceStub = new MailServiceStub();
+	const mailStub = new MailStub();
 	const generateStub = new GenerationStub();
 	const sut = new SendUserEmailUpdateLinkUseCase(
 		userRepositoryStub, 
 		userVerificationCodeRepositoryStub, 
 		generateStub, 
-		mailServiceStub
+		mailStub
 	);
 
 	return {
 		sut,
 		userRepositoryStub,
-		mailServiceStub
+		mailStub
 	};
 };
 

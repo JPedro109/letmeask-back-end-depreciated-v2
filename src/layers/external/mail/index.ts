@@ -1,9 +1,9 @@
 import { 
 	QUEUE_NAME
 } from "@/shared/env";
-import { MailServiceProtocol, QueueProtocol } from "@/layers/use-cases";
+import { MailProtocol, QueueProtocol } from "@/layers/use-cases";
 
-export class MailServiceAdapter implements MailServiceProtocol {
+export class MailAdapter implements MailProtocol {
 
 	constructor(private readonly queue: QueueProtocol) { }
 

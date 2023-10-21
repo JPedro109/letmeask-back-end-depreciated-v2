@@ -1,7 +1,7 @@
 import { APP_URL } from "@/shared";
 import { 
 	GenerationProtocol, 
-	MailServiceProtocol, 
+	MailProtocol, 
 	UserRepositoryProtocol, 
 	NotFoundError, 
 	UserVerificationCodeRepositoryProtocol, 
@@ -16,7 +16,7 @@ export class SendUserPasswordRecoveryLinkUseCase implements SendUserPasswordReco
 		private readonly userRepository: UserRepositoryProtocol,
         private readonly userVerificationCodeRepository: UserVerificationCodeRepositoryProtocol,
         private readonly generation: GenerationProtocol,
-        private readonly mailService: MailServiceProtocol,
+        private readonly mail: MailProtocol,
 	) { } 
 
 	async execute({ email }: SendUserPasswordRecoveryLinkDTO): Promise<SendUserPasswordRecoveryLinkResponseDTO> {
@@ -35,7 +35,7 @@ export class SendUserPasswordRecoveryLinkUseCase implements SendUserPasswordReco
 			user.id
 		);
 
-		await this.mailService.sendMail(email, "Recuperação de Senha", EmailBody.RecoverPasswordBody, {
+		await this.mail.sendMail(email, "Recuperação de Senha", EmailBody.RecoverPasswordBody, {
 			appUrl: APP_URL,
 			email: email,
 			code: verificationCode

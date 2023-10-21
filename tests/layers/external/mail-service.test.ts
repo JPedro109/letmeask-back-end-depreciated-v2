@@ -1,6 +1,6 @@
-import { MailServiceAdapter, QueueAdapter, QueueHelper } from "@/layers/external";
+import { MailAdapter, QueueAdapter, QueueHelper } from "@/layers/external";
 
-describe("External - MailServiceAdapter", () => {
+describe("External - MailAdapter", () => {
 
 	beforeAll(async () => await QueueHelper.connect());
 	
@@ -11,7 +11,7 @@ describe("External - MailServiceAdapter", () => {
 		const subject = "Test";
 		const html = "create-user-body";
 		const queueAdapter = new QueueAdapter();
-		const sut = new MailServiceAdapter(queueAdapter);
+		const sut = new MailAdapter(queueAdapter);
 		jest.spyOn(sut, "sendMail");
         
 		await sut.sendMail(email, subject, html);

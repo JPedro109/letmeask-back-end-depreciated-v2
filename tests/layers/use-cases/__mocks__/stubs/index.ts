@@ -6,7 +6,7 @@ import {
 	CacheProtocol,
 	UserRepositoryProtocol, 
 	CryptographyProtocol,
-	MailServiceProtocol, 
+	MailProtocol, 
 	AuthenticationProtocol, 
 	JsonWebTokenType, 
 	UserModel, 
@@ -168,7 +168,7 @@ export class UnitOfWorkStub implements UnitOfWorkProtocol {
 	}
 }
 
-export class MailServiceStub implements MailServiceProtocol {
+export class MailStub implements MailProtocol {
 	async sendMail(to: string, subject: string, html: string, context?: object): Promise<void> { 
 	}
 }

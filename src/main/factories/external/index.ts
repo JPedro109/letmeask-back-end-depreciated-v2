@@ -3,7 +3,7 @@ import {
 	CryptographyAdapter, 
 	GenerationAdapter, 
 	AuthenticationAdapter,
-	MailServiceAdapter, 
+	MailAdapter, 
 	UserRepositoryAdapter,
 	UserVerificationCodeRepositoryAdapter,
 	RoomRepositoryAdapter,
@@ -26,7 +26,7 @@ export const generationAdapter = new GenerationAdapter();
 
 export const authenticationAdapter = new AuthenticationAdapter();
 
-export const mailServiceAdapter = new MailServiceAdapter(queueAdapter);
+export const mailAdapter = new MailAdapter(queueAdapter);
 
 export const userRepositoryAdapter = new UserRepositoryAdapter();
 

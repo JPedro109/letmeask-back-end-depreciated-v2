@@ -4,7 +4,7 @@ import {
 	UserRepositoryProtocol,
 	UserVerificationCodeRepositoryProtocol,
 	GenerationProtocol, 
-	MailServiceProtocol, 
+	MailProtocol, 
 	InvalidParamError, 
 	NotFoundError,
 	EmailBody
@@ -18,7 +18,7 @@ export class SendUserEmailUpdateLinkUseCase implements SendUserEmailUpdateLinkUs
         private readonly userRepository: UserRepositoryProtocol,
         private readonly userVerificationCodeRepository: UserVerificationCodeRepositoryProtocol,
         private readonly generation: GenerationProtocol,
-        private readonly mailService: MailServiceProtocol
+        private readonly mail: MailProtocol
 	) { }
 
 	async execute({ id, email }: SendUserEmailUpdateLinkDTO): Promise<SendUserEmailUpdateLinkResponseDTO> {
@@ -45,7 +45,7 @@ export class SendUserEmailUpdateLinkUseCase implements SendUserEmailUpdateLinkUs
 			user.id
 		);
 
-		await this.mailService.sendMail(emailOrError.value, "Atualização de E-mail", EmailBody.UpdateEmailBody, {
+		await this.mail.sendMail(emailOrError.value, "Atualização de E-mail", EmailBody.UpdateEmailBody, {
 			appUrl: APP_URL,
 			email: emailOrError.value,
 			code: verificationCode

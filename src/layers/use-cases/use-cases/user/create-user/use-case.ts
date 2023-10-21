@@ -2,7 +2,7 @@ import { APP_URL } from "@/shared";
 import { User } from "@/layers/entities";
 import { 
 	UnitOfWorkProtocol, 
-	MailServiceProtocol, 
+	MailProtocol, 
 	InvalidParamError, 
 	CryptographyProtocol, 
 	GenerationProtocol,
@@ -15,7 +15,7 @@ export class CreateUserUseCase implements CreateUserUseCaseProtocol {
 
 	constructor(
 		private readonly unitOfWork: UnitOfWorkProtocol, 
-		private readonly mailService: MailServiceProtocol,
+		private readonly mail: MailProtocol,
 		private readonly cryptography: CryptographyProtocol,
 		private readonly generation: GenerationProtocol
 	) { }
@@ -39,7 +39,7 @@ export class CreateUserUseCase implements CreateUserUseCaseProtocol {
 		await this.unitOfWork.transaction(async () => {
 			const user = await userRepository.createUser(userOrError.email.value, userOrError.username.value, hashPassword);
 			await userVerificationCodeRepository.createUserVerificationCode(code, 0, false, user.id);
-			await this.mailService.sendMail(userOrError.email.value, "Criação de Usuário", EmailBody.CreateUserBody, {
+			await this.mail.sendMail(userOrError.email.value, "Criação de Usuário", EmailBody.CreateUserBody, {
 				appUrl: APP_URL,
 				email: userOrError.email.value,
 				code
