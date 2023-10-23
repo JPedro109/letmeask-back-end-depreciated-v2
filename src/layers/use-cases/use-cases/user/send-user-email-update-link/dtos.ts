@@ -1,4 +1,4 @@
-import { InvalidEmailError } from "@/layers/entities";
+import { InvalidUserEmailError } from "@/layers/entities";
 import { InvalidParamError, NotFoundError } from "@/layers/use-cases";
 
 export type SendUserEmailUpdateLinkDTO = {
@@ -6,4 +6,4 @@ export type SendUserEmailUpdateLinkDTO = {
     email: string;
 }
 
-export type SendUserEmailUpdateLinkResponseDTO = string | InvalidEmailError | NotFoundError | InvalidParamError;
+export type SendUserEmailUpdateLinkResponseDTO = string | InvalidUserEmailError | NotFoundError | InvalidParamError;

@@ -32,20 +32,20 @@ export class CreateUserUseCase implements CreateUserUseCaseProtocol {
 
 		if(userOrError instanceof Error) return userOrError;
 
-		const hashPassword = await this.cryptography.hash(userOrError.password.value);
+		const hashPassword = await this.cryptography.hash(userOrError.userPassword.value);
 
 		const code = this.generation.code();
 
 		await this.unitOfWork.transaction(async () => {
-			const user = await userRepository.createUser(userOrError.email.value, userOrError.username.value, hashPassword);
+			const user = await userRepository.createUser(userOrError.userEmail.value, userOrError.username.value, hashPassword);
 			await userVerificationCodeRepository.createUserVerificationCode(code, 0, false, user.id);
-			await this.mail.sendMail(userOrError.email.value, "Criação de Usuário", EmailBody.CreateUserBody, {
+			await this.mail.sendMail(userOrError.userEmail.value, "Criação de Usuário", EmailBody.CreateUserBody, {
 				appUrl: APP_URL,
-				email: userOrError.email.value,
+				email: userOrError.userEmail.value,
 				code
 			});
 		});
 
-		return userOrError.email.value;
+		return userOrError.userEmail.value;
 	}
 }

@@ -6,7 +6,7 @@ import {
 	testUserModel
 } from "../__mocks__";
 
-import { InvalidEmailError } from "@/layers/entities";
+import { InvalidUserEmailError } from "@/layers/entities";
 import { SendUserEmailUpdateLinkUseCase, InvalidParamError, NotFoundError } from "@/layers/use-cases";
 
 const makeSut = () => {
@@ -36,7 +36,7 @@ describe("Use case SendUserEmailUpdateLinkUseCase", () => {
 
 		const result = await sut.execute({ id, email });
 
-		expect(result).toBeInstanceOf(InvalidEmailError);
+		expect(result).toBeInstanceOf(InvalidUserEmailError);
 	});
 
 	test("Shoud not send user email update link, because user is not exists", async () => {

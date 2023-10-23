@@ -9,7 +9,7 @@ import {
 	testUserModel
 } from "../__mocks__";
 
-import { InvalidPasswordError } from "@/layers/entities";
+import { InvalidUserPasswordError } from "@/layers/entities";
 import { RecoverUserPasswordUseCase, InvalidParamError, NotFoundError } from "@/layers/use-cases";
 
 const makeSut = () => {
@@ -58,7 +58,7 @@ describe("Use case - RecoverUserPasswordUseCase", () => {
 
 		const result = await sut.execute({ email, code, password: invalidPassword, passwordConfirm });
 
-		expect(result).toBeInstanceOf(InvalidPasswordError);
+		expect(result).toBeInstanceOf(InvalidUserPasswordError);
 	});
 
 	test("Should not recover user password, because user is not exists", async () => {

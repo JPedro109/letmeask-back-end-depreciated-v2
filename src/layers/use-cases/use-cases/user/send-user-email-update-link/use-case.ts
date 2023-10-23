@@ -1,5 +1,5 @@
 import { APP_URL } from "@/shared";
-import { Email } from "@/layers/entities";
+import { UserEmail } from "@/layers/entities";
 import { 
 	UserRepositoryProtocol,
 	UserVerificationCodeRepositoryProtocol,
@@ -22,15 +22,15 @@ export class SendUserEmailUpdateLinkUseCase implements SendUserEmailUpdateLinkUs
 	) { }
 
 	async execute({ id, email }: SendUserEmailUpdateLinkDTO): Promise<SendUserEmailUpdateLinkResponseDTO> {
-		const emailOrError = Email.create(email);
+		const userEmailOrError = UserEmail.create(email);
         
-		if(emailOrError instanceof Error) return emailOrError;
+		if(userEmailOrError instanceof Error) return userEmailOrError;
 
 		const user = await this.userRepository.getUserById(id);
 
 		if(!user) return new NotFoundError("Usuário não existe");
 	
-		const emailExists = await this.userRepository.getUserByEmail(emailOrError.value);
+		const emailExists = await this.userRepository.getUserByEmail(userEmailOrError.value);
 
 		if(emailExists) return new InvalidParamError("Email já cadastrado");
 
@@ -45,12 +45,12 @@ export class SendUserEmailUpdateLinkUseCase implements SendUserEmailUpdateLinkUs
 			user.id
 		);
 
-		await this.mail.sendMail(emailOrError.value, "Atualização de E-mail", EmailBody.UpdateEmailBody, {
+		await this.mail.sendMail(userEmailOrError.value, "Atualização de E-mail", EmailBody.UpdateEmailBody, {
 			appUrl: APP_URL,
-			email: emailOrError.value,
+			email: userEmailOrError.value,
 			code: verificationCode
 		});
 
-		return emailOrError.value;
+		return userEmailOrError.value;
 	}
 }

@@ -1,4 +1,4 @@
-import { InvalidPasswordError } from "@/layers/entities";
+import { InvalidUserPasswordError } from "@/layers/entities";
 import { InvalidParamError, NotFoundError } from "@/layers/use-cases";
 
 export type RecoverUserPasswordDTO = {
@@ -8,4 +8,4 @@ export type RecoverUserPasswordDTO = {
     passwordConfirm: string;
 }
 
-export type RecoverUserPasswordResponseDTO = string | InvalidPasswordError | InvalidParamError | NotFoundError;
+export type RecoverUserPasswordResponseDTO = string | InvalidUserPasswordError | InvalidParamError | NotFoundError;

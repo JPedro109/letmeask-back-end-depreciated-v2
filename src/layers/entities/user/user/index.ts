@@ -1,35 +1,35 @@
-import { Email, Password, InvalidEmailError, InvalidPasswordError, Username, InvalidUsernameError } from "@/layers/entities";
+import { UserEmail, UserPassword, InvalidUserEmailError, InvalidUserPasswordError, Username, InvalidUsernameError } from "@/layers/entities";
 
 export class User {
 
 	private constructor(
-		public readonly email: Email, 
-		public readonly password: Password,
+		public readonly userEmail: UserEmail, 
+		public readonly userPassword: UserPassword,
 		public readonly username: Username
 	) {
-		this.email = email;
-		this.password = password;
+		this.userEmail = userEmail;
+		this.userPassword = userPassword;
 		this.username = username;
 		Object.freeze(this);
 	}
 
 	static create(
-		email: string, 
+		userEmail: string, 
 		username: string,
-		password: string, 
-	): User | InvalidEmailError | InvalidPasswordError | InvalidUsernameError {
-		const userOrError = Email.create(email);
+		userPassword: string, 
+	): User | InvalidUserEmailError | InvalidUserPasswordError | InvalidUsernameError {
+		const userEmailOrError = UserEmail.create(userEmail);
 
-		if(userOrError instanceof Error) return userOrError;
+		if(userEmailOrError instanceof Error) return userEmailOrError;
 
 		const usernameOrError = Username.create(username);
 
 		if(usernameOrError instanceof Error) return usernameOrError;
 
-		const passwordOrError = Password.create(password);
+		const userPasswordOrError = UserPassword.create(userPassword);
 
-		if(passwordOrError instanceof Error) return passwordOrError;
+		if(userPasswordOrError instanceof Error) return userPasswordOrError;
 
-		return new User(userOrError, passwordOrError, usernameOrError);
+		return new User(userEmailOrError, userPasswordOrError, usernameOrError);
 	}
 }

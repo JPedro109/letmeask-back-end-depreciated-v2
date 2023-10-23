@@ -1,6 +1,6 @@
-import { InvalidPasswordError } from "./errors";
+import { InvalidUserPasswordError } from "./errors";
 
-export class Password {
+export class UserPassword {
 
 	private readonly password: string;
 	
@@ -14,9 +14,9 @@ export class Password {
 	}
 	
 	static create(password: string) {
-		if(!this.validate(password)) return new InvalidPasswordError();
+		if(!this.validate(password)) return new InvalidUserPasswordError();
 
-		return new Password(password);
+		return new UserPassword(password);
 	}
 
 	private static validate(password: string): boolean {
