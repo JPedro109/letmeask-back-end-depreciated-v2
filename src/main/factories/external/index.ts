@@ -13,7 +13,7 @@ import {
 	CacheAdapter,
 	LogRepositoryAdapter,
 	QueueAdapter,
-	LogAdapter,
+	LogFacade,
 	LogBashAdapter,
 	LogNoSQLAdapter
 } from "@/layers/external";
@@ -56,4 +56,4 @@ export const makeUnitOfWork = (): UnitOfWorkProtocol => {
 
 export const cacheAdapter = new CacheAdapter();
 
-export const logAdapter = new LogAdapter(new LogBashAdapter(), new LogNoSQLAdapter(new LogRepositoryAdapter()));
+export const logFacade = new LogFacade(new LogBashAdapter(), new LogNoSQLAdapter(new LogRepositoryAdapter()));

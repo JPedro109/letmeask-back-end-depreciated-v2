@@ -8,7 +8,7 @@ export class ControllerStub implements HttpProtocol {
 	}
 }
 
-export class LogAdapterStub implements LogProtocol {
+export class LogFacadeStub implements LogProtocol {
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	trace(title: string, message: string, trace: string): boolean {

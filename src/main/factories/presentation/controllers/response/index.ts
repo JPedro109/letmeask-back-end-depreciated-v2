@@ -2,7 +2,7 @@ import {
 	CreateResponseController, TreatmentDecorator,
 } from "@/layers/presentation";
 import { 
-	createResponse, logAdapter,
+	createResponse, logFacade,
 } from "@/main/factories";
 
-export const createResponseController = new TreatmentDecorator(new CreateResponseController(createResponse), logAdapter);
+export const createResponseController = new TreatmentDecorator(new CreateResponseController(createResponse), logFacade);
