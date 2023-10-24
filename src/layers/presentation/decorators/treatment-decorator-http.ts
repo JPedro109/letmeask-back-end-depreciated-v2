@@ -3,7 +3,7 @@ import { HttpProtocol } from "../ports";
 import { HttpRequest, HttpResponse } from "../ports";
 import { server } from "../helpers";
 
-export class TreatmentDecorator implements HttpProtocol {
+export class TreatmentDecoratorHttp implements HttpProtocol {
 
 	constructor(
 		private readonly controller: HttpProtocol, 

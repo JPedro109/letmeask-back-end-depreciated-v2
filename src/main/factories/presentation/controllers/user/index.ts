@@ -11,7 +11,7 @@ import {
 	UserVerifyEmailController,
 	UserLoginController,
 } from "@/layers/presentation";
-import { TreatmentDecorator } from "@/layers/presentation/decorators";
+import { TreatmentDecoratorHttp } from "@/layers/presentation/decorators";
 import { 
 	logFacade, 
 	createUser, 
@@ -27,29 +27,29 @@ import {
 	userVerifyEmail 
 } from "@/main/factories";
 
-export const createUserController = new TreatmentDecorator(new CreateUserController(createUser), logFacade);
+export const createUserController = new TreatmentDecoratorHttp(new CreateUserController(createUser), logFacade);
 
-export const deleteUserController = new TreatmentDecorator(new DeleteUserController(deleteUser), logFacade);
+export const deleteUserController = new TreatmentDecoratorHttp(new DeleteUserController(deleteUser), logFacade);
 
-export const getUsernameController = new TreatmentDecorator(new GetUsernameController(getUsername), logFacade);
+export const getUsernameController = new TreatmentDecoratorHttp(new GetUsernameController(getUsername), logFacade);
 
 export const recoverUserPasswordController 
-	= new TreatmentDecorator(new RecoverUserPasswordController(recoverUserPassword), logFacade);
+	= new TreatmentDecoratorHttp(new RecoverUserPasswordController(recoverUserPassword), logFacade);
 
 export const sendUserEmailUpdateLinkController 
-	= new TreatmentDecorator(new SendUserEmailUpdateLinkController(sendUserEmailUpdateLink), logFacade);
+	= new TreatmentDecoratorHttp(new SendUserEmailUpdateLinkController(sendUserEmailUpdateLink), logFacade);
 
 export const sendUserPasswordRecoveryLinkController = 
-	new TreatmentDecorator(new SendUserPasswordRecoveryLinkController(sendUserPasswordRecoveryLink), logFacade);
+	new TreatmentDecoratorHttp(new SendUserPasswordRecoveryLinkController(sendUserPasswordRecoveryLink), logFacade);
 
 export const updateUserEmailController = 
-	new TreatmentDecorator(new UpdateUserEmailController(updateUserEmail), logFacade);
+	new TreatmentDecoratorHttp(new UpdateUserEmailController(updateUserEmail), logFacade);
 
-export const updateUserPasswordController = new TreatmentDecorator(new UpdateUserPasswordController(updateUserPassword), logFacade);
+export const updateUserPasswordController = new TreatmentDecoratorHttp(new UpdateUserPasswordController(updateUserPassword), logFacade);
 
-export const updateUsernameController = new TreatmentDecorator(new UpdateUsernameController(updateUsername), logFacade);
+export const updateUsernameController = new TreatmentDecoratorHttp(new UpdateUsernameController(updateUsername), logFacade);
 
-export const userLoginController = new TreatmentDecorator(new UserLoginController(userLogin), logFacade);
+export const userLoginController = new TreatmentDecoratorHttp(new UserLoginController(userLogin), logFacade);
 
 export const userVerifyEmailController 
-	= new TreatmentDecorator(new UserVerifyEmailController(userVerifyEmail), logFacade);
+	= new TreatmentDecoratorHttp(new UserVerifyEmailController(userVerifyEmail), logFacade);

@@ -2,7 +2,7 @@ import {
 	CreateQuestionController,
 	GetUserQuestionsController,
 	DeleteQuestionController,
-	TreatmentDecorator
+	TreatmentDecoratorHttp
 } from "@/layers/presentation";
 import { 
 	createQuestion,
@@ -11,9 +11,9 @@ import {
 	logFacade,
 } from "@/main/factories";
 
-export const createQuestionController = new TreatmentDecorator(new CreateQuestionController(createQuestion), logFacade);
+export const createQuestionController = new TreatmentDecoratorHttp(new CreateQuestionController(createQuestion), logFacade);
 
 export const getUserQuestionsController 
-	= new TreatmentDecorator(new GetUserQuestionsController(getUserQuestions), logFacade);
+	= new TreatmentDecoratorHttp(new GetUserQuestionsController(getUserQuestions), logFacade);
 
-export const deleteQuestionController = new TreatmentDecorator(new DeleteQuestionController(deleteQuestion), logFacade);
+export const deleteQuestionController = new TreatmentDecoratorHttp(new DeleteQuestionController(deleteQuestion), logFacade);
