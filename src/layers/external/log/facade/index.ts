@@ -8,7 +8,7 @@ export class LogFacade implements LogProtocol {
 		private readonly logBashAdapter: LogBashAdapter,
 		private readonly logNoSQLAdapter: LogNoSQLAdapter
 	) { 
-		if(!LOG_BASH || !LOG_BASH) throw new Error("You need to start one of the log types via environment variables");
+		if(!LOG_BASH && !LOG_NOSQL) throw new Error("You need to start one of the log types via environment variables");
 	}
 
 	private executeLogAdapters(type: "trace" | "info" | "warning" | "error", title: string, message: string, trace?: string) {
