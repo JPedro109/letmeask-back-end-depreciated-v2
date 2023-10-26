@@ -39,7 +39,7 @@ export const notFound = (error: Error): HttpResponse => ({
 	}
 });
 
-export const server = (error: Error = new InternalServerError()): HttpResponse => ({
+export const serverError = (error: Error = new InternalServerError()): HttpResponse => ({
 	statusCode: 500,
 	response: {
 		message: error.message,

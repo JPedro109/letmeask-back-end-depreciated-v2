@@ -1,6 +1,6 @@
 import { LogProtocol } from "@/layers/use-cases";
 import { HttpProtocol, HttpRequest, HttpResponse } from "../ports";
-import { server } from "../helpers";
+import { serverError } from "../helpers";
 
 export class TreatmentDecoratorHttp implements HttpProtocol {
 
@@ -36,7 +36,7 @@ export class TreatmentDecoratorHttp implements HttpProtocol {
 
 			this.log.error(`${request.path} - ${request.method} - ${this.controller.constructor.name}`, JSON.stringify(log));
 			
-			return server();
+			return serverError();
 		}
 	}
 }

@@ -1,5 +1,5 @@
 import { ControllerStub, LogFacadeStub } from "./stubs";
-import { TreatmentDecoratorHttp, server } from "@/layers/presentation";
+import { TreatmentDecoratorHttp, serverError } from "@/layers/presentation";
 
 describe("Presentation - TreatmentDecoratorHttp", () => {
 	
@@ -10,6 +10,6 @@ describe("Presentation - TreatmentDecoratorHttp", () => {
 
 		const result = await sut.http({});
 
-		expect(result).toEqual(server());
+		expect(result).toEqual(serverError());
 	});
 });
