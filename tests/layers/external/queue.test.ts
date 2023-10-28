@@ -1,12 +1,13 @@
 import { QueueAdapter, QueueHelper } from "@/layers/external";
 
 describe("External - QueueAdapter", () => {
-    
-	beforeAll(async () => await QueueHelper.connect());
-	afterAll(async () => await QueueHelper.disconnect());
+	const queueHelper = new QueueHelper();
+
+	beforeAll(async () => await queueHelper.connect());
+	afterAll(async () => await queueHelper.disconnect());
 
 	test("Should send message | sendMessage", async () => {
-		const sut = new QueueAdapter();
+		const sut = new QueueAdapter(queueHelper);
 		jest.spyOn(sut, "sendMessage");
         
 		await sut.sendMessage("queue", { name: "João" });

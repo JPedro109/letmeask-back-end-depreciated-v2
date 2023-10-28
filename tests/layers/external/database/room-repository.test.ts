@@ -2,26 +2,28 @@ import { DatabaseSQLHelper, RoomRepositoryAdapter, MockRepository } from "@/laye
 
 describe("External - RoomRepositoryAdapter", () => {
     
+	const databaseSQLHelper = new DatabaseSQLHelper();
+
 	beforeAll(async () => {
-		await DatabaseSQLHelper.connect();
+		await databaseSQLHelper.connect();
 	});
 
 	afterAll(async () => {
-		await DatabaseSQLHelper.disconnect();
+		await databaseSQLHelper.disconnect();
 	});
     
 	beforeEach(async () => {
-		const mockRepository = new MockRepository();
+		const mockRepository = new MockRepository(databaseSQLHelper);
 		await mockRepository.createMocksToTestRepositories();
 	});
 
 	afterEach(async () => {
-		const mockRepository = new MockRepository();
+		const mockRepository = new MockRepository(databaseSQLHelper);
 		await mockRepository.deleteMocks();
 	});
 
 	test("Should create room | store", async () => {
-		const sut = new RoomRepositoryAdapter();
+		const sut = new RoomRepositoryAdapter(databaseSQLHelper);
 
 		const room = await sut.createRoom("111111", "room", "5");
 
@@ -31,7 +33,7 @@ describe("External - RoomRepositoryAdapter", () => {
 	});
 
 	test("Should get room | getRoomByCode", async () => {
-		const sut = new RoomRepositoryAdapter();
+		const sut = new RoomRepositoryAdapter(databaseSQLHelper);
 
 		const room = await sut.getRoomByCode("000000");
 
@@ -41,7 +43,7 @@ describe("External - RoomRepositoryAdapter", () => {
 	});
 
 	test("Should get null | getRoomByCode", async () => {
-		const sut = new RoomRepositoryAdapter();
+		const sut = new RoomRepositoryAdapter(databaseSQLHelper);
 
 		const room = await sut.getRoomByCode("000001");
 
@@ -49,7 +51,7 @@ describe("External - RoomRepositoryAdapter", () => {
 	});
 
 	test("Should get room | getRoomByUserId", async () => {
-		const sut = new RoomRepositoryAdapter();
+		const sut = new RoomRepositoryAdapter(databaseSQLHelper);
 
 		const room = await sut.getRoomByUserId("4");
 
@@ -59,7 +61,7 @@ describe("External - RoomRepositoryAdapter", () => {
 	});
 
 	test("Should get null | getByUserID", async () => {
-		const sut = new RoomRepositoryAdapter();
+		const sut = new RoomRepositoryAdapter(databaseSQLHelper);
 
 		const room = await sut.getRoomByUserId("5");
 
@@ -67,7 +69,7 @@ describe("External - RoomRepositoryAdapter", () => {
 	});
 
 	test("Should get true | roomExists", async () => {
-		const sut = new RoomRepositoryAdapter();
+		const sut = new RoomRepositoryAdapter(databaseSQLHelper);
 
 		const room = await sut.roomExists("000000");
 
@@ -75,7 +77,7 @@ describe("External - RoomRepositoryAdapter", () => {
 	});
 
 	test("Should get false | roomExists", async () => {
-		const sut = new RoomRepositoryAdapter();
+		const sut = new RoomRepositoryAdapter(databaseSQLHelper);
 
 		const room = await sut.roomExists("000001");
 
@@ -83,7 +85,7 @@ describe("External - RoomRepositoryAdapter", () => {
 	});
 
 	test("Should get code | getCodeByUserId", async () => {
-		const sut = new RoomRepositoryAdapter();
+		const sut = new RoomRepositoryAdapter(databaseSQLHelper);
 
 		const room = await sut.getCodeByUserId("4");
 
@@ -91,7 +93,7 @@ describe("External - RoomRepositoryAdapter", () => {
 	});
 
 	test("Should get code | getCodeByUserId", async () => {
-		const sut = new RoomRepositoryAdapter();
+		const sut = new RoomRepositoryAdapter(databaseSQLHelper);
 
 		const room = await sut.getCodeByUserId("12345");
 
@@ -99,7 +101,7 @@ describe("External - RoomRepositoryAdapter", () => {
 	});
 
 	test("Should delete room | deleteByRoomCode", async () => {
-		const sut = new RoomRepositoryAdapter();
+		const sut = new RoomRepositoryAdapter(databaseSQLHelper);
 
 		const room = await sut.deleteRoomByCode("000000");
 

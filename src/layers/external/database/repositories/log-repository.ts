@@ -5,12 +5,14 @@ import { WithId, Document } from "mongodb";
 export class LogRepositoryAdapter implements LogRepositoryProtocol {
 	private readonly collection: string = "logletmeask";
 
+	constructor(private readonly databaseNoSQLHelper: DatabaseNoSQLHelper) { }
+
 	private toMapperLogModel(log: WithId<Document>) {
 		return new LogModel(log._id.toString(), log.level, log.title, log.message, log?.trace);
 	}
 
 	async createLog(level: string, title: string, message: string, trace?: string): Promise<LogModel> {
-		const logCollection = await DatabaseNoSQLHelper.getCollection(this.collection).insertOne({
+		const logCollection = await this.databaseNoSQLHelper.getCollection(this.collection).insertOne({
 			level, 
 			title,
 			message,
@@ -18,7 +20,7 @@ export class LogRepositoryAdapter implements LogRepositoryProtocol {
 			created_at: new Date()
 		});
 
-		const logInserted = await DatabaseNoSQLHelper
+		const logInserted = await this.databaseNoSQLHelper
 			.getCollection(this.collection)
 			.findOne({ _id: logCollection.insertedId });
 

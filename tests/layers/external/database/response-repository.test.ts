@@ -2,26 +2,28 @@ import { ResponseRepositoryAdapter, DatabaseSQLHelper, MockRepository } from "@/
 
 describe("External - ResponseRepositoryAdapter", () => {
     
+	const databaseSQLHelper = new DatabaseSQLHelper();
+	
 	beforeAll(async () => {
-		await DatabaseSQLHelper.connect();
+		await databaseSQLHelper.connect();
 	});
 
 	afterAll(async () => {
-		await DatabaseSQLHelper.disconnect();
+		await databaseSQLHelper.disconnect();
 	});
     
 	beforeEach(async () => {
-		const mockRepository = new MockRepository();
+		const mockRepository = new MockRepository(databaseSQLHelper);
 		await mockRepository.createMocksToTestRepositories();
 	});
 
 	afterEach(async () => {
-		const mockRepository = new MockRepository();
+		const mockRepository = new MockRepository(databaseSQLHelper);
 		await mockRepository.deleteMocks();
 	});
 
 	test("Should create response | store", async () => {
-		const sut = new ResponseRepositoryAdapter();
+		const sut = new ResponseRepositoryAdapter(databaseSQLHelper);
 
 		const room = await sut.createResponse("9", "response");
 

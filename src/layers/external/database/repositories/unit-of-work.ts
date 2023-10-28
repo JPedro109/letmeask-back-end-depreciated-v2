@@ -11,6 +11,7 @@ import { Context } from "../types";
 
 export class UnitOfWorkAdapter implements UnitOfWorkProtocol {
 	constructor(
+		private readonly databaseSQLHelper: DatabaseSQLHelper,
         private readonly userRepository: UserRepositoryProtocol,
         private readonly roomRepository: RoomRepositoryProtocol,
         private readonly questionRepository: QuestionRepositoryProtocol,
@@ -27,12 +28,12 @@ export class UnitOfWorkAdapter implements UnitOfWorkProtocol {
 	}
 
 	async transaction(querys: () => Promise<void>) {
-		await DatabaseSQLHelper.client.$transaction(async context => {
+		await this.databaseSQLHelper.client.$transaction(async context => {
 			this.setContext(context);
 			await querys();
 		});
 
-		this.setContext(DatabaseSQLHelper.client);
+		this.setContext(this.databaseSQLHelper.client);
 	}
     
 	getUserRepository(): UserRepositoryProtocol  {

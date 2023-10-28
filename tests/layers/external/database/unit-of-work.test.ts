@@ -5,18 +5,20 @@ import {
 	ResponseRepositoryAdapter,
 	UnitOfWorkAdapter,
 } from "@/layers/external";
-import { UserVerificationCodeRepositoryAdapter } from "@/layers/external/database";
+import { DatabaseSQLHelper, UserVerificationCodeRepositoryAdapter } from "@/layers/external/database";
 
 describe("External - UnitOfWorkAdapter", () => {
+	const databaseSQLHelper = new DatabaseSQLHelper();
 
 	test("Should get instances", async () => {
-		const userRepositoryAdapter = new UserRepositoryAdapter();
-		const userVerificationCodeRepositoryAdapter = new UserVerificationCodeRepositoryAdapter();
-		const roomRepositoryAdapter = new RoomRepositoryAdapter();
-		const questionRepositoryAdapter = new QuestionRepositoryAdapter();
-		const responseRepositoryAdapter = new ResponseRepositoryAdapter();
+		const userRepositoryAdapter = new UserRepositoryAdapter(databaseSQLHelper);
+		const userVerificationCodeRepositoryAdapter = new UserVerificationCodeRepositoryAdapter(databaseSQLHelper);
+		const roomRepositoryAdapter = new RoomRepositoryAdapter(databaseSQLHelper);
+		const questionRepositoryAdapter = new QuestionRepositoryAdapter(databaseSQLHelper);
+		const responseRepositoryAdapter = new ResponseRepositoryAdapter(databaseSQLHelper);
     
 		const sut = new UnitOfWorkAdapter(
+			databaseSQLHelper,
 			userRepositoryAdapter, 
 			roomRepositoryAdapter, 
 			questionRepositoryAdapter, 

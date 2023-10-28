@@ -6,7 +6,9 @@ import { DatabaseSQLHelper } from "../helpers";
 
 export class UserRepositoryAdapter implements UserRepositoryProtocol {
 
-	private context: Context = DatabaseSQLHelper.client;
+	constructor(private readonly databaseSQLHelper: DatabaseSQLHelper) { }
+
+	private context: Context = this.databaseSQLHelper.client;
 
 	setContext(context: unknown): void {
 		this.context = context as Context;

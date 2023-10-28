@@ -1,4 +1,4 @@
-import { LogBashAdapter, LogNoSQLAdapter, LogRepositoryAdapter } from "@/layers/external";
+import { DatabaseNoSQLHelper, LogBashAdapter, LogNoSQLAdapter, LogRepositoryAdapter } from "@/layers/external";
 import { LogFacade } from "@/layers/external/log";
 
 describe("External - LogFacade", () => {
@@ -8,7 +8,7 @@ describe("External - LogFacade", () => {
 		const message = "{\"name\":\"test\"}";
 		const trace = "0000000000";
 		const logBashAdapter = new LogBashAdapter();
-		const logNoSQLAdapter = new LogNoSQLAdapter(new LogRepositoryAdapter());
+		const logNoSQLAdapter = new LogNoSQLAdapter(new LogRepositoryAdapter(new DatabaseNoSQLHelper()));
 		const sut = new LogFacade(logBashAdapter, logNoSQLAdapter);
 		jest.spyOn(sut, "trace");
 
@@ -23,7 +23,7 @@ describe("External - LogFacade", () => {
 		const title = "TEST";
 		const message = "{\"name\":\"test\"}";
 		const logBashAdapter = new LogBashAdapter();
-		const logNoSQLAdapter = new LogNoSQLAdapter(new LogRepositoryAdapter());
+		const logNoSQLAdapter = new LogNoSQLAdapter(new LogRepositoryAdapter(new DatabaseNoSQLHelper()));
 		const sut = new LogFacade(logBashAdapter, logNoSQLAdapter);
 		jest.spyOn(sut, "info");
 
@@ -38,7 +38,7 @@ describe("External - LogFacade", () => {
 		const title = "TEST";
 		const message = "{\"name\":\"test\"}";
 		const logBashAdapter = new LogBashAdapter();
-		const logNoSQLAdapter = new LogNoSQLAdapter(new LogRepositoryAdapter());
+		const logNoSQLAdapter = new LogNoSQLAdapter(new LogRepositoryAdapter(new DatabaseNoSQLHelper()));
 		const sut = new LogFacade(logBashAdapter, logNoSQLAdapter);
 		jest.spyOn(sut, "warning");
 
@@ -53,7 +53,7 @@ describe("External - LogFacade", () => {
 		const title = "TEST";
 		const message = "{\"name\":\"test\"}";
 		const logBashAdapter = new LogBashAdapter();
-		const logNoSQLAdapter = new LogNoSQLAdapter(new LogRepositoryAdapter());
+		const logNoSQLAdapter = new LogNoSQLAdapter(new LogRepositoryAdapter(new DatabaseNoSQLHelper()));
 		const sut = new LogFacade(logBashAdapter, logNoSQLAdapter);
 		jest.spyOn(sut, "error");
 

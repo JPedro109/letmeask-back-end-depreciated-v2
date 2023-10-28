@@ -2,20 +2,22 @@ import { DatabaseNoSQLHelper, LogRepositoryAdapter } from "@/layers/external";
 
 describe("External - LogRepositoryAdapter", () => {
     
+	const databaseNoSQLHelper = new DatabaseNoSQLHelper();
+
 	beforeAll(async () => {
-		await DatabaseNoSQLHelper.connect();
+		await databaseNoSQLHelper.connect();
 	});
 
 	afterAll(async () => {
-		await DatabaseNoSQLHelper.getCollection("logletmeask").deleteMany({});
-		await DatabaseNoSQLHelper.disconnect();
+		await databaseNoSQLHelper.getCollection("logletmeask").deleteMany({});
+		await databaseNoSQLHelper.disconnect();
 	});
     
 	test("Should create the log | createLog", async () => {
 		const level = "[INFO]";
 		const title = "title";
 		const message = "{\"name\":\"test\"}";
-		const sut = new LogRepositoryAdapter();
+		const sut = new LogRepositoryAdapter(databaseNoSQLHelper);
 
 		const log = await sut.createLog(level, title, message);
 

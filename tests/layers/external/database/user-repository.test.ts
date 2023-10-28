@@ -2,21 +2,23 @@ import { UserRepositoryAdapter, DatabaseSQLHelper, MockRepository } from "@/laye
 
 describe("External - UserRepositoryAdapterAdapter", () => {
     
+	const databaseSQLHelper = new DatabaseSQLHelper();
+
 	beforeAll(async () => {
-		await DatabaseSQLHelper.connect();
+		await databaseSQLHelper.connect();
 	});
 
 	afterAll(async () => {
-		await DatabaseSQLHelper.disconnect();
+		await databaseSQLHelper.disconnect();
 	});
     
 	beforeEach(async () => {
-		const mockRepository = new MockRepository();
+		const mockRepository = new MockRepository(databaseSQLHelper);
 		await mockRepository.createMocksToTestRepositories();
 	});
 
 	afterEach(async () => {
-		const mockRepository = new MockRepository();
+		const mockRepository = new MockRepository(databaseSQLHelper);
 		await mockRepository.deleteMocks();
 	});
 
@@ -24,7 +26,7 @@ describe("External - UserRepositoryAdapterAdapter", () => {
 		const email = "email_repository@test.com";
 		const username = "username";
 		const hashPassword = "hash_password";
-		const sut = new UserRepositoryAdapter();
+		const sut = new UserRepositoryAdapter(databaseSQLHelper);
 
 		const result = await sut.createUser(email, username, hashPassword);
 
@@ -33,7 +35,7 @@ describe("External - UserRepositoryAdapterAdapter", () => {
 
 	test("Should get null | getUserById", async () => {
 		const id = "0";
-		const sut = new UserRepositoryAdapter();
+		const sut = new UserRepositoryAdapter(databaseSQLHelper);
 
 		const result = await sut.getUserById(id);
 
@@ -42,7 +44,7 @@ describe("External - UserRepositoryAdapterAdapter", () => {
 
 	test("Should get user | getUserById", async () => {
 		const id = "4";
-		const sut = new UserRepositoryAdapter();
+		const sut = new UserRepositoryAdapter(databaseSQLHelper);
 
 		const result = await sut.getUserById(id);
 
@@ -51,7 +53,7 @@ describe("External - UserRepositoryAdapterAdapter", () => {
 
 	test("Should get null | getUserByIdWithVerificationCode", async () => {
 		const id = "0";
-		const sut = new UserRepositoryAdapter();
+		const sut = new UserRepositoryAdapter(databaseSQLHelper);
 
 		const result = await sut.getUserByIdWithVerificationCode(id, "code", false);
 
@@ -60,7 +62,7 @@ describe("External - UserRepositoryAdapterAdapter", () => {
 
 	test("Should get user | getUserByIdWithVerificationCode", async () => {
 		const id = "4";
-		const sut = new UserRepositoryAdapter();
+		const sut = new UserRepositoryAdapter(databaseSQLHelper);
 
 		const result = await sut.getUserByIdWithVerificationCode(id, "repository_code_one", false);
 
@@ -70,7 +72,7 @@ describe("External - UserRepositoryAdapterAdapter", () => {
 
 	test("Should get null | getUserByEmail", async () => {
 		const email = "email_not_exists@test.com";
-		const sut = new UserRepositoryAdapter();
+		const sut = new UserRepositoryAdapter(databaseSQLHelper);
 
 		const result = await sut.getUserByEmail(email);
 
@@ -79,7 +81,7 @@ describe("External - UserRepositoryAdapterAdapter", () => {
 
 	test("Should get user | getUserByEmail", async () => {
 		const email = "email@test.com";
-		const sut = new UserRepositoryAdapter();
+		const sut = new UserRepositoryAdapter(databaseSQLHelper);
 
 		const result = await sut.getUserByEmail(email);
 
@@ -88,7 +90,7 @@ describe("External - UserRepositoryAdapterAdapter", () => {
 
 	test("Should get null | getUserByEmailWithVerificationCode", async () => {
 		const email = "email_not_exists@test.com";
-		const sut = new UserRepositoryAdapter();
+		const sut = new UserRepositoryAdapter(databaseSQLHelper);
 
 		const result = await sut.getUserByEmailWithVerificationCode(email, "code", false);
 
@@ -97,7 +99,7 @@ describe("External - UserRepositoryAdapterAdapter", () => {
 
 	test("Should get user | getUserByEmailWithVerificationCode", async () => {
 		const email = "email@test.com";
-		const sut = new UserRepositoryAdapter();
+		const sut = new UserRepositoryAdapter(databaseSQLHelper);
 
 		const result = await sut.getUserByEmailWithVerificationCode(email, "repository_code_one", false);
 
@@ -109,7 +111,7 @@ describe("External - UserRepositoryAdapterAdapter", () => {
 		const id = "4";
 		const username = "username_two";
 		const password = "hash_password_two";
-		const sut = new UserRepositoryAdapter();
+		const sut = new UserRepositoryAdapter(databaseSQLHelper);
 
 		const result = await sut.updateUserById(id, { password, username });
 
@@ -121,7 +123,7 @@ describe("External - UserRepositoryAdapterAdapter", () => {
 		const email = "email@test.com";
 		const username = "username_two";
 		const password = "hash_password_two";
-		const sut = new UserRepositoryAdapter();
+		const sut = new UserRepositoryAdapter(databaseSQLHelper);
 
 		const result = await sut.updateUserByEmail(email, { password, username });
 
@@ -131,7 +133,7 @@ describe("External - UserRepositoryAdapterAdapter", () => {
 
 	test("Should delete user | deleteUserById", async () => {
 		const id = "4";
-		const sut = new UserRepositoryAdapter();
+		const sut = new UserRepositoryAdapter(databaseSQLHelper);
 
 		const result = await sut.deleteUserById(id);
 
