@@ -18,8 +18,11 @@ import {
 	LogNoSQLAdapter,
 	DatabaseSQLHelper,
 	DatabaseNoSQLHelper,
-	QueueHelper
+	QueueHelper,
+	SecretsAdapter
 } from "@/layers/external";
+
+export const secretsAdapter = new SecretsAdapter();
 
 export const cryptographyAdapter = new CryptographyAdapter();
 
