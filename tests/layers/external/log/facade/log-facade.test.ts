@@ -5,6 +5,23 @@ describe("External - LogFacade", () => {
     
 	const secretsAdapter = new SecretsAdapter();
 	
+	test("Should throw error | instantiation", () => {
+		delete process.env["LOG_NOSQL"];
+		delete process.env["LOG_BASH"];
+		let error: Error | null = null;
+		const logBashAdapter = new LogBashAdapter();
+		const logNoSQLAdapter = new LogNoSQLAdapter(new LogRepositoryAdapter(new DatabaseNoSQLHelper(secretsAdapter)));
+		const sut = LogFacade;
+
+		try {
+			new sut(logBashAdapter, logNoSQLAdapter, secretsAdapter);
+		} catch(e) {
+			error = e;
+		}
+
+		expect(error).toBeInstanceOf(Error);
+	});
+	
 	test("Should return true | trace", () => {
 		process.env["LOG_NOSQL"] = "true";
 		process.env["LOG_BASH"] = "true";
