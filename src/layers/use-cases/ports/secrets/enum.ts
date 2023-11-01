@@ -8,5 +8,7 @@ export enum SecretsEnum {
     QueueHost = "QUEUE_HOST",
     QueueName = "QUEUE_NAME",
     LogBash= "LOG_BASH",
-    LogNoSQL = "LOG_NOSQL"
+    LogNoSQL = "LOG_NOSQL",
+    ApiHost = "API_HOST",
+    PrometheusUserAgent = "PROMETHEUS_USER_AGENT"
 }
