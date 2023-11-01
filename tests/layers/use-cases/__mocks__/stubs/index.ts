@@ -18,10 +18,25 @@ import {
 	ResponseModel,
 	UserVerificationCodeRepositoryProtocol,
 	UnitOfWorkProtocol,
-	UserVerificationCodeModel
+	UserVerificationCodeModel,
+	SecretsProtocol,
+	SecretsEnum
 } from "@/layers/use-cases";
 
 import { testQuestionModel, testResponseModel, testRoomModel, testUserModel, testUserVerificationCodeModel } from "../datas";
+
+export class SecretsStub implements SecretsProtocol {
+    
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	getSecret(name: SecretsEnum): string | null {
+		return "VARIABLE";      
+	}
+
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	getRequiredSecret(name: SecretsEnum): string {
+		return "VARIABLE";        
+	}
+}
 
 export class UserRepositoryStub implements UserRepositoryProtocol {
 	setContext(context: unknown): void {}

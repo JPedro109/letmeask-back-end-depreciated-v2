@@ -18,14 +18,16 @@ import {
 	mailAdapter, 
 	makeUnitOfWork, 
 	userRepositoryAdapter, 
-	userVerificationCodeRepositoryAdapter
+	userVerificationCodeRepositoryAdapter,
+	secretsAdapter
 } from "@/main/factories";
 
 export const createUser = new CreateUserUseCase(
 	makeUnitOfWork(), 
 	mailAdapter, 
 	cryptographyAdapter, 
-	generationAdapter
+	generationAdapter,
+	secretsAdapter
 );
 
 export const deleteUser = new DeleteUserUseCase(userRepositoryAdapter, cryptographyAdapter);
@@ -38,14 +40,16 @@ export const sendUserEmailUpdateLink = new SendUserEmailUpdateLinkUseCase(
 	userRepositoryAdapter, 
 	userVerificationCodeRepositoryAdapter,
 	generationAdapter, 
-	mailAdapter
+	mailAdapter,
+	secretsAdapter
 );
 
 export const sendUserPasswordRecoveryLink = new SendUserPasswordRecoveryLinkUseCase(
 	userRepositoryAdapter, 
 	userVerificationCodeRepositoryAdapter,
 	generationAdapter, 
-	mailAdapter
+	mailAdapter,
+	secretsAdapter
 );
 
 export const updateUserEmail = new UpdateUserEmailUseCase(makeUnitOfWork());

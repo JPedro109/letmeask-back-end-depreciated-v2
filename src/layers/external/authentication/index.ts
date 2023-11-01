@@ -1,20 +1,20 @@
-import { JWT_KEY } from "@/shared";
-import { AuthenticationProtocol, JsonWebTokenType, JsonWebTokenInvalidError } from "@/layers/use-cases";
+import { AuthenticationProtocol, JsonWebTokenType, JsonWebTokenInvalidError, SecretsProtocol, SecretsEnum } from "@/layers/use-cases";
 
 import jsonWebToken from "jsonwebtoken";
 
 export class AuthenticationAdapter implements AuthenticationProtocol {
     
-	private readonly secretKey: string = JWT_KEY;
 	private readonly jsonWebToken = jsonWebToken;
 
+	constructor(private readonly secrets: SecretsProtocol) { }
+
 	createJsonWebToken(payload: object, expiryTimeInSeconds: number): string {
-		return this.jsonWebToken.sign(payload, this.secretKey, { expiresIn: expiryTimeInSeconds });
+		return this.jsonWebToken.sign(payload, this.secrets.getRequiredSecret(SecretsEnum.JwtKey), { expiresIn: expiryTimeInSeconds });
 	}
 
 	verifyJsonWebToken(token: string): JsonWebTokenType | JsonWebTokenInvalidError {
 		try {
-			return this.jsonWebToken.verify(token, this.secretKey) as JsonWebTokenType;
+			return this.jsonWebToken.verify(token, this.secrets.getRequiredSecret(SecretsEnum.JwtKey)) as JsonWebTokenType;
 		} catch {
 			return new JsonWebTokenInvalidError();
 		}

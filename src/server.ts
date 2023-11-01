@@ -1,12 +1,15 @@
-import { Metrics, PORT } from "@/shared";
+import { Metrics } from "@/shared";
+import { SecretsEnum } from "@/layers/use-cases";
+import { databaseNoSQLHelper, databaseSQLHelper, queueHelper, secretsAdapter } from "@/main/factories";
 import { setupServer } from "@/main/server";
-import { databaseNoSQLHelper, databaseSQLHelper, queueHelper } from "./main/factories";
+
+const port = parseInt(secretsAdapter.getSecret(SecretsEnum.Port));
 
 databaseSQLHelper.connect()
 	.then(async () => {
 		await databaseNoSQLHelper.connect();
 		await queueHelper.connect();
 		Metrics.config();
-		setupServer().listen(PORT || 3333, () => console.log(`Server is running at Port ${PORT || 3333}`));
+		setupServer().listen(port || 3333, () => console.log(`Server is running at Port ${port || 3333}`));
 	})
 	.catch(console.error);

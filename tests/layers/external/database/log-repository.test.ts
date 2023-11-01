@@ -1,8 +1,8 @@
-import { DatabaseNoSQLHelper, LogRepositoryAdapter } from "@/layers/external";
+import { DatabaseNoSQLHelper, LogRepositoryAdapter, SecretsAdapter } from "@/layers/external";
 
 describe("External - LogRepositoryAdapter", () => {
     
-	const databaseNoSQLHelper = new DatabaseNoSQLHelper();
+	const databaseNoSQLHelper = new DatabaseNoSQLHelper(new SecretsAdapter());
 
 	beforeAll(async () => {
 		await databaseNoSQLHelper.connect();

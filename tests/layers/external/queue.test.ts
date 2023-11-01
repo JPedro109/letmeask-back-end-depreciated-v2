@@ -1,7 +1,8 @@
-import { QueueAdapter, QueueHelper } from "@/layers/external";
+import { QueueAdapter, QueueHelper, SecretsAdapter } from "@/layers/external";
 
 describe("External - QueueAdapter", () => {
-	const queueHelper = new QueueHelper();
+	const secretsAdapter = new SecretsAdapter();
+	const queueHelper = new QueueHelper(secretsAdapter);
 
 	beforeAll(async () => await queueHelper.connect());
 	afterAll(async () => await queueHelper.disconnect());

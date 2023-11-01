@@ -26,19 +26,19 @@ export const secretsAdapter = new SecretsAdapter();
 
 export const cryptographyAdapter = new CryptographyAdapter();
 
-export const queueHelper = new QueueHelper();
+export const queueHelper = new QueueHelper(secretsAdapter);
 
 export const queueAdapter = new QueueAdapter(queueHelper);
 
 export const generationAdapter = new GenerationAdapter();
 
-export const authenticationAdapter = new AuthenticationAdapter();
+export const authenticationAdapter = new AuthenticationAdapter(secretsAdapter);
 
-export const mailAdapter = new MailAdapter(queueAdapter);
+export const mailAdapter = new MailAdapter(queueAdapter, secretsAdapter);
 
 export const databaseSQLHelper = new DatabaseSQLHelper();
 
-export const databaseNoSQLHelper = new DatabaseNoSQLHelper();
+export const databaseNoSQLHelper = new DatabaseNoSQLHelper(secretsAdapter);
 
 export const userRepositoryAdapter = new UserRepositoryAdapter(databaseSQLHelper);
 
@@ -69,4 +69,5 @@ export const makeUnitOfWork = (): UnitOfWorkProtocol => {
 
 export const cacheAdapter = new CacheAdapter();
 
-export const logFacade = new LogFacade(new LogBashAdapter(), new LogNoSQLAdapter(new LogRepositoryAdapter(databaseNoSQLHelper)));
+export const logFacade 
+	= new LogFacade(new LogBashAdapter(), new LogNoSQLAdapter(new LogRepositoryAdapter(databaseNoSQLHelper)), secretsAdapter);

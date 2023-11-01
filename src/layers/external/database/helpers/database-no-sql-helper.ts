@@ -1,11 +1,15 @@
-import { DATABASE_NOSQL_URL } from "@/shared/env";
+import { SecretsEnum, SecretsProtocol } from "@/layers/use-cases";
 import { MongoClient, Collection } from "mongodb";
 
 export class DatabaseNoSQLHelper {
 	private client: MongoClient;
 
+	constructor(
+		private readonly secrets: SecretsProtocol
+	) { }
+
 	async connect(): Promise<void> {
-		this.client = await MongoClient.connect(DATABASE_NOSQL_URL);
+		this.client = await MongoClient.connect(this.secrets.getRequiredSecret(SecretsEnum.DatabaseNoSQLUrl));
 	}
 
 	async disconnect(): Promise<void> {

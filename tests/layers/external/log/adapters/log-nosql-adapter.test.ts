@@ -1,13 +1,15 @@
-import { DatabaseNoSQLHelper, LogRepositoryAdapter } from "@/layers/external";
+import { DatabaseNoSQLHelper, LogRepositoryAdapter, SecretsAdapter } from "@/layers/external";
 import { LogNoSQLAdapter } from "@/layers/external/log/adapters";
 
 describe("External - LogNoSQLAdapter", () => {
     
+	const secretsAdapter = new SecretsAdapter();
+
 	test("Should return true | trace", () => {
 		const title = "TEST";
 		const message = "{\"name\":\"test\"}";
 		const trace = "0000000000";
-		const repository = new LogRepositoryAdapter(new DatabaseNoSQLHelper());
+		const repository = new LogRepositoryAdapter(new DatabaseNoSQLHelper(secretsAdapter));
 		const sut = new LogNoSQLAdapter(repository);
 		jest.spyOn(sut, "trace");
 
@@ -21,7 +23,7 @@ describe("External - LogNoSQLAdapter", () => {
 	test("Should return true | info", () => {
 		const title = "TEST";
 		const message = "{\"name\":\"test\"}";
-		const repository = new LogRepositoryAdapter(new DatabaseNoSQLHelper());
+		const repository = new LogRepositoryAdapter(new DatabaseNoSQLHelper(secretsAdapter));
 		const sut = new LogNoSQLAdapter(repository);
 		jest.spyOn(sut, "info");
 
@@ -35,7 +37,7 @@ describe("External - LogNoSQLAdapter", () => {
 	test("Should return true | warning", () => {
 		const title = "TEST";
 		const message = "{\"name\":\"test\"}";
-		const repository = new LogRepositoryAdapter(new DatabaseNoSQLHelper());
+		const repository = new LogRepositoryAdapter(new DatabaseNoSQLHelper(secretsAdapter));
 		const sut = new LogNoSQLAdapter(repository);
 		jest.spyOn(sut, "warning");
 
@@ -49,7 +51,7 @@ describe("External - LogNoSQLAdapter", () => {
 	test("Should return true | error", () => {
 		const title = "TEST";
 		const message = "{\"name\":\"test\"}";
-		const repository = new LogRepositoryAdapter(new DatabaseNoSQLHelper());
+		const repository = new LogRepositoryAdapter(new DatabaseNoSQLHelper(secretsAdapter));
 		const sut = new LogNoSQLAdapter(repository);
 		jest.spyOn(sut, "error");
 

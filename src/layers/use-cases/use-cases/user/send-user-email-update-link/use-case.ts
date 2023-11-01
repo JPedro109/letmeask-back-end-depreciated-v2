@@ -1,4 +1,3 @@
-import { APP_URL } from "@/shared";
 import { UserEmail } from "@/layers/entities";
 import { 
 	UserRepositoryProtocol,
@@ -7,7 +6,9 @@ import {
 	MailProtocol, 
 	InvalidParamError, 
 	NotFoundError,
-	EmailBody
+	EmailBody,
+	SecretsProtocol,
+	SecretsEnum
 } from "@/layers/use-cases";
 import { SendUserEmailUpdateLinkUseCaseProtocol } from "./protocol";
 import { SendUserEmailUpdateLinkDTO, SendUserEmailUpdateLinkResponseDTO } from "./dtos";
@@ -18,7 +19,8 @@ export class SendUserEmailUpdateLinkUseCase implements SendUserEmailUpdateLinkUs
         private readonly userRepository: UserRepositoryProtocol,
         private readonly userVerificationCodeRepository: UserVerificationCodeRepositoryProtocol,
         private readonly generation: GenerationProtocol,
-        private readonly mail: MailProtocol
+        private readonly mail: MailProtocol,
+		private readonly secrets: SecretsProtocol
 	) { }
 
 	async execute({ id, email }: SendUserEmailUpdateLinkDTO): Promise<SendUserEmailUpdateLinkResponseDTO> {
@@ -46,7 +48,7 @@ export class SendUserEmailUpdateLinkUseCase implements SendUserEmailUpdateLinkUs
 		);
 
 		await this.mail.sendMail(userEmailOrError.value, "Atualização de E-mail", EmailBody.UpdateEmailBody, {
-			appUrl: APP_URL,
+			appUrl: this.secrets.getRequiredSecret(SecretsEnum.AppUrl),
 			email: userEmailOrError.value,
 			code: verificationCode
 		});

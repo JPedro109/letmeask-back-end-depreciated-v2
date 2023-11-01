@@ -5,6 +5,7 @@ import {
 	QuestionRepositoryStub, 
 	ResponseRepositoryStub, 
 	RoomRepositoryStub, 
+	SecretsStub, 
 	UnitOfWorkStub, 
 	UserRepositoryStub, 
 	UserVerificationCodeRepositoryStub, 
@@ -29,7 +30,8 @@ const makeSut = () => {
 	const mailStub = new MailStub();
 	const cryptographyStub = new CryptographyStub();
 	const generationStub = new GenerationStub();
-	const sut = new CreateUserUseCase(unitOfWorkStub, mailStub, cryptographyStub, generationStub);
+	const secretsStub = new SecretsStub();
+	const sut = new CreateUserUseCase(unitOfWorkStub, mailStub, cryptographyStub, generationStub, secretsStub);
 
 	return {
 		sut,
