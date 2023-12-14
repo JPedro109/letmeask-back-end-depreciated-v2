@@ -1,4 +1,5 @@
 import { SecretsEnum, SecretsProtocol } from "@/layers/use-cases";
+
 import { MongoClient, Collection } from "mongodb";
 
 export class DatabaseNoSQLHelper {

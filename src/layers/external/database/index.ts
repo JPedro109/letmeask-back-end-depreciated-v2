@@ -7,3 +7,5 @@ export * from "./repositories/mock-repository";
 export * from "./repositories/unit-of-work";
 export * from "./repositories/log-repository";
 export * from "./helpers";
+export * from "./types";
+export * from "./mappers";

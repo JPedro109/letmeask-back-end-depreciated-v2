@@ -1,7 +1,8 @@
-import { user_verification_code as UserVerificationCodeRepositoryPrismaModel } from "@prisma/client";
 import { UserVerificationCodeModel, UserVerificationCodeRepositoryProtocol } from "@/layers/use-cases";
-import { Context } from "../types";
-import { DatabaseSQLHelper } from "../helpers";
+import { Context, DatabaseSQLHelper } from "@/layers/external";
+
+import { user_verification_code as UserVerificationCodeRepositoryPrismaModel } from "@prisma/client";
+
 
 export class UserVerificationCodeRepositoryAdapter implements UserVerificationCodeRepositoryProtocol {
 	

@@ -1,8 +1,7 @@
-import { user as UserPrismaModel, user_verification_code as UserVerificationCodePrismaModel } from "@prisma/client";
 import { UserModel, UserRepositoryProtocol, UserVerificationCodeModel } from "@/layers/use-cases";
-import { Context } from "../types";
-import { camelToSnakeCaseMapper } from "../mappers";
-import { DatabaseSQLHelper } from "../helpers";
+import { Context, DatabaseSQLHelper, camelToSnakeCaseMapper } from "@/layers/external";
+
+import { user as UserPrismaModel, user_verification_code as UserVerificationCodePrismaModel } from "@prisma/client";
 
 export class UserRepositoryAdapter implements UserRepositoryProtocol {
 

@@ -1,5 +1,6 @@
 import { LogRepositoryProtocol, LogModel } from "@/layers/use-cases";
-import { DatabaseNoSQLHelper } from "../helpers";
+import { DatabaseNoSQLHelper } from "@/layers/external";
+
 import { WithId, Document } from "mongodb";
 
 export class LogRepositoryAdapter implements LogRepositoryProtocol {

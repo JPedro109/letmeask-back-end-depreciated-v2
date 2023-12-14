@@ -6,8 +6,7 @@ import {
 	RoomRepositoryProtocol,
 	UserVerificationCodeRepositoryProtocol, 
 } from "@/layers/use-cases";
-import { DatabaseSQLHelper } from "../helpers";
-import { Context } from "../types";
+import { Context, DatabaseSQLHelper } from "@/layers/external";
 
 export class UnitOfWorkAdapter implements UnitOfWorkProtocol {
 	constructor(

@@ -1,5 +1,6 @@
-import NodeCache from "node-cache";
 import { CacheProtocol } from "@/layers/use-cases";
+
+import NodeCache from "node-cache";
 
 export class CacheAdapter implements CacheProtocol {
 

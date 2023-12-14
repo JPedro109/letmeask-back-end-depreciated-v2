@@ -1,5 +1,5 @@
 import { QueueProtocol } from "@/layers/use-cases";
-import { QueueHelper } from "../helper";
+import { QueueHelper } from "@/layers/external";
 
 export class QueueAdapter implements QueueProtocol {
 

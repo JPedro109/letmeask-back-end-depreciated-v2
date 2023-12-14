@@ -1,7 +1,7 @@
-import { room as RoomPrismaModel, question as QuestionPrismaModel, response as ResponsePrismaModel } from "@prisma/client";
 import { QuestionModel, ResponseModel, RoomModel, RoomRepositoryProtocol } from "@/layers/use-cases";
-import { Context } from "../types";
-import { DatabaseSQLHelper } from "../helpers";
+import { Context, DatabaseSQLHelper } from "@/layers/external";
+
+import { room as RoomPrismaModel, question as QuestionPrismaModel, response as ResponsePrismaModel } from "@prisma/client";
 
 export class RoomRepositoryAdapter implements RoomRepositoryProtocol {
     

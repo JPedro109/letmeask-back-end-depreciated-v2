@@ -1,7 +1,7 @@
-import { response as ResponsePrismaModel } from "@prisma/client";
 import { ResponseModel, ResponseRepositoryProtocol } from "@/layers/use-cases";
-import { Context } from "../types";
-import { DatabaseSQLHelper } from "../helpers";
+import { Context, DatabaseSQLHelper } from "@/layers/external";
+
+import { response as ResponsePrismaModel } from "@prisma/client";
 
 export class ResponseRepositoryAdapter implements ResponseRepositoryProtocol {
 

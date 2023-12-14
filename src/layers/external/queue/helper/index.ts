@@ -1,4 +1,5 @@
 import { SecretsEnum, SecretsProtocol } from "@/layers/use-cases";
+
 import { Channel, Connection, connect } from "amqplib";
 
 export class QueueHelper {
