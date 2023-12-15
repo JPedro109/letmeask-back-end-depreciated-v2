@@ -5,23 +5,6 @@ describe("External - LogFacade", () => {
     
 	const secretsAdapter = new SecretsAdapter();
 	
-	test("Should throw error | instantiation", () => {
-		delete process.env["LOG_NOSQL"];
-		delete process.env["LOG_BASH"];
-		let error: Error | null = null;
-		const logBashAdapter = new LogBashAdapter();
-		const logNoSQLAdapter = new LogNoSQLAdapter(new LogRepositoryAdapter(new DatabaseNoSQLHelper(secretsAdapter)));
-		const sut = LogFacade;
-
-		try {
-			new sut(logBashAdapter, logNoSQLAdapter, secretsAdapter);
-		} catch(e) {
-			error = e;
-		}
-
-		expect(error).toBeInstanceOf(Error);
-	});
-	
 	test("Should return true | trace", () => {
 		process.env["LOG_NOSQL"] = "true";
 		process.env["LOG_BASH"] = "true";
@@ -30,7 +13,7 @@ describe("External - LogFacade", () => {
 		const trace = "0000000000";
 		const logBashAdapter = new LogBashAdapter();
 		const logNoSQLAdapter = new LogNoSQLAdapter(new LogRepositoryAdapter(new DatabaseNoSQLHelper(secretsAdapter)));
-		const sut = new LogFacade(logBashAdapter, logNoSQLAdapter, secretsAdapter);
+		const sut = new LogFacade(logBashAdapter, logNoSQLAdapter);
 		jest.spyOn(sut, "trace");
 
 		const result = sut.trace(title, message, trace);
@@ -47,7 +30,7 @@ describe("External - LogFacade", () => {
 		const message = "{\"name\":\"test\"}";
 		const logBashAdapter = new LogBashAdapter();
 		const logNoSQLAdapter = new LogNoSQLAdapter(new LogRepositoryAdapter(new DatabaseNoSQLHelper(secretsAdapter)));
-		const sut = new LogFacade(logBashAdapter, logNoSQLAdapter, secretsAdapter);
+		const sut = new LogFacade(logBashAdapter, logNoSQLAdapter);
 		jest.spyOn(sut, "info");
 
 		const result = sut.info(title, message);
@@ -64,7 +47,7 @@ describe("External - LogFacade", () => {
 		const message = "{\"name\":\"test\"}";
 		const logBashAdapter = new LogBashAdapter();
 		const logNoSQLAdapter = new LogNoSQLAdapter(new LogRepositoryAdapter(new DatabaseNoSQLHelper(secretsAdapter)));
-		const sut = new LogFacade(logBashAdapter, logNoSQLAdapter, secretsAdapter);
+		const sut = new LogFacade(logBashAdapter, logNoSQLAdapter);
 		jest.spyOn(sut, "warning");
 
 		const result = sut.warning(title, message);
@@ -81,7 +64,7 @@ describe("External - LogFacade", () => {
 		const message = "{\"name\":\"test\"}";
 		const logBashAdapter = new LogBashAdapter();
 		const logNoSQLAdapter = new LogNoSQLAdapter(new LogRepositoryAdapter(new DatabaseNoSQLHelper(secretsAdapter)));
-		const sut = new LogFacade(logBashAdapter, logNoSQLAdapter, secretsAdapter);
+		const sut = new LogFacade(logBashAdapter, logNoSQLAdapter);
 		jest.spyOn(sut, "error");
 
 		const result = sut.error(title, message);
