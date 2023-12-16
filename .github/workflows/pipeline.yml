@@ -14,8 +14,6 @@ env:
   DATABASE_NOSQL_URL: "mongodb://localhost:27017/expense"
   QUEUE_HOST: "amqp://admin:admin@localhost:5672"
   QUEUE_NAME: "queue"
-  LOG_BASH: true
-  LOG_NOSQL: true
   NODE_OPTIONS: --max-old-space-size=8192
 
 jobs:
