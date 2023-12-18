@@ -6,7 +6,5 @@ export enum SecretsEnum {
     Environment = "ENVIRONMENT",
     Port = "PORT",
     QueueHost = "QUEUE_HOST",
-    QueueName = "QUEUE_NAME",
-    ApiHost = "API_HOST",
-    PrometheusUserAgent = "PROMETHEUS_USER_AGENT"
+    QueueName = "QUEUE_NAME"
 }
