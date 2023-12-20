@@ -69,5 +69,7 @@ export const makeUnitOfWork = (): UnitOfWorkProtocol => {
 
 export const cacheAdapter = new CacheAdapter();
 
+export const logBashAdapter = new LogBashAdapter();
+
 export const logFacade 
-	= new LogFacade(new LogBashAdapter(), new LogNoSQLAdapter(new LogRepositoryAdapter(databaseNoSQLHelper)));
+	= new LogFacade(logBashAdapter, new LogNoSQLAdapter(new LogRepositoryAdapter(databaseNoSQLHelper), logBashAdapter));
