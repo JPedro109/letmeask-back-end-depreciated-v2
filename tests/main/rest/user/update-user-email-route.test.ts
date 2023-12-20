@@ -28,6 +28,19 @@ describe("/api/users/email - PATCH", () => {
 		expect(response.body.code).toBe("MissingParamError");
 	});
 
+	test("Should not update user email, because email is invalid", async () => {
+		const body = makeBodyUpdateUserEmail("invalid_email", "code");
+        
+		const token = await loginRest("email_verified_and_with_room@test.com");
+
+		const response = await request(setupRest())
+			.patch(`/api/users/email?email=${body.email}&code=${body.code}`)
+			.set("authorization", `Bearer ${token}`);
+
+		expect(response.statusCode).toBe(400);
+		expect(response.body.code).toBe("InvalidUserEmailError");
+	});
+
 	test("Should not update user email, because code is empty", async () => {
 		const body = makeBodyUpdateUserEmail("email@test.com", "");
         
