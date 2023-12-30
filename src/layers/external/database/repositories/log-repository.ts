@@ -4,7 +4,7 @@ import { DatabaseNoSQLHelper } from "@/layers/external";
 import { WithId, Document } from "mongodb";
 
 export class LogRepositoryAdapter implements LogRepositoryProtocol {
-	private readonly collection: string = "logletmeask";
+	private readonly collection: string = "letmeask-log";
 
 	constructor(private readonly databaseNoSQLHelper: DatabaseNoSQLHelper) { }
 
