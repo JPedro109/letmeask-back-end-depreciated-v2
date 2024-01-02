@@ -4,7 +4,8 @@ import { DatabaseNoSQLHelper } from "@/layers/external";
 import { WithId, Document } from "mongodb";
 
 export class LogRepositoryAdapter implements LogRepositoryProtocol {
-	private readonly collection: string = "letmeask-log";
+	private readonly collectionName: string = "letmeask-log";
+	private readonly databaseName: string = "log";
 
 	constructor(private readonly databaseNoSQLHelper: DatabaseNoSQLHelper) { }
 
@@ -13,7 +14,7 @@ export class LogRepositoryAdapter implements LogRepositoryProtocol {
 	}
 
 	async createLog(level: string, title: string, message: string, trace?: string): Promise<LogModel> {
-		const logCollection = await this.databaseNoSQLHelper.getCollection(this.collection).insertOne({
+		const logCollection = await this.databaseNoSQLHelper.getCollection(this.collectionName, this.databaseName).insertOne({
 			level, 
 			title,
 			message,
@@ -21,8 +22,9 @@ export class LogRepositoryAdapter implements LogRepositoryProtocol {
 			created_at: new Date()
 		});
 
-		const logInserted = await this.databaseNoSQLHelper
-			.getCollection(this.collection)
+		const logInserted = await this
+			.databaseNoSQLHelper
+			.getCollection(this.collectionName, this.databaseName)
 			.findOne({ _id: logCollection.insertedId });
 
 		return this.toMapperLogModel(logInserted);

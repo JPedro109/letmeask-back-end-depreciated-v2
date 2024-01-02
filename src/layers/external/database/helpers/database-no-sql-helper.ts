@@ -18,7 +18,7 @@ export class DatabaseNoSQLHelper {
 		this.client = null;
 	}
 
-	getCollection(name: string): Collection {
-		return this.client.db().collection(name);
+	getCollection(name: string, databaseName: string): Collection {
+		return this.client.db(databaseName).collection(name);
 	}
 }

@@ -9,7 +9,7 @@ describe("External - LogRepositoryAdapter", () => {
 	});
 
 	afterAll(async () => {
-		await databaseNoSQLHelper.getCollection("logletmeask").deleteMany({});
+		await databaseNoSQLHelper.getCollection("letmeask-log", "log").deleteMany({});
 		await databaseNoSQLHelper.disconnect();
 	});
     
