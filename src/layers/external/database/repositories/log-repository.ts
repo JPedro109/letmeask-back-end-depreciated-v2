@@ -14,13 +14,16 @@ export class LogRepositoryAdapter implements LogRepositoryProtocol {
 	}
 
 	async createLog(level: string, title: string, message: string, trace?: string): Promise<LogModel> {
-		const logCollection = await this.databaseNoSQLHelper.getCollection(this.collectionName, this.databaseName).insertOne({
-			level, 
-			title,
-			message,
-			trace,
-			created_at: new Date()
-		});
+		const logCollection = await this
+			.databaseNoSQLHelper
+			.getCollection(this.collectionName, this.databaseName)
+			.insertOne({
+				level, 
+				title,
+				message,
+				trace,
+				created_at: new Date()
+			});
 
 		const logInserted = await this
 			.databaseNoSQLHelper
