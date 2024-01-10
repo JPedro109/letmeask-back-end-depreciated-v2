@@ -1,5 +1,5 @@
 import { JsonWebTokenStub } from "./stubs";
-import { JsonWebTokenInvalidError, UnauthorizedError } from "@/layers/use-cases";
+import { JsonWebTokenInvalidError, UnauthorizedError } from "@/layers/domain";
 import { AuthUserMiddleware, noBody, unauthorized } from "@/layers/presentation";
 
 const makeSut = () => {

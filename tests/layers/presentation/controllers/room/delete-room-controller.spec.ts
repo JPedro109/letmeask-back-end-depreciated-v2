@@ -1,7 +1,7 @@
 import { testRoomModel } from "./datas";
 import { DeleteRoomStub } from "./stubs";
 import { DeleteRoomController, MissingParamError, InvalidTypeError, badRequest, ok, unauthorized, notFound } from "@/layers/presentation";
-import { NotFoundError, UnauthorizedError } from "@/layers/use-cases";
+import { NotFoundError, UnauthorizedError } from "@/layers/domain";
 
 const makeSut = () => {
 	const deleteRoomStub = new DeleteRoomStub();

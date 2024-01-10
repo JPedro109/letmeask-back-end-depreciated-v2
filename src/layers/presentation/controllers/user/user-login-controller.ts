@@ -1,5 +1,5 @@
 import { HttpProtocol, HttpRequest, HttpResponse, badRequest, ok, unauthorized, Validate  } from "@/layers/presentation";
-import { UserLoginUseCaseProtocol } from "@/layers/use-cases";
+import { UserLoginUseCaseProtocol } from "@/layers/domain";
 
 export class UserLoginController implements HttpProtocol {
 

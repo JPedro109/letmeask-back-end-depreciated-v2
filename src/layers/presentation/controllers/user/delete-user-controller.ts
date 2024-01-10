@@ -1,5 +1,5 @@
 import { HttpProtocol, HttpRequest, HttpResponse, badRequest, notFound, ok, Validate } from "@/layers/presentation";
-import { DeleteUserUseCaseProtocol, NotFoundError } from "@/layers/use-cases";
+import { DeleteUserUseCaseProtocol, NotFoundError } from "@/layers/domain";
 
 export class DeleteUserController implements HttpProtocol {
 

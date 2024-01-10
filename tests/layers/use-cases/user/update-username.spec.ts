@@ -1,7 +1,7 @@
 import { UserRepositoryStub } from "../__mocks__";
 
-import { InvalidUsernameError } from "@/layers/entities";
-import { NotFoundError, UpdateUsernameUseCase } from "@/layers/use-cases";
+import { InvalidUsernameError } from "@/layers/domain";
+import { NotFoundError, UpdateUsernameUseCase } from "@/layers/domain";
 
 const makeSut = () => {
 	const userRepositoryStub = new UserRepositoryStub();

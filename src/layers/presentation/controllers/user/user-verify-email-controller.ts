@@ -1,5 +1,5 @@
 import { HttpProtocol, HttpRequest, HttpResponse, badRequest, notFound, ok, unauthorized, Validate } from "@/layers/presentation";
-import { NotFoundError, UnauthorizedError, UserVerifyEmailUseCaseProtocol } from "@/layers/use-cases";
+import { NotFoundError, UnauthorizedError, UserVerifyEmailUseCaseProtocol } from "@/layers/domain";
 
 export class UserVerifyEmailController implements HttpProtocol {
 

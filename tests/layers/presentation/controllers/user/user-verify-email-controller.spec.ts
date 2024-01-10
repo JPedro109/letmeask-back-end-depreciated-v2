@@ -1,6 +1,6 @@
 import { UserVerifyEmailController, MissingParamError, badRequest, ok, notFound, unauthorized, InvalidTypeError } from "@/layers/presentation";
 import { UserVerifyEmailStub } from "./stubs";
-import { InvalidParamError, NotFoundError, UnauthorizedError } from "@/layers/use-cases";
+import { InvalidParamError, NotFoundError, UnauthorizedError } from "@/layers/domain";
 
 const makeSut = () => {
 	const userVerifyEmailStub = new UserVerifyEmailStub();

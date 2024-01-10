@@ -12,7 +12,7 @@ import {
 	testUserModel
 } from "../__mocks__";
 
-import { CreateUserUseCase, InvalidParamError } from "@/layers/use-cases";
+import { CreateUserUseCase, InvalidParamError } from "@/layers/domain";
 
 const makeSut = () => {
 	const userRepositoryStub = new UserRepositoryStub();

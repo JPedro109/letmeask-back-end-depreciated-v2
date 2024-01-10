@@ -1,6 +1,6 @@
 import { testRoomModel } from "./datas";
 import { GetRoomStub } from "./stubs";
-import { NotFoundError } from "@/layers/use-cases";
+import { NotFoundError } from "@/layers/domain";
 import { GetRoomController, InvalidTypeError, MissingParamError, badRequest, notFound, ok } from "@/layers/presentation";
 
 const makeSut = () => {

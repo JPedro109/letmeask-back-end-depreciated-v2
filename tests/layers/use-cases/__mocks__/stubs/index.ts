@@ -21,7 +21,7 @@ import {
 	UserVerificationCodeModel,
 	SecretsProtocol,
 	SecretsEnum
-} from "@/layers/use-cases";
+} from "@/layers/domain";
 
 import { testQuestionModel, testResponseModel, testRoomModel, testUserModel, testUserVerificationCodeModel } from "../datas";
 

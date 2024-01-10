@@ -1,5 +1,5 @@
 import { HttpProtocol, HttpRequest, HttpResponse, badRequest, ok, Validate } from "@/layers/presentation";
-import { UpdateUserEmailUseCaseProtocol } from "@/layers/use-cases";
+import { UpdateUserEmailUseCaseProtocol } from "@/layers/domain";
 
 export class UpdateUserEmailController implements HttpProtocol {
 

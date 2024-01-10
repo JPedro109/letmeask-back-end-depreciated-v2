@@ -6,7 +6,7 @@ import {
 	testQuestionModel, 
 	CacheStub
 } from "../__mocks__";
-import { CreateQuestionUseCase, NotFoundError, UnauthorizedError } from "@/layers/use-cases";
+import { CreateQuestionUseCase, NotFoundError, UnauthorizedError } from "@/layers/domain";
 
 const makeSut = () => {
 	const questionRepositoryStub = new QuestionRepositoryStub();

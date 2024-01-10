@@ -1,4 +1,4 @@
-import { Response, InvalidResponseDescriptionError } from "@/layers/entities";
+import { Response, InvalidResponseDescriptionError } from "@/layers/domain";
 
 describe(("Entity - Response"), () => {
     

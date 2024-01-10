@@ -1,6 +1,6 @@
 import { DeleteUserController, MissingParamError, InvalidTypeError, badRequest, notFound, ok } from "@/layers/presentation";
 import { DeleteUserStub } from "./stubs";
-import { InvalidParamError, NotFoundError } from "@/layers/use-cases";
+import { InvalidParamError, NotFoundError } from "@/layers/domain";
 
 const makeSut = () => {
 	const deleteUserStub = new DeleteUserStub();

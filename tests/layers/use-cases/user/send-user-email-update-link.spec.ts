@@ -7,8 +7,8 @@ import {
 	testUserModel
 } from "../__mocks__";
 
-import { InvalidUserEmailError } from "@/layers/entities";
-import { SendUserEmailUpdateLinkUseCase, InvalidParamError, NotFoundError } from "@/layers/use-cases";
+import { InvalidUserEmailError } from "@/layers/domain";
+import { SendUserEmailUpdateLinkUseCase, InvalidParamError, NotFoundError } from "@/layers/domain";
 
 const makeSut = () => {
 	const userRepositoryStub = new UserRepositoryStub();

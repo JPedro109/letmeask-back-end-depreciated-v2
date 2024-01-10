@@ -1,6 +1,6 @@
 import { DeleteQuestionStub } from "./stubs";
 import { testQuestionModel } from "./datas";
-import { NotFoundError, UnauthorizedError } from "@/layers/use-cases";
+import { NotFoundError, UnauthorizedError } from "@/layers/domain";
 import { DeleteQuestionController, InvalidTypeError, MissingParamError, badRequest, notFound, ok, unauthorized } from "@/layers/presentation";
 
 const makeSut = () => {

@@ -4,7 +4,7 @@ import {
 	testQuestionModel, 
 	CacheStub
 } from "../__mocks__";
-import { DeleteQuestionUseCase, NotFoundError, UnauthorizedError } from "@/layers/use-cases";
+import { DeleteQuestionUseCase, NotFoundError, UnauthorizedError } from "@/layers/domain";
 
 const makeSut = () => {
 	const questionRepositoryStub = new QuestionRepositoryStub();

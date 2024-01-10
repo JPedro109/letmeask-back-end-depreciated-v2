@@ -1,4 +1,4 @@
-import { Room, InvalidRoomCodeError, InvalidRoomNameError } from "@/layers/entities";
+import { Room, InvalidRoomCodeError, InvalidRoomNameError } from "@/layers/domain";
 
 describe(("Entity - Room"), () => {
     

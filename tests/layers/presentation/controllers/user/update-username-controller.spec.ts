@@ -1,5 +1,5 @@
 import { UpdateUsernameStub } from "./stubs";
-import { NotFoundError } from "@/layers/use-cases";
+import { NotFoundError } from "@/layers/domain";
 import { UpdateUsernameController, InvalidTypeError, MissingParamError, ok, badRequest, notFound } from "@/layers/presentation";
 
 const makeSut = () => {

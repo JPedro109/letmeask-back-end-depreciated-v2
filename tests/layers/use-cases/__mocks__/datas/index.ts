@@ -1,4 +1,4 @@
-import { UserModel, RoomModel, QuestionModel, ResponseModel, UserVerificationCodeModel } from "@/layers/use-cases";
+import { UserModel, RoomModel, QuestionModel, ResponseModel, UserVerificationCodeModel } from "@/layers/domain";
 
 export const testRoomModel = new RoomModel("1", "1", "000000", "room", []);
 export const testQuestionModel = new QuestionModel("1", "1", "000000", "question", null);

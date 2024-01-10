@@ -8,7 +8,7 @@ import {
 	unauthorized,
 	Validate  
 } from "@/layers/presentation";
-import { CreateQuestionUseCaseProtocol, NotFoundError, UnauthorizedError } from "@/layers/use-cases";
+import { CreateQuestionUseCaseProtocol, NotFoundError, UnauthorizedError } from "@/layers/domain";
 
 export class CreateQuestionController implements HttpProtocol {
 

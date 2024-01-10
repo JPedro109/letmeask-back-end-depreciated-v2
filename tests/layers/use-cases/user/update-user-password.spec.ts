@@ -1,7 +1,7 @@
 import { CryptographyStub, UserRepositoryStub } from "../__mocks__";
 
-import { InvalidUserPasswordError } from "@/layers/entities";
-import { UpdateUserPasswordUseCase, InvalidParamError, NotFoundError } from "@/layers/use-cases";
+import { InvalidUserPasswordError } from "@/layers/domain";
+import { UpdateUserPasswordUseCase, InvalidParamError, NotFoundError } from "@/layers/domain";
 
 const makeSut = () => {
 	const userRepositoryStub = new UserRepositoryStub();

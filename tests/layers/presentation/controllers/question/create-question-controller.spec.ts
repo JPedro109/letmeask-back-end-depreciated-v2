@@ -1,6 +1,6 @@
 import { CreateQuestionStub } from "./stubs";
 import { testQuestionModel } from "./datas";
-import { NotFoundError, UnauthorizedError } from "@/layers/use-cases";
+import { NotFoundError, UnauthorizedError } from "@/layers/domain";
 import { CreateQuestionController, InvalidTypeError, MissingParamError, badRequest, created, notFound, unauthorized } from "@/layers/presentation";
 
 const makeSut = () => {

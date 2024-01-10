@@ -1,4 +1,4 @@
-import { Username, InvalidUsernameError } from "@/layers/entities";
+import { Username, InvalidUsernameError } from "@/layers/domain";
 
 describe(("Object Value - Username"), () => {
     

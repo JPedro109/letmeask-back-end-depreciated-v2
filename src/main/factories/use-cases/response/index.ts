@@ -7,7 +7,7 @@ import {
 } from "@/main/factories";
 import { 
 	CreateResponseUseCase 
-} from "@/layers/use-cases";
+} from "@/layers/domain";
 
 export const createResponse = new CreateResponseUseCase(
 	responseRepositoryAdapter, 

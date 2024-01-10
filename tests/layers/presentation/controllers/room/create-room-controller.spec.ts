@@ -1,6 +1,6 @@
 import { testRoomModel } from "./datas";
 import { CreateRoomStub } from "./stubs";
-import { UnauthorizedError } from "@/layers/use-cases";
+import { UnauthorizedError } from "@/layers/domain";
 import { CreateRoomController, MissingParamError, InvalidTypeError, badRequest, created, unauthorized } from "@/layers/presentation";
 
 const makeSut = () => {

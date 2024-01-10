@@ -1,4 +1,4 @@
-import { UnitOfWorkProtocol } from "@/layers/use-cases";
+import { UnitOfWorkProtocol } from "@/layers/domain";
 import { 
 	CryptographyAdapter, 
 	GenerationAdapter, 

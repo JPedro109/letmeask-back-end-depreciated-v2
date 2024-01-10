@@ -10,7 +10,7 @@ import {
 	UpdateUsernameUseCase, 
 	UserLoginUseCase,
 	UserVerifyEmailUseCase, 
-} from "@/layers/use-cases";
+} from "@/layers/domain";
 import { 
 	cryptographyAdapter, 
 	generationAdapter, 

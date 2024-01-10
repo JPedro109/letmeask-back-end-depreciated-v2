@@ -1,6 +1,6 @@
 import { CryptographyStub, UserRepositoryStub } from "../__mocks__";
 
-import { DeleteUserUseCase, InvalidParamError, NotFoundError } from "@/layers/use-cases";
+import { DeleteUserUseCase, InvalidParamError, NotFoundError } from "@/layers/domain";
 
 const makeSut = () => {
 	const userRepositoryStub = new UserRepositoryStub();

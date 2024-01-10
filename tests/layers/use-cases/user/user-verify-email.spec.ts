@@ -1,6 +1,6 @@
 import { UserRepositoryStub } from "../__mocks__";
 
-import { UserVerifyEmailUseCase, InvalidParamError, NotFoundError, UnauthorizedError } from "@/layers/use-cases";
+import { UserVerifyEmailUseCase, InvalidParamError, NotFoundError, UnauthorizedError } from "@/layers/domain";
 import { testUserModel } from "../__mocks__/datas";
 
 const makeSut = () => {

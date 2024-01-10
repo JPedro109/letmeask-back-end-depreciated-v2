@@ -1,5 +1,5 @@
 import { QuestionRepositoryStub, testQuestionModel } from "../__mocks__";
-import { GetUserQuestionsUseCase } from "@/layers/use-cases";
+import { GetUserQuestionsUseCase } from "@/layers/domain";
 
 const makeSut = () => {
 	const questionRepositoryStub = new QuestionRepositoryStub();

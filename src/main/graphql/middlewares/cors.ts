@@ -1,4 +1,4 @@
-import { SecretsEnum } from "@/layers/use-cases";
+import { SecretsEnum } from "@/layers/domain";
 import { secretsAdapter } from "@/main/factories";
 import lib from "cors";
 

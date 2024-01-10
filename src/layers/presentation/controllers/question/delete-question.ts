@@ -8,7 +8,7 @@ import {
 	unauthorized,
 	Validate
 } from "@/layers/presentation";
-import { DeleteQuestionUseCaseProtocol, NotFoundError, UnauthorizedError } from "@/layers/use-cases";
+import { DeleteQuestionUseCaseProtocol, NotFoundError, UnauthorizedError } from "@/layers/domain";
 
 export class DeleteQuestionController implements HttpProtocol {
 

@@ -8,7 +8,7 @@ import {
 	testUserModel,
 	testRoomModel, 
 } from "../__mocks__";
-import { CreateRoomUseCase, UnauthorizedError } from "@/layers/use-cases";
+import { CreateRoomUseCase, UnauthorizedError } from "@/layers/domain";
 
 const makeSut = () => {
 	const userRepositoryStub = new UserRepositoryStub();

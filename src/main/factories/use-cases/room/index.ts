@@ -11,7 +11,7 @@ import {
 	GetUserRoomCodeUseCase,
 	DeleteRoomUseCase,
 	GetRoomCodeUseCase
-} from "@/layers/use-cases";
+} from "@/layers/domain";
 
 export const createRoom = new CreateRoomUseCase(makeUnitOfWork());
 

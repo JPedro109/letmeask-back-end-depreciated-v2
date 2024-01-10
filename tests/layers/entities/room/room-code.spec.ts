@@ -1,4 +1,4 @@
-import { RoomCode, InvalidRoomCodeError } from "@/layers/entities";
+import { RoomCode, InvalidRoomCodeError } from "@/layers/domain";
 
 describe("Object Value - RoomCode", () => {
 

@@ -1,4 +1,4 @@
-import { Question, InvalidQuestionDescriptionError } from "@/layers/entities";
+import { Question, InvalidQuestionDescriptionError } from "@/layers/domain";
 
 describe(("Entity - Question"), () => {
     

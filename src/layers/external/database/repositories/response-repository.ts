@@ -1,4 +1,4 @@
-import { ResponseModel, ResponseRepositoryProtocol } from "@/layers/use-cases";
+import { ResponseModel, ResponseRepositoryProtocol } from "@/layers/domain";
 import { Context, DatabaseSQLHelper } from "@/layers/external";
 
 import { response as ResponsePrismaModel } from "@prisma/client";

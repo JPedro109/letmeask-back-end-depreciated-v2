@@ -1,6 +1,6 @@
 import { SendUserPasswordRecoveryLinkController, MissingParamError, badRequest, ok, notFound, InvalidTypeError } from "@/layers/presentation";
 import { SendUserPasswordRecoveryLinkStub } from "./stubs";
-import { InvalidParamError, NotFoundError } from "@/layers/use-cases";
+import { InvalidParamError, NotFoundError } from "@/layers/domain";
 
 const makeSut = () => {
 	const sendUserPasswordRecoveryLinkStub = new SendUserPasswordRecoveryLinkStub();

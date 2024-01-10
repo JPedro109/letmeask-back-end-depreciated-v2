@@ -9,7 +9,7 @@ import {
 	CreateQuestionUseCase,
 	GetUserQuestionsUseCase,
 	DeleteQuestionUseCase
-} from "@/layers/use-cases";
+} from "@/layers/domain";
 
 export const createQuestion = new CreateQuestionUseCase(
 	questionRepositoryAdapter, 

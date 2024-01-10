@@ -1,5 +1,5 @@
 import { Metrics } from "@/shared";
-import { LogProtocol } from "@/layers/use-cases";
+import { LogProtocol } from "@/layers/domain";
 import { HttpProtocol, HttpRequest, HttpResponse } from "../ports";
 import { serverError } from "../helpers";
 

@@ -1,5 +1,5 @@
 import { RoomRepositoryStub } from "../__mocks__";
-import { GetUserRoomCodeUseCase } from "@/layers/use-cases";
+import { GetUserRoomCodeUseCase } from "@/layers/domain";
 
 const makeSut = () => {
 	const roomRepositoryStub = new RoomRepositoryStub();

@@ -1,6 +1,6 @@
 import { CacheStub, RoomRepositoryStub, testRoomModel } from "../__mocks__";
-import { InvalidRoomCodeError } from "@/layers/entities";
-import { GetRoomUseCase, NotFoundError } from "@/layers/use-cases";
+import { InvalidRoomCodeError } from "@/layers/domain";
+import { GetRoomUseCase, NotFoundError } from "@/layers/domain";
 
 const makeSut = () => {
 	const roomRepositoryStub = new RoomRepositoryStub();

@@ -1,4 +1,4 @@
-import { NotFoundError, UpdateUsernameUseCaseProtocol } from "@/layers/use-cases";
+import { NotFoundError, UpdateUsernameUseCaseProtocol } from "@/layers/domain";
 import { HttpProtocol, HttpRequest, HttpResponse, badRequest, notFound, ok, Validate } from "@/layers/presentation";
 
 export class UpdateUsernameController implements HttpProtocol {

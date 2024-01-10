@@ -1,5 +1,5 @@
 import { SecretsAdapter } from "@/layers/external";
-import { SecretsEnum } from "@/layers/use-cases";
+import { SecretsEnum } from "@/layers/domain";
 
 describe("Infrastructure - SecretsAdapter", () => {
 

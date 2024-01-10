@@ -9,8 +9,8 @@ import {
 	testUserModel
 } from "../__mocks__";
 
-import { InvalidUserPasswordError } from "@/layers/entities";
-import { RecoverUserPasswordUseCase, InvalidParamError, NotFoundError } from "@/layers/use-cases";
+import { InvalidUserPasswordError } from "@/layers/domain";
+import { RecoverUserPasswordUseCase, InvalidParamError, NotFoundError } from "@/layers/domain";
 
 const makeSut = () => {
 	const userRepositoryStub = new UserRepositoryStub();

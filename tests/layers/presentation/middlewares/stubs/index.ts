@@ -1,4 +1,4 @@
-import { AuthenticationProtocol, JsonWebTokenInvalidError, JsonWebTokenType } from "@/layers/use-cases";
+import { AuthenticationProtocol, JsonWebTokenInvalidError, JsonWebTokenType } from "@/layers/domain";
 
 export class JsonWebTokenStub implements AuthenticationProtocol {
 	public payload: object;

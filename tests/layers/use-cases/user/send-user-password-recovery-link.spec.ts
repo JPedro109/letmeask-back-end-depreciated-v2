@@ -7,7 +7,7 @@ import {
 	testUserModel
 } from "../__mocks__";
 
-import { SendUserPasswordRecoveryLinkUseCase, NotFoundError } from "@/layers/use-cases";
+import { SendUserPasswordRecoveryLinkUseCase, NotFoundError } from "@/layers/domain";
 
 const makeSut = () => {
 	const userRepositoryStub = new UserRepositoryStub();

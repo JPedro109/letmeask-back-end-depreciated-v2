@@ -1,5 +1,5 @@
 import { HttpProtocol, HttpRequest, HttpResponse, badRequest, notFound, ok, Validate } from "@/layers/presentation";
-import { NotFoundError, RecoverUserPasswordUseCaseProtocol } from "@/layers/use-cases";
+import { NotFoundError, RecoverUserPasswordUseCaseProtocol } from "@/layers/domain";
 
 export class RecoverUserPasswordController implements HttpProtocol {
 

@@ -1,6 +1,6 @@
 import { RecoverUserPasswordController, MissingParamError, badRequest, ok, notFound, InvalidTypeError } from "@/layers/presentation";
 import { RecoverUserPasswordStub } from "./stubs";
-import { InvalidParamError, NotFoundError } from "@/layers/use-cases";
+import { InvalidParamError, NotFoundError } from "@/layers/domain";
 
 const makeSut = () => {
 	const recoverUserPasswordStub = new RecoverUserPasswordStub();

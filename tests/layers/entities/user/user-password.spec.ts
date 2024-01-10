@@ -1,4 +1,4 @@
-import { UserPassword, InvalidUserPasswordError } from "@/layers/entities";
+import { UserPassword, InvalidUserPasswordError } from "@/layers/domain";
 
 describe(("Object Value - UserPassword"), () => {
     

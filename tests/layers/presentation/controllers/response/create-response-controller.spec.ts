@@ -1,6 +1,6 @@
 import { CreateResponseStub } from "./stubs";
 import { testResponseModel } from "./datas";
-import { NotFoundError, UnauthorizedError } from "@/layers/use-cases";
+import { NotFoundError, UnauthorizedError } from "@/layers/domain";
 import { CreateResponseController, InvalidTypeError, MissingParamError, badRequest, created, notFound, unauthorized } from "@/layers/presentation";
 
 const makeSut = () => {

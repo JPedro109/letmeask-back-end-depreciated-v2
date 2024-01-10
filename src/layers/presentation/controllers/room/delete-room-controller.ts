@@ -8,7 +8,7 @@ import {
 	Validate, 
 	unauthorized  
 } from "@/layers/presentation";
-import { DeleteRoomUseCaseProtocol, NotFoundError, UnauthorizedError } from "@/layers/use-cases";
+import { DeleteRoomUseCaseProtocol, NotFoundError, UnauthorizedError } from "@/layers/domain";
 
 export class DeleteRoomController implements HttpProtocol {
 

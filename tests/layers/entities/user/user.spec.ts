@@ -1,4 +1,4 @@
-import { User, InvalidUserEmailError, InvalidUserPasswordError, InvalidUsernameError } from "@/layers/entities";
+import { User, InvalidUserEmailError, InvalidUserPasswordError, InvalidUsernameError } from "@/layers/domain";
 
 describe(("Entity - User"), () => {
     

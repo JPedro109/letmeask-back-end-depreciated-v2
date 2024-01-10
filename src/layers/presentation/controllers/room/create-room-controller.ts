@@ -1,5 +1,5 @@
 import { HttpProtocol, HttpRequest, HttpResponse, badRequest, created, unauthorized, Validate  } from "@/layers/presentation";
-import { CreateRoomUseCaseProtocol, UnauthorizedError } from "@/layers/use-cases";
+import { CreateRoomUseCaseProtocol, UnauthorizedError } from "@/layers/domain";
 
 export class CreateRoomController implements HttpProtocol {
 

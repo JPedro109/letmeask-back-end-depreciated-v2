@@ -4,8 +4,8 @@ import {
 	testRoomModel,
 	CacheStub, 
 } from "../__mocks__";
-import { InvalidRoomCodeError } from "@/layers/entities";
-import { DeleteRoomUseCase, NotFoundError, UnauthorizedError } from "@/layers/use-cases";
+import { InvalidRoomCodeError } from "@/layers/domain";
+import { DeleteRoomUseCase, NotFoundError, UnauthorizedError } from "@/layers/domain";
 
 const makeSut = () => {
 	const roomRepositoryStub = new RoomRepositoryStub();

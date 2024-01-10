@@ -1,7 +1,7 @@
 import { CryptographyStub, JsonWebTokenStub, UserRepositoryStub } from "../__mocks__";
 import { testUserModel } from "../__mocks__/datas";
 
-import { UserLoginUseCase, UnauthorizedError} from "@/layers/use-cases";
+import { UserLoginUseCase, UnauthorizedError} from "@/layers/domain";
 
 const makeSut = () => {
 	const userRepositoryStub = new UserRepositoryStub();

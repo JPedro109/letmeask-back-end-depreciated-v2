@@ -8,7 +8,7 @@ import {
 	RoomRepositoryStub,
 	testResponseModel
 } from "../__mocks__";
-import { CreateResponseUseCase, NotFoundError, ResponseModel, UnauthorizedError } from "@/layers/use-cases";
+import { CreateResponseUseCase, NotFoundError, ResponseModel, UnauthorizedError } from "@/layers/domain";
 
 const makeSut = () => {
 	const responseRepositoryStub = new ResponseRepositoryStub();

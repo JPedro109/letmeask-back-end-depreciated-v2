@@ -1,4 +1,4 @@
-import { RoomName, InvalidRoomNameError } from "@/layers/entities";
+import { RoomName, InvalidRoomNameError } from "@/layers/domain";
 
 describe("Object Value - RoomName", () => {
 

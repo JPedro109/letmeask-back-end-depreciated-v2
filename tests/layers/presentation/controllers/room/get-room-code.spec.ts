@@ -1,5 +1,5 @@
 import { GetRoomCodeStub } from "./stubs";
-import { NotFoundError } from "@/layers/use-cases";
+import { NotFoundError } from "@/layers/domain";
 import { GetRoomCodeController, InvalidTypeError, MissingParamError, badRequest, notFound, ok } from "@/layers/presentation";
 
 const makeSut = () => {

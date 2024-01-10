@@ -11,7 +11,7 @@ import {
 	GetUserQuestionsResponseDTO,
 	DeleteQuestionDTO,
 	DeleteQuestionResponseDTO
-} from "@/layers/use-cases";
+} from "@/layers/domain";
 
 export class CreateQuestionStub implements CreateQuestionUseCaseProtocol {
 	async execute({ userId, roomCode, question }: CreateQuestionDTO): Promise<CreateQuestionResponseDTO> {
