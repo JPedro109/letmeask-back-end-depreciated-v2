@@ -1,4 +1,4 @@
-import { UserVerifyEmailController, ok, RequestError } from "@/layers/presentation";
+import { UserVerifyEmailController, RequestError, HttpHelper } from "@/layers/presentation";
 import { UserVerifyEmailStub } from "./stubs";
 
 const makeSut = () => {
@@ -62,6 +62,6 @@ describe("Presentation - UserVerifyEmailController", () => {
 
 		const result = sut.http({ data });
 
-		await expect(result).resolves.toEqual(ok(data.email));
+		await expect(result).resolves.toEqual(HttpHelper.ok(data.email));
 	});
 });

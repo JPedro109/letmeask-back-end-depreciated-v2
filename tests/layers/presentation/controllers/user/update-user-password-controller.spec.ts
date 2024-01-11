@@ -1,4 +1,4 @@
-import { UpdateUserPasswordController, ok, RequestError } from "@/layers/presentation";
+import { UpdateUserPasswordController, RequestError, HttpHelper } from "@/layers/presentation";
 import { UpdateUserPasswordStub } from "./stubs";
 
 const makeSut = () => {
@@ -163,6 +163,6 @@ describe("Presentation - UpdateUserPasswordController", () => {
 			}
 		});
         
-		expect(result).toEqual(ok(data.id));
+		expect(result).toEqual(HttpHelper.ok(data.id));
 	});
 });

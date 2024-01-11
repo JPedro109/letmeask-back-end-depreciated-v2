@@ -1,4 +1,4 @@
-import { SendUserPasswordRecoveryLinkController, ok, RequestError } from "@/layers/presentation";
+import { SendUserPasswordRecoveryLinkController, RequestError, HttpHelper } from "@/layers/presentation";
 import { SendUserPasswordRecoveryLinkStub } from "./stubs";
 
 const makeSut = () => {
@@ -43,6 +43,6 @@ describe("Presentation - SendUserPasswordRecoveryLinkController", () => {
 
 		const result = await sut.http({ data });
         
-		expect(result).toEqual(ok(data.email));
+		expect(result).toEqual(HttpHelper.ok(data.email));
 	});
 });

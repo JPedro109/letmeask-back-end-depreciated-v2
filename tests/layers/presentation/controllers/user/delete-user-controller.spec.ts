@@ -1,4 +1,4 @@
-import { DeleteUserController, ok, RequestError } from "@/layers/presentation";
+import { DeleteUserController, HttpHelper, RequestError } from "@/layers/presentation";
 import { DeleteUserStub } from "./stubs";
 
 const makeSut = () => {
@@ -137,6 +137,6 @@ describe("Presentation - DeleteUserController", () => {
 			}
 		);
         
-		expect(result).toEqual(ok(data.id));
+		expect(result).toEqual(HttpHelper.ok(data.id));
 	});
 });

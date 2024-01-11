@@ -1,6 +1,6 @@
 import { GetUserQuestionsStub } from "./stubs";
 import { testQuestionModel } from "./datas";
-import { GetUserQuestionsController, ok, RequestError } from "@/layers/presentation";
+import { GetUserQuestionsController, HttpHelper, RequestError } from "@/layers/presentation";
 
 const makeSut = () => {
 	const sut = new GetUserQuestionsController(new GetUserQuestionsStub());
@@ -42,6 +42,6 @@ describe("Presentation - GetUserQuestionsController", () => {
 
 		const response = sut.http({ userId: body.userId as string });
 
-		await expect(response).resolves.toEqual(ok([testQuestionModel]));
+		await expect(response).resolves.toEqual(HttpHelper.ok([testQuestionModel]));
 	});
 });

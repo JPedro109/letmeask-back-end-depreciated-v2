@@ -1,48 +1,65 @@
-import { HttpResponse, InternalServerError } from "@/layers/presentation";
+import { InternalServerError } from "../errors";
+import { HttpResponse } from "../ports";
 
-export const ok = (data: unknown): HttpResponse => ({
-	statusCode: 200,
-	response: data
-});
-
-export const created = (data: unknown): HttpResponse => ({
-	statusCode: 201,
-	response: data
-});
-
-export const noBody = (): HttpResponse => ({
-	statusCode: 204,
-	response: null
-});
-
-export const badRequest = (error: Error): HttpResponse => ({
-	statusCode: 400,
-	response: {
-		message: error.message,
-		code: error.name
+export class HttpHelper {
+	static ok(data: unknown): HttpResponse {
+		return {
+			statusCode: 200,
+			response: data
+		};
 	}
-});
 
-export const unauthorized = (error: Error): HttpResponse => ({
-	statusCode: 401,
-	response: {
-		message: error.message,
-		code: error.name
+	static created(data: unknown): HttpResponse {
+		return {
+			statusCode: 201,
+			response: data
+		};
 	}
-});
 
-export const notFound = (error: Error): HttpResponse => ({
-	statusCode: 404,
-	response: {
-		message: error.message,
-		code: error.name
+	static noBody(): HttpResponse {
+		return {
+			statusCode: 204,
+			response: null
+		};
 	}
-});
 
-export const serverError = (error: Error = new InternalServerError()): HttpResponse => ({
-	statusCode: 500,
-	response: {
-		message: error.message,
-		code: error.name
+	static badRequest(error: Error): HttpResponse {
+		return {
+			statusCode: 400,
+			response: {
+				message: error.message,
+				code: error.name
+			}
+		};
 	}
-});
+
+	static unauthorized(error: Error): HttpResponse {
+		return {
+			statusCode: 401,
+			response: {
+				message: error.message,
+				code: error.name
+			}
+		};
+	}
+
+	static notFound(error: Error): HttpResponse {
+		return {
+			statusCode: 404,
+			response: {
+				message: error.message,
+				code: error.name
+			}
+		};
+	}
+
+	static serverError(error: Error = new InternalServerError()): HttpResponse {
+		return {
+			statusCode: 500,
+			response: {
+				message: error.message,
+				code: error.name
+			}
+		};
+	}
+}

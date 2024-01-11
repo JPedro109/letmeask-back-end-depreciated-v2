@@ -1,10 +1,10 @@
 import { LogProtocol } from "@/layers/domain";
-import { HttpProtocol, HttpRequest, HttpResponse, ok } from "@/layers/presentation";
+import { HttpHelper, HttpProtocol, HttpRequest, HttpResponse } from "@/layers/presentation";
 
 export class ControllerStub implements HttpProtocol {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	async http(request: HttpRequest): Promise<HttpResponse> {
-		return ok("test");
+		return HttpHelper.ok("test");
 	}
 }
 

@@ -1,5 +1,5 @@
 import { GetUsernameStub } from "./stubs";
-import { GetUsernameController, ok, RequestError } from "@/layers/presentation";
+import { GetUsernameController, HttpHelper, RequestError } from "@/layers/presentation";
 
 const makeSut = () => {
 	const getUsernameSpy = new GetUsernameStub();
@@ -43,6 +43,6 @@ describe("Presentation - GetUsernameController", () => {
 
 		const result = await sut.http({ userId: body.id as string });
 
-		expect(result).toEqual(ok("username"));
+		expect(result).toEqual(HttpHelper.ok("username"));
 	});
 });

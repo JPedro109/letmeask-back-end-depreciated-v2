@@ -1,4 +1,4 @@
-import { CreateUserController, created, RequestError } from "@/layers/presentation";
+import { CreateUserController, HttpHelper, RequestError } from "@/layers/presentation";
 import { CreateUserStub } from "./stubs";
 
 const makeSut = () => {
@@ -100,6 +100,6 @@ describe("Presentation - CreateUserController", () => {
 
 		const result = await sut.http({ data });
         
-		expect(result).toEqual(created(data.email));
+		expect(result).toEqual(HttpHelper.created(data.email));
 	});
 });

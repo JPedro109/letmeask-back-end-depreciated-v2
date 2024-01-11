@@ -1,6 +1,6 @@
 import { testRoomModel } from "./datas";
 import { DeleteRoomStub } from "./stubs";
-import { DeleteRoomController, ok, RequestError } from "@/layers/presentation";
+import { DeleteRoomController, HttpHelper, RequestError } from "@/layers/presentation";
 
 const makeSut = () => {
 	const deleteRoomStub = new DeleteRoomStub();
@@ -63,6 +63,6 @@ describe("Presentation - DeleteRoomController", () => {
 
 		const response = sut.http({ userId: body.userId as string, data: { roomCode: body.roomCode } });
 
-		await expect(response).resolves.toEqual(ok(testRoomModel));
+		await expect(response).resolves.toEqual(HttpHelper.ok(testRoomModel));
 	});
 });

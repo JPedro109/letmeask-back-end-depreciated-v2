@@ -1,6 +1,6 @@
 import { DomainError, NotFoundError, UnauthorizedError } from "@/layers/domain";
 import { ControllerStub, LogFacadeStub } from "./stubs";
-import { TreatmentDecoratorHttp, badRequest, notFound, ok, serverError, unauthorized } from "@/layers/presentation";
+import { TreatmentDecoratorHttp, HttpHelper } from "@/layers/presentation";
 
 const makeSut = () => {
 	const controllerStub = new ControllerStub();
@@ -21,7 +21,7 @@ describe("Presentation - TreatmentDecoratorHttp", () => {
 
 		const result = await sut.http({ userId: "1" });
 
-		expect(result).toEqual(ok("test"));
+		expect(result).toEqual(HttpHelper.ok("test"));
 	});
 
 	test("Should return unauthorized", async () => {
@@ -30,7 +30,7 @@ describe("Presentation - TreatmentDecoratorHttp", () => {
 
 		const result = await sut.http({});
 
-		expect(result).toEqual(unauthorized(new UnauthorizedError("error")));
+		expect(result).toEqual(HttpHelper.unauthorized(new UnauthorizedError("error")));
 	});
 
 	test("Should return not found", async () => {
@@ -39,7 +39,7 @@ describe("Presentation - TreatmentDecoratorHttp", () => {
 
 		const result = await sut.http({});
 
-		expect(result).toEqual(notFound(new NotFoundError("error")));
+		expect(result).toEqual(HttpHelper.notFound(new NotFoundError("error")));
 	});
 
 	test("Should return badRequest", async () => {
@@ -48,7 +48,7 @@ describe("Presentation - TreatmentDecoratorHttp", () => {
 
 		const result = await sut.http({});
 
-		expect(result).toEqual(badRequest(new DomainError("error")));
+		expect(result).toEqual(HttpHelper.badRequest(new DomainError("error")));
 	});
 
 	test("Should return server error with logged user", async () => {
@@ -57,6 +57,6 @@ describe("Presentation - TreatmentDecoratorHttp", () => {
 
 		const result = await sut.http({ userId: "1" });
 
-		expect(result).toEqual(serverError());
+		expect(result).toEqual(HttpHelper.serverError());
 	});
 });

@@ -1,6 +1,6 @@
 import { CreateQuestionStub } from "./stubs";
 import { testQuestionModel } from "./datas";
-import { CreateQuestionController, created, RequestError } from "@/layers/presentation";
+import { CreateQuestionController, HttpHelper, RequestError } from "@/layers/presentation";
 
 const makeSut = () => {
 	const createQuestionStub = new CreateQuestionStub();
@@ -110,6 +110,6 @@ describe("Presentation - CreateQuestionController", () => {
 				data: { roomCode: data.roomCode, question: data.question } 
 			});
 
-		await expect(response).resolves.toEqual(created(testQuestionModel));
+		await expect(response).resolves.toEqual(HttpHelper.created(testQuestionModel));
 	});
 });

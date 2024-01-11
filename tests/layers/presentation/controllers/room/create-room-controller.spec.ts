@@ -1,6 +1,6 @@
 import { testRoomModel } from "./datas";
 import { CreateRoomStub } from "./stubs";
-import { CreateRoomController, created, RequestError } from "@/layers/presentation";
+import { CreateRoomController, HttpHelper, RequestError } from "@/layers/presentation";
 
 const makeSut = () => {
 	const createRoomStub = new CreateRoomStub();
@@ -63,6 +63,6 @@ describe("Presentation - CreateRoomController", () => {
 
 		const result = sut.http({ userId: data.userId as string, data: { roomName: data.roomName } });
 
-		await expect(result).resolves.toEqual(created(testRoomModel));
+		await expect(result).resolves.toEqual(HttpHelper.created(testRoomModel));
 	});
 });

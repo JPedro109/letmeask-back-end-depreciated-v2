@@ -1,5 +1,5 @@
 import { GetUserRoomCodeStub } from "./stubs";
-import { GetUserRoomCodeController, ok, RequestError } from "@/layers/presentation";
+import { GetUserRoomCodeController, HttpHelper, RequestError } from "@/layers/presentation";
 
 const makeSut = () => {
 	const getUserRoomCodeStub = new GetUserRoomCodeStub();
@@ -43,6 +43,6 @@ describe("Presentation - GetUserRoomCodeController", () => {
 
 		const response = sut.http({ userId: body.userId as string });
 
-		await expect(response).resolves.toEqual(ok("000000"));
+		await expect(response).resolves.toEqual(HttpHelper.ok("000000"));
 	});
 });

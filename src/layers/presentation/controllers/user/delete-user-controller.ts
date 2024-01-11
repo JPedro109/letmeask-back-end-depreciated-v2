@@ -1,4 +1,4 @@
-import { HttpProtocol, HttpRequest, HttpResponse, ok, RequestError, Validate } from "@/layers/presentation";
+import { HttpHelper, HttpProtocol, HttpRequest, HttpResponse, RequestError, Validate } from "@/layers/presentation";
 import { DeleteUserUseCaseProtocol } from "@/layers/domain";
 
 export class DeleteUserController implements HttpProtocol {
@@ -23,6 +23,6 @@ export class DeleteUserController implements HttpProtocol {
 
 		const response = await this.useCase.execute({ id, password, passwordConfirm });
 
-		return ok(response);
+		return HttpHelper.ok(response);
 	}
 }

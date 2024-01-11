@@ -1,4 +1,4 @@
-import { HttpProtocol, HttpRequest, HttpResponse, ok, Validate, RequestError } from "@/layers/presentation";
+import { HttpProtocol, HttpRequest, HttpResponse, HttpHelper, Validate, RequestError } from "@/layers/presentation";
 import { GetUserRoomCodeUseCaseProtocol } from "@/layers/domain";
 
 export class GetUserRoomCodeController implements HttpProtocol {
@@ -19,6 +19,6 @@ export class GetUserRoomCodeController implements HttpProtocol {
 
 		const response = await this.useCase.execute({ userId });
 
-		return ok(response);
+		return HttpHelper.ok(response);
 	}
 }

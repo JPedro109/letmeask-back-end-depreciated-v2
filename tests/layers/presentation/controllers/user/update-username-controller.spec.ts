@@ -1,5 +1,5 @@
 import { UpdateUsernameStub } from "./stubs";
-import { UpdateUsernameController, ok, RequestError } from "@/layers/presentation";
+import { UpdateUsernameController, RequestError, HttpHelper } from "@/layers/presentation";
 
 const makeSut = () => {
 	const updateUsernameStub = new UpdateUsernameStub();
@@ -62,6 +62,6 @@ describe("Presentation - UpdateUsernameController", () => {
 
 		const result = sut.http({ userId: data.id as string, data: { username: data.username } });
 
-		await expect(result).resolves.toEqual(ok(data.username));
+		await expect(result).resolves.toEqual(HttpHelper.ok(data.username));
 	});
 });

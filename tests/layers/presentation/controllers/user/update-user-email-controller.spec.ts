@@ -1,4 +1,4 @@
-import { UpdateUserEmailController, ok, RequestError } from "@/layers/presentation";
+import { UpdateUserEmailController, RequestError, HttpHelper } from "@/layers/presentation";
 import { UpdateUserEmailStub } from "./stubs";
 
 const makeSut = () => {
@@ -123,6 +123,6 @@ describe("Presentation - UpdateUserEmailController", () => {
 			} 
 		});
         
-		expect(result).toEqual(ok(body.id));
+		expect(result).toEqual(HttpHelper.ok(body.id));
 	});
 });

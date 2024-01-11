@@ -1,5 +1,5 @@
 import { UpdateUsernameUseCaseProtocol } from "@/layers/domain";
-import { HttpProtocol, HttpRequest, HttpResponse, ok, RequestError, Validate } from "@/layers/presentation";
+import { HttpHelper, HttpProtocol, HttpRequest, HttpResponse, RequestError, Validate } from "@/layers/presentation";
 
 export class UpdateUsernameController implements HttpProtocol {
 
@@ -20,6 +20,6 @@ export class UpdateUsernameController implements HttpProtocol {
 
 		const response = await this.useCase.execute({ id, username });
 
-		return ok(response);
+		return HttpHelper.ok(response);
 	}
 }

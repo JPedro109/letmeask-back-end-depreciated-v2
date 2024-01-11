@@ -1,14 +1,11 @@
 import { Metrics } from "@/shared";
 import { DomainError, InvalidParamError, LogProtocol, NotFoundError, UnauthorizedError } from "@/layers/domain";
 import { 
+	HttpHelper,
 	HttpProtocol, 
 	HttpRequest, 
 	HttpResponse, 
-	RequestError, 
-	badRequest, 
-	notFound, 
-	serverError, 
-	unauthorized 
+	RequestError
 } from "@/layers/presentation";
 
 export class TreatmentDecoratorHttp implements HttpProtocol {
@@ -19,10 +16,10 @@ export class TreatmentDecoratorHttp implements HttpProtocol {
 	) { }
 
 	private setErrorStatusCode(e: Error) {
-		if(e instanceof UnauthorizedError) return unauthorized(e);
-		if(e instanceof NotFoundError) return notFound(e);
-		if(e instanceof DomainError || e instanceof RequestError || e instanceof InvalidParamError) return badRequest(e);
-		return serverError();
+		if(e instanceof UnauthorizedError) return HttpHelper.unauthorized(e);
+		if(e instanceof NotFoundError) return HttpHelper.notFound(e);
+		if(e instanceof DomainError || e instanceof RequestError || e instanceof InvalidParamError) return HttpHelper.badRequest(e);
+		return HttpHelper.serverError();
 	}
 
 	async http(request: HttpRequest): Promise<HttpResponse> {

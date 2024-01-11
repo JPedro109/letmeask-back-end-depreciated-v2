@@ -1,4 +1,4 @@
-import { RecoverUserPasswordController, ok, RequestError } from "@/layers/presentation";
+import { HttpHelper, RecoverUserPasswordController, RequestError } from "@/layers/presentation";
 import { RecoverUserPasswordStub } from "./stubs";
 
 const makeSut = () => {
@@ -163,7 +163,7 @@ describe("Presentation - RecoverUserPasswordController", () => {
 			}
 		});
         
-		expect(result).toEqual(ok(data.email));
+		expect(result).toEqual(HttpHelper.ok(data.email));
 	});
 
 });

@@ -1,6 +1,6 @@
 import { DeleteQuestionStub } from "./stubs";
 import { testQuestionModel } from "./datas";
-import { DeleteQuestionController, ok, RequestError } from "@/layers/presentation";
+import { DeleteQuestionController, HttpHelper, RequestError } from "@/layers/presentation";
 
 const makeSut = () => {
 	const deleteQuestionStub = new DeleteQuestionStub();
@@ -83,6 +83,6 @@ describe("Presentation - DeleteQuestionController", () => {
 				data: {  questionId: body.questionId } 
 			});
 
-		await expect(response).resolves.toEqual(ok(testQuestionModel));
+		await expect(response).resolves.toEqual(HttpHelper.ok(testQuestionModel));
 	});
 });

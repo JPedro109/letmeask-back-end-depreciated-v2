@@ -1,4 +1,4 @@
-import { UserLoginController, ok, RequestError } from "@/layers/presentation";
+import { UserLoginController, RequestError, HttpHelper } from "@/layers/presentation";
 import { UserLoginStub } from "./stubs";
 
 const makeSut = () => {
@@ -62,6 +62,6 @@ describe("Presentation - UserLoginController", () => {
 
 		const result = sut.http({ data });
 
-		await expect(result).resolves.toEqual(ok("code"));
+		await expect(result).resolves.toEqual(HttpHelper.ok("code"));
 	});
 });

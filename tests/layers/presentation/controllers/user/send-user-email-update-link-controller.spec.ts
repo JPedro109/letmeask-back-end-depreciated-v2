@@ -1,4 +1,4 @@
-import { SendUserEmailUpdateLinkController, ok, RequestError } from "@/layers/presentation";
+import { SendUserEmailUpdateLinkController, RequestError, HttpHelper } from "@/layers/presentation";
 import { SendUserEmailUpdateLinkStub } from "./stubs";
 
 const makeSut = () => {
@@ -87,6 +87,6 @@ describe("Presentation - SendUserEmailUpdateLinkStub", () => {
 			}
 		});
         
-		expect(result).toEqual(ok(data.id));
+		expect(result).toEqual(HttpHelper.ok(data.id));
 	});
 });
