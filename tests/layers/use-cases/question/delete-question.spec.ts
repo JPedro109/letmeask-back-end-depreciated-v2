@@ -21,50 +21,50 @@ const makeSut = () => {
 
 describe("Use case - DeleteQuestionUseCase", () => {
     
-	test("Should not delete question, because question is not exists", async () => {
+	test("Should not delete question, because question is not exists", () => {
 		const userId = "1";
 		const questionId = "2";
 		const { sut, questionRepositoryStub } = makeSut();
-		jest.spyOn(questionRepositoryStub, "getById").mockResolvedValueOnce(Promise.resolve(null));
+		jest.spyOn(questionRepositoryStub, "getById").mockResolvedValueOnce(null);
 
-		const result = await sut.execute({ userId, questionId });
+		const result = sut.execute({ userId, questionId });
 
-		expect(result).toBeInstanceOf(NotFoundError);
+		expect(result).rejects.toThrow(NotFoundError);
 	});
 
-	test("Should not delete question, because the user is not room admin or question creator", async () => {
+	test("Should not delete question, because the user is not room admin or question creator", () => {
 		const userId = "3";
 		const questionId = "1";
 		const { sut, roomRepositoryStub } = makeSut();
-		jest.spyOn(roomRepositoryStub, "getCodeByUserId").mockResolvedValueOnce(Promise.resolve("000001"));
+		jest.spyOn(roomRepositoryStub, "getCodeByUserId").mockResolvedValueOnce("000001");
 
-		const result = await sut.execute({ userId, questionId });
+		const result = sut.execute({ userId, questionId });
 
-		expect(result).toBeInstanceOf(UnauthorizedError);
+		expect(result).rejects.toThrow(UnauthorizedError);
 	});
 
-	test("Should delete question", async () => {
+	test("Should delete question", () => {
 		const userId = "2";
 		const questionId = "1";
 		const { sut, questionRepositoryStub } = makeSut();
-		jest.spyOn(questionRepositoryStub, "getById").mockResolvedValueOnce(Promise.resolve({ ...testQuestionModel, userId: "2" }));
+		jest.spyOn(questionRepositoryStub, "getById").mockResolvedValueOnce({ ...testQuestionModel, userId: "2" });
 
-		const result = await sut.execute({ userId, questionId });
+		const result = sut.execute({ userId, questionId });
 
-		expect(result).toEqual(testQuestionModel);
+		expect(result).resolves.toEqual(testQuestionModel);
 	});
 
-	test("Should delete question", async () => {
+	test("Should delete question", () => {
 		const userId = "2";
 		const questionId = "1";
 		const { sut, questionRepositoryStub, roomRepositoryStub } = makeSut();
 		jest
 			.spyOn(questionRepositoryStub, "getById")
-			.mockResolvedValueOnce(Promise.resolve({ ...testQuestionModel, roomCode: "000000" }));
-		jest.spyOn(roomRepositoryStub, "getCodeByUserId").mockResolvedValueOnce(Promise.resolve("000000"));
+			.mockResolvedValueOnce({ ...testQuestionModel, roomCode: "000000" });
+		jest.spyOn(roomRepositoryStub, "getCodeByUserId").mockResolvedValueOnce("000000");
 
-		const result = await sut.execute({ userId, questionId });
+		const result = sut.execute({ userId, questionId });
 
-		expect(result).toEqual(testQuestionModel);
+		expect(result).resolves.toEqual(testQuestionModel);
 	});
 });

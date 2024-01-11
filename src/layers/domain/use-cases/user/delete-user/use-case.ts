@@ -11,15 +11,15 @@ export class DeleteUserUseCase implements DeleteUserUseCaseProtocol {
 
 	async execute({ id, password, passwordConfirm }: DeleteUserDTO): Promise<DeleteUserResponseDTO> {
 
-		if(password !== passwordConfirm) return new InvalidParamError("As senhas não coincidem");
+		if(password !== passwordConfirm) throw new InvalidParamError("As senhas não coincidem");
 
 		const user = await this.repository.getUserById(id);
 		
-		if(!user) return new NotFoundError("Usuário não existe");
+		if(!user) throw new NotFoundError("Usuário não existe");
 
 		const passwordIsEqual = await this.cryptography.compareHash(user.password, password);
 
-		if(!passwordIsEqual) return new InvalidParamError("Senha inválida");
+		if(!passwordIsEqual) throw new InvalidParamError("Senha inválida");
 
 		await this.repository.deleteUserById(id);
 

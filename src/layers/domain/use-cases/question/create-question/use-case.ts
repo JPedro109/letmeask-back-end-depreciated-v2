@@ -29,15 +29,15 @@ export class CreateQuestionUseCase implements CreateQuestionUseCaseProtocol {
 	async execute({ userId, roomCode, question }: CreateQuestionDTO): Promise<CreateQuestionResponseDTO> {
 		const questionOrError = Question.create(question);
 
-		if(questionOrError instanceof Error) return questionOrError;
+		if(questionOrError instanceof Error) throw questionOrError;
 
 		if(!(await this.roomRepository.roomExists(roomCode))) 
-			return new NotFoundError("A sala em que você quer criar a sua pergunta não existe");
+			throw new NotFoundError("A sala em que você quer criar a sua pergunta não existe");
 
 		const user = await this.userRepository.getUserById(userId);
 
 		if(user.managedRoom === roomCode) 
-			return new UnauthorizedError("O administrador da sala não pode criar perguntas em sua própria sala");
+			throw new UnauthorizedError("O administrador da sala não pode criar perguntas em sua própria sala");
 
 		const createdQuestion = await this.questionRepository.store(roomCode, question, userId);
 

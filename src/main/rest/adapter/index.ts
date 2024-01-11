@@ -30,8 +30,7 @@ export class RestAdapter {
 
 			const { response, statusCode } = await middleware.http(request);
 
-			if(statusCode > 399 && statusCode <= 500 || response instanceof Error) 
-				return res.status(statusCode).json(response);			
+			if(statusCode > 399 && statusCode <= 500) return res.status(statusCode).json(response);			
 
 			req.userId = request.userId;
 

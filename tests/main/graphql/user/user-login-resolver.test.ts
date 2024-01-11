@@ -27,7 +27,7 @@ describe("userLogin - MUTATION", () => {
 				variables: { data: body },
 			});
 
-		expect(response.body.errors[0].code).toBe("MissingParamError");
+		expect(response.body.errors[0].code).toBe("RequestError");
 	});
 
 	test("Should not login user, because password is empty", async () => {
@@ -40,7 +40,7 @@ describe("userLogin - MUTATION", () => {
 				variables: { data: body },
 			});
 
-		expect(response.body.errors[0].code).toBe("MissingParamError");
+		expect(response.body.errors[0].code).toBe("RequestError");
 	});
 
 	test("Should not login user, because email is incorrect", async () => {

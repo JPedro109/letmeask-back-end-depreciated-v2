@@ -24,9 +24,9 @@ describe("Use case - UpdateUserPasswordUseCase", () => {
 		const newPasswordConfirm = "Password12";
 		const { sut } = makeSut();
 
-		const result = await sut.execute({ id, password, newPassword, newPasswordConfirm });
+		const result = sut.execute({ id, password, newPassword, newPasswordConfirm });
 
-		expect(result).toBeInstanceOf(InvalidParamError);
+		expect(result).rejects.toThrow(InvalidParamError);
 	});
 
 	test("Should not update user password, because new password is not respect password rules", async () => {
@@ -36,9 +36,9 @@ describe("Use case - UpdateUserPasswordUseCase", () => {
 		const newPasswordConfirm = "password";
 		const { sut } = makeSut();
 
-		const result = await sut.execute({ id, password, newPassword, newPasswordConfirm });
+		const result = sut.execute({ id, password, newPassword, newPasswordConfirm });
 
-		expect(result).toBeInstanceOf(InvalidUserPasswordError);
+		expect(result).rejects.toThrow(InvalidUserPasswordError);
 	});
 
 	test("Should not update user password, because user is not exists", async () => {
@@ -49,9 +49,9 @@ describe("Use case - UpdateUserPasswordUseCase", () => {
 		const { sut, userRepositoryStub } = makeSut();
 		jest.spyOn(userRepositoryStub, "getUserById").mockReturnValueOnce(null);
 
-		const result = await sut.execute({ id, password, newPassword, newPasswordConfirm });
+		const result = sut.execute({ id, password, newPassword, newPasswordConfirm });
 
-		expect(result).toBeInstanceOf(NotFoundError);
+		expect(result).rejects.toThrow(NotFoundError);
 	});
 
 	test("Should not update user password, because password is not match with current password", async () => {
@@ -62,9 +62,9 @@ describe("Use case - UpdateUserPasswordUseCase", () => {
 		const { sut, cryptographyStub } = makeSut();
 		jest.spyOn(cryptographyStub, "compareHash").mockReturnValueOnce(Promise.resolve(false));
 
-		const result = await sut.execute({ id, password, newPassword, newPasswordConfirm });
+		const result = sut.execute({ id, password, newPassword, newPasswordConfirm });
 
-		expect(result).toBeInstanceOf(InvalidParamError);
+		expect(result).rejects.toThrow(InvalidParamError);
 	});
 
 	test("Should not update user password, because new password is match with current password", async () => {
@@ -74,9 +74,9 @@ describe("Use case - UpdateUserPasswordUseCase", () => {
 		const newPasswordConfirm = "Password12345";
 		const { sut } = makeSut();
 
-		const result = await sut.execute({ id, password, newPassword, newPasswordConfirm });
+		const result = sut.execute({ id, password, newPassword, newPasswordConfirm });
 
-		expect(result).toBeInstanceOf(InvalidParamError);
+		expect(result).rejects.toThrow(InvalidParamError);
 	});
 
 	test("Should update user password", async () => {

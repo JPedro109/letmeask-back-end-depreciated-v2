@@ -1,4 +1,4 @@
-import { InvalidUsernameError } from "./errors";
+import { InvalidUsernameError } from "./error";
 
 export class Username {
 

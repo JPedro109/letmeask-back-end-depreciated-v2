@@ -30,7 +30,7 @@ describe("deleteUser - MUTATION", () => {
 				variables: { data: body },
 			});
 			
-		expect(response.body.errors[0].code).toBe("MissingParamError");
+		expect(response.body.errors[0].code).toBe("RequestError");
 	});
 
 	test("Should not delete user, because passwordConfirm is empty", async () => {
@@ -45,7 +45,7 @@ describe("deleteUser - MUTATION", () => {
 				query,
 				variables: { data: body },
 			});
-		expect(response.body.errors[0].code).toBe("MissingParamError");
+		expect(response.body.errors[0].code).toBe("RequestError");
 	});
 
 	test("Should not delete user, because passwords is not match", async () => {

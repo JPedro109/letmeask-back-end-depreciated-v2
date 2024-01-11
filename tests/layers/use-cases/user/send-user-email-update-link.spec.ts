@@ -37,9 +37,9 @@ describe("Use case SendUserEmailUpdateLinkUseCase", () => {
 		const email = "email.com";
 		const { sut } = makeSut();
 
-		const result = await sut.execute({ id, email });
+		const result = sut.execute({ id, email });
 
-		expect(result).toBeInstanceOf(InvalidUserEmailError);
+		expect(result).rejects.toThrow(InvalidUserEmailError);
 	});
 
 	test("Shoud not send user email update link, because user is not exists", async () => {
@@ -48,9 +48,9 @@ describe("Use case SendUserEmailUpdateLinkUseCase", () => {
 		const { sut, userRepositoryStub } = makeSut();
 		jest.spyOn(userRepositoryStub, "getUserById").mockResolvedValueOnce(null);
 
-		const result = await sut.execute({ id, email });
+		const result = sut.execute({ id, email });
 
-		expect(result).toBeInstanceOf(NotFoundError);
+		expect(result).rejects.toThrow(NotFoundError);
 	});
 
 	test("Shoud not send user email update link, because email already register", async () => {
@@ -59,9 +59,9 @@ describe("Use case SendUserEmailUpdateLinkUseCase", () => {
 		const { sut, userRepositoryStub } = makeSut();
 		jest.spyOn(userRepositoryStub, "getUserByEmail").mockResolvedValueOnce(testUserModel);
 
-		const result = await sut.execute({ id, email });
+		const result = sut.execute({ id, email });
 
-		expect(result).toBeInstanceOf(InvalidParamError);
+		expect(result).rejects.toThrow(InvalidParamError);
 	});
 
 	test("Shoud send user email update link", async () => {

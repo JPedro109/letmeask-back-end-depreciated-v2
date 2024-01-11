@@ -31,7 +31,7 @@ describe("updateUserPassword - MUTATION", () => {
 				variables: { data: body },
 			});
 
-		expect(response.body.errors[0].code).toBe("MissingParamError");
+		expect(response.body.errors[0].code).toBe("RequestError");
 	});
 
 	test("Should not update user password, because new password is empty", async () => {
@@ -47,7 +47,7 @@ describe("updateUserPassword - MUTATION", () => {
 				variables: { data: body },
 			});
 
-		expect(response.body.errors[0].code).toBe("MissingParamError");
+		expect(response.body.errors[0].code).toBe("RequestError");
 	});
 
 	test("Should not update user password, because new password confirm is empty", async () => {
@@ -63,7 +63,7 @@ describe("updateUserPassword - MUTATION", () => {
 				variables: { data: body },
 			});
 
-		expect(response.body.errors[0].code).toBe("MissingParamError");
+		expect(response.body.errors[0].code).toBe("RequestError");
 	});
 
 	test("Should not update user password, because password is not match with registered passwod in database", async () => {

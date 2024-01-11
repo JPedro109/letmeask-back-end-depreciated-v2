@@ -1,7 +1,6 @@
 import { testRoomModel } from "./datas";
 import { GetRoomStub } from "./stubs";
-import { NotFoundError } from "@/layers/domain";
-import { GetRoomController, InvalidTypeError, MissingParamError, badRequest, notFound, ok } from "@/layers/presentation";
+import { GetRoomController, ok, RequestError } from "@/layers/presentation";
 
 const makeSut = () => {
 	const getRoomStub = new GetRoomStub();
@@ -25,46 +24,26 @@ describe("Presentation - GetRoomController", () => {
 		const body = makeBody("");
 		const { sut } = makeSut();
 
-		const result = await sut.http({ data: { roomCode: body.roomCode } });
+		const result = sut.http({ data: { roomCode: body.roomCode } });
 
-		expect(result).toEqual(badRequest(new MissingParamError("roomCode")));
+		expect(result).rejects.toThrow(RequestError);
 	});
 
 	test("Should not get room, because room code is with type error", async () => {
 		const body = makeBody(100);
 		const { sut } = makeSut();
 
-		const result = await sut.http({ data: { roomCode: body.roomCode } });
+		const result = sut.http({ data: { roomCode: body.roomCode } });
 
-		expect(result).toEqual(badRequest(new InvalidTypeError("roomCode")));
-	});
-
-	test("Should not get room, because use case returned error", async () => {
-		const body = makeBody("000001");
-		const { sut, getRoomStub } = makeSut();
-		jest.spyOn(getRoomStub, "execute").mockReturnValueOnce(Promise.resolve(new NotFoundError("error")));
-
-		const result = await sut.http({ data: { roomCode: body.roomCode } });
-
-		expect(result).toEqual(notFound(new NotFoundError("error")));
-	});
-
-	test("Should not get room, because use case returned error", async () => {
-		const body = makeBody("000000");
-		const { sut, getRoomStub } = makeSut();
-		jest.spyOn(getRoomStub, "execute").mockReturnValueOnce(Promise.resolve(new Error("error")));
-
-		const result = await sut.http({ data: { roomCode: body.roomCode } });
-
-		expect(result).toEqual(badRequest(new Error("error")));
+		expect(result).rejects.toThrow(RequestError);
 	});
 
 	test("Should get room", async () => {
 		const body = makeBody("000000");
 		const { sut } = makeSut();
 
-		const result = await sut.http({ data: { roomCode: body.roomCode } });
+		const result = sut.http({ data: { roomCode: body.roomCode } });
 
-		expect(result).toEqual(ok(testRoomModel));
+		await expect(result).resolves.toEqual(ok(testRoomModel));
 	});
 });

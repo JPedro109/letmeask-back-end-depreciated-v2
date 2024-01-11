@@ -1,4 +1,4 @@
-import { HttpProtocol, HttpRequest, HttpResponse, badRequest, created, Validate } from "@/layers/presentation";
+import { HttpProtocol, HttpRequest, HttpResponse, created, Validate, RequestError } from "@/layers/presentation";
 import { CreateUserUseCaseProtocol } from "@/layers/domain";
 
 export class CreateUserController implements HttpProtocol {
@@ -18,11 +18,9 @@ export class CreateUserController implements HttpProtocol {
 			{ email, password, passwordConfirm, username }
 		);
 
-		if(validation instanceof Error) return badRequest(validation); 
+		if(!validation.valid) throw new RequestError(validation.errors);  
 
 		const response = await this.useCase.execute({ email, username, password, passwordConfirm });
-
-		if(response instanceof Error) return badRequest(response);
 
 		return created(response);
 	}

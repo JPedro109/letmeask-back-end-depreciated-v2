@@ -14,23 +14,23 @@ export class RecoverUserPasswordUseCase implements RecoverUserPasswordUseCasePro
 		const userRepository = this.unitOfWork.getUserRepository();
 		const userVerificationCodeRepository = this.unitOfWork.getUserVerificationCodeRepository();
 
-		if(password !== passwordConfirm) return new InvalidParamError("As senhas não coincidem");
+		if(password !== passwordConfirm) throw new InvalidParamError("As senhas não coincidem");
 
 		const userPasswordOrError = UserPassword.create(password);
 
-		if(userPasswordOrError instanceof Error) return userPasswordOrError;
+		if(userPasswordOrError instanceof Error) throw userPasswordOrError;
 
 		const user = await userRepository.getUserByEmailWithVerificationCode(email, code, true);
 
-		if(!user) return new NotFoundError("Email não cadastrado"); 
+		if(!user) throw new NotFoundError("Email não cadastrado"); 
 
-		if(!user.userVerificationCode) return new InvalidParamError("Código inválido");
+		if(!user.userVerificationCode) throw new InvalidParamError("Código inválido");
 
-		if(Date.now() > user.userVerificationCode.verificationCodeExpiryDate) return new InvalidParamError("Código expirado");
+		if(Date.now() > user.userVerificationCode.verificationCodeExpiryDate) throw new InvalidParamError("Código expirado");
 
 		const passwordEqual = await this.cryptography.compareHash(user.password, userPasswordOrError.value);
 
-		if(passwordEqual) return new InvalidParamError("A sua nova senha não pode ser igual a anterior");
+		if(passwordEqual) throw new InvalidParamError("A sua nova senha não pode ser igual a anterior");
 
 		const hashPassword = await this.cryptography.hash(userPasswordOrError.value);
 

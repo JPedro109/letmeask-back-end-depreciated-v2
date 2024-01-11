@@ -27,7 +27,6 @@ export const setup = () => {
 	afterEach(async () => {
 		await mockRepository.deleteMocks();
 	});
-
 };
 
 export const loginRest = async (email: string) => {
@@ -38,7 +37,6 @@ export const loginRest = async (email: string) => {
 			password: "Password1234"
 		})).body;
 };
-
 
 export const loginGraphql = async (email: string) => {
 	return (await request(setupGraphQL())

@@ -34,26 +34,26 @@ const makeSut = () => {
 
 describe("Use case - CreateRoomUseCase", () => {
     
-	test("Should not create room, because the room rules is not respect", async () => {
+	test("Should not create room, because the room rules are not respected", () => {
 		const userId = "2"; 
 		const roomName = ""; 
 		const { sut } = makeSut();
 
-		const result = await sut.execute({ userId, roomName });
-
-		expect(result).toBeInstanceOf(Error);
+		const response = sut.execute({ userId, roomName });
+        
+		expect(response).rejects.toThrow(Error);
 	});
 
-	test("Should not create room, because user already have a room", async () => {
+	test("Should not create room, because the user already has a room", () => {
 		const userId = "1"; 
 		const roomName = "room"; 
 		const { sut, roomRepositoryStub, userRepositoryStub } = makeSut();
-		jest.spyOn(roomRepositoryStub, "getRoomByUserId").mockResolvedValueOnce(Promise.resolve(null));
-		jest.spyOn(userRepositoryStub, "getUserById").mockResolvedValueOnce(Promise.resolve({ ...testUserModel, managedRoom: "000000" }));
+		jest.spyOn(roomRepositoryStub, "getRoomByUserId").mockResolvedValueOnce(null);
+		jest.spyOn(userRepositoryStub, "getUserById").mockResolvedValueOnce({ ...testUserModel, managedRoom: "000000" });
         
-		const result = await sut.execute({ userId, roomName });
-
-		expect(result).toBeInstanceOf(UnauthorizedError);
+		const response = sut.execute({ userId, roomName });
+        
+		expect(response).rejects.toThrow(UnauthorizedError);
 	});
 
 	test("Should create room", async () => {
@@ -61,8 +61,8 @@ describe("Use case - CreateRoomUseCase", () => {
 		const roomName = "room"; 
 		const { sut } = makeSut();
 
-		const result = await sut.execute({ userId, roomName });
-
-		expect(result).toEqual(testRoomModel);
+		const response = sut.execute({ userId, roomName });
+        
+		expect(response).resolves.toEqual(testRoomModel);
 	});
 });

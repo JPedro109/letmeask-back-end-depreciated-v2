@@ -1,5 +1,5 @@
-import { HttpProtocol, HttpRequest, HttpResponse, badRequest, notFound, ok, Validate } from "@/layers/presentation";
-import { GetRoomUseCaseProtocol, NotFoundError } from "@/layers/domain";
+import { HttpProtocol, HttpRequest, HttpResponse, ok, RequestError, Validate } from "@/layers/presentation";
+import { GetRoomUseCaseProtocol } from "@/layers/domain";
 
 export class GetRoomController implements HttpProtocol {
 
@@ -15,11 +15,9 @@ export class GetRoomController implements HttpProtocol {
 			{ roomCode }
 		);
 
-		if(validation instanceof Error) return badRequest(validation); 
+		if(!validation.valid) throw new RequestError(validation.errors);  
 
 		const response = await this.useCase.execute({ roomCode });
-
-		if(response instanceof Error) return response instanceof NotFoundError ? notFound(response) : badRequest(response); 
 
 		return ok(response);
 	}

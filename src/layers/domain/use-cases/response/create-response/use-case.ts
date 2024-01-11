@@ -31,18 +31,18 @@ export class CreateResponseUseCase implements CreateResponseUseCaseProtocol {
 	async execute({ userId, questionId, response }: CreateResponseDTO): Promise<CreateResponseResponseDTO> {
 		const responseOrError = Response.create(response);
 
-		if(responseOrError instanceof Error) return responseOrError;
+		if(responseOrError instanceof Error) throw responseOrError;
 
 		const question = await this.questionRepository.getById(questionId);
 
-		if(!question) return new NotFoundError("A pergunta que você quer responder não existe");
+		if(!question) throw new NotFoundError("A pergunta que você quer responder não existe");
 
 		const user = await this.userRepository.getUserById(userId);
 
 		if(user.managedRoom !== question.roomCode) 
-			return new UnauthorizedError("Só o administrador da sala pode responder perguntas");
+			throw new UnauthorizedError("Só o administrador da sala pode responder perguntas");
 
-		if(question.response) return new UnauthorizedError("Essa pergunta já tem uma resposta");
+		if(question.response) throw new UnauthorizedError("Essa pergunta já tem uma resposta");
 
 		const createdResponse = await this.responseRepository.createResponse(question.id, responseOrError.responseDescription.value);
 		await this.addCache(user.managedRoom);

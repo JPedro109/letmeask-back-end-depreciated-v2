@@ -1,4 +1,4 @@
-import { InvalidResponseDescriptionError } from "./errors";
+import { InvalidResponseDescriptionError } from "./error";
 
 export class ResponseDescription {
 

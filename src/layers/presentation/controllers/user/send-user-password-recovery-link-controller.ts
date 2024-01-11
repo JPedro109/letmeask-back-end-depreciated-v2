@@ -1,5 +1,5 @@
-import { HttpProtocol, HttpRequest, HttpResponse, badRequest, notFound, ok, Validate } from "@/layers/presentation";
-import { NotFoundError, SendUserPasswordRecoveryLinkUseCaseProtocol } from "@/layers/domain";
+import { HttpProtocol, HttpRequest, HttpResponse, ok, Validate, RequestError } from "@/layers/presentation";
+import { SendUserPasswordRecoveryLinkUseCaseProtocol } from "@/layers/domain";
 
 export class SendUserPasswordRecoveryLinkController implements HttpProtocol {
 
@@ -15,11 +15,9 @@ export class SendUserPasswordRecoveryLinkController implements HttpProtocol {
 			{ email }
 		);
 
-		if(validation instanceof Error) return badRequest(validation); 
+		if(!validation.valid) throw new RequestError(validation.errors);  
 
 		const response = await this.useCase.execute({ email });
-
-		if(response instanceof Error) return response instanceof NotFoundError ? notFound(response) : badRequest(response);
 
 		return ok(response);
 	}

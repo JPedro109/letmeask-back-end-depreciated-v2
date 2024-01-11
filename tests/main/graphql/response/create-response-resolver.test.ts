@@ -28,7 +28,7 @@ describe("createResponse - MUTATION", () => {
 				variables: { data: body },
 			});
 
-		expect(response.body.errors[0].code).toBe("MissingParamError");
+		expect(response.body.errors[0].code).toBe("RequestError");
 	});
 
 	test("Should not create response, because response field is empty", async () => {
@@ -44,7 +44,7 @@ describe("createResponse - MUTATION", () => {
 				variables: { data: body },
 			});
 
-		expect(response.body.errors[0].code).toBe("MissingParamError");
+		expect(response.body.errors[0].code).toBe("RequestError");
 	});
 
 	test("Should not create response, because the question alredy is answered", async () => {

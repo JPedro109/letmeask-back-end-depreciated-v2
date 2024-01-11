@@ -1,6 +1,5 @@
-import { SendUserPasswordRecoveryLinkController, MissingParamError, badRequest, ok, notFound, InvalidTypeError } from "@/layers/presentation";
+import { SendUserPasswordRecoveryLinkController, ok, RequestError } from "@/layers/presentation";
 import { SendUserPasswordRecoveryLinkStub } from "./stubs";
-import { InvalidParamError, NotFoundError } from "@/layers/domain";
 
 const makeSut = () => {
 	const sendUserPasswordRecoveryLinkStub = new SendUserPasswordRecoveryLinkStub();
@@ -24,38 +23,18 @@ describe("Presentation - SendUserPasswordRecoveryLinkController", () => {
 		const data = makeBody("");
 		const { sut } = makeSut();
 
-		const result = await sut.http({ data });
+		const result = sut.http({ data });
         
-		expect(result).toEqual(badRequest(new MissingParamError("email")));
+		expect(result).rejects.toThrow(RequestError);
 	});
 
 	test("Should not send user password recovery link, because email is with type error", async () => {
 		const data = makeBody(100);
 		const { sut } = makeSut();
 
-		const result = await sut.http({ data });
+		const result = sut.http({ data });
         
-		expect(result).toEqual(badRequest(new InvalidTypeError("email")));
-	});
-
-	test("Should not send user password recovery link, because use case returned invalid param error", async () => {
-		const data = makeBody("email.com");
-		const { sut, sendUserPasswordRecoveryLinkStub } = makeSut();
-		jest.spyOn(sendUserPasswordRecoveryLinkStub, "execute").mockResolvedValueOnce(Promise.resolve(new InvalidParamError("error")));
-
-		const result = await sut.http({ data });
-        
-		expect(result).toEqual(badRequest(new InvalidParamError("error")));
-	});
-
-	test("Should not send user password recovery link, because use case returned not found error", async () => {
-		const data = makeBody("email.com");
-		const { sut, sendUserPasswordRecoveryLinkStub } = makeSut();
-		jest.spyOn(sendUserPasswordRecoveryLinkStub, "execute").mockResolvedValueOnce(Promise.resolve(new NotFoundError("error")));
-
-		const result = await sut.http({ data });
-        
-		expect(result).toEqual(notFound(new NotFoundError("error")));
+		expect(result).rejects.toThrow(RequestError);
 	});
 
 	test("Should send user password recovery link", async () => {

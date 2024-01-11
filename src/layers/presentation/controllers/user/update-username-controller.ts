@@ -1,5 +1,5 @@
-import { NotFoundError, UpdateUsernameUseCaseProtocol } from "@/layers/domain";
-import { HttpProtocol, HttpRequest, HttpResponse, badRequest, notFound, ok, Validate } from "@/layers/presentation";
+import { UpdateUsernameUseCaseProtocol } from "@/layers/domain";
+import { HttpProtocol, HttpRequest, HttpResponse, ok, RequestError, Validate } from "@/layers/presentation";
 
 export class UpdateUsernameController implements HttpProtocol {
 
@@ -16,11 +16,9 @@ export class UpdateUsernameController implements HttpProtocol {
 		],
 		{ id, username });
 
-		if(validation instanceof Error) return badRequest(validation);
+		if(!validation.valid) throw new RequestError(validation.errors);  
 
 		const response = await this.useCase.execute({ id, username });
-
-		if(response instanceof Error) return response instanceof NotFoundError ? notFound(response) : badRequest(response);
 
 		return ok(response);
 	}

@@ -10,19 +10,19 @@ export class UpdateUserEmailUseCase implements UpdateUserEmailUseCaseProtocol {
 	async execute({ id, email, code }: UpdateUserEmailDTO): Promise<UpdateUserEmailResponseDTO> {
 		const emailOrError = UserEmail.create(email);
 
-		if(emailOrError instanceof Error) return emailOrError;
+		if(emailOrError instanceof Error) throw emailOrError;
 
 		const userRepository = this.unitOfWork.getUserRepository();
 		const userVerificationCodeRepository = this.unitOfWork.getUserVerificationCodeRepository();
 
 		const user = await userRepository.getUserByIdWithVerificationCode(id, code, false);
 
-		if(!user) return new NotFoundError("Usuário não existe");
+		if(!user) throw new NotFoundError("Usuário não existe");
 
-		if(!user.userVerificationCode) return new InvalidParamError("Código inválido");
+		if(!user.userVerificationCode) throw new InvalidParamError("Código inválido");
 
 		if(Date.now() > user.userVerificationCode.verificationCodeExpiryDate) 
-			return new InvalidParamError("Código expirado");
+			throw new InvalidParamError("Código expirado");
 
 		await this.unitOfWork.transaction(async () => {
 			await userRepository.updateUserById(id, { email });

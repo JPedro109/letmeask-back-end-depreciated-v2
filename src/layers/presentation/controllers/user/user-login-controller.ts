@@ -1,4 +1,4 @@
-import { HttpProtocol, HttpRequest, HttpResponse, badRequest, ok, unauthorized, Validate  } from "@/layers/presentation";
+import { HttpProtocol, HttpRequest, HttpResponse, ok, Validate, RequestError  } from "@/layers/presentation";
 import { UserLoginUseCaseProtocol } from "@/layers/domain";
 
 export class UserLoginController implements HttpProtocol {
@@ -16,11 +16,9 @@ export class UserLoginController implements HttpProtocol {
 			{ email, password }
 		);
 
-		if(validation instanceof Error) return badRequest(validation); 		
+		if(!validation.valid) throw new RequestError(validation.errors);  		
 
 		const response = await this.useCase.execute({ email, password });
-
-		if(response instanceof Error) return unauthorized(response);
 
 		return ok(response);
 	}

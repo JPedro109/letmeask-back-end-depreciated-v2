@@ -10,7 +10,7 @@ export class GetRoomCodeUseCase implements GetRoomCodeUseCaseProtocol {
 
 		const room = await this.repository.roomExists(roomCode);
 
-		if(!room) return new NotFoundError("Essa sala não existe");
+		if(!room) throw new NotFoundError("Essa sala não existe");
 
 		return true;
 	}

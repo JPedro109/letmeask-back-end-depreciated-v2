@@ -29,7 +29,7 @@ describe("updateUsername - MUTATION", () => {
 				variables: { data: body },
 			});
 
-		expect(response.body.errors[0].code).toBe("MissingParamError");
+		expect(response.body.errors[0].code).toBe("RequestError");
 	});
 
 	test("Should not update username, because username is invalid", async () => {

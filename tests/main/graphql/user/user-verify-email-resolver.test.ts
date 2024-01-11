@@ -27,7 +27,7 @@ describe("userVerifyEmail - MUTATION", () => {
 				variables: { data: body },
 			});
 
-		expect(response.body.errors[0].code).toBe("MissingParamError");
+		expect(response.body.errors[0].code).toBe("RequestError");
 	});
 
 	test("Should not verify email user, because code is empty", async () => {
@@ -40,7 +40,7 @@ describe("userVerifyEmail - MUTATION", () => {
 				variables: { data: body },
 			});
 
-		expect(response.body.errors[0].code).toBe("MissingParamError");
+		expect(response.body.errors[0].code).toBe("RequestError");
 	});
 
 	test("Should not verify email user, because code is incorrect", async () => {

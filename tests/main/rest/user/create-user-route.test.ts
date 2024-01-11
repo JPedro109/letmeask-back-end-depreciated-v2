@@ -25,7 +25,7 @@ describe("/api/users - POST", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("MissingParamError");
+		expect(response.body.code).toBe("RequestError");
 	});
 
 	test("Should not create user, because username is empty", async () => {
@@ -36,7 +36,7 @@ describe("/api/users - POST", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("MissingParamError");
+		expect(response.body.code).toBe("RequestError");
 	});
 
 
@@ -48,7 +48,7 @@ describe("/api/users - POST", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("MissingParamError");
+		expect(response.body.code).toBe("RequestError");
 	});
 
 	test("Should not create user, because passwordConfirm is empty", async () => {
@@ -59,7 +59,7 @@ describe("/api/users - POST", () => {
 			.send(body);
 			
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("MissingParamError");
+		expect(response.body.code).toBe("RequestError");
 	});
 
 	test("Should not create user, because email is with type error", async () => {
@@ -70,7 +70,7 @@ describe("/api/users - POST", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("InvalidTypeError");
+		expect(response.body.code).toBe("RequestError");
 	});
 
 	test("Should not create user, because username is with type error", async () => {
@@ -81,7 +81,7 @@ describe("/api/users - POST", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("InvalidTypeError");
+		expect(response.body.code).toBe("RequestError");
 	});
 
 	test("Should not create user, because password is with type error", async () => {
@@ -92,7 +92,7 @@ describe("/api/users - POST", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("InvalidTypeError");
+		expect(response.body.code).toBe("RequestError");
 	});
 
 	test("Should not create user, because passwordConfirm is with type error", async () => {
@@ -103,7 +103,7 @@ describe("/api/users - POST", () => {
 			.send(body);
 			
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("InvalidTypeError");
+		expect(response.body.code).toBe("RequestError");
 	});
 
 	test("Should not create user, because email is invalid", async () => {

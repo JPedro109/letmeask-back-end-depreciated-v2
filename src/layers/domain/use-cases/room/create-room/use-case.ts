@@ -17,11 +17,11 @@ export class CreateRoomUseCase implements CreateRoomUseCaseProtocol {
 
 		const roomOrError = Room.create(code, roomName);
 
-		if(roomOrError instanceof Error) return roomOrError;
+		if(roomOrError instanceof Error) throw roomOrError;
 
 		const user = await userRepository.getUserById(userId);
 
-		if(user.managedRoom) return new UnauthorizedError("Você já tem uma sala criada, exclua essa para poder criar outra");
+		if(user.managedRoom) throw new UnauthorizedError("Você já tem uma sala criada, exclua essa para poder criar outra");
 
 		let room: RoomModel;
 

@@ -1,7 +1,6 @@
 import { testRoomModel } from "./datas";
 import { DeleteRoomStub } from "./stubs";
-import { DeleteRoomController, MissingParamError, InvalidTypeError, badRequest, ok, unauthorized, notFound } from "@/layers/presentation";
-import { NotFoundError, UnauthorizedError } from "@/layers/domain";
+import { DeleteRoomController, ok, RequestError } from "@/layers/presentation";
 
 const makeSut = () => {
 	const deleteRoomStub = new DeleteRoomStub();
@@ -26,75 +25,44 @@ describe("Presentation - DeleteRoomController", () => {
 		const body = makeBody("", "000000");
 		const { sut } = makeSut();
 
-		const result = await sut.http({ userId: body.userId as string, data: { roomCode: body.roomCode } });
+		const response = sut.http({ userId: body.userId as string, data: { roomCode: body.roomCode } });
 
-		expect(result).toEqual(badRequest(new MissingParamError("userId")));
+		await expect(response).rejects.toThrow(RequestError);
 	});
 
 	test("Should not delete room, because roomCode is empty", async () => {
 		const body = makeBody("1", "");
 		const { sut } = makeSut();
 
-		const result = await sut.http({ userId: body.userId as string, data: { roomCode: body.roomCode } });
+		const response = sut.http({ userId: body.userId as string, data: { roomCode: body.roomCode } });
 
-		expect(result).toEqual(badRequest(new MissingParamError("roomCode")));
+		await expect(response).rejects.toThrow(RequestError);
 	});
 
 	test("Should not delete room, because userId is with type error", async () => {
 		const body = makeBody(100, "room");
 		const { sut } = makeSut();
 
-		const result = await sut.http({ userId: body.userId as string, data: { roomCode: body.roomCode } });
+		const response = sut.http({ userId: body.userId as string, data: { roomCode: body.roomCode } });
 
-		expect(result).toEqual(badRequest(new InvalidTypeError("userId")));
+		await expect(response).rejects.toThrow(RequestError);
 	});
 
 	test("Should not delete room, because roomCode is with type error", async () => {
 		const body = makeBody("1", 100);
 		const { sut } = makeSut();
 
-		const result = await sut.http({ userId: body.userId as string, data: { roomCode: body.roomCode } });
+		const response = sut.http({ userId: body.userId as string, data: { roomCode: body.roomCode } });
 
-		expect(result).toEqual(badRequest(new InvalidTypeError("roomCode")));
-	});
-
-
-	test("Should not delete room, because use case returned not found error", async () => {
-		const body = makeBody("1", "000000");
-		const { sut, deleteRoomStub } = makeSut();
-		jest.spyOn(deleteRoomStub, "execute").mockResolvedValueOnce(Promise.resolve(new NotFoundError("error")));
-
-		const result = await sut.http({ userId: body.userId as string, data: { roomCode: body.roomCode } });
-
-		expect(result).toEqual(notFound(new NotFoundError("error")));
-	});
-
-	test("Should not delete room, because use case returned unauthorized error", async () => {
-		const body = makeBody("1", "000000");
-		const { sut, deleteRoomStub } = makeSut();
-		jest.spyOn(deleteRoomStub, "execute").mockResolvedValueOnce(Promise.resolve(new UnauthorizedError("error")));
-
-		const result = await sut.http({ userId: body.userId as string, data: { roomCode: body.roomCode } });
-
-		expect(result).toEqual(unauthorized(new UnauthorizedError("error")));
-	});
-
-	test("Should not delete room, because use case returned error", async () => {
-		const body = makeBody("1", "000000");
-		const { sut, deleteRoomStub } = makeSut();
-		jest.spyOn(deleteRoomStub, "execute").mockResolvedValueOnce(Promise.resolve(new Error("error")));
-
-		const result = await sut.http({ userId: body.userId as string, data: { roomCode: body.roomCode } });
-
-		expect(result).toEqual(badRequest(new Error("error")));
+		await expect(response).rejects.toThrow(RequestError);
 	});
 
 	test("Should delete room", async () => {
 		const body = makeBody("1", "000000");
 		const { sut } = makeSut();
 
-		const result = await sut.http({ userId: body.userId as string, data: { roomCode: body.roomCode } });
+		const response = sut.http({ userId: body.userId as string, data: { roomCode: body.roomCode } });
 
-		expect(result).toEqual(ok(testRoomModel));
+		await expect(response).resolves.toEqual(ok(testRoomModel));
 	});
 });

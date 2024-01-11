@@ -22,46 +22,46 @@ const makeSut = () => {
 
 describe("Use case - DeleteRoomUseCase", () => {
     
-	test("Should not delete room, because code is invalid", async () => {
+	test("Should not delete room, because code is invalid", () => {
 		const userId = "2"; 
 		const roomCode = "000"; 
 		const { sut } = makeSut();
 
-		const result = await sut.execute({ userId, roomCode });
+		const response = sut.execute({ userId, roomCode });
 
-		expect(result).toBeInstanceOf(InvalidRoomCodeError);
+		expect(response).rejects.toThrow(InvalidRoomCodeError);
 	});
 
-	test("Should not delete room, because the room is not exists", async () => {
+	test("Should not delete room, because the room is not exists", () => {
 		const userId = "2"; 
 		const roomCode = "000001"; 
 		const { sut, roomRepositoryStub } = makeSut();
 		jest.spyOn(roomRepositoryStub, "roomExists").mockResolvedValueOnce(Promise.resolve(null));
 
-		const result = await sut.execute({ userId, roomCode });
+		const response = sut.execute({ userId, roomCode });
 
-		expect(result).toBeInstanceOf(NotFoundError);
+		expect(response).rejects.toThrow(NotFoundError);
 	});
 
-	test("Should not delete room, because the user is admin", async () => {
+	test("Should not delete room, because the user is admin", () => {
 		const userId = "2"; 
 		const roomCode = "000001"; 
 		const { sut, roomRepositoryStub } = makeSut();
 		jest.spyOn(roomRepositoryStub, "getCodeByUserId").mockResolvedValueOnce(Promise.resolve("000002"));
 
-		const result = await sut.execute({ userId, roomCode });
+		const response = sut.execute({ userId, roomCode });
 
-		expect(result).toBeInstanceOf(UnauthorizedError);
+		expect(response).rejects.toThrow(UnauthorizedError);
 	});
 
-	test("Should delete room", async () => {
+	test("Should delete room", () => {
 		const userId = "1"; 
 		const roomCode = "000000"; 
 		const { sut } = makeSut();
 
-		const result = await sut.execute({ userId, roomCode });
+		const response = sut.execute({ userId, roomCode });
 
-		expect(result).toEqual(testRoomModel);
+		expect(response).resolves.toEqual(testRoomModel);
 	});
 
 });

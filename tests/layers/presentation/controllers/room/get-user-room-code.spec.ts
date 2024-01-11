@@ -1,5 +1,5 @@
 import { GetUserRoomCodeStub } from "./stubs";
-import { GetUserRoomCodeController, InvalidTypeError, MissingParamError, badRequest, ok } from "@/layers/presentation";
+import { GetUserRoomCodeController, ok, RequestError } from "@/layers/presentation";
 
 const makeSut = () => {
 	const getUserRoomCodeStub = new GetUserRoomCodeStub();
@@ -23,26 +23,26 @@ describe("Presentation - GetUserRoomCodeController", () => {
 		const body = makeBody("");
 		const { sut } = makeSut();
 
-		const result = await sut.http({ userId: body.userId as string });
+		const response = sut.http({ userId: body.userId as string });
 
-		expect(result).toEqual(badRequest(new MissingParamError("userId")));
+		await expect(response).rejects.toThrow(RequestError);
 	});
 
 	test("Should not get user room, because user id is with type error", async () => {
 		const body = makeBody(100);
 		const { sut } = makeSut();
 
-		const result = await sut.http({ userId: body.userId as string });
+		const response = sut.http({ userId: body.userId as string });
 
-		expect(result).toEqual(badRequest(new InvalidTypeError("userId")));
+		await expect(response).rejects.toThrow(RequestError);
 	});
 
 	test("Should get user room", async () => {
 		const body = makeBody("1");
 		const { sut } = makeSut();
 
-		const result = await sut.http({ userId: body.userId as string });
+		const response = sut.http({ userId: body.userId as string });
 
-		expect(result).toEqual(ok("000000"));
+		await expect(response).resolves.toEqual(ok("000000"));
 	});
 });

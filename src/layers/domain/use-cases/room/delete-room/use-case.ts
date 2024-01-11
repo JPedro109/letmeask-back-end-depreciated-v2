@@ -14,15 +14,15 @@ export class DeleteRoomUseCase implements DeleteRoomUseCaseProtocol {
 	async execute({ userId, roomCode }: DeleteRoomDTO): Promise<DeleteRoomResponseDTO> {
 		const codeOrError = RoomCode.create(roomCode);
 
-		if(codeOrError instanceof Error) return codeOrError;
+		if(codeOrError instanceof Error) throw codeOrError;
 
 		const roomExists = await this.roomRepository.roomExists(roomCode);
 
-		if(!roomExists) return new NotFoundError("Essa sala que você quer excluir não existe");
+		if(!roomExists) throw new NotFoundError("Essa sala que você quer excluir não existe");
 
 		const databaseRoomCode = await this.roomRepository.getCodeByUserId(userId);
 
-		if(databaseRoomCode !== roomCode) return new UnauthorizedError("Só o administrador pode excluir sua sala");
+		if(databaseRoomCode !== roomCode) throw new UnauthorizedError("Só o administrador pode excluir sua sala");
 		
 		await this.userRepository.updateUserById(userId, { managedRoom: null });
 

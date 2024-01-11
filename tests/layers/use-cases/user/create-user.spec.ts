@@ -48,9 +48,9 @@ describe("Use case - CreateUserUseCase", () => {
 		const invalidPasswordConfirm = "Password123456";
 		const { sut } = makeSut();
 
-		const result = await sut.execute({ email, username, password, passwordConfirm: invalidPasswordConfirm });
+		const result = sut.execute({ email, username, password, passwordConfirm: invalidPasswordConfirm });
 
-		expect(result).toBeInstanceOf(InvalidParamError);
+		expect(result).rejects.toThrow(InvalidParamError);
 	});
 
 	test("Shoud not create user, because email already is exists", async () => {
@@ -63,9 +63,9 @@ describe("Use case - CreateUserUseCase", () => {
 			.spyOn(userRepositoryStub, "getUserByEmail")
 			.mockReturnValueOnce(Promise.resolve(testUserModel));
 
-		const result = await sut.execute({ email, username, password, passwordConfirm });
+		const result = sut.execute({ email, username, password, passwordConfirm });
 
-		expect(result).toBeInstanceOf(InvalidParamError);
+		expect(result).rejects.toThrow(InvalidParamError);
 	});
 
 	test("Shoud not create user, because the user rules are not respects", async () => {
@@ -75,9 +75,9 @@ describe("Use case - CreateUserUseCase", () => {
 		const passwordConfirm = "password";
 		const { sut } = makeSut();
 
-		const result = await sut.execute({ email, username, password, passwordConfirm });
+		const result = sut.execute({ email, username, password, passwordConfirm });
 
-		expect(result).toBeInstanceOf(Error);
+		expect(result).rejects.toThrow(Error);
 	});
 
 	test("Shoud create user", async () => {

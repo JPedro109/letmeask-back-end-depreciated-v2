@@ -9,7 +9,7 @@ export class GetUsernameUseCase implements GetUsernameUseCaseProtocol {
 	async execute({ id }: GetUsernameDTO): Promise<GetUsernameResponseDTO> {
 		const user = await this.repository.getUserById(id);
 		
-		if(!user) return new NotFoundError("Usuário não existe");
+		if(!user) throw new NotFoundError("Usuário não existe");
 
 		return user.username;
 	}

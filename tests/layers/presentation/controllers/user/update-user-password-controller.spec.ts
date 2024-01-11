@@ -1,4 +1,4 @@
-import { UpdateUserPasswordController, MissingParamError, badRequest, ok, InvalidTypeError } from "@/layers/presentation";
+import { UpdateUserPasswordController, ok, RequestError } from "@/layers/presentation";
 import { UpdateUserPasswordStub } from "./stubs";
 
 const makeSut = () => {
@@ -26,7 +26,7 @@ describe("Presentation - UpdateUserPasswordController", () => {
 		const data = makeBody("", "Password1234", "Password12345", "Password12345");
 		const { sut } = makeSut();
 
-		const result = await sut.http({ 
+		const result = sut.http({ 
 			userId: data.id as string,
 			data: {
 				password: data.password,
@@ -35,14 +35,14 @@ describe("Presentation - UpdateUserPasswordController", () => {
 			}
 		});
         
-		expect(result).toEqual(badRequest(new MissingParamError("id")));
+		expect(result).rejects.toThrow(RequestError);
 	});
 	
 	test("Should not update user password, because password is empty", async () => {
 		const data = makeBody("1", "", "Password12345", "Password12345");
 		const { sut } = makeSut();
 
-		const result = await sut.http({ 
+		const result = sut.http({ 
 			userId: data.id as string,
 			data: {
 				password: data.password,
@@ -51,14 +51,14 @@ describe("Presentation - UpdateUserPasswordController", () => {
 			}
 		});
         
-		expect(result).toEqual(badRequest(new MissingParamError("password")));
+		expect(result).rejects.toThrow(RequestError);
 	});
 
 	test("Should not update user password, because new password is empty", async () => {
 		const data = makeBody("1", "Password1234", "", "Password12345");
 		const { sut } = makeSut();
 
-		const result = await sut.http({ 
+		const result = sut.http({ 
 			userId: data.id as string,
 			data: {
 				password: data.password,
@@ -67,14 +67,14 @@ describe("Presentation - UpdateUserPasswordController", () => {
 			}
 		});
         
-		expect(result).toEqual(badRequest(new MissingParamError("newPassword")));
+		expect(result).rejects.toThrow(RequestError);
 	});
 
 	test("Should not update user password, because new password confirm is empty", async () => {
 		const data = makeBody("1", "Password1234", "Password12345", "");
 		const { sut } = makeSut();
 
-		const result = await sut.http({ 
+		const result = sut.http({ 
 			userId: data.id as string,
 			data: {
 				password: data.password,
@@ -83,14 +83,14 @@ describe("Presentation - UpdateUserPasswordController", () => {
 			}
 		});
         
-		expect(result).toEqual(badRequest(new MissingParamError("newPasswordConfirm")));
+		expect(result).rejects.toThrow(RequestError);
 	});
 
 	test("Should not update user password, because id is with type error", async () => {
 		const data = makeBody(100, "Password1234", "Password12345", "Password12345");
 		const { sut } = makeSut();
 
-		const result = await sut.http({ 
+		const result = sut.http({ 
 			userId: data.id as string,
 			data: {
 				password: data.password,
@@ -99,14 +99,14 @@ describe("Presentation - UpdateUserPasswordController", () => {
 			}
 		});
         
-		expect(result).toEqual(badRequest(new InvalidTypeError("id")));
+		expect(result).rejects.toThrow(RequestError);
 	});
 
 	test("Should not update user password, because password is with type error", async () => {
 		const data = makeBody("1", 100, "Password12345", "Password12345");
 		const { sut } = makeSut();
 
-		const result = await sut.http({ 
+		const result = sut.http({ 
 			userId: data.id as string,
 			data: {
 				password: data.password,
@@ -115,14 +115,14 @@ describe("Presentation - UpdateUserPasswordController", () => {
 			}
 		});
         
-		expect(result).toEqual(badRequest(new InvalidTypeError("password")));
+		expect(result).rejects.toThrow(RequestError);
 	});
 
 	test("Should not update user password, because new password is with type error", async () => {
 		const data = makeBody("1", "Password1234", 100, "Password12345");
 		const { sut } = makeSut();
 
-		const result = await sut.http({ 
+		const result = sut.http({ 
 			userId: data.id as string,
 			data: {
 				password: data.password,
@@ -131,14 +131,14 @@ describe("Presentation - UpdateUserPasswordController", () => {
 			}
 		});
         
-		expect(result).toEqual(badRequest(new InvalidTypeError("newPassword")));
+		expect(result).rejects.toThrow(RequestError);
 	});
 
 	test("Should not update user password, because new password confirm is with type error", async () => {
 		const data = makeBody("1", "Password1234", "Password12345", 100);
 		const { sut } = makeSut();
 
-		const result = await sut.http({ 
+		const result = sut.http({ 
 			userId: data.id as string,
 			data: {
 				password: data.password,
@@ -147,24 +147,7 @@ describe("Presentation - UpdateUserPasswordController", () => {
 			}
 		});
         
-		expect(result).toEqual(badRequest(new InvalidTypeError("newPasswordConfirm")));
-	});
-
-	test("Should not update user password, because use case returned error", async () => {
-		const data = makeBody("2", "password", "passwordone", "passwordone");
-		const { sut, updateUserPasswordStub } = makeSut();
-		jest.spyOn(updateUserPasswordStub, "execute").mockReturnValueOnce(Promise.resolve(new Error("error")));
-
-		const result = await sut.http({ 
-			userId: data.id as string,
-			data: {
-				password: data.password,
-				newPassword: data.newPassword,
-				newPasswordConfirm: data.newPasswordConfirm,
-			}
-		});
-        
-		expect(result).toEqual(badRequest(new Error("error")));
+		expect(result).rejects.toThrow(RequestError);
 	});
 
 	test("Should update user password", async () => {

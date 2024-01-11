@@ -13,12 +13,12 @@ const makeSut = () => {
 
 describe("Use case - GetUserQuestionsUseCase", () => {
     
-	test("Should get user questions", async () => {
+	test("Should get user questions", () => {
 		const userId = "2";
 		const { sut } = makeSut();
 
-		const result = await sut.execute({ userId });
+		const result = sut.execute({ userId });
 
-		expect(result).toEqual([testQuestionModel]);
+		expect(result).resolves.toEqual([testQuestionModel]);
 	});
 });

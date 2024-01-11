@@ -35,9 +35,9 @@ describe("Use case - SendUserPasswordRecoveryLinkUseCase", () => {
 		const email = "email@test2.com";
 		const { sut } = makeSut();
 
-		const result = await sut.execute({ email });
+		const result = sut.execute({ email });
 
-		expect(result).toBeInstanceOf(NotFoundError);
+		expect(result).rejects.toThrow(NotFoundError);
 	});
 
 	test("Shoud send user password recovery link", async () => {

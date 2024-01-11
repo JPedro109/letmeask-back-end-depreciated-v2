@@ -25,7 +25,7 @@ describe("/api/users/email - PATCH", () => {
 			.set("authorization", `Bearer ${token}`);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("MissingParamError");
+		expect(response.body.code).toBe("RequestError");
 	});
 
 	test("Should not update user email, because email is invalid", async () => {
@@ -51,7 +51,7 @@ describe("/api/users/email - PATCH", () => {
 			.set("authorization", `Bearer ${token}`);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("MissingParamError");
+		expect(response.body.code).toBe("RequestError");
 	});
 
 	test("Should not update user email, because code is invalid", async () => {

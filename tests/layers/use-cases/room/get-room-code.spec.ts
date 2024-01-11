@@ -13,23 +13,23 @@ const makeSut = () => {
 
 describe("Use case - GetRoomCodeUseCase", () => {
     
-	test("Should not get true, because the room is not exists", async () => {
+	test("Should not get true, because the room is not exists", () => {
 		const roomCode = "000001"; 
 		const { sut, roomRepositoryStub } = makeSut();
 		jest.spyOn(roomRepositoryStub, "roomExists").mockResolvedValueOnce(Promise.resolve(null));
 
-		const result = await sut.execute({ roomCode });
+		const response = sut.execute({ roomCode });
 
-		expect(result).toBeInstanceOf(NotFoundError);
+		expect(response).rejects.toThrow(NotFoundError);
 	});
 
-	test("Should get true", async () => {
+	test("Should get true", () => {
 		const roomCode = "000000"; 
 		const { sut } = makeSut();
 
-		const result = await sut.execute({ roomCode });
+		const response = sut.execute({ roomCode });
 
-		expect(result).toEqual(true);
+		expect(response).resolves.toEqual(true);
 	});
 
 });

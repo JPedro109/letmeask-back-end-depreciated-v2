@@ -1,5 +1,5 @@
-import { HttpProtocol, HttpRequest, HttpResponse, badRequest, created, notFound, unauthorized, Validate  } from "@/layers/presentation";
-import { CreateResponseUseCaseProtocol, NotFoundError, UnauthorizedError } from "@/layers/domain";
+import { HttpProtocol, HttpRequest, HttpResponse, created, Validate, RequestError  } from "@/layers/presentation";
+import { CreateResponseUseCaseProtocol } from "@/layers/domain";
 
 export class CreateResponseController implements HttpProtocol {
 
@@ -19,15 +19,9 @@ export class CreateResponseController implements HttpProtocol {
 			{ userId, questionId, response }
 		);
 
-		if(validation instanceof Error) return badRequest(validation); 
+		if(!validation.valid) throw new RequestError(validation.errors);  
 
 		const useCaseResponse = await this.useCase.execute({ userId, questionId, response });
-
-		if(useCaseResponse instanceof NotFoundError) return notFound(useCaseResponse);
-
-		if(useCaseResponse instanceof UnauthorizedError) return unauthorized(useCaseResponse);
-
-		if(useCaseResponse instanceof Error) return badRequest(useCaseResponse);
 
 		return created(useCaseResponse);
 	}

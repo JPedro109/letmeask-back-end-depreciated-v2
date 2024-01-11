@@ -14,14 +14,14 @@ const makeSut = () => {
 
 describe("Use case - GetUsernameUseCase", () => {
     
-	test("Should not get username, because user is not exists", async () => {
+	test("Should not get username, because user is not exists", () => {
 		const id = "2";
 		const { sut, userRepositoryStub } = makeSut();
-		jest.spyOn(userRepositoryStub, "getUserById").mockResolvedValueOnce(Promise.resolve(null));
+		jest.spyOn(userRepositoryStub, "getUserById").mockResolvedValueOnce(null);
 
-		const result = await sut.execute({ id });
+		const result = sut.execute({ id });
 
-		expect(result).toBeInstanceOf(NotFoundError);
+		expect(result).rejects.toThrow(NotFoundError);
 	});
 
 	test("Should get username", async () => {

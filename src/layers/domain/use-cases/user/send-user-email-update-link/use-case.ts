@@ -26,15 +26,15 @@ export class SendUserEmailUpdateLinkUseCase implements SendUserEmailUpdateLinkUs
 	async execute({ id, email }: SendUserEmailUpdateLinkDTO): Promise<SendUserEmailUpdateLinkResponseDTO> {
 		const userEmailOrError = UserEmail.create(email);
         
-		if(userEmailOrError instanceof Error) return userEmailOrError;
+		if(userEmailOrError instanceof Error) throw userEmailOrError;
 
 		const user = await this.userRepository.getUserById(id);
 
-		if(!user) return new NotFoundError("Usuário não existe");
+		if(!user) throw new NotFoundError("Usuário não existe");
 	
 		const emailExists = await this.userRepository.getUserByEmail(userEmailOrError.value);
 
-		if(emailExists) return new InvalidParamError("Email já cadastrado");
+		if(emailExists) throw new InvalidParamError("Email já cadastrado");
 
 		const verificationCode = this.generation.code();
 		

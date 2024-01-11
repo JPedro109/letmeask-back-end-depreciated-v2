@@ -25,49 +25,49 @@ const makeSut = () => {
 
 describe("Use case - CreateQuestionUseCase", () => {
     
-	test("Should not create question, because the question rules is not respect", async () => {
+	test("Should not create question, because the question rules is not respect", () => {
 		const userId = "2";
 		const roomCode = "000000";
 		const question = "";
 		const { sut } = makeSut();
 
-		const result = await sut.execute({ userId, roomCode, question });
+		const result = sut.execute({ userId, roomCode, question });
 
-		expect(result).toBeInstanceOf(Error);
+		expect(result).rejects.toThrow(Error);
 	});
 
-	test("Should not create question, the room is not exists", async () => {
+	test("Should not create question, the room is not exists", () => {
 		const userId = "2";
 		const roomCode = "000001";
 		const question = "question";
 		const { sut, roomRepositoryStub } = makeSut();
-		jest.spyOn(roomRepositoryStub, "roomExists").mockResolvedValueOnce(Promise.resolve(null));
+		jest.spyOn(roomRepositoryStub, "roomExists").mockResolvedValueOnce(null);
 
-		const result = await sut.execute({ userId, roomCode, question });
+		const result = sut.execute({ userId, roomCode, question });
 
-		expect(result).toBeInstanceOf(NotFoundError);
+		expect(result).rejects.toThrow(NotFoundError);
 	});
 
-	test("Should not create question, the action was taken by the room administrator", async () => {
+	test("Should not create question, the action was taken by the room administrator", () => {
 		const userId = "1";
 		const roomCode = "000000";
 		const question = "question";
 		const { sut, userRepositoryStub } = makeSut();
-		jest.spyOn(userRepositoryStub, "getUserById").mockResolvedValueOnce(Promise.resolve({ ...testUserModel, managedRoom: "000000" }));
+		jest.spyOn(userRepositoryStub, "getUserById").mockResolvedValueOnce({ ...testUserModel, managedRoom: "000000" });
 
-		const result = await sut.execute({ userId, roomCode, question });
+		const result = sut.execute({ userId, roomCode, question });
 
-		expect(result).toBeInstanceOf(UnauthorizedError);
+		expect(result).rejects.toThrow(UnauthorizedError);
 	});
 
-	test("Should create question", async () => {
+	test("Should create question", () => {
 		const userId = "2";
 		const roomCode = "000000";
 		const question = "question";
 		const { sut } = makeSut();
 
-		const result = await sut.execute({ userId, roomCode, question });
+		const result = sut.execute({ userId, roomCode, question });
 
-		expect(result).toEqual(testQuestionModel);
+		expect(result).resolves.toEqual(testQuestionModel);
 	});
 });

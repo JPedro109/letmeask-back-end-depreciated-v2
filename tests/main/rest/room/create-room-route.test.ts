@@ -22,7 +22,7 @@ describe("/api/rooms - POST", () => {
 			.send(body);
 		
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("MissingParamError");
+		expect(response.body.code).toBe("RequestError");
 	});
 
 	test("Should not create room, because the room name with is type error", async () => {
@@ -35,7 +35,7 @@ describe("/api/rooms - POST", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("InvalidTypeError");
+		expect(response.body.code).toBe("RequestError");
 	});
 
 	test("Should not create room, because user alredy created has a room", async () => {

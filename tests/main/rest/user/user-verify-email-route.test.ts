@@ -23,7 +23,7 @@ describe("/api/users/verify-email - PATCH", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("MissingParamError");
+		expect(response.body.code).toBe("RequestError");
 	});
 
 	test("Should not verify email user, because code is empty", async () => {
@@ -34,7 +34,7 @@ describe("/api/users/verify-email - PATCH", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("MissingParamError");
+		expect(response.body.code).toBe("RequestError");
 	});
 
 	test("Should not verify email user, because code is incorrect", async () => {

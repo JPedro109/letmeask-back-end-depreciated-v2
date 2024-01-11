@@ -26,13 +26,13 @@ export class CreateUserUseCase implements CreateUserUseCaseProtocol {
 		const userRepository = this.unitOfWork.getUserRepository();
 		const userVerificationCodeRepository = this.unitOfWork.getUserVerificationCodeRepository();
 
-		if(password !== passwordConfirm) return new InvalidParamError("As senhas não coincidem");
+		if(password !== passwordConfirm) throw new InvalidParamError("As senhas não coincidem");
 
-		if((await userRepository.getUserByEmail(email))) return new InvalidParamError("Email já cadastrado");
+		if((await userRepository.getUserByEmail(email))) throw new InvalidParamError("Email já cadastrado");
 
 		const userOrError = User.create(email, username, password);
 
-		if(userOrError instanceof Error) return userOrError;
+		if(userOrError instanceof Error) throw userOrError;
 
 		const hashPassword = await this.cryptography.hash(userOrError.userPassword.value);
 

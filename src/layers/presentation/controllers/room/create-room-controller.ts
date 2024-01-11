@@ -1,5 +1,5 @@
-import { HttpProtocol, HttpRequest, HttpResponse, badRequest, created, unauthorized, Validate  } from "@/layers/presentation";
-import { CreateRoomUseCaseProtocol, UnauthorizedError } from "@/layers/domain";
+import { HttpProtocol, HttpRequest, HttpResponse, created, Validate, RequestError  } from "@/layers/presentation";
+import { CreateRoomUseCaseProtocol } from "@/layers/domain";
 
 export class CreateRoomController implements HttpProtocol {
 
@@ -18,11 +18,9 @@ export class CreateRoomController implements HttpProtocol {
 			{ userId, roomName }
 		);
 
-		if(validation instanceof Error) return badRequest(validation); 
+		if(!validation.valid) throw new RequestError(validation.errors);  
 
 		const response = await this.useCase.execute({ userId, roomName });
-
-		if(response instanceof Error) return response instanceof UnauthorizedError ? unauthorized(response) : badRequest(response); 
 
 		return created(response);
 	}

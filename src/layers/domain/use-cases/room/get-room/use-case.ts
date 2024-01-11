@@ -10,7 +10,7 @@ export class GetRoomUseCase implements GetRoomUseCaseProtocol {
 	async execute({ roomCode }: GetRoomDTO): Promise<GetRoomResponseDTO> {
 		const codeOrError = RoomCode.create(roomCode);
 
-		if(codeOrError instanceof Error) return codeOrError;
+		if(codeOrError instanceof Error) throw codeOrError;
 
 		const cachedRoom = this.cache.get<RoomModel>(`room-${roomCode}`);
 
@@ -18,7 +18,7 @@ export class GetRoomUseCase implements GetRoomUseCaseProtocol {
 
 		const room = await this.repository.getRoomByCode(codeOrError.value);
 
-		if(!room) return new NotFoundError("Essa sala não existe");
+		if(!room) throw new NotFoundError("Essa sala não existe");
 
 		this.cache.set<RoomModel>(`room-${roomCode}`, room, 3600);
 

@@ -40,9 +40,9 @@ describe("Use case - UpdateUserEmailUseCase", () => {
 		const code = "code";
 		const { sut } = makeSut();
 
-		const result = await sut.execute({ id, email, code });
+		const result = sut.execute({ id, email, code });
 
-		expect(result).toBeInstanceOf(InvalidUserEmailError);
+		expect(result).rejects.toThrow(InvalidUserEmailError);
 	});
 	
 	test("Should not update user email, because user is not exists", async () => {
@@ -52,9 +52,9 @@ describe("Use case - UpdateUserEmailUseCase", () => {
 		const { sut, userRepositoryStub } = makeSut();
 		jest.spyOn(userRepositoryStub, "getUserByIdWithVerificationCode").mockReturnValueOnce(null);
 
-		const result = await sut.execute({ id, email, code });
+		const result = sut.execute({ id, email, code });
 
-		expect(result).toBeInstanceOf(NotFoundError);
+		expect(result).rejects.toThrow(NotFoundError);
 	});
 
 	test("Should not update user email, because code is invalid", async () => {
@@ -66,9 +66,9 @@ describe("Use case - UpdateUserEmailUseCase", () => {
 			.spyOn(userRepositoryStub, "getUserByIdWithVerificationCode")
 			.mockReturnValueOnce(Promise.resolve({ ...testUserModel, userVerificationCode: null }));
 
-		const result = await sut.execute({ id, email, code: invalidToken });
+		const result = sut.execute({ id, email, code: invalidToken });
 
-		expect(result).toBeInstanceOf(InvalidParamError);
+		expect(result).rejects.toThrow(InvalidParamError);
 	});
 
 	test("Should not update user email, because code expiried", async () => {
@@ -86,9 +86,9 @@ describe("Use case - UpdateUserEmailUseCase", () => {
 					}
 				));
 
-		const result = await sut.execute({ id, email, code });
+		const result = sut.execute({ id, email, code });
 
-		expect(result).toBeInstanceOf(InvalidParamError);
+		expect(result).rejects.toThrow(InvalidParamError);
 	});
 
 	test("Should update user email", async () => {

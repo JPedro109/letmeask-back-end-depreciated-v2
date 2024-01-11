@@ -25,7 +25,7 @@ describe("/api/users/password-recover - PATCH", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("MissingParamError");
+		expect(response.body.code).toBe("RequestError");
 	});
 
 	test("Should not recover user password, because code is empty", async () => {
@@ -36,7 +36,7 @@ describe("/api/users/password-recover - PATCH", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("MissingParamError");
+		expect(response.body.code).toBe("RequestError");
 	});
 
 	test("Should not recover user password, because password is empty", async () => {
@@ -47,7 +47,7 @@ describe("/api/users/password-recover - PATCH", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("MissingParamError");
+		expect(response.body.code).toBe("RequestError");
 	});
 
 	test("Should not recover user password, because password confirm is empty", async () => {
@@ -58,7 +58,7 @@ describe("/api/users/password-recover - PATCH", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("MissingParamError");
+		expect(response.body.code).toBe("RequestError");
 	});
 
 	test("Should not recover user password, because password is with type error", async () => {
@@ -69,7 +69,7 @@ describe("/api/users/password-recover - PATCH", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("InvalidTypeError");
+		expect(response.body.code).toBe("RequestError");
 	});
 
 	test("Should not recover user password, because password confirm is with type error", async () => {
@@ -80,7 +80,7 @@ describe("/api/users/password-recover - PATCH", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("InvalidTypeError");
+		expect(response.body.code).toBe("RequestError");
 	});
 
 	test("Should not recover user password, because user is not exists", async () => {

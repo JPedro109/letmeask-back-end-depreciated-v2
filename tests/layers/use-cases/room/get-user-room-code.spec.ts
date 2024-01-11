@@ -13,23 +13,23 @@ const makeSut = () => {
 
 describe("Use case - GetUserRoomCodeUseCase", () => {
     
-	test("Should not get user room, because the user has not a room", async () => {
+	test("Should not get user room, because the user has not a room", () => {
 		const userId = "2"; 
 		const { sut, roomRepositoryStub } = makeSut();
-		jest.spyOn(roomRepositoryStub, "getCodeByUserId").mockResolvedValueOnce(Promise.resolve(null));
+		jest.spyOn(roomRepositoryStub, "getCodeByUserId").mockResolvedValueOnce(null);
 
-		const result = await sut.execute({ userId });
+		const response = sut.execute({ userId });
 
-		expect(result).toBe(null);
+		expect(response).resolves.toBe(null);
 	});
 
-	test("Should get user room", async () => {
+	test("Should get user room", () => {
 		const userId = "1"; 
 		const { sut } = makeSut();
 
-		const result = await sut.execute({ userId });
+		const response = sut.execute({ userId });
 
-		expect(result).toEqual("000000");
+		expect(response).resolves.toEqual("000000");
 	});
 
 });

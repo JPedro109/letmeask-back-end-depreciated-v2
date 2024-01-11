@@ -13,13 +13,13 @@ export class UserLoginUseCase implements UserLoginUseCaseProtocol {
 	async execute({ email, password }: UserLoginDTO): Promise<UserLoginResponseDTO> {
 		const user = await this.repository.getUserByEmail(email);
 
-		if(!user) return new UnauthorizedError("Email não cadastrado");
+		if(!user) throw new UnauthorizedError("Email ou senha incorreto(s)");
 
 		const passwordIsEqual = await this.cryptography.compareHash(user.password, password);
 
-		if(!passwordIsEqual) return new UnauthorizedError("Email ou senha incorreto(s)");
+		if(!passwordIsEqual) throw new UnauthorizedError("Email ou senha incorreto(s)");
 
-		if(!user.verifiedEmail) return new UnauthorizedError("Email não está verificado");
+		if(!user.verifiedEmail) throw new UnauthorizedError("Email não está verificado");
 
 		return this.jsonWebToken.createJsonWebToken({ id: user.id, email }, 86400);
 	}

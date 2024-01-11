@@ -16,42 +16,42 @@ const makeSut = () => {
 
 describe("Use case - GetRoomUseCase", () => {
  
-	test("Should not get room, because code is invalid", async () => {
+	test("Should not get room, because code is invalid", () => {
 		const roomCode = "0000"; 
 		const { sut } = makeSut();
 
-		const result = await sut.execute({ roomCode });
+		const response = sut.execute({ roomCode });
 
-		expect(result).toBeInstanceOf(InvalidRoomCodeError);
+		expect(response).rejects.toThrow(InvalidRoomCodeError);
 	});
 
-	test("Should not get room, because the room is not exists", async () => {
+	test("Should not get room, because the room is not exists", () => {
 		const roomCode = "000001"; 
 		const { sut, roomRepositoryStub } = makeSut();
-		jest.spyOn(roomRepositoryStub, "getRoomByCode").mockResolvedValueOnce(Promise.resolve(null));
+		jest.spyOn(roomRepositoryStub, "getRoomByCode").mockResolvedValueOnce(null);
 
-		const result = await sut.execute({ roomCode });
+		const response = sut.execute({ roomCode });
 
-		expect(result).toBeInstanceOf(NotFoundError);
+		expect(response).rejects.toThrow(NotFoundError);
 	});
 
-	test("Should get room | database", async () => {
+	test("Should get room | database", () => {
 		const roomCode = "000000"; 
 		const { sut } = makeSut();
 
-		const result = await sut.execute({ roomCode });
+		const response = sut.execute({ roomCode });
 
-		expect(result).toEqual(testRoomModel);
+		expect(response).resolves.toEqual(testRoomModel);
 	});
 
-	test("Should get room | cache", async () => {
+	test("Should get room | cache", () => {
 		const roomCode = "000000"; 
 		const { sut, cacheStub } = makeSut();
 		jest.spyOn(cacheStub, "get").mockReturnValueOnce(testRoomModel);
 
-		const result = await sut.execute({ roomCode });
+		const response = sut.execute({ roomCode });
 
-		expect(result).toEqual(testRoomModel);
+		expect(response).resolves.toEqual(testRoomModel);
 	});
 
 });

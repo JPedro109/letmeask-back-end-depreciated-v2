@@ -11,21 +11,21 @@ export class UpdateUserPasswordUseCase implements UpdateUserPasswordUseCaseProto
 	) { }
 
 	async execute({ id, password, newPassword, newPasswordConfirm }: UpdateUserPasswordDTO): Promise<UpdateUserPasswordResponseDTO> {
-		if(newPassword !== newPasswordConfirm) return new InvalidParamError("As senhas não coincidem");
+		if(newPassword !== newPasswordConfirm) throw new InvalidParamError("As senhas não coincidem");
 
 		const newUserPasswordOrError = UserPassword.create(newPassword);
 
-		if(newUserPasswordOrError instanceof Error) return newUserPasswordOrError;
+		if(newUserPasswordOrError instanceof Error) throw newUserPasswordOrError;
 	
 		const user = await this.repository.getUserById(id);
 
-		if(!user) return new NotFoundError("Usuário não existe");
+		if(!user) throw new NotFoundError("Usuário não existe");
 
 		const passwordIsMatch = await this.cryptography.compareHash(user.password, password);
 
-		if(!passwordIsMatch) return new InvalidParamError("Senha atual incorreta");
+		if(!passwordIsMatch) throw new InvalidParamError("Senha atual incorreta");
 
-		if(password === newUserPasswordOrError.value) return new InvalidParamError("A sua nova senha não pode ser igual a anterior");
+		if(password === newUserPasswordOrError.value) throw new InvalidParamError("A sua nova senha não pode ser igual a anterior");
 
 		const hashPassword = await this.cryptography.hash(newUserPasswordOrError.value);
 

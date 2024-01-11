@@ -24,7 +24,7 @@ export class SendUserPasswordRecoveryLinkUseCase implements SendUserPasswordReco
 	async execute({ email }: SendUserPasswordRecoveryLinkDTO): Promise<SendUserPasswordRecoveryLinkResponseDTO> {
 		const user = await this.userRepository.getUserByEmail(email);
 
-		if(!user) return new NotFoundError("Email não cadastrado");
+		if(!user) throw new NotFoundError("Email não cadastrado");
 
 		const verificationCode = this.generation.code();
 		

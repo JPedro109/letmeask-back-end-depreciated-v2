@@ -1,4 +1,4 @@
-import { InvalidUserPasswordError } from "./errors";
+import { InvalidUserPasswordError } from "./error";
 
 export class UserPassword {
 

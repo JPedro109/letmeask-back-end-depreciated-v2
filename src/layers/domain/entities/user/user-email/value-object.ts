@@ -1,4 +1,4 @@
-import { InvalidUserEmailError } from "./errors";
+import { InvalidUserEmailError } from "./error";
 
 export class UserEmail {
 

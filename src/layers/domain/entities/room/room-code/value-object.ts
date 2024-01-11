@@ -1,4 +1,4 @@
-import { InvalidRoomCodeError } from "./errors";
+import { InvalidRoomCodeError } from "./error";
 
 export class RoomCode {
 

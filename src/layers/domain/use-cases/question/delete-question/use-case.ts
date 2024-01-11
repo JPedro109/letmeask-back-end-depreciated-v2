@@ -26,7 +26,7 @@ export class DeleteQuestionUseCase implements DeleteQuestionUseCaseProtocol {
 	async execute({ userId, questionId }: DeleteQuestionDTO): Promise<DeleteQuestionResponseDTO> { 
 		const question = await this.questionRepository.getById(questionId);
 
-		if(!question) return new NotFoundError("Essa pergunta não existe");
+		if(!question) throw new NotFoundError("Essa pergunta não existe");
 
 		if(userId === question.userId) {
 			const question = await this.questionRepository.deleteQuestionById(questionId);
@@ -42,6 +42,6 @@ export class DeleteQuestionUseCase implements DeleteQuestionUseCaseProtocol {
 			return question;
 		}
 
-		return new UnauthorizedError("Só o administrador da sala ou o criador da pergunta podem apagar ela");
+		throw new UnauthorizedError("Só o administrador da sala ou o criador da pergunta podem apagar ela");
 	}
 }

@@ -44,9 +44,9 @@ describe("Use case - RecoverUserPasswordUseCase", () => {
 		const passwordConfirm = "Password12345678";
 		const { sut } = makeSut();
 
-		const result = await sut.execute({ email, code, password, passwordConfirm });
+		const result = sut.execute({ email, code, password, passwordConfirm });
 
-		expect(result).toBeInstanceOf(InvalidParamError);
+		expect(result).rejects.toThrow(InvalidParamError);
 	});
 
 	test("Should not recover user password, because password is not respect password rules", async () => {
@@ -56,9 +56,7 @@ describe("Use case - RecoverUserPasswordUseCase", () => {
 		const passwordConfirm = "password";
 		const { sut } = makeSut();
 
-		const result = await sut.execute({ email, code, password: invalidPassword, passwordConfirm });
-
-		expect(result).toBeInstanceOf(InvalidUserPasswordError);
+		expect(sut.execute({ email, code, password: invalidPassword, passwordConfirm })).rejects.toThrow(InvalidUserPasswordError);
 	});
 
 	test("Should not recover user password, because user is not exists", async () => {
@@ -68,22 +66,22 @@ describe("Use case - RecoverUserPasswordUseCase", () => {
 		const passwordConfirm = "Password123456";
 		const { sut } = makeSut();
 
-		const result = await sut.execute({ email, code, password, passwordConfirm });
+		const result = sut.execute({ email, code, password, passwordConfirm });
 
-		expect(result).toBeInstanceOf(NotFoundError);
+		expect(result).rejects.toThrow(NotFoundError);
 	});
 
-	test("Should not recover user password, because user is not exists", async () => {
+	test("Should not recover user password, because token is invalid", async () => {
 		const email = "email@test.com";
 		const invalidToken = "invalid_token";
 		const password = "Password123456";
 		const passwordConfirm = "Password123456";
 		const { sut, userRepositoryStub } = makeSut();
-		jest.spyOn(userRepositoryStub, "getUserByEmailWithVerificationCode").mockResolvedValue(Promise.resolve(testUserModel));
+		jest
+			.spyOn(userRepositoryStub, "getUserByEmailWithVerificationCode")
+			.mockResolvedValue(Promise.resolve({ ...testUserModel, userVerificationCode: null }));
 
-		const result = await sut.execute({ email, code: invalidToken, password, passwordConfirm });
-
-		expect(result).toBeInstanceOf(InvalidParamError);
+		expect(sut.execute({ email, code: invalidToken, password, passwordConfirm })).rejects.toThrow(InvalidParamError);
 	});
 
 	test("Should not recover user password, because code expiried", async () => {
@@ -92,11 +90,16 @@ describe("Use case - RecoverUserPasswordUseCase", () => {
 		const password = "Password123456";
 		const passwordConfirm = "Password123456";
 		const { sut, userRepositoryStub } = makeSut();
-		jest.spyOn(userRepositoryStub, "getUserByEmailWithVerificationCode").mockResolvedValue(Promise.resolve(testUserModel));
+		jest
+			.spyOn(userRepositoryStub, "getUserByEmailWithVerificationCode")
+			.mockResolvedValue(Promise.resolve({ 
+				...testUserModel, 
+				userVerificationCode: { ...testUserModel.userVerificationCode, verificationCodeExpiryDate: 0 } 
+			}));
 
-		const result = await sut.execute({ email, code, password, passwordConfirm });
+		const result = sut.execute({ email, code, password, passwordConfirm });
 
-		expect(result).toBeInstanceOf(InvalidParamError);
+		expect(result).rejects.toThrow(InvalidParamError);
 	});
 
 	test("Should not recover user password, because the password is match current password", async () => {
@@ -109,9 +112,9 @@ describe("Use case - RecoverUserPasswordUseCase", () => {
 			.spyOn(userRepositoryStub, "getUserByEmailWithVerificationCode")
 			.mockResolvedValue(Promise.resolve({ ...testUserModel, verificationTokenExpiryDate: 2^53 }));
 
-		const result = await sut.execute({ email, code, password, passwordConfirm });
+		const result = sut.execute({ email, code, password, passwordConfirm });
 
-		expect(result).toBeInstanceOf(InvalidParamError);
+		expect(result).rejects.toThrow(InvalidParamError);
 	});
 
 	test("Should recover user password", async () => {

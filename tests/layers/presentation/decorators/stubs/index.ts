@@ -1,10 +1,10 @@
 import { LogProtocol } from "@/layers/domain";
-import { HttpProtocol, HttpRequest, HttpResponse } from "@/layers/presentation";
+import { HttpProtocol, HttpRequest, HttpResponse, ok } from "@/layers/presentation";
 
 export class ControllerStub implements HttpProtocol {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	http(request: HttpRequest): Promise<HttpResponse> {
-		throw new Error("Method not implemented.");
+	async http(request: HttpRequest): Promise<HttpResponse> {
+		return ok("test");
 	}
 }
 
@@ -12,7 +12,7 @@ export class LogFacadeStub implements LogProtocol {
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	trace(title: string, message: string, trace: string): boolean {
-		throw new Error("Method not implemented.");
+		return true;
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars

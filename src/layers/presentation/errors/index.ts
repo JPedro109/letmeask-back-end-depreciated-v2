@@ -1,3 +1,11 @@
+export class RequestError extends Error {
+
+	constructor(paramName: string) {
+		super(paramName);
+		this.name = "RequestError";
+	}
+}
+
 export class MissingParamError extends Error {
 	constructor (paramName: string) {
 		super("Missing param: " + paramName);
@@ -14,8 +22,7 @@ export class InvalidTypeError extends Error {
 
 export class InternalServerError extends Error {
 	constructor () {
-		super();
-		this.message = "Internal server error";
+		super("Internal server error");
 		this.name = "InternalServerError";
 	}
 }

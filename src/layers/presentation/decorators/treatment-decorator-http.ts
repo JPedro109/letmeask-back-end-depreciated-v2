@@ -1,7 +1,15 @@
 import { Metrics } from "@/shared";
-import { LogProtocol } from "@/layers/domain";
-import { HttpProtocol, HttpRequest, HttpResponse } from "../ports";
-import { serverError } from "../helpers";
+import { DomainError, InvalidParamError, LogProtocol, NotFoundError, UnauthorizedError } from "@/layers/domain";
+import { 
+	HttpProtocol, 
+	HttpRequest, 
+	HttpResponse, 
+	RequestError, 
+	badRequest, 
+	notFound, 
+	serverError, 
+	unauthorized 
+} from "@/layers/presentation";
 
 export class TreatmentDecoratorHttp implements HttpProtocol {
 
@@ -10,10 +18,11 @@ export class TreatmentDecoratorHttp implements HttpProtocol {
 		private readonly log: LogProtocol
 	) { }
 
-	private maskSensitiveBodyInformation(data: object) {
-		for(const key in data) if(key.includes("password") || key.includes("Password")) data[key] = "********";
-
-		return data;
+	private setErrorStatusCode(e: Error) {
+		if(e instanceof UnauthorizedError) return unauthorized(e);
+		if(e instanceof NotFoundError) return notFound(e);
+		if(e instanceof DomainError || e instanceof RequestError || e instanceof InvalidParamError) return badRequest(e);
+		return serverError();
 	}
 
 	async http(request: HttpRequest): Promise<HttpResponse> {
@@ -24,29 +33,31 @@ export class TreatmentDecoratorHttp implements HttpProtocol {
 			
 			const { statusCode, response } = await this.controller.http(request);
 
-			const log = { body: this.maskSensitiveBodyInformation(request.data), response, statusCode };
+			const log = { response, statusCode };
 
 			if(request.userId) log["userId"] = request.userId;
 
-			if(statusCode > 399 && statusCode <= 500 || response instanceof Error) {
-				end({ route: request.path, code: "4XX", method: request.method, controller: this.controller.constructor.name });
-				this.log.warning(`${request.path} - ${request.method} - ${this.controller.constructor.name}`, JSON.stringify(log));
-			} else {
-				end({ route: request.path, code: "2XX", method: request.method, controller: this.controller.constructor.name });
-				this.log.info(`${request.path} - ${request.method} - ${this.controller.constructor.name}`, JSON.stringify(log));
-			}
+			end({ route: request.path, code: "2XX", method: request.method, controller: this.controller.constructor.name });
+
+			this.log.info(`${request.path} - ${request.method} - ${this.controller.constructor.name}`, JSON.stringify(log));
 
 			return { statusCode, response };
 		} catch(e) {
-			const log = { body: this.maskSensitiveBodyInformation(request.data), error: e, statusCode: 500 };
+			const { statusCode, response } = this.setErrorStatusCode(e);
+			
+			const log = { error: e, statusCode };
 
 			if(request.userId) log["userId"] = request.userId;
 
-			end({ route: request.path, code: "5XX", method: request.method, controller: this.controller.constructor.name });
+			if(statusCode !== 500) {
+				end({ route: request.path, code: "4XX", method: request.method, controller: this.controller.constructor.name });
+				this.log.warning(`${request.path} - ${request.method} - ${this.controller.constructor.name}`, JSON.stringify(log));
+			} else {
+				end({ route: request.path, code: "5XX", method: request.method, controller: this.controller.constructor.name });
+				this.log.error(`${request.path} - ${request.method} - ${this.controller.constructor.name}`, JSON.stringify(log));
+			}
 
-			this.log.error(`${request.path} - ${request.method} - ${this.controller.constructor.name}`, JSON.stringify(log));
-			
-			return serverError();
+			return { statusCode, response };
 		}
 	}
 }

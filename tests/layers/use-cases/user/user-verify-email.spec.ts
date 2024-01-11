@@ -20,9 +20,9 @@ describe("Use case - UserVerifyEmailUseCase", () => {
 		const code = "code";
 		const { sut } = makeSut();
 
-		const result = await sut.execute({ email, code });
+		const result = sut.execute({ email, code });
 
-		expect(result).toBeInstanceOf(NotFoundError);
+		expect(result).rejects.toThrow(NotFoundError);
 	});
 
 	test("Shoud not verify email, because code is invalid", async () => {
@@ -31,22 +31,22 @@ describe("Use case - UserVerifyEmailUseCase", () => {
 		const { sut, userRepositoryStub } = makeSut();
 		jest
 			.spyOn(userRepositoryStub, "getUserByEmailWithVerificationCode")
-			.mockResolvedValueOnce(Promise.resolve({ ...testUserModel, verifiedEmail: false, userVerificationCode: null }));
+			.mockResolvedValueOnce({ ...testUserModel, verifiedEmail: false, userVerificationCode: null });
 
-		const result = await sut.execute({ email, code: invalidToken });
+		const result = sut.execute({ email, code: invalidToken });
 
-		expect(result).toBeInstanceOf(InvalidParamError);
+		expect(result).rejects.toThrow(InvalidParamError);
 	});
 
 	test("Shoud not verify email, because email already is verified", async () => {
 		const email = "email@test.com";
 		const code = "code";
 		const { sut, userRepositoryStub } = makeSut();
-		jest.spyOn(userRepositoryStub, "getUserByEmailWithVerificationCode").mockResolvedValueOnce(Promise.resolve(testUserModel));
+		jest.spyOn(userRepositoryStub, "getUserByEmailWithVerificationCode").mockResolvedValueOnce(testUserModel);
 
-		const result = await sut.execute({ email, code });
+		const result = sut.execute({ email, code });
 
-		expect(result).toBeInstanceOf(UnauthorizedError);
+		expect(result).rejects.toThrow(UnauthorizedError);
 	});
 
 
@@ -56,7 +56,7 @@ describe("Use case - UserVerifyEmailUseCase", () => {
 		const { sut, userRepositoryStub } = makeSut();
 		jest
 			.spyOn(userRepositoryStub, "getUserByEmailWithVerificationCode")
-			.mockResolvedValueOnce(Promise.resolve({ ...testUserModel, verifiedEmail: false }));
+			.mockResolvedValueOnce({ ...testUserModel, verifiedEmail: false });
 
 		const result = await sut.execute({ email, code });
 

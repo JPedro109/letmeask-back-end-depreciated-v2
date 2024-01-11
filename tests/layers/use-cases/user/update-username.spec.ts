@@ -20,20 +20,20 @@ describe("Use case - UpdateUsernameUseCase", () => {
 		const username = "u".repeat(300);
 		const { sut } = makeSut();
 
-		const result = await sut.execute({ id, username });
+		const result = sut.execute({ id, username });
 
-		expect(result).toBeInstanceOf(InvalidUsernameError);
+		expect(result).rejects.toThrow(InvalidUsernameError);
 	});
 
 	test("Should not update username, because username is not exists", async () => {
 		const id = "2";
 		const username = "username";
 		const { sut, userRepositoryStub } = makeSut();
-		jest.spyOn(userRepositoryStub, "getUserById").mockResolvedValueOnce(Promise.resolve(null));
+		jest.spyOn(userRepositoryStub, "getUserById").mockResolvedValueOnce(null);
 
-		const result = await sut.execute({ id, username });
+		const result = sut.execute({ id, username });
 
-		expect(result).toBeInstanceOf(NotFoundError);
+		expect(result).rejects.toThrow(NotFoundError);
 	});
 
 	test("Should update username", async () => {

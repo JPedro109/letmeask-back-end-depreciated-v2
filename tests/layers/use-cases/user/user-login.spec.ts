@@ -23,9 +23,9 @@ describe("Use case - UserLoginUseCase", () => {
 		const password = "hash_password";
 		const { sut } = makeSut();
         
-		const result = await sut.execute({ email, password });
+		const result = sut.execute({ email, password });
 
-		expect(result).toBeInstanceOf(UnauthorizedError);
+		expect(result).rejects.toThrow(UnauthorizedError);
 	});
 
 	test("Should not login the user, because password is incorrect", async () => {
@@ -34,14 +34,14 @@ describe("Use case - UserLoginUseCase", () => {
 		const { sut, userRepositoryStub, cryptographyStub } = makeSut();
 		jest
 			.spyOn(userRepositoryStub, "getUserByEmail")
-			.mockReturnValue(Promise.resolve(testUserModel));
+			.mockResolvedValue(testUserModel);
 		jest
 			.spyOn(cryptographyStub, "compareHash")
-			.mockReturnValue(Promise.resolve(false));
+			.mockResolvedValue(false);
         
-		const result = await sut.execute({ email, password });
+		const result = sut.execute({ email, password });
 
-		expect(result).toBeInstanceOf(UnauthorizedError);
+		expect(result).rejects.toThrow(UnauthorizedError);
 	});
 
 	test("Should not login the user, because email is not verified", async () => {
@@ -50,11 +50,11 @@ describe("Use case - UserLoginUseCase", () => {
 		const { sut, userRepositoryStub } = makeSut();
 		jest
 			.spyOn(userRepositoryStub, "getUserByEmail")
-			.mockReturnValue(Promise.resolve({ ...testUserModel, verifiedEmail: false }));
+			.mockResolvedValue({ ...testUserModel, verifiedEmail: false });
 
-		const result = await sut.execute({ email, password });
+		const result = sut.execute({ email, password });
 
-		expect(result).toBeInstanceOf(UnauthorizedError);
+		expect(result).rejects.toThrow(UnauthorizedError);
 	});
 
 	test("Should login the user", async () => {
@@ -63,7 +63,7 @@ describe("Use case - UserLoginUseCase", () => {
 		const { sut, userRepositoryStub } = makeSut();
 		jest
 			.spyOn(userRepositoryStub, "getUserByEmail")
-			.mockReturnValueOnce(Promise.resolve(testUserModel));
+			.mockResolvedValueOnce(testUserModel);
         
 		const result = await sut.execute({ email, password });
 

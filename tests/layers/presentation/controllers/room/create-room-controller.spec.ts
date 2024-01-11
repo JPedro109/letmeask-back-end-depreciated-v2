@@ -1,7 +1,6 @@
 import { testRoomModel } from "./datas";
 import { CreateRoomStub } from "./stubs";
-import { UnauthorizedError } from "@/layers/domain";
-import { CreateRoomController, MissingParamError, InvalidTypeError, badRequest, created, unauthorized } from "@/layers/presentation";
+import { CreateRoomController, created, RequestError } from "@/layers/presentation";
 
 const makeSut = () => {
 	const createRoomStub = new CreateRoomStub();
@@ -26,64 +25,44 @@ describe("Presentation - CreateRoomController", () => {
 		const data = makeBody("", "room");
 		const { sut } = makeSut();
 
-		const result = await sut.http({ userId: data.userId as string, data: { roomName: data.roomName } });
+		const result = sut.http({ userId: data.userId as string, data: { roomName: data.roomName } });
 
-		expect(result).toEqual(badRequest(new MissingParamError("userId")));
+		expect(result).rejects.toThrow(RequestError);
 	});
 
 	test("Should not create room, because room name is empty", async () => {
 		const data = makeBody("1", "");
 		const { sut } = makeSut();
 
-		const result = await sut.http({ userId: data.userId as string, data: { roomName: data.roomName } });
+		const result = sut.http({ userId: data.userId as string, data: { roomName: data.roomName } });
 
-		expect(result).toEqual(badRequest(new MissingParamError("roomName")));
+		expect(result).rejects.toThrow(RequestError);
 	});
 
 	test("Should not create room, because userId is with type error", async () => {
 		const data = makeBody(100, "room");
 		const { sut } = makeSut();
 
-		const result = await sut.http({ userId: data.userId as string, data: { roomName: data.roomName } });
+		const result = sut.http({ userId: data.userId as string, data: { roomName: data.roomName } });
 
-		expect(result).toEqual(badRequest(new InvalidTypeError("userId")));
+		expect(result).rejects.toThrow(RequestError);
 	});
 
 	test("Should not create room, because roomName is with type error", async () => {
 		const data = makeBody("1", 100);
 		const { sut } = makeSut();
 
-		const result = await sut.http({ userId: data.userId as string, data: { roomName: data.roomName } });
+		const result = sut.http({ userId: data.userId as string, data: { roomName: data.roomName } });
 
-		expect(result).toEqual(badRequest(new InvalidTypeError("roomName")));
-	});
-
-	test("Should not create room, because use case returned unauthorized error", async () => {
-		const data = makeBody("1", "room");
-		const { sut, createRoomStub } = makeSut();
-		jest.spyOn(createRoomStub, "execute").mockResolvedValueOnce(Promise.resolve(new UnauthorizedError("error")));
-
-		const result = await sut.http({ userId: data.userId as string, data: { roomName: data.roomName } });
-
-		expect(result).toEqual(unauthorized(new UnauthorizedError("error")));
-	});
-
-	test("Should not create room, because use case returned error", async () => {
-		const data = makeBody("1", "room");
-		const { sut, createRoomStub } = makeSut();
-		jest.spyOn(createRoomStub, "execute").mockResolvedValueOnce(Promise.resolve(new Error("error")));
-
-		const result = await sut.http({ userId: data.userId as string, data: { roomName: data.roomName } });
-
-		expect(result).toEqual(badRequest(new Error("error")));
+		expect(result).rejects.toThrow(RequestError);
 	});
 
 	test("Should create room", async () => {
 		const data = makeBody("1", "room");
 		const { sut } = makeSut();
 
-		const result = await sut.http({ userId: data.userId as string, data: { roomName: data.roomName } });
+		const result = sut.http({ userId: data.userId as string, data: { roomName: data.roomName } });
 
-		expect(result).toEqual(created(testRoomModel));
+		await expect(result).resolves.toEqual(created(testRoomModel));
 	});
 });
