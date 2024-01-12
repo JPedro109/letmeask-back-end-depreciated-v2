@@ -1,5 +1,6 @@
-import { DomainError, ResponseEntity } from "@/layers/domain";
 import { 
+	DomainError, 
+	ResponseEntity,
 	NotFoundError, 
 	QuestionRepositoryProtocol, 
 	ResponseRepositoryProtocol, 

@@ -1,5 +1,12 @@
-import { DomainError, RoomValidate } from "@/layers/domain";
-import { CacheProtocol, NotFoundError, RoomRepositoryProtocol, UnauthorizedError, UserRepositoryProtocol } from "@/layers/domain";
+import { 
+	CacheProtocol, 
+	NotFoundError, 
+	RoomRepositoryProtocol, 
+	UnauthorizedError, 
+	UserRepositoryProtocol, 
+	DomainError, 
+	RoomValidate 
+} from "@/layers/domain";
 import { DeleteRoomUseCaseProtocol } from "./protocol";
 import { DeleteRoomDTO, DeleteRoomResponseDTO } from "./dtos";
 

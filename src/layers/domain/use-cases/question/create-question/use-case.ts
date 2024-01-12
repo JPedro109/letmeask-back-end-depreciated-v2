@@ -1,5 +1,6 @@
-import { DomainError, QuestionEntity } from "@/layers/domain";
 import { 
+	DomainError, 
+	QuestionEntity,
 	NotFoundError, 
 	QuestionRepositoryProtocol, 
 	RoomRepositoryProtocol, 

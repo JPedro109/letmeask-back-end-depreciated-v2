@@ -7,6 +7,7 @@ export class RequestError extends Error {
 }
 
 export class MissingParamError extends Error {
+
 	constructor (paramName: string) {
 		super("Missing param: " + paramName);
 		this.name = "MissingParamError";
@@ -14,6 +15,7 @@ export class MissingParamError extends Error {
 }
 
 export class InvalidTypeError extends Error {
+
 	constructor (paramName: string) {
 		super("Param: " + paramName + " has wrong type");
 		this.name = "InvalidTypeError";
@@ -21,6 +23,7 @@ export class InvalidTypeError extends Error {
 }
 
 export class InternalServerError extends Error {
+	
 	constructor () {
 		super("Internal server error");
 		this.name = "InternalServerError";

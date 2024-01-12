@@ -1,5 +1,4 @@
-import { NotFoundError, RoomRepositoryProtocol, CacheProtocol, RoomModel, DomainError } from "@/layers/domain";
-import { RoomValidate } from "@/layers/domain";
+import { RoomValidate, NotFoundError, RoomRepositoryProtocol, CacheProtocol, RoomModel, DomainError } from "@/layers/domain";
 import { GetRoomUseCaseProtocol } from "./protocol";
 import { GetRoomDTO, GetRoomResponseDTO } from "./dtos";
 

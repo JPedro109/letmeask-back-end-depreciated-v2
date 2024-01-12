@@ -1,5 +1,4 @@
 export class DomainError extends Error {
-
 	constructor(paramName: string) {
 		super();
 		this.message = paramName;
@@ -8,7 +7,6 @@ export class DomainError extends Error {
 }
 
 export class InvalidParamError extends Error {
-
 	constructor(paramName: string) {
 		super(paramName);
 		this.name = "InvalidParamError";
@@ -16,7 +14,6 @@ export class InvalidParamError extends Error {
 }
 
 export class NotFoundError extends Error {
-
 	constructor(paramName: string) {
 		super(paramName);
 		this.name = "NotFoundError";
@@ -24,7 +21,6 @@ export class NotFoundError extends Error {
 }
 
 export class UnauthorizedError extends Error {
-
 	constructor(paramName: string) {
 		super(paramName);
 		this.name = "UnauthorizedError";
