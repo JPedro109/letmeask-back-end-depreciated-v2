@@ -1,5 +1,4 @@
-import { UserPassword } from "@/layers/domain";
-import { UserRepositoryProtocol, CryptographyProtocol, InvalidParamError, NotFoundError } from "@/layers/domain";
+import { UserRepositoryProtocol, CryptographyProtocol, InvalidParamError, NotFoundError, UserValidate, DomainError } from "@/layers/domain";
 import { UpdateUserPasswordUseCaseProtocol } from "./protocol";
 import { UpdateUserPasswordDTO, UpdateUserPasswordResponseDTO } from "./dtos";
 
@@ -11,11 +10,11 @@ export class UpdateUserPasswordUseCase implements UpdateUserPasswordUseCaseProto
 	) { }
 
 	async execute({ id, password, newPassword, newPasswordConfirm }: UpdateUserPasswordDTO): Promise<UpdateUserPasswordResponseDTO> {
+		const validation = UserValidate.password(newPassword);
+
+		if(validation.invalid) throw new DomainError(validation.error);
+
 		if(newPassword !== newPasswordConfirm) throw new InvalidParamError("As senhas não coincidem");
-
-		const newUserPasswordOrError = UserPassword.create(newPassword);
-
-		if(newUserPasswordOrError instanceof Error) throw newUserPasswordOrError;
 	
 		const user = await this.repository.getUserById(id);
 
@@ -25,9 +24,9 @@ export class UpdateUserPasswordUseCase implements UpdateUserPasswordUseCaseProto
 
 		if(!passwordIsMatch) throw new InvalidParamError("Senha atual incorreta");
 
-		if(password === newUserPasswordOrError.value) throw new InvalidParamError("A sua nova senha não pode ser igual a anterior");
+		if(password === newPassword) throw new InvalidParamError("A sua nova senha não pode ser igual a anterior");
 
-		const hashPassword = await this.cryptography.hash(newUserPasswordOrError.value);
+		const hashPassword = await this.cryptography.hash(newPassword);
 
 		await this.repository.updateUserById(id, { password: hashPassword });
 

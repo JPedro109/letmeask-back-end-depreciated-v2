@@ -1,4 +1,4 @@
-import { RoomCode } from "@/layers/domain";
+import { DomainError, RoomValidate } from "@/layers/domain";
 import { CacheProtocol, NotFoundError, RoomRepositoryProtocol, UnauthorizedError, UserRepositoryProtocol } from "@/layers/domain";
 import { DeleteRoomUseCaseProtocol } from "./protocol";
 import { DeleteRoomDTO, DeleteRoomResponseDTO } from "./dtos";
@@ -12,9 +12,9 @@ export class DeleteRoomUseCase implements DeleteRoomUseCaseProtocol {
 	) { }
 
 	async execute({ userId, roomCode }: DeleteRoomDTO): Promise<DeleteRoomResponseDTO> {
-		const codeOrError = RoomCode.create(roomCode);
+		const validaiton = RoomValidate.roomCode(roomCode);
 
-		if(codeOrError instanceof Error) throw codeOrError;
+		if(validaiton.invalid) throw new DomainError(validaiton.error);
 
 		const roomExists = await this.roomRepository.roomExists(roomCode);
 
@@ -28,6 +28,6 @@ export class DeleteRoomUseCase implements DeleteRoomUseCaseProtocol {
 
 		this.cache.del(`room-${roomCode}`);
 
-		return await this.roomRepository.deleteRoomByCode(codeOrError.value);
+		return await this.roomRepository.deleteRoomByCode(roomCode);
 	}
 }

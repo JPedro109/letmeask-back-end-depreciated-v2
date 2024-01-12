@@ -1,5 +1,4 @@
-import { UserEmail } from "@/layers/domain";
-import { InvalidParamError, NotFoundError, UnitOfWorkProtocol } from "@/layers/domain";
+import { DomainError, InvalidParamError, NotFoundError, UnitOfWorkProtocol, UserValidate } from "@/layers/domain";
 import { UpdateUserEmailUseCaseProtocol } from "./protocol";
 import { UpdateUserEmailDTO, UpdateUserEmailResponseDTO } from "./dtos";
 
@@ -8,9 +7,9 @@ export class UpdateUserEmailUseCase implements UpdateUserEmailUseCaseProtocol {
 	constructor(private readonly unitOfWork: UnitOfWorkProtocol) { }
 
 	async execute({ id, email, code }: UpdateUserEmailDTO): Promise<UpdateUserEmailResponseDTO> {
-		const emailOrError = UserEmail.create(email);
+		const validation = UserValidate.email(email);
 
-		if(emailOrError instanceof Error) throw emailOrError;
+		if(validation.invalid) throw new DomainError(validation.error);
 
 		const userRepository = this.unitOfWork.getUserRepository();
 		const userVerificationCodeRepository = this.unitOfWork.getUserVerificationCodeRepository();

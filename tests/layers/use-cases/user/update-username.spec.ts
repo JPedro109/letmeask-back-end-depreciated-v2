@@ -1,7 +1,6 @@
 import { UserRepositoryStub } from "../__mocks__";
 
-import { InvalidUsernameError } from "@/layers/domain";
-import { NotFoundError, UpdateUsernameUseCase } from "@/layers/domain";
+import { DomainError, NotFoundError, UpdateUsernameUseCase } from "@/layers/domain";
 
 const makeSut = () => {
 	const userRepositoryStub = new UserRepositoryStub();
@@ -22,7 +21,7 @@ describe("Use case - UpdateUsernameUseCase", () => {
 
 		const result = sut.execute({ id, username });
 
-		expect(result).rejects.toThrow(InvalidUsernameError);
+		expect(result).rejects.toThrow(DomainError);
 	});
 
 	test("Should not update username, because username is not exists", async () => {

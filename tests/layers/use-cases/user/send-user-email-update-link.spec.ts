@@ -7,7 +7,6 @@ import {
 	testUserModel
 } from "../__mocks__";
 
-import { InvalidUserEmailError } from "@/layers/domain";
 import { SendUserEmailUpdateLinkUseCase, InvalidParamError, NotFoundError } from "@/layers/domain";
 
 const makeSut = () => {
@@ -32,16 +31,6 @@ const makeSut = () => {
 };
 
 describe("Use case SendUserEmailUpdateLinkUseCase", () => {
-	test("Shoud not send user email update link, because email is invald", async () => {
-		const id = "1";
-		const email = "email.com";
-		const { sut } = makeSut();
-
-		const result = sut.execute({ id, email });
-
-		expect(result).rejects.toThrow(InvalidUserEmailError);
-	});
-
 	test("Shoud not send user email update link, because user is not exists", async () => {
 		const id = "2";
 		const email = "email@test2.com";

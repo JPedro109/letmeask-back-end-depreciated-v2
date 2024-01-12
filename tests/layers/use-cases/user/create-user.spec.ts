@@ -12,7 +12,7 @@ import {
 	testUserModel
 } from "../__mocks__";
 
-import { CreateUserUseCase, InvalidParamError } from "@/layers/domain";
+import { CreateUserUseCase, DomainError, InvalidParamError } from "@/layers/domain";
 
 const makeSut = () => {
 	const userRepositoryStub = new UserRepositoryStub();
@@ -77,7 +77,7 @@ describe("Use case - CreateUserUseCase", () => {
 
 		const result = sut.execute({ email, username, password, passwordConfirm });
 
-		expect(result).rejects.toThrow(Error);
+		expect(result).rejects.toThrow(DomainError);
 	});
 
 	test("Shoud create user", async () => {

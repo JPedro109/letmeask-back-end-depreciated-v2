@@ -1,4 +1,4 @@
-import { Room } from "@/layers/domain";
+import { DomainError, RoomEntity } from "@/layers/domain";
 import { UnitOfWorkProtocol, UnauthorizedError, RoomModel } from "@/layers/domain";
 import { CreateRoomUseCaseProtocol } from "./protocol";
 import { CreateRoomDTO, CreateRoomResponseDTO } from "./dtos";
@@ -10,14 +10,14 @@ export class CreateRoomUseCase implements CreateRoomUseCaseProtocol {
 	) { }
 
 	async execute({ userId, roomName }: CreateRoomDTO): Promise<CreateRoomResponseDTO> {
-		const userRepository = this.unitOfWork.getUserRepository();
-		const roomRepository = this.unitOfWork.getRoomRepository();
-
 		const code = `${Math.round((Math.random() + 1) * 100000)}`;
 
-		const roomOrError = Room.create(code, roomName);
+		const validation = RoomEntity.validate(code, roomName);
 
-		if(roomOrError instanceof Error) throw roomOrError;
+		if(validation.invalid) throw new DomainError(validation.errors);
+
+		const userRepository = this.unitOfWork.getUserRepository();
+		const roomRepository = this.unitOfWork.getRoomRepository();
 
 		const user = await userRepository.getUserById(userId);
 
@@ -27,7 +27,7 @@ export class CreateRoomUseCase implements CreateRoomUseCaseProtocol {
 
 		await this.unitOfWork.transaction(async () => {
 			await userRepository.updateUserById(userId, { managedRoom: code });
-			room = await roomRepository.createRoom(roomOrError.roomCode.value, roomOrError.roomName.value, userId);
+			room = await roomRepository.createRoom(code, roomName, userId);
 		});
 
 		return room;

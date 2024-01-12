@@ -53,7 +53,7 @@ describe("/api/users/username - PATCH", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("InvalidUsernameError");
+		expect(response.body.code).toBe("DomainError");
 	});
 
 	test("Should update username", async () => {

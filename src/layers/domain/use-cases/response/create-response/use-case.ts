@@ -1,4 +1,4 @@
-import { Response } from "@/layers/domain";
+import { DomainError, ResponseEntity } from "@/layers/domain";
 import { 
 	NotFoundError, 
 	QuestionRepositoryProtocol, 
@@ -29,9 +29,9 @@ export class CreateResponseUseCase implements CreateResponseUseCaseProtocol {
 	}
 
 	async execute({ userId, questionId, response }: CreateResponseDTO): Promise<CreateResponseResponseDTO> {
-		const responseOrError = Response.create(response);
+		const validation = ResponseEntity.validate(response);
 
-		if(responseOrError instanceof Error) throw responseOrError;
+		if(validation.invalid) throw new DomainError(validation.errors);
 
 		const question = await this.questionRepository.getById(questionId);
 
@@ -44,7 +44,7 @@ export class CreateResponseUseCase implements CreateResponseUseCaseProtocol {
 
 		if(question.response) throw new UnauthorizedError("Essa pergunta já tem uma resposta");
 
-		const createdResponse = await this.responseRepository.createResponse(question.id, responseOrError.responseDescription.value);
+		const createdResponse = await this.responseRepository.createResponse(question.id, response);
 		await this.addCache(user.managedRoom);
 		return createdResponse;
 	}

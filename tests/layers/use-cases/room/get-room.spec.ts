@@ -1,6 +1,5 @@
 import { CacheStub, RoomRepositoryStub, testRoomModel } from "../__mocks__";
-import { InvalidRoomCodeError } from "@/layers/domain";
-import { GetRoomUseCase, NotFoundError } from "@/layers/domain";
+import { DomainError, GetRoomUseCase, NotFoundError } from "@/layers/domain";
 
 const makeSut = () => {
 	const roomRepositoryStub = new RoomRepositoryStub();
@@ -22,7 +21,7 @@ describe("Use case - GetRoomUseCase", () => {
 
 		const response = sut.execute({ roomCode });
 
-		expect(response).rejects.toThrow(InvalidRoomCodeError);
+		expect(response).rejects.toThrow(DomainError);
 	});
 
 	test("Should not get room, because the room is not exists", () => {

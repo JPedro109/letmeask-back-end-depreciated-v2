@@ -27,7 +27,7 @@ describe("getRoom - QUERY", () => {
 				variables: { data: body },
 			});
 
-		expect(response.body.errors[0].code).toBe("InvalidRoomCodeError");
+		expect(response.body.errors[0].code).toBe("DomainError");
 	});
 
 	test("Should not get room, because room is not exists", async () => {

@@ -42,20 +42,6 @@ describe("/api/users/send-email-update-link - POST", () => {
 		expect(response.body.code).toBe("RequestError");
 	});
 
-	test("Should not send user email update link, because email is invalid", async () => {
-		const body = makeBodySendUserEmailUpdateLink("email.com");
-
-		const token = await loginRest("email_verified_and_with_room@test.com");
-
-		const response = await request(setupRest())
-			.post("/api/users/send-email-update-link")
-			.set("authorization", `Bearer ${token}`)
-			.send(body);
-
-		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("InvalidUserEmailError");
-	});
-
 	test("Should not send user email update link, because email already is register", async () => {
 		const body = makeBodySendUserEmailUpdateLink("email_verified_and_with_room@test.com");
 

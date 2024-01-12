@@ -9,8 +9,7 @@ import {
 	testUserModel
 } from "../__mocks__";
 
-import { InvalidUserPasswordError } from "@/layers/domain";
-import { RecoverUserPasswordUseCase, InvalidParamError, NotFoundError } from "@/layers/domain";
+import { RecoverUserPasswordUseCase, InvalidParamError, NotFoundError, DomainError } from "@/layers/domain";
 
 const makeSut = () => {
 	const userRepositoryStub = new UserRepositoryStub();
@@ -56,7 +55,7 @@ describe("Use case - RecoverUserPasswordUseCase", () => {
 		const passwordConfirm = "password";
 		const { sut } = makeSut();
 
-		expect(sut.execute({ email, code, password: invalidPassword, passwordConfirm })).rejects.toThrow(InvalidUserPasswordError);
+		expect(sut.execute({ email, code, password: invalidPassword, passwordConfirm })).rejects.toThrow(DomainError);
 	});
 
 	test("Should not recover user password, because user is not exists", async () => {

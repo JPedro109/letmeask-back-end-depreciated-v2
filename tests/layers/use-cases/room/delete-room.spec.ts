@@ -4,8 +4,7 @@ import {
 	testRoomModel,
 	CacheStub, 
 } from "../__mocks__";
-import { InvalidRoomCodeError } from "@/layers/domain";
-import { DeleteRoomUseCase, NotFoundError, UnauthorizedError } from "@/layers/domain";
+import { DomainError, DeleteRoomUseCase, NotFoundError, UnauthorizedError } from "@/layers/domain";
 
 const makeSut = () => {
 	const roomRepositoryStub = new RoomRepositoryStub();
@@ -29,7 +28,7 @@ describe("Use case - DeleteRoomUseCase", () => {
 
 		const response = sut.execute({ userId, roomCode });
 
-		expect(response).rejects.toThrow(InvalidRoomCodeError);
+		expect(response).rejects.toThrow(DomainError);
 	});
 
 	test("Should not delete room, because the room is not exists", () => {

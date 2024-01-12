@@ -14,7 +14,7 @@ describe("/api/rooms/:roomCode - GET", () => {
 			.set("authorization", `Bearer ${token}`);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("InvalidRoomCodeError");
+		expect(response.body.code).toBe("DomainError");
 	});
 
 	test("Should not get room, because room is not exists", async () => {

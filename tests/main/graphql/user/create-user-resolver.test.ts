@@ -68,7 +68,7 @@ describe("createUser - MUTATION", () => {
 				variables: { data: body },
 			});
 		
-		expect(response.body.errors[0].code).toBe("InvalidUserEmailError");
+		expect(response.body.errors[0].code).toBe("DomainError");
 	});
 
 	test("Should not create user, because username is invalid", async () => {
@@ -81,7 +81,7 @@ describe("createUser - MUTATION", () => {
 				variables: { data: body },
 			});
 		
-		expect(response.body.errors[0].code).toBe("InvalidUsernameError");
+		expect(response.body.errors[0].code).toBe("DomainError");
 	});
 
 	test("Should not create user, because email already is register", async () => {
@@ -107,7 +107,7 @@ describe("createUser - MUTATION", () => {
 				variables: { data: body },
 			});
 		
-		expect(response.body.errors[0].code).toBe("InvalidUserPasswordError");
+		expect(response.body.errors[0].code).toBe("DomainError");
 	});
 
 	test("Should not create user, because passwords is not match", async () => {

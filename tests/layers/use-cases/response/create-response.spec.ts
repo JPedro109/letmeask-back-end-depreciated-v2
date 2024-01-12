@@ -8,7 +8,7 @@ import {
 	RoomRepositoryStub,
 	testResponseModel
 } from "../__mocks__";
-import { CreateResponseUseCase, NotFoundError, ResponseModel, UnauthorizedError } from "@/layers/domain";
+import { CreateResponseUseCase, DomainError, NotFoundError, ResponseModel, UnauthorizedError } from "@/layers/domain";
 
 const makeSut = () => {
 	const responseRepositoryStub = new ResponseRepositoryStub();
@@ -36,7 +36,7 @@ describe("Use case - CreateResponseUseCase", () => {
 
 		const result = sut.execute({ userId, questionId, response });
 
-		expect(result).rejects.toThrow(Error);
+		expect(result).rejects.toThrow(DomainError);
 	});
 
 	test("Should not create response, because question is not exists", () => {

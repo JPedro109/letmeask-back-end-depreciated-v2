@@ -13,8 +13,7 @@ export class UserVerifyEmailUseCase implements UserVerifyEmailUseCaseProtocol {
 
 		if (user.verifiedEmail) throw new UnauthorizedError("Email já verificado");
 
-		if (!user.userVerificationCode)
-			throw new InvalidParamError("Código inválido");
+		if (!user.userVerificationCode) throw new InvalidParamError("Código inválido");
 
 		await this.repository.updateUserByEmail(email, {
 			verifiedEmail: true,

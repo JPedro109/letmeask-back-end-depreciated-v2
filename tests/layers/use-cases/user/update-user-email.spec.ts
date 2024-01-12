@@ -1,4 +1,3 @@
-import { InvalidUserEmailError } from "@/layers/domain";
 import { 
 	QuestionRepositoryStub, 
 	ResponseRepositoryStub, 
@@ -9,7 +8,7 @@ import {
 	testUserModel
 } from "../__mocks__";
 
-import { UpdateUserEmailUseCase, InvalidParamError, NotFoundError } from "@/layers/domain";
+import { DomainError, UpdateUserEmailUseCase, InvalidParamError, NotFoundError } from "@/layers/domain";
 
 const makeSut = () => {
 	const userRepositoryStub = new UserRepositoryStub();
@@ -42,7 +41,7 @@ describe("Use case - UpdateUserEmailUseCase", () => {
 
 		const result = sut.execute({ id, email, code });
 
-		expect(result).rejects.toThrow(InvalidUserEmailError);
+		expect(result).rejects.toThrow(DomainError);
 	});
 	
 	test("Should not update user email, because user is not exists", async () => {

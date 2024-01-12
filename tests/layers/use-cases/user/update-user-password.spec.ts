@@ -1,7 +1,6 @@
 import { CryptographyStub, UserRepositoryStub } from "../__mocks__";
 
-import { InvalidUserPasswordError } from "@/layers/domain";
-import { UpdateUserPasswordUseCase, InvalidParamError, NotFoundError } from "@/layers/domain";
+import { UpdateUserPasswordUseCase, InvalidParamError, NotFoundError, DomainError } from "@/layers/domain";
 
 const makeSut = () => {
 	const userRepositoryStub = new UserRepositoryStub();
@@ -38,7 +37,7 @@ describe("Use case - UpdateUserPasswordUseCase", () => {
 
 		const result = sut.execute({ id, password, newPassword, newPasswordConfirm });
 
-		expect(result).rejects.toThrow(InvalidUserPasswordError);
+		expect(result).rejects.toThrow(DomainError);
 	});
 
 	test("Should not update user password, because user is not exists", async () => {

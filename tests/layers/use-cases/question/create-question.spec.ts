@@ -6,7 +6,7 @@ import {
 	testQuestionModel, 
 	CacheStub
 } from "../__mocks__";
-import { CreateQuestionUseCase, NotFoundError, UnauthorizedError } from "@/layers/domain";
+import { CreateQuestionUseCase, DomainError, NotFoundError, UnauthorizedError } from "@/layers/domain";
 
 const makeSut = () => {
 	const questionRepositoryStub = new QuestionRepositoryStub();
@@ -33,7 +33,7 @@ describe("Use case - CreateQuestionUseCase", () => {
 
 		const result = sut.execute({ userId, roomCode, question });
 
-		expect(result).rejects.toThrow(Error);
+		expect(result).rejects.toThrow(DomainError);
 	});
 
 	test("Should not create question, the room is not exists", () => {

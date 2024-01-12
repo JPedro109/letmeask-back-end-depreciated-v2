@@ -45,7 +45,7 @@ describe("updateUsername - MUTATION", () => {
 				variables: { data: body },
 			});
 
-		expect(response.body.errors[0].code).toBe("InvalidUsernameError");
+		expect(response.body.errors[0].code).toBe("DomainError");
 	});
 
 	test("Should update username", async () => {

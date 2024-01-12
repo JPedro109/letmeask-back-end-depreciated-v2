@@ -31,22 +31,6 @@ describe("sendUserEmailUpdateLink - MUTATION", () => {
 
 		expect(response.body.errors[0].code).toBe("RequestError");
 	});
-	
-	test("Should not send user email update link, because email is invalid", async () => {
-		const body = makeBodySendUserEmailUpdateLink("email.com");
-
-		const token = await loginGraphql("email_verified_and_with_room@test.com");
-
-		const response = await request(setupGraphQL())
-			.post("/graphql")
-			.set("authorization", `Bearer ${token}`)
-			.send({
-				query,
-				variables: { data: body },
-			});
-
-		expect(response.body.errors[0].code).toBe("InvalidUserEmailError");
-	});
 
 	test("Should not send user email update link, because email already is register", async () => {
 		const body = makeBodySendUserEmailUpdateLink("email_verified_and_with_room@test.com");

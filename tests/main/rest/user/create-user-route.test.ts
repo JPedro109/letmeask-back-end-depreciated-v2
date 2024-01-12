@@ -114,7 +114,7 @@ describe("/api/users - POST", () => {
 			.send(body);
 		
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("InvalidUserEmailError");
+		expect(response.body.code).toBe("DomainError");
 	});
 
 	test("Should not create user, because username is invalid", async () => {
@@ -125,7 +125,7 @@ describe("/api/users - POST", () => {
 			.send(body);
 		
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("InvalidUsernameError");
+		expect(response.body.code).toBe("DomainError");
 	});
 
 	test("Should not create user, because email already is register", async () => {
@@ -147,7 +147,7 @@ describe("/api/users - POST", () => {
 			.send(body);
 		
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("InvalidUserPasswordError");
+		expect(response.body.code).toBe("DomainError");
 	});
 
 	test("Should not create user, because passwords is not match", async () => {

@@ -8,7 +8,7 @@ import {
 	testUserModel,
 	testRoomModel, 
 } from "../__mocks__";
-import { CreateRoomUseCase, UnauthorizedError } from "@/layers/domain";
+import { CreateRoomUseCase, DomainError, UnauthorizedError } from "@/layers/domain";
 
 const makeSut = () => {
 	const userRepositoryStub = new UserRepositoryStub();
@@ -41,7 +41,7 @@ describe("Use case - CreateRoomUseCase", () => {
 
 		const response = sut.execute({ userId, roomName });
         
-		expect(response).rejects.toThrow(Error);
+		expect(response).rejects.toThrow(DomainError);
 	});
 
 	test("Should not create room, because the user already has a room", () => {

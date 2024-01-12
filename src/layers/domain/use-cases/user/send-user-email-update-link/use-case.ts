@@ -1,4 +1,3 @@
-import { UserEmail } from "@/layers/domain";
 import { 
 	UserRepositoryProtocol,
 	UserVerificationCodeRepositoryProtocol,
@@ -24,15 +23,11 @@ export class SendUserEmailUpdateLinkUseCase implements SendUserEmailUpdateLinkUs
 	) { }
 
 	async execute({ id, email }: SendUserEmailUpdateLinkDTO): Promise<SendUserEmailUpdateLinkResponseDTO> {
-		const userEmailOrError = UserEmail.create(email);
-        
-		if(userEmailOrError instanceof Error) throw userEmailOrError;
-
 		const user = await this.userRepository.getUserById(id);
 
 		if(!user) throw new NotFoundError("Usuário não existe");
 	
-		const emailExists = await this.userRepository.getUserByEmail(userEmailOrError.value);
+		const emailExists = await this.userRepository.getUserByEmail(email);
 
 		if(emailExists) throw new InvalidParamError("Email já cadastrado");
 
@@ -47,12 +42,12 @@ export class SendUserEmailUpdateLinkUseCase implements SendUserEmailUpdateLinkUs
 			user.id
 		);
 
-		await this.mail.sendMail(userEmailOrError.value, "Atualização de E-mail", EmailBody.UpdateEmailBody, {
+		await this.mail.sendMail(email, "Atualização de E-mail", EmailBody.UpdateEmailBody, {
 			appUrl: this.secrets.getRequiredSecret(SecretsEnum.AppUrl),
-			email: userEmailOrError.value,
+			email,
 			code: verificationCode
 		});
 
-		return userEmailOrError.value;
+		return email;
 	}
 }
