@@ -1,4 +1,4 @@
-import { HttpHelper, HttpProtocol, HttpRequest, HttpResponse, RequestError, Validate } from "@/layers/presentation";
+import { HttpHelper, HttpProtocol, HttpRequest, HttpResponse, InvalidRequestError, Validate } from "@/layers/presentation";
 import { DeleteUserUseCaseProtocol } from "@/layers/domain";
 
 export class DeleteUserController implements HttpProtocol {
@@ -19,7 +19,7 @@ export class DeleteUserController implements HttpProtocol {
 			{ id, password, passwordConfirm }
 		);
 
-		if(!validation.valid) throw new RequestError(validation.errors);  
+		if(!validation.valid) throw new InvalidRequestError(validation.errors);  
 
 		const response = await this.useCase.execute({ id, password, passwordConfirm });
 

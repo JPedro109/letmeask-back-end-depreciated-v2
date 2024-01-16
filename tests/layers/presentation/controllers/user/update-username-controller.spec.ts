@@ -1,5 +1,5 @@
 import { UpdateUsernameStub } from "./stubs";
-import { UpdateUsernameController, RequestError, HttpHelper } from "@/layers/presentation";
+import { UpdateUsernameController, InvalidRequestError, HttpHelper } from "@/layers/presentation";
 
 const makeSut = () => {
 	const updateUsernameStub = new UpdateUsernameStub();
@@ -26,7 +26,7 @@ describe("Presentation - UpdateUsernameController", () => {
 
 		const result = sut.http({ userId: data.id as string, data: { username: data.username } });
 
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not update username, because username is empty", async () => {
@@ -35,7 +35,7 @@ describe("Presentation - UpdateUsernameController", () => {
 
 		const result = sut.http({ userId: data.id as string, data: { username: data.username } });
 
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not update username, because id is with type error", async () => {
@@ -44,7 +44,7 @@ describe("Presentation - UpdateUsernameController", () => {
 
 		const result = sut.http({ userId: data.id as string, data: { username: data.username } });
 
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not update username, because username is with type error", async () => {
@@ -53,7 +53,7 @@ describe("Presentation - UpdateUsernameController", () => {
 
 		const result = sut.http({ userId: data.id as string, data: { username: data.username } });
 
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should update username", async () => {

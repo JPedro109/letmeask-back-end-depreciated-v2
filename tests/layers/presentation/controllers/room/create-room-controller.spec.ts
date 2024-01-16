@@ -1,6 +1,6 @@
 import { testRoomModel } from "./datas";
 import { CreateRoomStub } from "./stubs";
-import { CreateRoomController, HttpHelper, RequestError } from "@/layers/presentation";
+import { CreateRoomController, HttpHelper, InvalidRequestError } from "@/layers/presentation";
 
 const makeSut = () => {
 	const createRoomStub = new CreateRoomStub();
@@ -27,7 +27,7 @@ describe("Presentation - CreateRoomController", () => {
 
 		const result = sut.http({ userId: data.userId as string, data: { roomName: data.roomName } });
 
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not create room, because room name is empty", async () => {
@@ -36,7 +36,7 @@ describe("Presentation - CreateRoomController", () => {
 
 		const result = sut.http({ userId: data.userId as string, data: { roomName: data.roomName } });
 
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not create room, because userId is with type error", async () => {
@@ -45,7 +45,7 @@ describe("Presentation - CreateRoomController", () => {
 
 		const result = sut.http({ userId: data.userId as string, data: { roomName: data.roomName } });
 
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not create room, because roomName is with type error", async () => {
@@ -54,7 +54,7 @@ describe("Presentation - CreateRoomController", () => {
 
 		const result = sut.http({ userId: data.userId as string, data: { roomName: data.roomName } });
 
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should create room", async () => {

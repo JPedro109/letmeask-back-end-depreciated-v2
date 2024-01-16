@@ -1,4 +1,4 @@
-import { HttpHelper, HttpProtocol, HttpRequest, HttpResponse, RequestError, Validate } from "@/layers/presentation";
+import { HttpHelper, HttpProtocol, HttpRequest, HttpResponse, InvalidRequestError, Validate } from "@/layers/presentation";
 import { UpdateUserPasswordUseCaseProtocol } from "@/layers/domain";
 
 export class UpdateUserPasswordController implements HttpProtocol {
@@ -20,7 +20,7 @@ export class UpdateUserPasswordController implements HttpProtocol {
 			{ id, password, newPassword, newPasswordConfirm }
 		);
 
-		if(!validation.valid) throw new RequestError(validation.errors);  
+		if(!validation.valid) throw new InvalidRequestError(validation.errors);  
 
 		const response = await this.useCase.execute({ id, password, newPassword, newPasswordConfirm });
 

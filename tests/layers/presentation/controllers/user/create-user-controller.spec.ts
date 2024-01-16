@@ -1,4 +1,4 @@
-import { CreateUserController, HttpHelper, RequestError } from "@/layers/presentation";
+import { CreateUserController, HttpHelper, InvalidRequestError } from "@/layers/presentation";
 import { CreateUserStub } from "./stubs";
 
 const makeSut = () => {
@@ -28,7 +28,7 @@ describe("Presentation - CreateUserController", () => {
 
 		const result = sut.http({ data });
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not create user, because username is empty", async () => {
@@ -37,7 +37,7 @@ describe("Presentation - CreateUserController", () => {
 
 		const result = sut.http({ data });
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not create user, because password is empty", async () => {
@@ -46,7 +46,7 @@ describe("Presentation - CreateUserController", () => {
 
 		const result = sut.http({ data });
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not create user, because passwordConfirm is empty", async () => {
@@ -55,7 +55,7 @@ describe("Presentation - CreateUserController", () => {
 
 		const result = sut.http({ data });
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not create user, because email is with type error", async () => {
@@ -64,7 +64,7 @@ describe("Presentation - CreateUserController", () => {
 
 		const result = sut.http({ data });
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not create user, because username is with type error", async () => {
@@ -73,7 +73,7 @@ describe("Presentation - CreateUserController", () => {
 
 		const result = sut.http({ data });
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not create user, because password is with type error", async () => {
@@ -82,7 +82,7 @@ describe("Presentation - CreateUserController", () => {
 
 		const result = sut.http({ data });
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not create user, because passwordConfirm is with type error", async () => {
@@ -91,7 +91,7 @@ describe("Presentation - CreateUserController", () => {
 
 		const result = sut.http({ data });
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should create user", async () => {

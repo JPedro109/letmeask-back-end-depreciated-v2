@@ -27,7 +27,7 @@ describe("/api/users/password - PATCH", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("RequestError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not update user password, because new password is empty", async () => {
@@ -41,7 +41,7 @@ describe("/api/users/password - PATCH", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("RequestError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not update user password, because new password confirm is empty", async () => {
@@ -55,7 +55,7 @@ describe("/api/users/password - PATCH", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("RequestError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not update user password, because password is with type error", async () => {
@@ -69,7 +69,7 @@ describe("/api/users/password - PATCH", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("RequestError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not update user password, because new password is with type error", async () => {
@@ -83,7 +83,7 @@ describe("/api/users/password - PATCH", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("RequestError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not update user password, because new password confirm is with type error", async () => {
@@ -97,7 +97,7 @@ describe("/api/users/password - PATCH", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("RequestError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not update user password, because password is not match with registered passwod in database", async () => {

@@ -1,5 +1,5 @@
 import { GetUsernameStub } from "./stubs";
-import { GetUsernameController, HttpHelper, RequestError } from "@/layers/presentation";
+import { GetUsernameController, HttpHelper, InvalidRequestError } from "@/layers/presentation";
 
 const makeSut = () => {
 	const getUsernameSpy = new GetUsernameStub();
@@ -25,7 +25,7 @@ describe("Presentation - GetUsernameController", () => {
 
 		const result = sut.http({ userId: body.id as string });
 
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not get username, because id is with type error", async () => {
@@ -34,7 +34,7 @@ describe("Presentation - GetUsernameController", () => {
 
 		const result = sut.http({ userId: body.id as string });
 
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should get username", async () => {

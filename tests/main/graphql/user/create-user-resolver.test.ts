@@ -29,7 +29,7 @@ describe("createUser - MUTATION", () => {
 				variables: { data: body },
 			});
 
-		expect(response.body.errors[0].code).toBe("RequestError");
+		expect(response.body.errors[0].code).toBe("InvalidRequestError");
 	});
 
 	test("Should not create user, because username is empty", async () => {
@@ -42,7 +42,7 @@ describe("createUser - MUTATION", () => {
 				variables: { data: body },
 			});
 
-		expect(response.body.errors[0].code).toBe("RequestError");
+		expect(response.body.errors[0].code).toBe("InvalidRequestError");
 	});
 
 	test("Should not create user, because password is empty", async () => {
@@ -55,7 +55,7 @@ describe("createUser - MUTATION", () => {
 				variables: { data: body },
 			});
 
-		expect(response.body.errors[0].code).toBe("RequestError");
+		expect(response.body.errors[0].code).toBe("InvalidRequestError");
 	});
 
 	test("Should not create user, because email is invalid", async () => {

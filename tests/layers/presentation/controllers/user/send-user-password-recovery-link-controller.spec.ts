@@ -1,4 +1,4 @@
-import { SendUserPasswordRecoveryLinkController, RequestError, HttpHelper } from "@/layers/presentation";
+import { SendUserPasswordRecoveryLinkController, InvalidRequestError, HttpHelper } from "@/layers/presentation";
 import { SendUserPasswordRecoveryLinkStub } from "./stubs";
 
 const makeSut = () => {
@@ -25,7 +25,7 @@ describe("Presentation - SendUserPasswordRecoveryLinkController", () => {
 
 		const result = sut.http({ data });
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not send user password recovery link, because email is with type error", async () => {
@@ -34,7 +34,7 @@ describe("Presentation - SendUserPasswordRecoveryLinkController", () => {
 
 		const result = sut.http({ data });
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should send user password recovery link", async () => {

@@ -27,7 +27,7 @@ describe("createRoom - MUTATION", () => {
 				variables: { data: body },
 			});		
 
-		expect(response.body.errors[0].code).toBe("RequestError");
+		expect(response.body.errors[0].code).toBe("InvalidRequestError");
 	});
 
 	test("Should not create room, because user alredy created has a room", async () => {

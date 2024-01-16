@@ -1,6 +1,6 @@
 import { CreateQuestionStub } from "./stubs";
 import { testQuestionModel } from "./datas";
-import { CreateQuestionController, HttpHelper, RequestError } from "@/layers/presentation";
+import { CreateQuestionController, HttpHelper, InvalidRequestError } from "@/layers/presentation";
 
 const makeSut = () => {
 	const createQuestionStub = new CreateQuestionStub();
@@ -32,7 +32,7 @@ describe("Presentation - CreateQuestionController", () => {
 				data: { roomCode: data.roomCode, question: data.question } 
 			});
 
-		await expect(response).rejects.toThrow(RequestError);
+		await expect(response).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not create question, because room code is empty", async () => {
@@ -45,7 +45,7 @@ describe("Presentation - CreateQuestionController", () => {
 				data: { roomCode: data.roomCode, question: data.question } 
 			});
 
-		await expect(response).rejects.toThrow(RequestError);
+		await expect(response).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not create question, because question is empty", async () => {
@@ -58,7 +58,7 @@ describe("Presentation - CreateQuestionController", () => {
 				data: { roomCode: data.roomCode, question: data.question } 
 			});
 
-		await expect(response).rejects.toThrow(RequestError);
+		await expect(response).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not create question, because user id is with type error", async () => {
@@ -71,7 +71,7 @@ describe("Presentation - CreateQuestionController", () => {
 				data: { roomCode: data.roomCode, question: data.question } 
 			});
 
-		await expect(response).rejects.toThrow(RequestError);
+		await expect(response).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not create question, because room code is with type error", async () => {
@@ -84,7 +84,7 @@ describe("Presentation - CreateQuestionController", () => {
 				data: { roomCode: data.roomCode, question: data.question } 
 			});
 
-		await expect(response).rejects.toThrow(RequestError);
+		await expect(response).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not create question, because question is with type error", async () => {
@@ -97,7 +97,7 @@ describe("Presentation - CreateQuestionController", () => {
 				data: { roomCode: data.roomCode, question: data.question } 
 			});
 
-		await expect(response).rejects.toThrow(RequestError);
+		await expect(response).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should create question", async () => {

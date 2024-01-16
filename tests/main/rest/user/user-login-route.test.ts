@@ -23,7 +23,7 @@ describe("/api/users/login - POST", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("RequestError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not login user, because password is empty", async () => {
@@ -34,7 +34,7 @@ describe("/api/users/login - POST", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("RequestError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not login user, because email is with type error", async () => {
@@ -45,7 +45,7 @@ describe("/api/users/login - POST", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("RequestError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not login user, because password is with type error", async () => {
@@ -56,7 +56,7 @@ describe("/api/users/login - POST", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("RequestError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not login user, because email is incorrect", async () => {

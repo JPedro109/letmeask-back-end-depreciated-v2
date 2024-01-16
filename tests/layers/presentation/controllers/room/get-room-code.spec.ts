@@ -1,5 +1,5 @@
 import { GetRoomCodeStub } from "./stubs";
-import { GetRoomCodeController, HttpHelper, RequestError } from "@/layers/presentation";
+import { GetRoomCodeController, HttpHelper, InvalidRequestError } from "@/layers/presentation";
 
 const makeSut = () => {
 	const getRoomCodeStub = new GetRoomCodeStub();
@@ -25,7 +25,7 @@ describe("Presentation - GetRoomCodeController", () => {
 
 		const result = sut.http({ data: { roomCode: body.roomCode } });
 
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not get true, because room code is with type error", async () => {
@@ -34,7 +34,7 @@ describe("Presentation - GetRoomCodeController", () => {
 
 		const result = sut.http({ data: { roomCode: body.roomCode } });
 
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should get true", async () => {

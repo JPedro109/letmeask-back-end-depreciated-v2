@@ -1,4 +1,4 @@
-import { HttpHelper, HttpProtocol, HttpRequest, HttpResponse, RequestError, Validate } from "@/layers/presentation";
+import { HttpHelper, HttpProtocol, HttpRequest, HttpResponse, InvalidRequestError, Validate } from "@/layers/presentation";
 import { UpdateUsernameUseCaseProtocol } from "@/layers/domain";
 
 export class UpdateUsernameController implements HttpProtocol {
@@ -16,7 +16,7 @@ export class UpdateUsernameController implements HttpProtocol {
 		],
 		{ id, username });
 
-		if(!validation.valid) throw new RequestError(validation.errors);  
+		if(!validation.valid) throw new InvalidRequestError(validation.errors);  
 
 		const response = await this.useCase.execute({ id, username });
 

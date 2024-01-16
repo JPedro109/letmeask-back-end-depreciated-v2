@@ -1,4 +1,4 @@
-import { UpdateUserPasswordController, RequestError, HttpHelper } from "@/layers/presentation";
+import { UpdateUserPasswordController, InvalidRequestError, HttpHelper } from "@/layers/presentation";
 import { UpdateUserPasswordStub } from "./stubs";
 
 const makeSut = () => {
@@ -35,7 +35,7 @@ describe("Presentation - UpdateUserPasswordController", () => {
 			}
 		});
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 	
 	test("Should not update user password, because password is empty", async () => {
@@ -51,7 +51,7 @@ describe("Presentation - UpdateUserPasswordController", () => {
 			}
 		});
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not update user password, because new password is empty", async () => {
@@ -67,7 +67,7 @@ describe("Presentation - UpdateUserPasswordController", () => {
 			}
 		});
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not update user password, because new password confirm is empty", async () => {
@@ -83,7 +83,7 @@ describe("Presentation - UpdateUserPasswordController", () => {
 			}
 		});
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not update user password, because id is with type error", async () => {
@@ -99,7 +99,7 @@ describe("Presentation - UpdateUserPasswordController", () => {
 			}
 		});
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not update user password, because password is with type error", async () => {
@@ -115,7 +115,7 @@ describe("Presentation - UpdateUserPasswordController", () => {
 			}
 		});
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not update user password, because new password is with type error", async () => {
@@ -131,7 +131,7 @@ describe("Presentation - UpdateUserPasswordController", () => {
 			}
 		});
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not update user password, because new password confirm is with type error", async () => {
@@ -147,7 +147,7 @@ describe("Presentation - UpdateUserPasswordController", () => {
 			}
 		});
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should update user password", async () => {

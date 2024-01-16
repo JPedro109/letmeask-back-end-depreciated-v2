@@ -1,4 +1,4 @@
-import { HttpHelper, RecoverUserPasswordController, RequestError } from "@/layers/presentation";
+import { HttpHelper, RecoverUserPasswordController, InvalidRequestError } from "@/layers/presentation";
 import { RecoverUserPasswordStub } from "./stubs";
 
 const makeSut = () => {
@@ -35,7 +35,7 @@ describe("Presentation - RecoverUserPasswordController", () => {
 			}
 		});
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not recover user password, because code is empty", async () => {
@@ -51,7 +51,7 @@ describe("Presentation - RecoverUserPasswordController", () => {
 			}
 		});
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not recover user password, because password is empty", async () => {
@@ -67,7 +67,7 @@ describe("Presentation - RecoverUserPasswordController", () => {
 			}
 		});
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not recover user password, because password confirm is empty", async () => {
@@ -83,7 +83,7 @@ describe("Presentation - RecoverUserPasswordController", () => {
 			}
 		});
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not recover user password, because email is with type error", async () => {
@@ -99,7 +99,7 @@ describe("Presentation - RecoverUserPasswordController", () => {
 			}
 		});
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not recover user password, because code is with type error", async () => {
@@ -115,7 +115,7 @@ describe("Presentation - RecoverUserPasswordController", () => {
 			}
 		});
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not recover user password, because password is with type error", async () => {
@@ -131,7 +131,7 @@ describe("Presentation - RecoverUserPasswordController", () => {
 			}
 		});
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not recover user password, because password confirm is with type error", async () => {
@@ -147,7 +147,7 @@ describe("Presentation - RecoverUserPasswordController", () => {
 			}
 		});
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should recover user password", async () => {

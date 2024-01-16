@@ -1,6 +1,6 @@
 import { DeleteQuestionStub } from "./stubs";
 import { testQuestionModel } from "./datas";
-import { DeleteQuestionController, HttpHelper, RequestError } from "@/layers/presentation";
+import { DeleteQuestionController, HttpHelper, InvalidRequestError } from "@/layers/presentation";
 
 const makeSut = () => {
 	const deleteQuestionStub = new DeleteQuestionStub();
@@ -31,7 +31,7 @@ describe("Presentation - DeleteQuestionController", () => {
 				data: { questionId: body.questionId } 
 			});
 
-		await expect(response).rejects.toThrow(RequestError);
+		await expect(response).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not delete question, because question is empty", async () => {
@@ -44,7 +44,7 @@ describe("Presentation - DeleteQuestionController", () => {
 				data: {  questionId: body.questionId } 
 			});
 
-		await expect(response).rejects.toThrow(RequestError);
+		await expect(response).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not delete question, because user id is with type error", async () => {
@@ -57,7 +57,7 @@ describe("Presentation - DeleteQuestionController", () => {
 				data: {  questionId: body.questionId } 
 			});
 
-		await expect(response).rejects.toThrow(RequestError);
+		await expect(response).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not delete question, because question is with type error", async () => {
@@ -70,7 +70,7 @@ describe("Presentation - DeleteQuestionController", () => {
 				data: {  questionId: body.questionId } 
 			});
 
-		await expect(response).rejects.toThrow(RequestError);
+		await expect(response).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should delete question", async () => {

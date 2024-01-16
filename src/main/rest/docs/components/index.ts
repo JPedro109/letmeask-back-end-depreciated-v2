@@ -1,6 +1,6 @@
 import { errorSchema } from "../schemas";
 
-export const badRequestError = {
+export const badInvalidRequestError = {
 	description: "Erro do usuário",
 	schema: errorSchema
 };

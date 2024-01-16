@@ -1,4 +1,4 @@
-import { UpdateUserEmailController, RequestError, HttpHelper } from "@/layers/presentation";
+import { UpdateUserEmailController, InvalidRequestError, HttpHelper } from "@/layers/presentation";
 import { UpdateUserEmailStub } from "./stubs";
 
 const makeSut = () => {
@@ -33,7 +33,7 @@ describe("Presentation - UpdateUserEmailController", () => {
 			} 
 		});
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not update user email, because email is empty", async () => {
@@ -48,7 +48,7 @@ describe("Presentation - UpdateUserEmailController", () => {
 			} 
 		});
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not update user email, because code is empty", async () => {
@@ -63,7 +63,7 @@ describe("Presentation - UpdateUserEmailController", () => {
 			} 
 		});
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not update user email, because id is with type error", async () => {
@@ -78,7 +78,7 @@ describe("Presentation - UpdateUserEmailController", () => {
 			} 
 		});
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not update user email, because email is with type error", async () => {
@@ -93,7 +93,7 @@ describe("Presentation - UpdateUserEmailController", () => {
 			} 
 		});
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not update user email, because code is with type error", async () => {
@@ -108,7 +108,7 @@ describe("Presentation - UpdateUserEmailController", () => {
 			} 
 		});
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should update user email", async () => {

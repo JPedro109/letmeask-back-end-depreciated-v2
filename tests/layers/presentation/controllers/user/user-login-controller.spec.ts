@@ -1,4 +1,4 @@
-import { UserLoginController, RequestError, HttpHelper } from "@/layers/presentation";
+import { UserLoginController, InvalidRequestError, HttpHelper } from "@/layers/presentation";
 import { UserLoginStub } from "./stubs";
 
 const makeSut = () => {
@@ -26,7 +26,7 @@ describe("Presentation - UserLoginController", () => {
 
 		const result = sut.http({ data });
 
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not login user, because password is empty", async () => {
@@ -35,7 +35,7 @@ describe("Presentation - UserLoginController", () => {
 
 		const result = sut.http({ data });
 
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not login user, because email is with type error", async () => {
@@ -44,7 +44,7 @@ describe("Presentation - UserLoginController", () => {
 
 		const result = sut.http({ data });
 
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not login user, because password is with type error", async () => {
@@ -53,7 +53,7 @@ describe("Presentation - UserLoginController", () => {
 
 		const result = sut.http({ data });
 
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should login user", async () => {

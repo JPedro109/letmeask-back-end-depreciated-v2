@@ -1,4 +1,4 @@
-import { UserVerifyEmailController, RequestError, HttpHelper } from "@/layers/presentation";
+import { UserVerifyEmailController, InvalidRequestError, HttpHelper } from "@/layers/presentation";
 import { UserVerifyEmailStub } from "./stubs";
 
 const makeSut = () => {
@@ -26,7 +26,7 @@ describe("Presentation - UserVerifyEmailController", () => {
 
 		const result = sut.http({ data });
 
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not verify email user, because code is empty", async () => {
@@ -35,7 +35,7 @@ describe("Presentation - UserVerifyEmailController", () => {
 
 		const result = sut.http({ data });
 
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not verify email user, because email is with type error", async () => {
@@ -44,7 +44,7 @@ describe("Presentation - UserVerifyEmailController", () => {
 
 		const result = sut.http({ data });
 
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not verify email user, because code is with type error", async () => {
@@ -53,7 +53,7 @@ describe("Presentation - UserVerifyEmailController", () => {
 
 		const result = sut.http({ data });
 
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should verify email user", async () => {

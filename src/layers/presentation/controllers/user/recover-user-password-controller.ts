@@ -1,4 +1,4 @@
-import { HttpProtocol, HttpRequest, HttpResponse, HttpHelper, Validate, RequestError } from "@/layers/presentation";
+import { HttpProtocol, HttpRequest, HttpResponse, HttpHelper, Validate, InvalidRequestError } from "@/layers/presentation";
 import { RecoverUserPasswordUseCaseProtocol } from "@/layers/domain";
 
 export class RecoverUserPasswordController implements HttpProtocol {
@@ -18,7 +18,7 @@ export class RecoverUserPasswordController implements HttpProtocol {
 			{ email, code, password, passwordConfirm }
 		);
 
-		if(!validation.valid) throw new RequestError(validation.errors);  
+		if(!validation.valid) throw new InvalidRequestError(validation.errors);  
 
 		const response = await this.useCase.execute({ email, code, password, passwordConfirm });
 

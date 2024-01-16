@@ -1,6 +1,6 @@
 import { GetUserQuestionsStub } from "./stubs";
 import { testQuestionModel } from "./datas";
-import { GetUserQuestionsController, HttpHelper, RequestError } from "@/layers/presentation";
+import { GetUserQuestionsController, HttpHelper, InvalidRequestError } from "@/layers/presentation";
 
 const makeSut = () => {
 	const sut = new GetUserQuestionsController(new GetUserQuestionsStub());
@@ -24,7 +24,7 @@ describe("Presentation - GetUserQuestionsController", () => {
 
 		const response = sut.http({ userId: body.userId as string });
 
-		await expect(response).rejects.toThrow(RequestError);
+		await expect(response).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not get users questions, because user id is with type error", async () => {
@@ -33,7 +33,7 @@ describe("Presentation - GetUserQuestionsController", () => {
 
 		const response = sut.http({ userId: body.userId as string });
 
-		await expect(response).rejects.toThrow(RequestError);
+		await expect(response).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should get users questions", async () => {

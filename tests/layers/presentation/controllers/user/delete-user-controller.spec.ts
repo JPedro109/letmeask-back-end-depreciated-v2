@@ -1,4 +1,4 @@
-import { DeleteUserController, HttpHelper, RequestError } from "@/layers/presentation";
+import { DeleteUserController, HttpHelper, InvalidRequestError } from "@/layers/presentation";
 import { DeleteUserStub } from "./stubs";
 
 const makeSut = () => {
@@ -35,7 +35,7 @@ describe("Presentation - DeleteUserController", () => {
 			}
 		);
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not delete user, because password is empty", async () => {
@@ -52,7 +52,7 @@ describe("Presentation - DeleteUserController", () => {
 			}
 		);
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not delete user, because passwordConfirm is empty", async () => {
@@ -69,7 +69,7 @@ describe("Presentation - DeleteUserController", () => {
 			}
 		);
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not delete user, because id is with type error", async () => {
@@ -86,7 +86,7 @@ describe("Presentation - DeleteUserController", () => {
 			}
 		);
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not delete user, because password is with type error", async () => {
@@ -103,7 +103,7 @@ describe("Presentation - DeleteUserController", () => {
 			}
 		);
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not delete user, because passwordConfirm is with type error", async () => {
@@ -120,7 +120,7 @@ describe("Presentation - DeleteUserController", () => {
 			}
 		);
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should delete user", async () => {

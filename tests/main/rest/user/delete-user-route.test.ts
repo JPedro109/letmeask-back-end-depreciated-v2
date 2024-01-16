@@ -26,7 +26,7 @@ describe("/api/users - DELETE", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("RequestError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not delete user, because passwordConfirm is empty", async () => {
@@ -40,7 +40,7 @@ describe("/api/users - DELETE", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("RequestError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not delete user, because password is with type error", async () => {
@@ -54,7 +54,7 @@ describe("/api/users - DELETE", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("RequestError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not delete user, because passwordConfirm is with type error", async () => {
@@ -68,7 +68,7 @@ describe("/api/users - DELETE", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("RequestError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not delete user, because passwords is not match", async () => {

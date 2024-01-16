@@ -1,4 +1,4 @@
-import { badRequestError, internalServerError } from "@/main/rest/docs/components";
+import { badInvalidRequestError, internalServerError } from "@/main/rest/docs/components";
 
 export const createUser = {
 	tags: [ "Usuário" ],
@@ -40,7 +40,7 @@ export const createUser = {
 			}
 		},
 
-		400: badRequestError,
+		400: badInvalidRequestError,
 
 		500: internalServerError
 	}

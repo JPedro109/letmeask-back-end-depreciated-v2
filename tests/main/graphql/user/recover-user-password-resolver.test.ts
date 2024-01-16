@@ -29,7 +29,7 @@ describe("recoverUserPassword - MUTATION", () => {
 				variables: { data: body },
 			});
 
-		expect(response.body.errors[0].code).toBe("RequestError");
+		expect(response.body.errors[0].code).toBe("InvalidRequestError");
 	});
 
 	test("Should not recover user password, because code is empty", async () => {
@@ -43,7 +43,7 @@ describe("recoverUserPassword - MUTATION", () => {
 			});
 
 
-		expect(response.body.errors[0].code).toBe("RequestError");
+		expect(response.body.errors[0].code).toBe("InvalidRequestError");
 	});
 
 	test("Should not recover user password, because password is empty", async () => {
@@ -57,7 +57,7 @@ describe("recoverUserPassword - MUTATION", () => {
 			});
 
 
-		expect(response.body.errors[0].code).toBe("RequestError");
+		expect(response.body.errors[0].code).toBe("InvalidRequestError");
 	});
 
 	test("Should not recover user password, because password confirm is empty", async () => {
@@ -71,7 +71,7 @@ describe("recoverUserPassword - MUTATION", () => {
 			});
 
 
-		expect(response.body.errors[0].code).toBe("RequestError");
+		expect(response.body.errors[0].code).toBe("InvalidRequestError");
 	});
 
 	test("Should not recover user password, because user is not exists", async () => {

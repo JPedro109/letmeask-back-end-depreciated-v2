@@ -1,8 +1,8 @@
-export class RequestError extends Error {
+export class InvalidRequestError extends Error {
 
 	constructor(paramName: string) {
 		super(paramName);
-		this.name = "RequestError";
+		this.name = "InvalidRequestError";
 	}
 }
 

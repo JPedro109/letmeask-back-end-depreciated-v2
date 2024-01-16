@@ -1,6 +1,6 @@
 import { testRoomModel } from "./datas";
 import { DeleteRoomStub } from "./stubs";
-import { DeleteRoomController, HttpHelper, RequestError } from "@/layers/presentation";
+import { DeleteRoomController, HttpHelper, InvalidRequestError } from "@/layers/presentation";
 
 const makeSut = () => {
 	const deleteRoomStub = new DeleteRoomStub();
@@ -27,7 +27,7 @@ describe("Presentation - DeleteRoomController", () => {
 
 		const response = sut.http({ userId: body.userId as string, data: { roomCode: body.roomCode } });
 
-		await expect(response).rejects.toThrow(RequestError);
+		await expect(response).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not delete room, because roomCode is empty", async () => {
@@ -36,7 +36,7 @@ describe("Presentation - DeleteRoomController", () => {
 
 		const response = sut.http({ userId: body.userId as string, data: { roomCode: body.roomCode } });
 
-		await expect(response).rejects.toThrow(RequestError);
+		await expect(response).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not delete room, because userId is with type error", async () => {
@@ -45,7 +45,7 @@ describe("Presentation - DeleteRoomController", () => {
 
 		const response = sut.http({ userId: body.userId as string, data: { roomCode: body.roomCode } });
 
-		await expect(response).rejects.toThrow(RequestError);
+		await expect(response).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not delete room, because roomCode is with type error", async () => {
@@ -54,7 +54,7 @@ describe("Presentation - DeleteRoomController", () => {
 
 		const response = sut.http({ userId: body.userId as string, data: { roomCode: body.roomCode } });
 
-		await expect(response).rejects.toThrow(RequestError);
+		await expect(response).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should delete room", async () => {

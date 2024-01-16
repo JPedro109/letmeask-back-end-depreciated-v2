@@ -1,5 +1,5 @@
 import { GetUserRoomCodeStub } from "./stubs";
-import { GetUserRoomCodeController, HttpHelper, RequestError } from "@/layers/presentation";
+import { GetUserRoomCodeController, HttpHelper, InvalidRequestError } from "@/layers/presentation";
 
 const makeSut = () => {
 	const getUserRoomCodeStub = new GetUserRoomCodeStub();
@@ -25,7 +25,7 @@ describe("Presentation - GetUserRoomCodeController", () => {
 
 		const response = sut.http({ userId: body.userId as string });
 
-		await expect(response).rejects.toThrow(RequestError);
+		await expect(response).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not get user room, because user id is with type error", async () => {
@@ -34,7 +34,7 @@ describe("Presentation - GetUserRoomCodeController", () => {
 
 		const response = sut.http({ userId: body.userId as string });
 
-		await expect(response).rejects.toThrow(RequestError);
+		await expect(response).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should get user room", async () => {

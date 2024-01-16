@@ -23,7 +23,7 @@ describe("/api/responses - POST", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("RequestError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not create response, because response field is empty", async () => {
@@ -36,7 +36,7 @@ describe("/api/responses - POST", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("RequestError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not create response, because question id field with is type error", async () => {
@@ -49,7 +49,7 @@ describe("/api/responses - POST", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("RequestError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not create response, because response field with is type error", async () => {
@@ -62,7 +62,7 @@ describe("/api/responses - POST", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("RequestError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not create response, because the question alredy is answered", async () => {

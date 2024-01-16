@@ -23,7 +23,7 @@ describe("/api/questions - POST", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("RequestError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not create question, because question field is empty", async () => {
@@ -36,7 +36,7 @@ describe("/api/questions - POST", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("RequestError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not create question, because room code field is with type error", async () => {
@@ -49,7 +49,7 @@ describe("/api/questions - POST", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("RequestError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not create question, because question field is with type error", async () => {
@@ -62,7 +62,7 @@ describe("/api/questions - POST", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("RequestError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not create question, because room is not exists", async () => {

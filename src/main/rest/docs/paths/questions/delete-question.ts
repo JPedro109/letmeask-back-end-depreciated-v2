@@ -1,4 +1,4 @@
-import { badRequestError, notFoundError, unauthorizedError, internalServerError } from "@/main/rest/docs/components";
+import { badInvalidRequestError, notFoundError, unauthorizedError, internalServerError } from "@/main/rest/docs/components";
 import { questionModel } from "@/main/rest/docs/models";
 import { authorizationHeaderSchema } from "@/main/rest/docs/schemas";
 
@@ -21,7 +21,7 @@ export const deleteQuestion = {
 			schema: questionModel
 		},
 
-		400: badRequestError,
+		400: badInvalidRequestError,
 
 		401: unauthorizedError,
 

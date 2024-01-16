@@ -25,7 +25,7 @@ describe("/api/users/send-email-update-link - POST", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("RequestError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not send user email update link, because email is with type error", async () => {
@@ -39,7 +39,7 @@ describe("/api/users/send-email-update-link - POST", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("RequestError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not send user email update link, because email already is register", async () => {

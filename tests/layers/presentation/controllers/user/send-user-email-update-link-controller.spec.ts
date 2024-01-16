@@ -1,4 +1,4 @@
-import { SendUserEmailUpdateLinkController, RequestError, HttpHelper } from "@/layers/presentation";
+import { SendUserEmailUpdateLinkController, InvalidRequestError, HttpHelper } from "@/layers/presentation";
 import { SendUserEmailUpdateLinkStub } from "./stubs";
 
 const makeSut = () => {
@@ -31,7 +31,7 @@ describe("Presentation - SendUserEmailUpdateLinkStub", () => {
 			}
 		});
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not send user email update link, because email is empty", async () => {
@@ -45,7 +45,7 @@ describe("Presentation - SendUserEmailUpdateLinkStub", () => {
 			}
 		});
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not send user email update link, because email with type error", async () => {
@@ -59,7 +59,7 @@ describe("Presentation - SendUserEmailUpdateLinkStub", () => {
 			}
 		});
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not send user email update link, because id with type error", async () => {
@@ -73,7 +73,7 @@ describe("Presentation - SendUserEmailUpdateLinkStub", () => {
 			}
 		});
         
-		expect(result).rejects.toThrow(RequestError);
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should send user email update link", async () => {

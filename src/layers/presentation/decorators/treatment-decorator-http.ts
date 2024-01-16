@@ -5,7 +5,7 @@ import {
 	HttpProtocol, 
 	HttpRequest, 
 	HttpResponse, 
-	RequestError
+	InvalidRequestError
 } from "@/layers/presentation";
 
 export class TreatmentDecoratorHttp implements HttpProtocol {
@@ -18,7 +18,7 @@ export class TreatmentDecoratorHttp implements HttpProtocol {
 	private setErrorStatusCode(e: Error) {
 		if(e instanceof UnauthorizedError) return HttpHelper.unauthorized(e);
 		if(e instanceof NotFoundError) return HttpHelper.notFound(e);
-		if(e instanceof DomainError || e instanceof RequestError || e instanceof InvalidParamError) return HttpHelper.badRequest(e);
+		if(e instanceof DomainError || e instanceof InvalidRequestError || e instanceof InvalidParamError) return HttpHelper.badRequest(e);
 		return HttpHelper.serverError();
 	}
 

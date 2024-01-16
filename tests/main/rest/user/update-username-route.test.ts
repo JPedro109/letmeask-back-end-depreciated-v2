@@ -25,7 +25,7 @@ describe("/api/users/username - PATCH", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("RequestError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not update username, because username is with type error", async () => {
@@ -39,7 +39,7 @@ describe("/api/users/username - PATCH", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("RequestError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not update username, because username is invalid", async () => {

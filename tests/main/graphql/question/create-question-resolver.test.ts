@@ -28,7 +28,7 @@ describe("createQuestion - MUTATION", () => {
 				variables: { data: body },
 			});
 			
-		expect(response.body.errors[0].code).toBe("RequestError");
+		expect(response.body.errors[0].code).toBe("InvalidRequestError");
 	});
 
 	test("Should not create question, because question field is empty", async () => {
@@ -44,7 +44,7 @@ describe("createQuestion - MUTATION", () => {
 				variables: { data: body },
 			});
 
-		expect(response.body.errors[0].code).toBe("RequestError");
+		expect(response.body.errors[0].code).toBe("InvalidRequestError");
 	});
 
 	test("Should not create question, because room is not exists", async () => {
