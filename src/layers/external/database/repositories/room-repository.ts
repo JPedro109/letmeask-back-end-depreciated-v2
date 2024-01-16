@@ -1,11 +1,13 @@
-import { room as RoomPrismaModel, question as QuestionPrismaModel, response as ResponsePrismaModel } from "@prisma/client";
 import { QuestionModel, ResponseModel, RoomModel, RoomRepositoryProtocol } from "@/layers/use-cases";
-import { Context } from "../types";
-import { DatabaseSQLHelper } from "../helpers";
+import { Context, DatabaseSQLHelper } from "@/layers/external";
+
+import { room as RoomPrismaModel, question as QuestionPrismaModel, response as ResponsePrismaModel } from "@prisma/client";
 
 export class RoomRepositoryAdapter implements RoomRepositoryProtocol {
     
-	private context: Context = DatabaseSQLHelper.client;
+	constructor(private readonly databaseSQLHelper: DatabaseSQLHelper) { }
+
+	private context: Context = this.databaseSQLHelper.client;
 	
 	setContext(context: unknown): void {
 		this.context = context as Context;

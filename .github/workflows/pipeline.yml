@@ -7,10 +7,11 @@ on:
     branches: [ "staging" ]
 
 env:
+  APP_URL: "http://localhost:3333"
   ENVIRONMENT: "TEST"
   JWT_KEY: "secret"
   DATABASE_URL: "mysql://root:root@localhost:3306/database?schema=public"
-  DATABASE_NOSQL_URL: "mongodb://localhost:27017/expense"
+  DATABASE_NOSQL_URL: "mongodb://localhost:27017"
   QUEUE_HOST: "amqp://admin:admin@localhost:5672"
   QUEUE_NAME: "queue"
   NODE_OPTIONS: --max-old-space-size=8192
@@ -22,7 +23,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [20.x]
 
     steps:
     - uses: actions/checkout@v3

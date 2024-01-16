@@ -45,7 +45,7 @@ describe("sendUserEmailUpdateLink - MUTATION", () => {
 				variables: { data: body },
 			});
 
-		expect(response.body.errors[0].code).toBe("InvalidEmailError");
+		expect(response.body.errors[0].code).toBe("InvalidUserEmailError");
 	});
 
 	test("Should not send user email update link, because email already is register", async () => {

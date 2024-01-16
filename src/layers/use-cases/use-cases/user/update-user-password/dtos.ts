@@ -1,4 +1,4 @@
-import { InvalidPasswordError } from "@/layers/entities";
+import { InvalidUserPasswordError } from "@/layers/entities";
 import { InvalidParamError, NotFoundError } from "@/layers/use-cases";
 
 export type UpdateUserPasswordDTO = {
@@ -8,4 +8,4 @@ export type UpdateUserPasswordDTO = {
     newPasswordConfirm: string;
 }
 
-export type UpdateUserPasswordResponseDTO = string | InvalidPasswordError | InvalidParamError | NotFoundError;
+export type UpdateUserPasswordResponseDTO = string | InvalidUserPasswordError | InvalidParamError | NotFoundError;

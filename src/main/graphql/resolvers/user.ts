@@ -1,6 +1,6 @@
 import { GraphQLAdapter } from "../adapter";
 import { 
-	authenticateUserMiddleware,
+	authUserMiddleware,
 	createUserController,
 	deleteUserController,
 	getUsernameController,
@@ -27,7 +27,7 @@ export const userMutations = {
 		parent, 
 		args, 
 		context,
-		[ authenticateUserMiddleware ]
+		[ authUserMiddleware ]
 	),
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	sendUserEmailUpdateLink: async (parent: any, args: any, context: any) => await GraphQLAdapter.handle(
@@ -35,7 +35,7 @@ export const userMutations = {
 		parent, 
 		args, 
 		context,
-		[ authenticateUserMiddleware ]
+		[ authUserMiddleware ]
 	),
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	sendUserPasswordRecoveryLink: async (parent: any, args: any, context: any) => await GraphQLAdapter.handle(
@@ -50,7 +50,7 @@ export const userMutations = {
 		parent, 
 		args, 
 		context,
-		[ authenticateUserMiddleware ]
+		[ authUserMiddleware ]
 	),
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	updateUsername: async (parent: any, args: any, context: any) => await GraphQLAdapter.handle(
@@ -58,7 +58,7 @@ export const userMutations = {
 		parent, 
 		args, 
 		context,
-		[ authenticateUserMiddleware ]
+		[ authUserMiddleware ]
 	),
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	recoverUserPassword: async (parent: any, args: any, context: any) => await GraphQLAdapter.handle(
@@ -73,7 +73,7 @@ export const userMutations = {
 		parent, 
 		args, 
 		context,
-		[ authenticateUserMiddleware ]
+		[ authUserMiddleware ]
 	)
 };
 
@@ -84,6 +84,6 @@ export const userQueries = {
 		parent, 
 		args, 
 		context, 
-		[ authenticateUserMiddleware ]
+		[ authUserMiddleware ]
 	) 
 };

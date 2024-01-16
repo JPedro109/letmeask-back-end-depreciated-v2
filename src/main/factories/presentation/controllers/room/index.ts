@@ -4,7 +4,7 @@ import {
 	GetRoomCodeController,
 	GetUserRoomCodeController,
 	DeleteRoomController,
-	TreatmentDecorator
+	TreatmentDecoratorHttp
 } from "@/layers/presentation";
 import { 
 	createRoom,
@@ -12,16 +12,16 @@ import {
 	getUserRoomCode,
 	deleteRoom,
 	getRoomCode,
-	logRepositoryAdapter
+	logFacade
 } from "@/main/factories";
 
-export const createRoomController = new TreatmentDecorator(new CreateRoomController(createRoom), logRepositoryAdapter);
+export const createRoomController = new TreatmentDecoratorHttp(new CreateRoomController(createRoom), logFacade);
 
-export const getRoomController = new TreatmentDecorator(new GetRoomController(getRoom), logRepositoryAdapter);
+export const getRoomController = new TreatmentDecoratorHttp(new GetRoomController(getRoom), logFacade);
 
 export const getUserRoomCodeController 
-	= new TreatmentDecorator(new GetUserRoomCodeController(getUserRoomCode), logRepositoryAdapter);
+	= new TreatmentDecoratorHttp(new GetUserRoomCodeController(getUserRoomCode), logFacade);
 
-export const getRoomCodeController = new TreatmentDecorator(new GetRoomCodeController(getRoomCode), logRepositoryAdapter);
+export const getRoomCodeController = new TreatmentDecoratorHttp(new GetRoomCodeController(getRoomCode), logFacade);
 
-export const deleteRoomController = new TreatmentDecorator(new DeleteRoomController(deleteRoom), logRepositoryAdapter);
+export const deleteRoomController = new TreatmentDecoratorHttp(new DeleteRoomController(deleteRoom), logFacade);

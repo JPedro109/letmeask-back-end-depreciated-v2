@@ -68,7 +68,7 @@ describe("createUser - MUTATION", () => {
 				variables: { data: body },
 			});
 		
-		expect(response.body.errors[0].code).toBe("InvalidEmailError");
+		expect(response.body.errors[0].code).toBe("InvalidUserEmailError");
 	});
 
 	test("Should not create user, because username is invalid", async () => {
@@ -107,7 +107,7 @@ describe("createUser - MUTATION", () => {
 				variables: { data: body },
 			});
 		
-		expect(response.body.errors[0].code).toBe("InvalidPasswordError");
+		expect(response.body.errors[0].code).toBe("InvalidUserPasswordError");
 	});
 
 	test("Should not create user, because passwords is not match", async () => {

@@ -1,22 +1,23 @@
-import { DatabaseSQLHelper, QueueHelper, MockRepository, DatabaseNoSQLHelper } from "@/layers/external";
+import { databaseSQLHelper, queueHelper, databaseNoSQLHelper } from "@/main/factories/external";
+import { MockRepository } from "@/layers/external";
 import { setupRest } from "@/main/rest";
 import { setupGraphQL } from "@/main/graphql";
 
 import request from "supertest";
 
 export const setup = () => {
-	const mockRepository = new MockRepository();
+	const mockRepository = new MockRepository(databaseSQLHelper);
 
 	beforeAll(async () => {
-		await DatabaseSQLHelper.connect();
-		await DatabaseNoSQLHelper.connect();
-		await QueueHelper.connect();
+		await databaseSQLHelper.connect();
+		await databaseNoSQLHelper.connect();
+		await queueHelper.connect();
 	});
 
 	afterAll(async () => {
-		await DatabaseSQLHelper.disconnect();
-		await DatabaseNoSQLHelper.disconnect();
-		await QueueHelper.disconnect();
+		await databaseSQLHelper.disconnect();
+		await databaseNoSQLHelper.disconnect();
+		await queueHelper.disconnect();
 	});
     
 	beforeEach(async () => {

@@ -4,8 +4,10 @@ export class MockRepository {
 
 	// Id used for tests where the query return null - 0
 
+	constructor(private readonly databaseSQLHelper: DatabaseSQLHelper) { }
+
 	async createMocksToTestRoutes() {
-		await DatabaseSQLHelper.client.user.create({
+		await this.databaseSQLHelper.client.user.create({
 			data: {
 				id: "1",
 				email: "email_verified_and_with_room@test.com",
@@ -18,7 +20,7 @@ export class MockRepository {
 			}
 		});
 
-		await DatabaseSQLHelper.client.user_verification_code.create({
+		await this.databaseSQLHelper.client.user_verification_code.create({
 			data: {
 				id: "1",
 				verification_code: "email_code",
@@ -29,7 +31,7 @@ export class MockRepository {
 			}
 		});
 
-		await DatabaseSQLHelper.client.user_verification_code.create({
+		await this.databaseSQLHelper.client.user_verification_code.create({
 			data: {
 				id: "2",
 				verification_code: "password_code",
@@ -40,7 +42,7 @@ export class MockRepository {
 			}
 		});
 
-		await DatabaseSQLHelper.client.user.create({
+		await this.databaseSQLHelper.client.user.create({
 			data: {
 				id: "2",
 				email: "email_verified_code_expiry@test.com",
@@ -52,7 +54,7 @@ export class MockRepository {
 			}
 		});
 
-		await DatabaseSQLHelper.client.user_verification_code.create({
+		await this.databaseSQLHelper.client.user_verification_code.create({
 			data: {
 				id: "3",
 				verification_code: "email_code_expiry",
@@ -63,7 +65,7 @@ export class MockRepository {
 			}
 		});
 
-		await DatabaseSQLHelper.client.user_verification_code.create({
+		await this.databaseSQLHelper.client.user_verification_code.create({
 			data: {
 				id: "4",
 				verification_code: "password_code_expiry",
@@ -74,7 +76,7 @@ export class MockRepository {
 			}
 		});
 
-		await DatabaseSQLHelper.client.user.create({
+		await this.databaseSQLHelper.client.user.create({
 			data: {
 				id: "3",
 				email: "email_not_verified@test.com",
@@ -86,7 +88,7 @@ export class MockRepository {
 			}
 		});
 
-		await DatabaseSQLHelper.client.user_verification_code.create({
+		await this.databaseSQLHelper.client.user_verification_code.create({
 			data: {
 				id: "5",
 				verification_code: "email_verification_code",
@@ -97,7 +99,7 @@ export class MockRepository {
 			}
 		});
 
-		await DatabaseSQLHelper.client.room.create({
+		await this.databaseSQLHelper.client.room.create({
 			data: {
 				id: "10",
 				code: "000000",
@@ -106,7 +108,7 @@ export class MockRepository {
 			}
 		});
 
-		await DatabaseSQLHelper.client.question.create({
+		await this.databaseSQLHelper.client.question.create({
 			data: {
 				id: "11",
 				room_code: "000000",
@@ -115,7 +117,7 @@ export class MockRepository {
 			}
 		});
 
-		await DatabaseSQLHelper.client.response.create({
+		await this.databaseSQLHelper.client.response.create({
 			data: {
 				id: "12",
 				question_id: "11",
@@ -123,7 +125,7 @@ export class MockRepository {
 			}
 		});
 
-		await DatabaseSQLHelper.client.question.create({
+		await this.databaseSQLHelper.client.question.create({
 			data: {
 				id: "13",
 				room_code: "000000",
@@ -134,7 +136,7 @@ export class MockRepository {
 	}
 
 	async createMocksToTestRepositories() {
-		await DatabaseSQLHelper.client.user.create({
+		await this.databaseSQLHelper.client.user.create({
 			data: {
 				id: "4",
 				email: "email@test.com",
@@ -146,7 +148,7 @@ export class MockRepository {
 			}
 		});
 
-		await DatabaseSQLHelper.client.user_verification_code.create({
+		await this.databaseSQLHelper.client.user_verification_code.create({
 			data: {
 				id: "6",
 				verification_code: "repository_code_one",
@@ -157,7 +159,7 @@ export class MockRepository {
 			}
 		});
 
-		await DatabaseSQLHelper.client.user.create({
+		await this.databaseSQLHelper.client.user.create({
 			data: {
 				id: "5",
 				email: "email_two@test.com",
@@ -169,7 +171,7 @@ export class MockRepository {
 			}
 		});
 
-		await DatabaseSQLHelper.client.user_verification_code.create({
+		await this.databaseSQLHelper.client.user_verification_code.create({
 			data: {
 				id: "8",
 				verification_code: "repository_code_two",
@@ -180,7 +182,7 @@ export class MockRepository {
 			}
 		});
 
-		await DatabaseSQLHelper.client.room.create({
+		await this.databaseSQLHelper.client.room.create({
 			data: {
 				id: "6",
 				code: "000000",
@@ -189,7 +191,7 @@ export class MockRepository {
 			}
 		});
 
-		await DatabaseSQLHelper.client.question.create({
+		await this.databaseSQLHelper.client.question.create({
 			data: {
 				id: "7",
 				room_code: "000000",
@@ -198,7 +200,7 @@ export class MockRepository {
 			}
 		});
 
-		await DatabaseSQLHelper.client.response.create({
+		await this.databaseSQLHelper.client.response.create({
 			data: {
 				id: "8",
 				question_id: "7",
@@ -206,7 +208,7 @@ export class MockRepository {
 			}
 		});
 
-		await DatabaseSQLHelper.client.question.create({
+		await this.databaseSQLHelper.client.question.create({
 			data: {
 				id: "9",
 				room_code: "000000",
@@ -217,10 +219,10 @@ export class MockRepository {
 	}
 
 	async deleteMocks() {
-		await DatabaseSQLHelper.client.response.deleteMany({});
-		await DatabaseSQLHelper.client.question.deleteMany({});
-		await DatabaseSQLHelper.client.room.deleteMany({});
-		await DatabaseSQLHelper.client.user_verification_code.deleteMany({});
-		await DatabaseSQLHelper.client.user.deleteMany({});
+		await this.databaseSQLHelper.client.response.deleteMany({});
+		await this.databaseSQLHelper.client.question.deleteMany({});
+		await this.databaseSQLHelper.client.room.deleteMany({});
+		await this.databaseSQLHelper.client.user_verification_code.deleteMany({});
+		await this.databaseSQLHelper.client.user.deleteMany({});
 	}
 }

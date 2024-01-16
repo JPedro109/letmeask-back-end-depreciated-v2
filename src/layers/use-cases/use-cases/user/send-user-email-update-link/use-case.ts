@@ -1,13 +1,14 @@
-import { APP_URL } from "@/shared";
-import { Email } from "@/layers/entities";
+import { UserEmail } from "@/layers/entities";
 import { 
 	UserRepositoryProtocol,
 	UserVerificationCodeRepositoryProtocol,
 	GenerationProtocol, 
-	MailServiceProtocol, 
+	MailProtocol, 
 	InvalidParamError, 
 	NotFoundError,
-	EmailBody
+	EmailBody,
+	SecretsProtocol,
+	SecretsEnum
 } from "@/layers/use-cases";
 import { SendUserEmailUpdateLinkUseCaseProtocol } from "./protocol";
 import { SendUserEmailUpdateLinkDTO, SendUserEmailUpdateLinkResponseDTO } from "./dtos";
@@ -18,19 +19,20 @@ export class SendUserEmailUpdateLinkUseCase implements SendUserEmailUpdateLinkUs
         private readonly userRepository: UserRepositoryProtocol,
         private readonly userVerificationCodeRepository: UserVerificationCodeRepositoryProtocol,
         private readonly generation: GenerationProtocol,
-        private readonly mailService: MailServiceProtocol
+        private readonly mail: MailProtocol,
+		private readonly secrets: SecretsProtocol
 	) { }
 
 	async execute({ id, email }: SendUserEmailUpdateLinkDTO): Promise<SendUserEmailUpdateLinkResponseDTO> {
-		const emailOrError = Email.create(email);
+		const userEmailOrError = UserEmail.create(email);
         
-		if(emailOrError instanceof Error) return emailOrError;
+		if(userEmailOrError instanceof Error) return userEmailOrError;
 
 		const user = await this.userRepository.getUserById(id);
 
 		if(!user) return new NotFoundError("Usuário não existe");
 	
-		const emailExists = await this.userRepository.getUserByEmail(emailOrError.value);
+		const emailExists = await this.userRepository.getUserByEmail(userEmailOrError.value);
 
 		if(emailExists) return new InvalidParamError("Email já cadastrado");
 
@@ -45,12 +47,12 @@ export class SendUserEmailUpdateLinkUseCase implements SendUserEmailUpdateLinkUs
 			user.id
 		);
 
-		await this.mailService.sendMail(emailOrError.value, "Atualização de E-mail", EmailBody.UpdateEmailBody, {
-			appUrl: APP_URL,
-			email: emailOrError.value,
+		await this.mail.sendMail(userEmailOrError.value, "Atualização de E-mail", EmailBody.UpdateEmailBody, {
+			appUrl: this.secrets.getRequiredSecret(SecretsEnum.AppUrl),
+			email: userEmailOrError.value,
 			code: verificationCode
 		});
 
-		return emailOrError.value;
+		return userEmailOrError.value;
 	}
 }

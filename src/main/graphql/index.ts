@@ -28,7 +28,7 @@ export const setupGraphQL = (server?: Express) => {
 			cors,
 			bodyParser,
 			expressMiddleware(apollo, {
-				context: async ({ req }) => ({ headers: req.headers, userId: null })
+				context: async ({ req }) => ({ req, userId: null })
 			})
 		);
 	});

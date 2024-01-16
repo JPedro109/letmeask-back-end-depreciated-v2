@@ -1,6 +1,7 @@
 import { 
 	GenerationStub, 
-	MailServiceStub, 
+	MailStub, 
+	SecretsStub, 
 	UserRepositoryStub, 
 	UserVerificationCodeRepositoryStub, 
 	testUserModel
@@ -12,18 +13,20 @@ const makeSut = () => {
 	const userRepositoryStub = new UserRepositoryStub();
 	const userVerificationCodeRepositoryStub = new UserVerificationCodeRepositoryStub();
 	const generationStub = new GenerationStub();
-	const mailServiceStub = new MailServiceStub();
+	const mailStub = new MailStub();
+	const secretsStub = new SecretsStub();
 	const sut = new SendUserPasswordRecoveryLinkUseCase(
 		userRepositoryStub, 
 		userVerificationCodeRepositoryStub, 
 		generationStub,
-		mailServiceStub
+		mailStub,
+		secretsStub
 	);
 
 	return {
 		sut,
 		userRepositoryStub,
-		mailServiceStub
+		mailStub
 	};
 };
 

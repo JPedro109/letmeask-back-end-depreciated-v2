@@ -1,6 +1,6 @@
-import { InvalidEmailError } from "./errors";
+import { InvalidUserEmailError } from "./errors";
 
-export class Email {
+export class UserEmail {
 
 	private readonly email: string;
 
@@ -13,10 +13,10 @@ export class Email {
 		return this.email;
 	}
 
-	static create(email: string): Email | InvalidEmailError {
-		if(!this.validate(email)) return new InvalidEmailError(email);
+	static create(email: string): UserEmail | InvalidUserEmailError {
+		if(!this.validate(email)) return new InvalidUserEmailError(email);
 
-		return new Email(email);
+		return new UserEmail(email);
 	}
 
 	private static validate(email: string): boolean {

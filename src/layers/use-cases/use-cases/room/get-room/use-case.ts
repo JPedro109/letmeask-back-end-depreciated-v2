@@ -5,14 +5,14 @@ import { GetRoomDTO, GetRoomResponseDTO } from "./dtos";
 
 export class GetRoomUseCase implements GetRoomUseCaseProtocol {
 
-	constructor(private readonly repository: RoomRepositoryProtocol, private readonly _cache: CacheProtocol) { }
+	constructor(private readonly repository: RoomRepositoryProtocol, private readonly cache: CacheProtocol) { }
 
 	async execute({ roomCode }: GetRoomDTO): Promise<GetRoomResponseDTO> {
 		const codeOrError = RoomCode.create(roomCode);
 
 		if(codeOrError instanceof Error) return codeOrError;
 
-		const cachedRoom = this._cache.get<RoomModel>(`room-${roomCode}`);
+		const cachedRoom = this.cache.get<RoomModel>(`room-${roomCode}`);
 
 		if(cachedRoom) return cachedRoom;
 
@@ -20,7 +20,7 @@ export class GetRoomUseCase implements GetRoomUseCaseProtocol {
 
 		if(!room) return new NotFoundError("Essa sala não existe");
 
-		this._cache.set<RoomModel>(`room-${roomCode}`, room, 3600);
+		this.cache.set<RoomModel>(`room-${roomCode}`, room, 3600);
 
 		return room;
 	}

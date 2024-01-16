@@ -3,7 +3,7 @@ import {
 	CryptographyAdapter, 
 	GenerationAdapter, 
 	AuthenticationAdapter,
-	MailServiceAdapter, 
+	MailAdapter, 
 	UserRepositoryAdapter,
 	UserVerificationCodeRepositoryAdapter,
 	RoomRepositoryAdapter,
@@ -12,37 +12,53 @@ import {
 	UnitOfWorkAdapter,
 	CacheAdapter,
 	LogRepositoryAdapter,
-	QueueAdapter
+	QueueAdapter,
+	LogFacade,
+	LogBashAdapter,
+	LogNoSQLAdapter,
+	DatabaseSQLHelper,
+	DatabaseNoSQLHelper,
+	QueueHelper,
+	SecretsAdapter
 } from "@/layers/external";
+
+export const secretsAdapter = new SecretsAdapter();
 
 export const cryptographyAdapter = new CryptographyAdapter();
 
-export const queueAdapter = new QueueAdapter();
+export const queueHelper = new QueueHelper(secretsAdapter);
+
+export const queueAdapter = new QueueAdapter(queueHelper);
 
 export const generationAdapter = new GenerationAdapter();
 
-export const authenticationAdapter = new AuthenticationAdapter();
+export const authenticationAdapter = new AuthenticationAdapter(secretsAdapter);
 
-export const mailServiceAdapter = new MailServiceAdapter(queueAdapter);
+export const mailAdapter = new MailAdapter(queueAdapter, secretsAdapter);
 
-export const userRepositoryAdapter = new UserRepositoryAdapter();
+export const databaseSQLHelper = new DatabaseSQLHelper();
 
-export const userVerificationCodeRepositoryAdapter = new UserVerificationCodeRepositoryAdapter();
+export const databaseNoSQLHelper = new DatabaseNoSQLHelper(secretsAdapter);
 
-export const roomRepositoryAdapter = new RoomRepositoryAdapter();
+export const userRepositoryAdapter = new UserRepositoryAdapter(databaseSQLHelper);
 
-export const questionRepositoryAdapter = new QuestionRepositoryAdapter();
+export const userVerificationCodeRepositoryAdapter = new UserVerificationCodeRepositoryAdapter(databaseSQLHelper);
 
-export const responseRepositoryAdapter = new ResponseRepositoryAdapter();
+export const roomRepositoryAdapter = new RoomRepositoryAdapter(databaseSQLHelper);
+
+export const questionRepositoryAdapter = new QuestionRepositoryAdapter(databaseSQLHelper);
+
+export const responseRepositoryAdapter = new ResponseRepositoryAdapter(databaseSQLHelper);
 
 export const makeUnitOfWork = (): UnitOfWorkProtocol => {
-	const userRepositoryAdapter = new UserRepositoryAdapter();
-	const userVerificationCodeRepositoryAdapter = new UserVerificationCodeRepositoryAdapter();
-	const roomRepositoryAdapter = new RoomRepositoryAdapter();
-	const questionRepositoryAdapter = new QuestionRepositoryAdapter();
-	const responseRepositoryAdapter = new ResponseRepositoryAdapter();
+	const userRepositoryAdapter = new UserRepositoryAdapter(databaseSQLHelper);
+	const userVerificationCodeRepositoryAdapter = new UserVerificationCodeRepositoryAdapter(databaseSQLHelper);
+	const roomRepositoryAdapter = new RoomRepositoryAdapter(databaseSQLHelper);
+	const questionRepositoryAdapter = new QuestionRepositoryAdapter(databaseSQLHelper);
+	const responseRepositoryAdapter = new ResponseRepositoryAdapter(databaseSQLHelper);
 
 	return new UnitOfWorkAdapter(
+		databaseSQLHelper,
 		userRepositoryAdapter, 
 		roomRepositoryAdapter, 
 		questionRepositoryAdapter, 
@@ -51,6 +67,9 @@ export const makeUnitOfWork = (): UnitOfWorkProtocol => {
 	);
 };
 
-export const logRepositoryAdapter = new LogRepositoryAdapter();
-
 export const cacheAdapter = new CacheAdapter();
+
+export const logBashAdapter = new LogBashAdapter();
+
+export const logFacade 
+	= new LogFacade(logBashAdapter, new LogNoSQLAdapter(new LogRepositoryAdapter(databaseNoSQLHelper), logBashAdapter));

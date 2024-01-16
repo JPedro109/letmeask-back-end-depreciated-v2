@@ -1,9 +1,11 @@
 import { QueueProtocol } from "@/layers/use-cases";
-import { QueueHelper } from "../helper";
+import { QueueHelper } from "@/layers/external";
 
 export class QueueAdapter implements QueueProtocol {
 
+	constructor(private readonly queueHelper: QueueHelper) { }
+
 	async sendMessage(queue: string, object: object): Promise<void> {
-		QueueHelper.channel.sendToQueue(queue, Buffer.from(JSON.stringify(object)));
+		this.queueHelper.channel.sendToQueue(queue, Buffer.from(JSON.stringify(object)));
 	}
 }

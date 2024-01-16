@@ -2,18 +2,18 @@ import {
 	CreateQuestionController,
 	GetUserQuestionsController,
 	DeleteQuestionController,
-	TreatmentDecorator
+	TreatmentDecoratorHttp
 } from "@/layers/presentation";
 import { 
 	createQuestion,
 	getUserQuestions,
 	deleteQuestion,
-	logRepositoryAdapter,
+	logFacade,
 } from "@/main/factories";
 
-export const createQuestionController = new TreatmentDecorator(new CreateQuestionController(createQuestion), logRepositoryAdapter);
+export const createQuestionController = new TreatmentDecoratorHttp(new CreateQuestionController(createQuestion), logFacade);
 
 export const getUserQuestionsController 
-	= new TreatmentDecorator(new GetUserQuestionsController(getUserQuestions), logRepositoryAdapter);
+	= new TreatmentDecoratorHttp(new GetUserQuestionsController(getUserQuestions), logFacade);
 
-export const deleteQuestionController = new TreatmentDecorator(new DeleteQuestionController(deleteQuestion), logRepositoryAdapter);
+export const deleteQuestionController = new TreatmentDecoratorHttp(new DeleteQuestionController(deleteQuestion), logFacade);

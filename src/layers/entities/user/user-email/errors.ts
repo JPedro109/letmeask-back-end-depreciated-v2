@@ -1,7 +1,7 @@
-export class InvalidEmailError extends Error {
+export class InvalidUserEmailError extends Error {
 	constructor(email: string) {
 		super();
-		this.name = "InvalidEmailError";
+		this.name = "InvalidUserEmailError";
 		this.message = `Esse email (${email}) é inválido`;
 	}
 }

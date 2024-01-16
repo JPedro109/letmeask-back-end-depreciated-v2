@@ -3,26 +3,28 @@ import { ResponseModel } from "@/layers/use-cases";
 
 describe("External - QuestionRepositoryAdapter", () => {
     
+	const databaseSQLHelper = new DatabaseSQLHelper();
+
 	beforeAll(async () => {
-		await DatabaseSQLHelper.connect();
+		await databaseSQLHelper.connect();
 	});
 
 	afterAll(async () => {
-		await DatabaseSQLHelper.disconnect();
+		await databaseSQLHelper.disconnect();
 	});
     
 	beforeEach(async () => {
-		const mockRepository = new MockRepository();
+		const mockRepository = new MockRepository(databaseSQLHelper);
 		await mockRepository.createMocksToTestRepositories();
 	});
 
 	afterEach(async () => {
-		const mockRepository = new MockRepository();
+		const mockRepository = new MockRepository(databaseSQLHelper);
 		await mockRepository.deleteMocks();
 	});
 
 	test("Should create question | store", async () => {
-		const sut = new QuestionRepositoryAdapter();
+		const sut = new QuestionRepositoryAdapter(databaseSQLHelper);
 
 		const room = await sut.store("000000", "question", "5");
 
@@ -32,7 +34,7 @@ describe("External - QuestionRepositoryAdapter", () => {
 	});
 
 	test("Should get user questions  | getRoomByUserId", async () => {
-		const sut = new QuestionRepositoryAdapter();
+		const sut = new QuestionRepositoryAdapter(databaseSQLHelper);
 
 		const room = await sut.getRoomByUserId("5");
 
@@ -47,7 +49,7 @@ describe("External - QuestionRepositoryAdapter", () => {
 	});
 
 	test("Should get question with response | getById", async () => {
-		const sut = new QuestionRepositoryAdapter();
+		const sut = new QuestionRepositoryAdapter(databaseSQLHelper);
 
 		const room = await sut.getById("7");
 
@@ -58,7 +60,7 @@ describe("External - QuestionRepositoryAdapter", () => {
 	});
 
 	test("Should get question without response | getById", async () => {
-		const sut = new QuestionRepositoryAdapter();
+		const sut = new QuestionRepositoryAdapter(databaseSQLHelper);
 
 		const room = await sut.getById("9");
 
@@ -68,7 +70,7 @@ describe("External - QuestionRepositoryAdapter", () => {
 	});
 
 	test("Should delete question | deleteQuestionById", async () => {
-		const sut = new QuestionRepositoryAdapter();
+		const sut = new QuestionRepositoryAdapter(databaseSQLHelper);
 
 		const roomOne = await sut.deleteQuestionById("7");
 		const roomTwo = await sut.deleteQuestionById("9");

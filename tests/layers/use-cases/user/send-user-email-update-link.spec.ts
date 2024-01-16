@@ -1,30 +1,33 @@
 import { 
 	GenerationStub,
-	MailServiceStub,
+	MailStub,
+	SecretsStub,
 	UserRepositoryStub, 
 	UserVerificationCodeRepositoryStub, 
 	testUserModel
 } from "../__mocks__";
 
-import { InvalidEmailError } from "@/layers/entities";
+import { InvalidUserEmailError } from "@/layers/entities";
 import { SendUserEmailUpdateLinkUseCase, InvalidParamError, NotFoundError } from "@/layers/use-cases";
 
 const makeSut = () => {
 	const userRepositoryStub = new UserRepositoryStub();
 	const userVerificationCodeRepositoryStub = new UserVerificationCodeRepositoryStub();
-	const mailServiceStub = new MailServiceStub();
+	const mailStub = new MailStub();
 	const generateStub = new GenerationStub();
+	const secretsStub = new SecretsStub();
 	const sut = new SendUserEmailUpdateLinkUseCase(
 		userRepositoryStub, 
 		userVerificationCodeRepositoryStub, 
 		generateStub, 
-		mailServiceStub
+		mailStub,
+		secretsStub
 	);
 
 	return {
 		sut,
 		userRepositoryStub,
-		mailServiceStub
+		mailStub
 	};
 };
 
@@ -36,7 +39,7 @@ describe("Use case SendUserEmailUpdateLinkUseCase", () => {
 
 		const result = await sut.execute({ id, email });
 
-		expect(result).toBeInstanceOf(InvalidEmailError);
+		expect(result).toBeInstanceOf(InvalidUserEmailError);
 	});
 
 	test("Shoud not send user email update link, because user is not exists", async () => {

@@ -66,6 +66,7 @@
     "mongodb": "^5.2.0",
     "node-cache": "^5.1.2",
     "prisma": "4.8.1",
+    "prom-client": "^15.0.0",
     "swagger-ui-express": "^4.6.2"
   }
 }

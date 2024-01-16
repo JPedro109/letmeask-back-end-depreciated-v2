@@ -95,7 +95,7 @@ describe("updateUserPassword - MUTATION", () => {
 				variables: { data: body },
 			});
 
-		expect(response.body.errors[0].code).toBe("InvalidPasswordError");
+		expect(response.body.errors[0].code).toBe("InvalidUserPasswordError");
 	});
 
 	test("Should not update user password, because passwords is not match", async () => {

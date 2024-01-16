@@ -5,3 +5,7 @@ export * from "./authentication";
 export * from "./mail";
 export * from "./database";
 export * from "./queue";
+export * from "./secrets";
+
+export * from "./log";
+export * from "./log/adapters";

@@ -140,7 +140,7 @@ describe("/api/users/password-recover - PATCH", () => {
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("InvalidPasswordError");
+		expect(response.body.code).toBe("InvalidUserPasswordError");
 	});
 
 	test("Should not recover user password, because new password is match current password", async () => {

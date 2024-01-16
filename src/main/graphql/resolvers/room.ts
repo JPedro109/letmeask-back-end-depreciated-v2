@@ -1,6 +1,6 @@
 import { GraphQLAdapter } from "../adapter";
 import { 
-	authenticateUserMiddleware, 
+	authUserMiddleware, 
 	createRoomController, 
 	deleteRoomController, 
 	getRoomCodeController, 
@@ -15,7 +15,7 @@ export const roomMutations = {
 		parent, 
 		args, 
 		context,
-		[ authenticateUserMiddleware ]
+		[ authUserMiddleware ]
 	),
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	deleteRoom: async (parent: any, args: any, context: any) => await GraphQLAdapter.handle(
@@ -23,7 +23,7 @@ export const roomMutations = {
 		parent, 
 		args, 
 		context, 
-		[ authenticateUserMiddleware ]
+		[ authUserMiddleware ]
 	)
 };
 
@@ -34,7 +34,7 @@ export const roomQueries = {
 		parent, 
 		args, 
 		context, 
-		[ authenticateUserMiddleware ]
+		[ authUserMiddleware ]
 	),
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	getRoomCode: async (parent: any, args: any, context: any) => await GraphQLAdapter.handle(
@@ -42,7 +42,7 @@ export const roomQueries = {
 		parent, 
 		args, 
 		context, 
-		[ authenticateUserMiddleware ]
+		[ authUserMiddleware ]
 	),
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	getRoom: async (parent: any, args: any, context: any) => await GraphQLAdapter.handle(
@@ -50,6 +50,6 @@ export const roomQueries = {
 		parent, 
 		args, 
 		context, 
-		[ authenticateUserMiddleware ]
+		[ authUserMiddleware ]
 	) 
 };

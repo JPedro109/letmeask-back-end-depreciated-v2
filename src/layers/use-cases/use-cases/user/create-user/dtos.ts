@@ -1,4 +1,4 @@
-import { InvalidEmailError, InvalidPasswordError } from "@/layers/entities";
+import { InvalidUserEmailError, InvalidUserPasswordError } from "@/layers/entities";
 import { InvalidParamError } from "@/layers/use-cases";
 
 export type CreateUserDTO = {
@@ -8,4 +8,4 @@ export type CreateUserDTO = {
     passwordConfirm: string;
 }
 
-export type CreateUserResponseDTO = string | InvalidEmailError | InvalidPasswordError | InvalidParamError;
+export type CreateUserResponseDTO = string | InvalidUserEmailError | InvalidUserPasswordError | InvalidParamError;

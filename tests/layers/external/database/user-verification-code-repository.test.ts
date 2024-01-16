@@ -2,26 +2,28 @@ import { UserVerificationCodeRepositoryAdapter, DatabaseSQLHelper, MockRepositor
 
 describe("External - UserVerificationCodeRepositoryAdapter", () => {
     
+	const databaseSQLHelper = new DatabaseSQLHelper();
+
 	beforeAll(async () => {
-		await DatabaseSQLHelper.connect();
+		await databaseSQLHelper.connect();
 	});
 
 	afterAll(async () => {
-		await DatabaseSQLHelper.disconnect();
+		await databaseSQLHelper.disconnect();
 	});
     
 	beforeEach(async () => {
-		const mockRepository = new MockRepository();
+		const mockRepository = new MockRepository(databaseSQLHelper);
 		await mockRepository.createMocksToTestRepositories();
 	});
 
 	afterEach(async () => {
-		const mockRepository = new MockRepository();
+		const mockRepository = new MockRepository(databaseSQLHelper);
 		await mockRepository.deleteMocks();
 	});
 
 	test("Should create verification code | createUserVerificationCode", async () => {
-		const sut = new UserVerificationCodeRepositoryAdapter();
+		const sut = new UserVerificationCodeRepositoryAdapter(databaseSQLHelper);
 
 		const verificationCode = await sut.createUserVerificationCode("code_random", 0, false, "4");
 
@@ -30,7 +32,7 @@ describe("External - UserVerificationCodeRepositoryAdapter", () => {
 	});
 
 	test("Should invalid verification code | createUserVerificationCode", async () => {
-		const sut = new UserVerificationCodeRepositoryAdapter();
+		const sut = new UserVerificationCodeRepositoryAdapter(databaseSQLHelper);
 
 		const verificationCode = await sut.invalidateUserValidationCode("repository_code_one");
 

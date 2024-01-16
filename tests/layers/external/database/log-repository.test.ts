@@ -1,27 +1,29 @@
-import { DatabaseNoSQLHelper, LogRepositoryAdapter } from "@/layers/external";
+import { DatabaseNoSQLHelper, LogRepositoryAdapter, SecretsAdapter } from "@/layers/external";
 
 describe("External - LogRepositoryAdapter", () => {
     
+	const databaseNoSQLHelper = new DatabaseNoSQLHelper(new SecretsAdapter());
+
 	beforeAll(async () => {
-		await DatabaseNoSQLHelper.connect();
+		await databaseNoSQLHelper.connect();
 	});
 
 	afterAll(async () => {
-		await DatabaseNoSQLHelper.getCollection("logletmeask").deleteMany({});
-		await DatabaseNoSQLHelper.disconnect();
+		await databaseNoSQLHelper.getCollection("letmeask-log", "log").deleteMany({});
+		await databaseNoSQLHelper.disconnect();
 	});
     
-	test("Should create verification code | createLog", async () => {
-		const message = "message";
-		const stack = "stack";
-		const name = "name";
-		const sut = new LogRepositoryAdapter();
+	test("Should create the log | createLog", async () => {
+		const level = "[INFO]";
+		const title = "title";
+		const message = "{\"name\":\"test\"}";
+		const sut = new LogRepositoryAdapter(databaseNoSQLHelper);
 
-		const log = await sut.createLog(message, stack, name);
+		const log = await sut.createLog(level, title, message);
 
+		expect(log.level).toBe(level);
+		expect(log.title).toBe(title);
 		expect(log.message).toBe(message);
-		expect(log.stack).toBe(stack);
-		expect(log.name).toBe(name);
 	});
 
 });

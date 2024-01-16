@@ -1,3 +1,4 @@
+import { InvalidUserEmailError } from "@/layers/entities";
 import { 
 	QuestionRepositoryStub, 
 	ResponseRepositoryStub, 
@@ -33,6 +34,17 @@ const makeSut = () => {
 
 describe("Use case - UpdateUserEmailUseCase", () => {
     
+	test("Should not update user email, because email is invalid", async () => {
+		const id = "2";
+		const email = "invalid_email";
+		const code = "code";
+		const { sut } = makeSut();
+
+		const result = await sut.execute({ id, email, code });
+
+		expect(result).toBeInstanceOf(InvalidUserEmailError);
+	});
+	
 	test("Should not update user email, because user is not exists", async () => {
 		const id = "2";
 		const email = "email@test2.com";

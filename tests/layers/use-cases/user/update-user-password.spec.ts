@@ -1,6 +1,6 @@
 import { CryptographyStub, UserRepositoryStub } from "../__mocks__";
 
-import { InvalidPasswordError } from "@/layers/entities";
+import { InvalidUserPasswordError } from "@/layers/entities";
 import { UpdateUserPasswordUseCase, InvalidParamError, NotFoundError } from "@/layers/use-cases";
 
 const makeSut = () => {
@@ -38,7 +38,7 @@ describe("Use case - UpdateUserPasswordUseCase", () => {
 
 		const result = await sut.execute({ id, password, newPassword, newPasswordConfirm });
 
-		expect(result).toBeInstanceOf(InvalidPasswordError);
+		expect(result).toBeInstanceOf(InvalidUserPasswordError);
 	});
 
 	test("Should not update user password, because user is not exists", async () => {

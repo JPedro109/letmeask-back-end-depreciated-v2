@@ -6,8 +6,13 @@ export class RestAdapter {
 		return async (req: Request, res: Response) => {
 			const { response, statusCode } = await route.http({
 				data: { ...req.body, ...req.query, ...req.params },
-				userId: req.userId
+				userId: req.userId,
+				headers: req.headers,
+				method: req.method,
+				path: req.originalUrl
 			});			
+
+			if(statusCode === 204) return res.status(statusCode).json();
 
 			return res.status(statusCode).json(response);
 		};
@@ -15,19 +20,21 @@ export class RestAdapter {
 
 	static middleware = (middleware: HttpProtocol) => {
 		return async (req: Request, res: Response, next: NextFunction) => {
-			const { response, statusCode } = await middleware.http({
+			const request = {
 				data: { ...req.body, ...req.query, ...req.params },
 				userId: req.userId,
-				headers: req.headers
-			});
+				headers: req.headers,
+				method: req.method,
+				path: req.originalUrl
+			};
 
-			if(statusCode > 399 && statusCode < 500 || response instanceof Error) 
+			const { response, statusCode } = await middleware.http(request);
+
+			if(statusCode > 399 && statusCode <= 500 || response instanceof Error) 
 				return res.status(statusCode).json(response);			
 
-			const userId = response;
+			req.userId = request.userId;
 
-			if(response) req.userId = userId;
-		
 			return next();
 		};
 	};

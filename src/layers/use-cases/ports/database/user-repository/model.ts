@@ -1,4 +1,4 @@
-import { UserVerificationCodeModel } from "../user-verification-code-repository/model";
+import { UserVerificationCodeModel } from "@/layers/use-cases";
 
 export class UserModel {
 	constructor(
@@ -8,6 +8,6 @@ export class UserModel {
                 public readonly password: string,
                 public readonly verifiedEmail: boolean,
                 public readonly userVerificationCode?: UserVerificationCodeModel,
-                public readonly managedRoom?: string,
+                public readonly managedRoom?: string
 	) { }
 }

@@ -1,43 +1,43 @@
-import { User, InvalidEmailError, InvalidPasswordError, InvalidUsernameError } from "@/layers/entities";
+import { User, InvalidUserEmailError, InvalidUserPasswordError, InvalidUsernameError } from "@/layers/entities";
 
 describe(("Entity - User"), () => {
     
-	test("Should not create user, because email is not valid" , () => {
-		const invalidEmail = "email.com";
+	test("Should not create user, because user email is not valid" , () => {
+		const invalidUserEmail = "email.com";
 		const username = "username";
 		const password = "Password1234";
 
-		const sut = User.create(invalidEmail, username, password);
+		const sut = User.create(invalidUserEmail, username, password);
 
-		expect(sut).toBeInstanceOf(InvalidEmailError);
+		expect(sut).toBeInstanceOf(InvalidUserEmailError);
 	});
 
 	test("Should not create user, because username is not valid" , () => {
-		const email = "email@test.com";
+		const userEmail = "email@test.com";
 		const invalidUsername = "";
 		const password = "password";
 
-		const sut = User.create(email, invalidUsername, password);
+		const sut = User.create(userEmail, invalidUsername, password);
 
 		expect(sut).toBeInstanceOf(InvalidUsernameError);
 	});
 
-	test("Should not create user, because password is not valid" , () => {
+	test("Should not create user, because user password is not valid" , () => {
 		const email = "email@test.com";
 		const username = "username";
-		const invalidPassword = "password";
+		const invalidUserPassword = "password";
 
-		const sut = User.create(email, username, invalidPassword);
+		const sut = User.create(email, username, invalidUserPassword);
 
-		expect(sut).toBeInstanceOf(InvalidPasswordError);
+		expect(sut).toBeInstanceOf(InvalidUserPasswordError);
 	});
 
 	test("Should create user" , () => {
-		const email = "email@test.com";
+		const userEmail = "email@test.com";
 		const username = "username";
-		const password = "Password1234";
+		const userPassword = "Password1234";
 
-		const sut = User.create(email, username, password);
+		const sut = User.create(userEmail, username, userPassword);
 
 		expect(sut).toBeInstanceOf(User);
 	});

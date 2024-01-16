@@ -1,12 +1,13 @@
-import { APP_URL } from "@/shared";
 import { User } from "@/layers/entities";
 import { 
 	UnitOfWorkProtocol, 
-	MailServiceProtocol, 
+	MailProtocol, 
 	InvalidParamError, 
 	CryptographyProtocol, 
 	GenerationProtocol,
-	EmailBody
+	EmailBody,
+	SecretsProtocol,
+	SecretsEnum
 } from "@/layers/use-cases";
 import { CreateUserUseCaseProtocol } from "./protocol";
 import { CreateUserDTO, CreateUserResponseDTO } from "./dtos";
@@ -15,9 +16,10 @@ export class CreateUserUseCase implements CreateUserUseCaseProtocol {
 
 	constructor(
 		private readonly unitOfWork: UnitOfWorkProtocol, 
-		private readonly mailService: MailServiceProtocol,
+		private readonly mail: MailProtocol,
 		private readonly cryptography: CryptographyProtocol,
-		private readonly generation: GenerationProtocol
+		private readonly generation: GenerationProtocol,
+		private readonly secrets: SecretsProtocol
 	) { }
 
 	async execute({ email, username, password, passwordConfirm }: CreateUserDTO): Promise<CreateUserResponseDTO> {
@@ -32,20 +34,20 @@ export class CreateUserUseCase implements CreateUserUseCaseProtocol {
 
 		if(userOrError instanceof Error) return userOrError;
 
-		const hashPassword = await this.cryptography.hash(userOrError.password.value);
+		const hashPassword = await this.cryptography.hash(userOrError.userPassword.value);
 
 		const code = this.generation.code();
 
 		await this.unitOfWork.transaction(async () => {
-			const user = await userRepository.createUser(userOrError.email.value, userOrError.username.value, hashPassword);
+			const user = await userRepository.createUser(userOrError.userEmail.value, userOrError.username.value, hashPassword);
 			await userVerificationCodeRepository.createUserVerificationCode(code, 0, false, user.id);
-			await this.mailService.sendMail(userOrError.email.value, "Criação de Usuário", EmailBody.CreateUserBody, {
-				appUrl: APP_URL,
-				email: userOrError.email.value,
+			await this.mail.sendMail(userOrError.userEmail.value, "Criação de Usuário", EmailBody.CreateUserBody, {
+				appUrl: this.secrets.getRequiredSecret(SecretsEnum.AppUrl),
+				email: userOrError.userEmail.value,
 				code
 			});
 		});
 
-		return userOrError.email.value;
+		return userOrError.userEmail.value;
 	}
 }

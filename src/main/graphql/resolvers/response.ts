@@ -1,6 +1,6 @@
 import { GraphQLAdapter } from "../adapter";
 import { 
-	authenticateUserMiddleware, 
+	authUserMiddleware, 
 	createResponseController,
 } from "@/main/factories";
 
@@ -11,6 +11,6 @@ export const responseMutations = {
 		parent, 
 		args, 
 		context,
-		[ authenticateUserMiddleware ]
+		[ authUserMiddleware ]
 	)
 };

@@ -1,7 +1,7 @@
 import { AuthenticationProtocol, UnauthorizedError } from "@/layers/use-cases";
-import { HttpProtocol, HttpRequest, HttpResponse, ok, unauthorized } from "@/layers/presentation";
+import { HttpProtocol, HttpRequest, HttpResponse, noBody, unauthorized } from "@/layers/presentation";
 
-export class AuthenticateUserMiddleware implements HttpProtocol {
+export class AuthUserMiddleware implements HttpProtocol {
 
 	constructor(private readonly jsonWebToken: AuthenticationProtocol) { }
 
@@ -18,6 +18,8 @@ export class AuthenticateUserMiddleware implements HttpProtocol {
 
 		if(decode instanceof Error) return unauthorized(decode);
 
-		return ok(decode.id as string);
+		request.userId = decode.id as string;
+
+		return noBody();
 	}
 }

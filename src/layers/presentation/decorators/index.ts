@@ -1,1 +1,1 @@
-export * from "./treatment-decorator";
+export * from "./treatment-decorator-http";
