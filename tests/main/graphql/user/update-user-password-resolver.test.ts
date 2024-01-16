@@ -1,7 +1,7 @@
 jest.setTimeout(10000);
 
 import { loginGraphql, setup } from "../../__mocks__";
-import { setupGraphQL } from "@/main/graphql";
+import { setupServer } from "@/main/server";
 import request from "supertest";
 
 const makeSutUpdateUserPassword = (password: unknown, newPassword: unknown, newPasswordConfirm: unknown) => {
@@ -23,7 +23,7 @@ describe("updateUserPassword - MUTATION", () => {
        
 		const token = await loginGraphql("email_verified_and_with_room@test.com");
 
-		const response = await request(setupGraphQL())
+		const response = await request(setupServer())
 			.post("/graphql")
 			.set("authorization", `Bearer ${token}`)
 			.send({
@@ -39,7 +39,7 @@ describe("updateUserPassword - MUTATION", () => {
         
 		const token = await loginGraphql("email_verified_and_with_room@test.com");
 
-		const response = await request(setupGraphQL())
+		const response = await request(setupServer())
 			.post("/graphql")
 			.set("authorization", `Bearer ${token}`)
 			.send({
@@ -55,7 +55,7 @@ describe("updateUserPassword - MUTATION", () => {
         
 		const token = await loginGraphql("email_verified_and_with_room@test.com");
 
-		const response = await request(setupGraphQL())
+		const response = await request(setupServer())
 			.post("/graphql")
 			.set("authorization", `Bearer ${token}`)
 			.send({
@@ -71,7 +71,7 @@ describe("updateUserPassword - MUTATION", () => {
         
 		const token = await loginGraphql("email_verified_and_with_room@test.com");
 
-		const response = await request(setupGraphQL())
+		const response = await request(setupServer())
 			.post("/graphql")
 			.set("authorization", `Bearer ${token}`)
 			.send({
@@ -87,7 +87,7 @@ describe("updateUserPassword - MUTATION", () => {
         
 		const token = await loginGraphql("email_verified_and_with_room@test.com");
 
-		const response = await request(setupGraphQL())
+		const response = await request(setupServer())
 			.post("/graphql")
 			.set("authorization", `Bearer ${token}`)
 			.send({
@@ -103,7 +103,7 @@ describe("updateUserPassword - MUTATION", () => {
         
 		const token = await loginGraphql("email_verified_and_with_room@test.com");
 
-		const response = await request(setupGraphQL())
+		const response = await request(setupServer())
 			.post("/graphql")
 			.set("authorization", `Bearer ${token}`)
 			.send({
@@ -119,7 +119,7 @@ describe("updateUserPassword - MUTATION", () => {
         
 		const token = await loginGraphql("email_verified_and_with_room@test.com");
 
-		const response = await request(setupGraphQL())
+		const response = await request(setupServer())
 			.post("/graphql")
 			.set("authorization", `Bearer ${token}`)
 			.send({
@@ -135,7 +135,7 @@ describe("updateUserPassword - MUTATION", () => {
         
 		const token = await loginGraphql("email_verified_and_with_room@test.com");
 
-		const response = await request(setupGraphQL())
+		const response = await request(setupServer())
 			.post("/graphql")
 			.set("authorization", `Bearer ${token}`)
 			.send({

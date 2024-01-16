@@ -1,7 +1,7 @@
 jest.setTimeout(10000);
 
 import { loginRest, setup } from "../../__mocks__";
-import { setupRest } from "@/main/rest";
+import { setupServer } from "@/main/server";
 import request from "supertest";
 
 const makeBodySendUserEmailUpdateLink = (email: unknown) => {
@@ -19,7 +19,7 @@ describe("/api/users/send-email-update-link - POST", () => {
 
 		const token = await loginRest("email_verified_and_with_room@test.com");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/users/send-email-update-link")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
@@ -33,7 +33,7 @@ describe("/api/users/send-email-update-link - POST", () => {
 
 		const token = await loginRest("email_verified_and_with_room@test.com");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/users/send-email-update-link")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
@@ -47,7 +47,7 @@ describe("/api/users/send-email-update-link - POST", () => {
 
 		const token = await loginRest("email_verified_and_with_room@test.com");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/users/send-email-update-link")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
@@ -61,7 +61,7 @@ describe("/api/users/send-email-update-link - POST", () => {
 
 		const token = await loginRest("email_verified_and_with_room@test.com");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/users/send-email-update-link")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);

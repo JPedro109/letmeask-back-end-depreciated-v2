@@ -1,5 +1,5 @@
 import { setup, loginRest } from "../../__mocks__";
-import { setupRest } from "@/main/rest";
+import { setupServer } from "@/main/server";
 import request from "supertest";
 
 const makeBodyCreateQuestion = (roomCode: unknown, question: unknown) => {
@@ -17,7 +17,7 @@ describe("/api/questions - POST", () => {
 		const body = makeBodyCreateQuestion("", "question");
 		const token = await loginRest("email_verified_code_expiry@test.com");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/questions")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
@@ -30,7 +30,7 @@ describe("/api/questions - POST", () => {
 		const body = makeBodyCreateQuestion("000000", "");
 		const token = await loginRest("email_verified_code_expiry@test.com");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/questions")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
@@ -43,7 +43,7 @@ describe("/api/questions - POST", () => {
 		const body = makeBodyCreateQuestion(100, "question");
 		const token = await loginRest("email_verified_code_expiry@test.com");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/questions")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
@@ -56,7 +56,7 @@ describe("/api/questions - POST", () => {
 		const body = makeBodyCreateQuestion("000000", 100);
 		const token = await loginRest("email_verified_code_expiry@test.com");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/questions")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
@@ -69,7 +69,7 @@ describe("/api/questions - POST", () => {
 		const body = makeBodyCreateQuestion("000001", "question");
 
 		const token = await loginRest("email_verified_code_expiry@test.com");
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/questions")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
@@ -82,7 +82,7 @@ describe("/api/questions - POST", () => {
 		const body = makeBodyCreateQuestion("000000", "question");
 		const token = await loginRest("email_verified_and_with_room@test.com");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/questions")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
@@ -95,7 +95,7 @@ describe("/api/questions - POST", () => {
 		const body = makeBodyCreateQuestion("000000", "question");
 
 		const token = await loginRest("email_verified_code_expiry@test.com");
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/questions")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);

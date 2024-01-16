@@ -1,7 +1,7 @@
 jest.setTimeout(10000);
 
 import { setup } from "../../__mocks__";
-import { setupRest } from "@/main/rest";
+import { setupServer } from "@/main/server";
 import request from "supertest";
 
 const makeBodyCreateUser = (email: unknown, username: unknown, password: unknown, passwordConfirm: unknown) => {
@@ -20,7 +20,7 @@ describe("/api/users - POST", () => {
 	test("Should not create user, because email is empty", async () => {
 		const body = makeBodyCreateUser("", "username", "Password1234", "Password1234");
         
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/users")
 			.send(body);
 
@@ -31,7 +31,7 @@ describe("/api/users - POST", () => {
 	test("Should not create user, because username is empty", async () => {
 		const body = makeBodyCreateUser("email@test.com", "", "Password1234", "Password1234");
         
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/users")
 			.send(body);
 
@@ -43,7 +43,7 @@ describe("/api/users - POST", () => {
 	test("Should not create user, because password is empty", async () => {
 		const body = makeBodyCreateUser("email@test.com", "username", "", "Password1234");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/users")
 			.send(body);
 
@@ -54,7 +54,7 @@ describe("/api/users - POST", () => {
 	test("Should not create user, because passwordConfirm is empty", async () => {
 		const body = makeBodyCreateUser("email@test.com", "username", "Password1234", "");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/users")
 			.send(body);
 			
@@ -65,7 +65,7 @@ describe("/api/users - POST", () => {
 	test("Should not create user, because email is with type error", async () => {
 		const body = makeBodyCreateUser(100, "username", "Password1234", "Password1234");
         
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/users")
 			.send(body);
 
@@ -76,7 +76,7 @@ describe("/api/users - POST", () => {
 	test("Should not create user, because username is with type error", async () => {
 		const body = makeBodyCreateUser("email@test.com", 100, "Password1234", "Password1234");
         
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/users")
 			.send(body);
 
@@ -87,7 +87,7 @@ describe("/api/users - POST", () => {
 	test("Should not create user, because password is with type error", async () => {
 		const body = makeBodyCreateUser("email@test.com", "username", 100, "Password1234");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/users")
 			.send(body);
 
@@ -98,7 +98,7 @@ describe("/api/users - POST", () => {
 	test("Should not create user, because passwordConfirm is with type error", async () => {
 		const body = makeBodyCreateUser("email@test.com", "username", "Password1234", 100);
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/users")
 			.send(body);
 			
@@ -109,7 +109,7 @@ describe("/api/users - POST", () => {
 	test("Should not create user, because email is invalid", async () => {
 		const body = makeBodyCreateUser("email.com", "username", "Password1234", "Password1234");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/users")
 			.send(body);
 		
@@ -120,7 +120,7 @@ describe("/api/users - POST", () => {
 	test("Should not create user, because username is invalid", async () => {
 		const body = makeBodyCreateUser("email@test.com", "u".repeat(300), "Password1234", "Password1234");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/users")
 			.send(body);
 		
@@ -131,7 +131,7 @@ describe("/api/users - POST", () => {
 	test("Should not create user, because email already is register", async () => {
 		const body = makeBodyCreateUser("email_verified_and_with_room@test.com", "username", "Password1234", "Password1234");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/users")
 			.send(body);
 		
@@ -142,7 +142,7 @@ describe("/api/users - POST", () => {
 	test("Should not create user, because password is not respect rules", async () => {
 		const body = makeBodyCreateUser("email@test.com", "username", "password", "password");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/users")
 			.send(body);
 		
@@ -153,7 +153,7 @@ describe("/api/users - POST", () => {
 	test("Should not create user, because passwords is not match", async () => {
 		const body = makeBodyCreateUser("email@test.com", "username", "Password1234", "Password12345");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/users")
 			.send(body);
 		
@@ -164,7 +164,7 @@ describe("/api/users - POST", () => {
 	test("Should create user", async () => {
 		const body = makeBodyCreateUser("email@test.com", "username", "Password1234", "Password1234");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/users")
 			.send(body);
 		

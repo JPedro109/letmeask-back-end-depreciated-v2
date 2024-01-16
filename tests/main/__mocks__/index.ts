@@ -1,7 +1,6 @@
 import { databaseSQLHelper, queueHelper, databaseNoSQLHelper } from "@/main/factories/external";
 import { MockRepository } from "@/layers/external";
-import { setupRest } from "@/main/rest";
-import { setupGraphQL } from "@/main/graphql";
+import { setupServer } from "@/main/server";
 
 import request from "supertest";
 
@@ -30,7 +29,7 @@ export const setup = () => {
 };
 
 export const loginRest = async (email: string) => {
-	return (await request(setupRest())
+	return (await request(setupServer())
 		.post("/api/users/login")
 		.send({
 			email,
@@ -39,7 +38,7 @@ export const loginRest = async (email: string) => {
 };
 
 export const loginGraphql = async (email: string) => {
-	return (await request(setupGraphQL())
+	return (await request(setupServer())
 		.post("/graphql")
 		.send({
 			query: "mutation UserLogin($data: UserLoginInput) { userLogin(data: $data) }",
