@@ -1,4 +1,4 @@
-import { LogProtocol } from "@/layers/domain";
+import { LogProtocol } from "@/layers/application";
 import { LogBashAdapter, LogNoSQLAdapter } from "../adapters";
 
 export class LogFacade implements LogProtocol {

@@ -1,17 +1,5 @@
-import { 
-	userRepositoryAdapter,
-	roomRepositoryAdapter,
-	cacheAdapter,
-	makeUnitOfWork
-} from "@/main/factories";
-
-import {
-	CreateRoomUseCase,
-	GetRoomUseCase,
-	GetUserRoomCodeUseCase,
-	DeleteRoomUseCase,
-	GetRoomCodeUseCase
-} from "@/layers/domain";
+import {  userRepositoryAdapter, roomRepositoryAdapter, cacheAdapter, makeUnitOfWork } from "@/main/factories";
+import { CreateRoomUseCase, GetRoomUseCase, GetUserRoomCodeUseCase, DeleteRoomUseCase, GetRoomCodeUseCase } from "@/layers/application";
 
 export const createRoom = new CreateRoomUseCase(makeUnitOfWork());
 

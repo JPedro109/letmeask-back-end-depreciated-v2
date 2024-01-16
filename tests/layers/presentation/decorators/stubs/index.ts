@@ -1,4 +1,4 @@
-import { LogProtocol } from "@/layers/domain";
+import { LogProtocol } from "@/layers/application";
 import { HttpHelper, HttpProtocol, HttpRequest, HttpResponse } from "@/layers/presentation";
 
 export class ControllerStub implements HttpProtocol {

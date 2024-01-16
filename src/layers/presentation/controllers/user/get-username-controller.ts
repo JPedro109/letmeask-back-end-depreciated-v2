@@ -1,5 +1,5 @@
 import { HttpHelper, HttpProtocol, HttpRequest, HttpResponse,  InvalidRequestError, Validate } from "@/layers/presentation";
-import { GetUsernameUseCaseProtocol } from "@/layers/domain";
+import { GetUsernameUseCaseProtocol } from "@/layers/application";
 
 export class GetUsernameController implements HttpProtocol {
 

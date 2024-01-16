@@ -1,5 +1,5 @@
 import { HttpHelper, HttpProtocol, HttpRequest, HttpResponse, InvalidRequestError, Validate } from "@/layers/presentation";
-import { GetRoomCodeUseCaseProtocol } from "@/layers/domain";
+import { GetRoomCodeUseCaseProtocol } from "@/layers/application";
 
 export class GetRoomCodeController implements HttpProtocol {
 

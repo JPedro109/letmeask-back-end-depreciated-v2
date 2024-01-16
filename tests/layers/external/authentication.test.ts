@@ -1,5 +1,5 @@
 import { AuthenticationAdapter, SecretsAdapter } from "@/layers/external";
-import { JsonWebTokenInvalidError } from "@/layers/domain";
+import { JsonWebTokenInvalidError } from "@/layers/application";
 
 describe("External - AuthenticationAdapter", () => {
 

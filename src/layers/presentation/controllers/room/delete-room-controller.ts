@@ -1,5 +1,5 @@
 import { HttpProtocol, HttpRequest, HttpResponse, HttpHelper, Validate, InvalidRequestError } from "@/layers/presentation";
-import { DeleteRoomUseCaseProtocol } from "@/layers/domain";
+import { DeleteRoomUseCaseProtocol } from "@/layers/application";
 
 export class DeleteRoomController implements HttpProtocol {
 

@@ -1,5 +1,5 @@
 import { HttpHelper, HttpProtocol, HttpRequest, HttpResponse, InvalidRequestError, Validate } from "@/layers/presentation";
-import { DeleteQuestionUseCaseProtocol } from "@/layers/domain";
+import { DeleteQuestionUseCaseProtocol } from "@/layers/application";
 
 export class DeleteQuestionController implements HttpProtocol {
 

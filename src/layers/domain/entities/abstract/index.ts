@@ -6,7 +6,6 @@ export abstract class AbstractEntity {
 			if(value.invalid) errors.push(value.error);
 		}
 
-
 		return {
 			invalid: errors.length !== 0,
 			errors: errors.join(", ")

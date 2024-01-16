@@ -1,5 +1,5 @@
 import { Metrics } from "@/shared";
-import { SecretsEnum } from "@/layers/domain";
+import { SecretsEnum } from "@/layers/application";
 import { databaseNoSQLHelper, databaseSQLHelper, queueHelper, secretsAdapter } from "@/main/factories";
 import { setupServer } from "@/main/server";
 

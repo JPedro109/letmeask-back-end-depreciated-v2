@@ -1,4 +1,4 @@
-import { CacheProtocol } from "@/layers/domain";
+import { CacheProtocol } from "@/layers/application";
 
 import NodeCache from "node-cache";
 

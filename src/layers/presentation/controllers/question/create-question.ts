@@ -1,5 +1,5 @@
 import { HttpProtocol, HttpRequest, HttpResponse, HttpHelper, Validate, InvalidRequestError } from "@/layers/presentation";
-import { CreateQuestionUseCaseProtocol } from "@/layers/domain";
+import { CreateQuestionUseCaseProtocol } from "@/layers/application";
 
 export class CreateQuestionController implements HttpProtocol {
 

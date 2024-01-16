@@ -1,5 +1,5 @@
 import { QuestionRepositoryAdapter, DatabaseSQLHelper, MockRepository } from "@/layers/external";
-import { ResponseModel } from "@/layers/domain";
+import { ResponseModel } from "@/layers/application";
 
 describe("External - QuestionRepositoryAdapter", () => {
     

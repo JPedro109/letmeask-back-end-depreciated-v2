@@ -1,5 +1,5 @@
 import { HttpProtocol, HttpRequest, HttpResponse, HttpHelper, Validate, InvalidRequestError } from "@/layers/presentation";
-import { SendUserPasswordRecoveryLinkUseCaseProtocol } from "@/layers/domain";
+import { SendUserPasswordRecoveryLinkUseCaseProtocol } from "@/layers/application";
 
 export class SendUserPasswordRecoveryLinkController implements HttpProtocol {
 

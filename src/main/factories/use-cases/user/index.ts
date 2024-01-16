@@ -1,4 +1,14 @@
 import { 
+	cryptographyAdapter, 
+	generationAdapter, 
+	authenticationAdapter, 
+	mailAdapter, 
+	makeUnitOfWork, 
+	userRepositoryAdapter, 
+	userVerificationCodeRepositoryAdapter,
+	secretsAdapter
+} from "@/main/factories";
+import { 
 	CreateUserUseCase, 
 	DeleteUserUseCase, 
 	GetUsernameUseCase, 
@@ -10,17 +20,7 @@ import {
 	UpdateUsernameUseCase, 
 	UserLoginUseCase,
 	UserVerifyEmailUseCase, 
-} from "@/layers/domain";
-import { 
-	cryptographyAdapter, 
-	generationAdapter, 
-	authenticationAdapter, 
-	mailAdapter, 
-	makeUnitOfWork, 
-	userRepositoryAdapter, 
-	userVerificationCodeRepositoryAdapter,
-	secretsAdapter
-} from "@/main/factories";
+} from "@/layers/application";
 
 export const createUser = new CreateUserUseCase(
 	makeUnitOfWork(), 

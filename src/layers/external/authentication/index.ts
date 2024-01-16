@@ -1,4 +1,4 @@
-import { AuthenticationProtocol, JsonWebTokenType, JsonWebTokenInvalidError, SecretsProtocol, SecretsEnum } from "@/layers/domain";
+import { AuthenticationProtocol, JsonWebTokenType, JsonWebTokenInvalidError, SecretsProtocol, SecretsEnum } from "@/layers/application";
 
 import jsonWebToken from "jsonwebtoken";
 

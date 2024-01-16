@@ -1,5 +1,6 @@
-import { DomainError, NotFoundError, UnauthorizedError } from "@/layers/domain";
 import { ControllerStub, LogFacadeStub } from "./stubs";
+import { DomainError } from "@/layers/domain";
+import { NotFoundError, UnauthorizedError } from "@/layers/application";
 import { TreatmentDecoratorHttp, HttpHelper } from "@/layers/presentation";
 
 const makeSut = () => {

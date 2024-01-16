@@ -1,4 +1,4 @@
-import { QueueProtocol } from "@/layers/domain";
+import { QueueProtocol } from "@/layers/application";
 import { QueueHelper } from "@/layers/external";
 
 export class QueueAdapter implements QueueProtocol {

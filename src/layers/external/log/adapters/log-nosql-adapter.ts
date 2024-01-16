@@ -1,4 +1,4 @@
-import { LogProtocol, LogRepositoryProtocol } from "@/layers/domain";
+import { LogProtocol, LogRepositoryProtocol } from "@/layers/application";
 import { LogBashAdapter } from "./log-bash-adapter";
 
 export class LogNoSQLAdapter implements LogProtocol {

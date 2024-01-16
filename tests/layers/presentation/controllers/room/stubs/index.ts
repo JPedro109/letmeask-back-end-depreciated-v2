@@ -17,7 +17,7 @@ import {
 	GetUserRoomCodeDTO, 
 	GetUserRoomCodeResponseDTO, 
 	GetUserRoomCodeUseCaseProtocol 
-} from "@/layers/domain";
+} from "@/layers/application";
 
 export class CreateRoomStub implements CreateRoomUseCaseProtocol {
 	async execute({ userId, roomName }: CreateRoomDTO): Promise<CreateRoomResponseDTO> {

@@ -1,4 +1,4 @@
-import { UserModel, UserRepositoryProtocol, UserVerificationCodeModel } from "@/layers/domain";
+import { UserModel, UserRepositoryProtocol, UserVerificationCodeModel } from "@/layers/application";
 import { Context, DatabaseSQLHelper, camelToSnakeCaseMapper } from "@/layers/external";
 
 import { user as UserPrismaModel, user_verification_code as UserVerificationCodePrismaModel } from "@prisma/client";

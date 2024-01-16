@@ -5,9 +5,7 @@ import {
 	cacheAdapter,
 	roomRepositoryAdapter
 } from "@/main/factories";
-import { 
-	CreateResponseUseCase 
-} from "@/layers/domain";
+import { CreateResponseUseCase } from "@/layers/application";
 
 export const createResponse = new CreateResponseUseCase(
 	responseRepositoryAdapter, 

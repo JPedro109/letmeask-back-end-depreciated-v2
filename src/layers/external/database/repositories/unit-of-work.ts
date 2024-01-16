@@ -5,7 +5,7 @@ import {
 	ResponseRepositoryProtocol, 
 	RoomRepositoryProtocol,
 	UserVerificationCodeRepositoryProtocol, 
-} from "@/layers/domain";
+} from "@/layers/application";
 import { Context, DatabaseSQLHelper } from "@/layers/external";
 
 export class UnitOfWorkAdapter implements UnitOfWorkProtocol {

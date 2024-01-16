@@ -1,4 +1,4 @@
-import { QuestionModel, ResponseModel, RoomModel, RoomRepositoryProtocol } from "@/layers/domain";
+import { QuestionModel, ResponseModel, RoomModel, RoomRepositoryProtocol } from "@/layers/application";
 import { Context, DatabaseSQLHelper } from "@/layers/external";
 
 import { room as RoomPrismaModel, question as QuestionPrismaModel, response as ResponsePrismaModel } from "@prisma/client";

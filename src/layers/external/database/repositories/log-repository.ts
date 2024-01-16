@@ -1,4 +1,4 @@
-import { LogRepositoryProtocol, LogModel } from "@/layers/domain";
+import { LogRepositoryProtocol, LogModel } from "@/layers/application";
 import { DatabaseNoSQLHelper } from "@/layers/external";
 
 import { WithId, Document } from "mongodb";

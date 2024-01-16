@@ -1,5 +1,6 @@
 import { Metrics } from "@/shared";
-import { DomainError, InvalidParamError, LogProtocol, NotFoundError, UnauthorizedError } from "@/layers/domain";
+import { DomainError } from "@/layers/domain";
+import { InvalidParamError, LogProtocol, NotFoundError, UnauthorizedError } from "@/layers/application";
 import { 
 	HttpHelper,
 	HttpProtocol, 

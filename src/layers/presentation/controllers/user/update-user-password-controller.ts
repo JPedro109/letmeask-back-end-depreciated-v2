@@ -1,5 +1,5 @@
 import { HttpHelper, HttpProtocol, HttpRequest, HttpResponse, InvalidRequestError, Validate } from "@/layers/presentation";
-import { UpdateUserPasswordUseCaseProtocol } from "@/layers/domain";
+import { UpdateUserPasswordUseCaseProtocol } from "@/layers/application";
 
 export class UpdateUserPasswordController implements HttpProtocol {
 

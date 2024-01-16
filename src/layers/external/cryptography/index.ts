@@ -1,4 +1,4 @@
-import { CryptographyProtocol } from "@/layers/domain";
+import { CryptographyProtocol } from "@/layers/application";
 
 import bcryptjs from "bcryptjs";
 

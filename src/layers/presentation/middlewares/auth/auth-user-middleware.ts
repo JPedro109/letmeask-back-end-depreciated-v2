@@ -1,4 +1,4 @@
-import { AuthenticationProtocol, UnauthorizedError } from "@/layers/domain";
+import { AuthenticationProtocol, UnauthorizedError } from "@/layers/application";
 import { HttpProtocol, HttpRequest, HttpResponse, HttpHelper } from "@/layers/presentation";
 
 export class AuthUserMiddleware implements HttpProtocol {
