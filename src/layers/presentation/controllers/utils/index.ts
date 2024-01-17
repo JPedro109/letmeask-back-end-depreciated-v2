@@ -7,9 +7,11 @@ export class Validate {
 		fields.forEach(element => {
 			const value = body[element.name];
 	
-			if(!value && !element.nullable) errors.push(new MissingParamError(element.name).message);
+			if(( (value === null || value === undefined) || (typeof value === "string" && value.length === 0) ) && !element.nullable) 
+				errors.push(new MissingParamError(element.name).message);
 	
-			if(typeof value !== element.type) errors.push(new InvalidTypeError(element.name).message);
+			if(typeof value !== element.type) 
+				errors.push(new InvalidTypeError(element.name).message);
 		});
 	
 		return {
