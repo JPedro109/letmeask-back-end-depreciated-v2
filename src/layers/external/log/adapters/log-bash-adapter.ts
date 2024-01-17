@@ -2,10 +2,9 @@ import { LogProtocol } from "@/layers/application";
 
 export class LogBashAdapter implements LogProtocol {
 
-	trace(title: string, message: string, trace: string): boolean {
+	trace(message: string, trace: string): boolean {
 		console.log();
 		console.trace({
-			title,
 			message,
 			trace,
 			level: "[TRACE]",
@@ -15,10 +14,9 @@ export class LogBashAdapter implements LogProtocol {
 		return true;
 	}
 	
-	info(title: string, message: string): boolean {
+	info(message: string): boolean {
 		console.log();
 		console.info({
-			title,
 			message,
 			level: "[INFO]",
 			timestamp: new Date()
@@ -27,10 +25,9 @@ export class LogBashAdapter implements LogProtocol {
 		return true;
 	}
 
-	warning(title: string, message: string): boolean {
+	warning(message: string): boolean {
 		console.log();
 		console.warn({
-			title,
 			message,
 			level: "[WARNING]",
 			timestamp: new Date()
@@ -39,12 +36,16 @@ export class LogBashAdapter implements LogProtocol {
 		return true;
 	}
 
-	error(title: string, message: string): boolean {
+	error(message: string, error: Error): boolean {
 		console.log();
 		console.error({
-			title,
 			message,
 			level: "[ERROR]",
+			error: {
+				message: error.message,
+				name: error.name,
+				stack: error.stack
+			},
 			timestamp: new Date()
 		});
         

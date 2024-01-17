@@ -11,22 +11,22 @@ export class ControllerStub implements HttpProtocol {
 export class LogFacadeStub implements LogProtocol {
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	trace(title: string, message: string, trace: string): boolean {
+	trace(message: string, trace: string): boolean {
 		return true;
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	info(title: string, message: string): boolean {
+	info(message: string): boolean {
 		return true;
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	warning(title: string, message: string): boolean {
+	warning(message: string): boolean {
 		return true;
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	error(title: string, message: string): boolean {
+	error(message: string): boolean {
 		return true;
 	}
 }

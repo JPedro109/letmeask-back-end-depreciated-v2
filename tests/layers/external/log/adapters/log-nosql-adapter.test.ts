@@ -8,7 +8,6 @@ describe("External - LogNoSQLAdapter", () => {
 	const logBashAdapter = new LogBashAdapter();
 
 	test("Should return true but the insertation will fail | trace", () => {
-		const title = "TEST";
 		const message = "{\"name\":\"test\"}";
 		const trace = "0000000000";
 		const sut = new LogNoSQLAdapter(logRepository, logBashAdapter);
@@ -17,15 +16,14 @@ describe("External - LogNoSQLAdapter", () => {
 			.spyOn(logRepository, "createLog")
 			.mockReturnValueOnce(Promise.reject(new Error("TEST")));
 
-		const result = sut.trace(title, message, trace);
+		const result = sut.trace(message, trace);
 
 		expect(result).toBeTruthy();
 		expect(sut.trace).toHaveBeenCalled();
-		expect(sut.trace).toHaveBeenCalledWith(title, message, trace);
+		expect(sut.trace).toHaveBeenCalledWith(message, trace);
 	});
 
 	test("Should return true | trace", () => {
-		const title = "TEST";
 		const message = "{\"name\":\"test\"}";
 		const trace = "0000000000";
 		const sut = new LogNoSQLAdapter(logRepository, logBashAdapter);
@@ -34,15 +32,14 @@ describe("External - LogNoSQLAdapter", () => {
 			.spyOn(logRepository, "createLog")
 			.mockReturnValueOnce(Promise.reject(new Error("TEST")));
 
-		const result = sut.trace(title, message, trace);
+		const result = sut.trace(message, trace);
 
 		expect(result).toBeTruthy();
 		expect(sut.trace).toHaveBeenCalled();
-		expect(sut.trace).toHaveBeenCalledWith(title, message, trace);
+		expect(sut.trace).toHaveBeenCalledWith(message, trace);
 	});
 
 	test("Should return true but the insertation will fail | log", () => {
-		const title = "TEST";
 		const message = "{\"name\":\"test\"}";
 		const sut = new LogNoSQLAdapter(logRepository, logBashAdapter);
 		jest.spyOn(sut, "info");
@@ -50,28 +47,26 @@ describe("External - LogNoSQLAdapter", () => {
 			.spyOn(logRepository, "createLog")
 			.mockReturnValueOnce(Promise.reject(new Error("TEST")));
 
-		const result = sut.info(title, message);
+		const result = sut.info(message);
 
 		expect(result).toBeTruthy();
 		expect(sut.info).toHaveBeenCalled();
-		expect(sut.info).toHaveBeenCalledWith(title, message);
+		expect(sut.info).toHaveBeenCalledWith(message);
 	});
 
 	test("Should return true | log", () => {
-		const title = "TEST";
 		const message = "{\"name\":\"test\"}";
 		const sut = new LogNoSQLAdapter(logRepository, logBashAdapter);
 		jest.spyOn(sut, "info");
 
-		const result = sut.info(title, message);
+		const result = sut.info(message);
 
 		expect(result).toBeTruthy();
 		expect(sut.info).toHaveBeenCalled();
-		expect(sut.info).toHaveBeenCalledWith(title, message);
+		expect(sut.info).toHaveBeenCalledWith(message);
 	});
 
 	test("Should return true but the insertation will fail | warn", () => {
-		const title = "TEST";
 		const message = "{\"name\":\"test\"}";
 		const sut = new LogNoSQLAdapter(logRepository, logBashAdapter);
 		jest.spyOn(sut, "warning");
@@ -79,28 +74,26 @@ describe("External - LogNoSQLAdapter", () => {
 			.spyOn(logRepository, "createLog")
 			.mockReturnValueOnce(Promise.reject(new Error("TEST")));
 
-		const result = sut.warning(title, message);
+		const result = sut.warning(message);
 
 		expect(result).toBeTruthy();
 		expect(sut.warning).toHaveBeenCalled();
-		expect(sut.warning).toHaveBeenCalledWith(title, message);
+		expect(sut.warning).toHaveBeenCalledWith(message);
 	});
 
 	test("Should return true | warn", () => {
-		const title = "TEST";
 		const message = "{\"name\":\"test\"}";
 		const sut = new LogNoSQLAdapter(logRepository, logBashAdapter);
 		jest.spyOn(sut, "warning");
 
-		const result = sut.warning(title, message);
+		const result = sut.warning(message);
 
 		expect(result).toBeTruthy();
 		expect(sut.warning).toHaveBeenCalled();
-		expect(sut.warning).toHaveBeenCalledWith(title, message);
+		expect(sut.warning).toHaveBeenCalledWith(message);
 	});
 
 	test("Should return true but the insertation will fail | error", () => {
-		const title = "TEST";
 		const message = "{\"name\":\"test\"}";
 		const sut = new LogNoSQLAdapter(logRepository, logBashAdapter);
 		jest.spyOn(sut, "error");
@@ -108,23 +101,22 @@ describe("External - LogNoSQLAdapter", () => {
 			.spyOn(logRepository, "createLog")
 			.mockReturnValueOnce(Promise.reject(new Error("TEST")));
 
-		const result = sut.error(title, message);
+		const result = sut.error(message, new Error());
 
 		expect(result).toBeTruthy();
 		expect(sut.error).toHaveBeenCalled();
-		expect(sut.error).toHaveBeenCalledWith(title, message);
+		expect(sut.error).toHaveBeenCalledWith(message, new Error());
 	});
 
 	test("Should return true | error", () => {
-		const title = "TEST";
 		const message = "{\"name\":\"test\"}";
 		const sut = new LogNoSQLAdapter(logRepository, logBashAdapter);
 		jest.spyOn(sut, "error");
 
-		const result = sut.error(title, message);
+		const result = sut.error(message, new Error());
 
 		expect(result).toBeTruthy();
 		expect(sut.error).toHaveBeenCalled();
-		expect(sut.error).toHaveBeenCalledWith(title, message);
+		expect(sut.error).toHaveBeenCalledWith(message, new Error());
 	});
 });

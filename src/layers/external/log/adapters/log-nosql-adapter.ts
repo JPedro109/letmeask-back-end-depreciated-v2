@@ -8,30 +8,30 @@ export class LogNoSQLAdapter implements LogProtocol {
 		private readonly logBashAdapter: LogBashAdapter
 	) { }
 
-	trace(title: string, message: string, trace: string): boolean {
-		this.logRepository.createLog("TRACE", title, message, trace).catch((e) => {
-			this.logBashAdapter.error("LogNoSQLAdapter", JSON.stringify(e));
+	trace(message: string, trace: string): boolean {
+		this.logRepository.createLog("TRACE", message, null, trace).catch((e) => {
+			this.logBashAdapter.error("Error when attempting to insert log into database", e);
 		});
 		return true;
 	}
 
-	info(title: string, message: string): boolean {
-		this.logRepository.createLog("LOG", title, message).catch((e) => {
-			this.logBashAdapter.error("LogNoSQLAdapter", JSON.stringify(e));
+	info(message: string): boolean {
+		this.logRepository.createLog("LOG", message).catch((e) => {
+			this.logBashAdapter.error("Error when attempting to insert log into database", e);
 		});
 		return true;
 	}
 
-	warning(title: string, message: string): boolean {
-		this.logRepository.createLog("WARN", title, message).catch((e) => {
-			this.logBashAdapter.error("LogNoSQLAdapter", JSON.stringify(e));
+	warning(message: string): boolean {
+		this.logRepository.createLog("WARN", message).catch((e) => {
+			this.logBashAdapter.error("Error when attempting to insert log into database", e);
 		});
 		return true;
 	}
 
-	error(title: string, message: string): boolean {
-		this.logRepository.createLog("ERROR", title, message).catch((e) => {
-			this.logBashAdapter.error("LogNoSQLAdapter", JSON.stringify(e));
+	error(message: string, error: Error): boolean {
+		this.logRepository.createLog("ERROR", message, error).catch((e) => {
+			this.logBashAdapter.error("Error when attempting to insert log into database", e);
 		});
 		return true;
 	}

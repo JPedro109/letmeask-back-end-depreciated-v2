@@ -9,20 +9,18 @@ describe("External - LogRepositoryAdapter", () => {
 	});
 
 	afterAll(async () => {
-		await databaseNoSQLHelper.getCollection("letmeask-log", "log").deleteMany({});
+		await databaseNoSQLHelper.getCollection("letmeask-logs", "log").deleteMany({});
 		await databaseNoSQLHelper.disconnect();
 	});
     
 	test("Should create the log | createLog", async () => {
 		const level = "[INFO]";
-		const title = "title";
 		const message = "{\"name\":\"test\"}";
 		const sut = new LogRepositoryAdapter(databaseNoSQLHelper);
 
-		const log = await sut.createLog(level, title, message);
+		const log = await sut.createLog(level, message);
 
 		expect(log.level).toBe(level);
-		expect(log.title).toBe(title);
 		expect(log.message).toBe(message);
 	});
 

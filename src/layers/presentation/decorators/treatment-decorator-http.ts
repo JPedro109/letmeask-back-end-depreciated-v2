@@ -26,24 +26,18 @@ export class TreatmentDecoratorHttp implements HttpProtocol {
 		try {
 			const { statusCode, response } = await this.controller.http(request);
 
-			const log = { response, statusCode };
-
-			if(request.userId) log["userId"] = request.userId;
-
-			this.log.info(`${request.path} - ${request.method} - ${this.controller.constructor.name}`, JSON.stringify(log));
+			this.log.info(
+				`${request.path} ${request.method} ${statusCode} ${this.controller.constructor.name} - Operation completed successfully`
+			);
 
 			return { statusCode, response };
 		} catch(e) {
 			const { statusCode, response } = this.setErrorStatusCode(e);
 			
-			const log = { error: e, statusCode };
-
-			if(request.userId) log["userId"] = request.userId;
-
 			if(statusCode !== 500) {
-				this.log.warning(`${request.path} - ${request.method} - ${this.controller.constructor.name}`, JSON.stringify(log));
+				this.log.warning(`${request.path} ${request.method} ${statusCode} ${this.controller.constructor.name} - ${e.message}`);
 			} else {
-				this.log.error(`${request.path} - ${request.method} - ${this.controller.constructor.name}`, JSON.stringify(log));
+				this.log.error(`${request.path} ${request.method} ${this.controller.constructor.name}`, e);
 			}
 
 			return { statusCode, response };
