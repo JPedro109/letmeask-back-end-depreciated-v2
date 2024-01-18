@@ -20,7 +20,11 @@ export class LogRepositoryAdapter implements LogRepositoryProtocol {
 			.insertOne({
 				level, 
 				message,
-				error,
+				error: {
+					name: error?.name,
+					message: error?.message,
+					stack: error?.stack
+				},
 				trace,
 				created_at: new Date()
 			});
