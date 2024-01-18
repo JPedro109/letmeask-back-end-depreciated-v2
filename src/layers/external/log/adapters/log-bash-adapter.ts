@@ -1,54 +1,75 @@
 import { LogProtocol } from "@/layers/application";
+import winston from "winston";
 
 export class LogBashAdapter implements LogProtocol {
+	private logger: winston.Logger = LogBashAdapter.create();
+
+	private static create(): winston.Logger {
+		const levels = {
+			error: 0,
+			warn: 1,
+			info: 2,
+			http: 3,
+			debug: 4,
+		};
+
+		const level = () => {
+			const env = process.env.NODE_ENV || "development";
+			const isDevelopment = env === "development";
+			return isDevelopment ? "debug" : "warn";
+		};
+
+		const colors = {
+			error: "red",
+			warn: "yellow",
+			info: "green",
+			http: "magenta",
+			debug: "white",
+		};
+
+		winston.addColors(colors);
+
+		const format = winston.format.combine(
+			winston.format.timestamp({ format: "DD/MM/YYYY HH:mm:ss:ms" }),
+			winston.format.colorize({ all: true }),
+			winston.format.printf((info) => `${info.timestamp} ${info.level}: ${info.message}`)
+		);
+
+		const transports = [
+			new winston.transports.Console(),
+		];
+
+		return winston.createLogger({
+			level: level(),
+			levels,
+			format,
+			transports,
+		});
+	}
 
 	trace(message: string, trace: string): boolean {
-		console.log();
-		console.trace({
-			message,
-			trace,
-			level: "[TRACE]",
-			timestamp: new Date()
-		});
-        
+		this.logger.info(`${message} - ${trace}`);
+
 		return true;
 	}
-	
+
 	info(message: string): boolean {
-		console.log();
-		console.info({
-			message,
-			level: "[INFO]",
-			timestamp: new Date()
-		});
-        
+		this.logger.info(message);
+
 		return true;
 	}
 
 	warning(message: string): boolean {
-		console.log();
-		console.warn({
-			message,
-			level: "[WARNING]",
-			timestamp: new Date()
-		});
-        
+		this.logger.warn(message);
+
 		return true;
 	}
 
 	error(message: string, error: Error): boolean {
-		console.log();
-		console.error({
-			message,
-			level: "[ERROR]",
-			error: {
-				message: error.message,
-				name: error.name,
-				stack: error.stack
-			},
-			timestamp: new Date()
-		});
-        
+		this.logger.error(
+			`${message}\n${error.stack}`
+		);
+
 		return true;
 	}
 }
