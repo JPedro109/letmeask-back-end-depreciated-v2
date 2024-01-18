@@ -27,7 +27,7 @@ export class TreatmentDecoratorHttp implements HttpProtocol {
 			const { statusCode, response } = await this.controller.http(request);
 
 			this.log.info(
-				`${request.path} ${request.method} ${statusCode} ${this.controller.constructor.name} - Operation completed successfully`
+				`${request.path} ${request.method} ${statusCode} ${this.controller.constructor.name} | Operation completed successfully`
 			);
 
 			return { statusCode, response };
@@ -35,9 +35,9 @@ export class TreatmentDecoratorHttp implements HttpProtocol {
 			const { statusCode, response } = this.setErrorStatusCode(e);
 			
 			if(statusCode !== 500) {
-				this.log.warning(`${request.path} ${request.method} ${statusCode} ${this.controller.constructor.name} - ${e.message}`);
+				this.log.warning(`${request.path} ${request.method} ${statusCode} ${this.controller.constructor.name} | ${e.message}`);
 			} else {
-				this.log.error(`${request.path} ${request.method} ${this.controller.constructor.name}`, e);
+				this.log.error(`${request.path} ${request.method} ${statusCode} ${this.controller.constructor.name}`, e);
 			}
 
 			return { statusCode, response };
