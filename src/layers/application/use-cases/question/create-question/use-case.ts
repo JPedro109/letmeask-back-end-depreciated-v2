@@ -4,7 +4,6 @@ import {
 	QuestionRepositoryProtocol, 
 	RoomRepositoryProtocol, 
 	UnauthorizedError,
-	UserRepositoryProtocol, 
 	CacheProtocol, 
 	RoomModel 
 } from "@/layers/application";
@@ -16,7 +15,6 @@ export class CreateQuestionUseCase implements CreateQuestionUseCaseProtocol {
 	constructor(
         private readonly questionRepository: QuestionRepositoryProtocol,
         private readonly roomRepository: RoomRepositoryProtocol,
-        private readonly userRepository: UserRepositoryProtocol,
 		private readonly cache: CacheProtocol
 	) { }
 
@@ -34,9 +32,9 @@ export class CreateQuestionUseCase implements CreateQuestionUseCaseProtocol {
 		if(!(await this.roomRepository.roomExists(roomCode))) 
 			throw new NotFoundError("A sala em que você quer criar a sua pergunta não existe");
 
-		const user = await this.userRepository.getUserById(userId);
+		const databaseRoomCode = await this.roomRepository.getCodeByUserId(userId);
 
-		if(user.managedRoom === roomCode) 
+		if(databaseRoomCode === roomCode) 
 			throw new UnauthorizedError("O administrador da sala não pode criar perguntas em sua própria sala");
 
 		const createdQuestion = await this.questionRepository.store(roomCode, question, userId);

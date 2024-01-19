@@ -1,12 +1,12 @@
 import { DomainError, RoomEntity } from "@/layers/domain";
-import { UnitOfWorkProtocol, UnauthorizedError, RoomModel } from "@/layers/application";
+import { UnauthorizedError, RoomRepositoryProtocol } from "@/layers/application";
 import { CreateRoomUseCaseProtocol } from "./protocol";
 import { CreateRoomDTO, CreateRoomResponseDTO } from "./dtos";
 
 export class CreateRoomUseCase implements CreateRoomUseCaseProtocol {
 
 	constructor(
-		private readonly unitOfWork: UnitOfWorkProtocol
+		private readonly roomRepository: RoomRepositoryProtocol
 	) { }
 
 	async execute({ userId, roomName }: CreateRoomDTO): Promise<CreateRoomResponseDTO> {
@@ -16,19 +16,11 @@ export class CreateRoomUseCase implements CreateRoomUseCaseProtocol {
 
 		if(validation.invalid) throw new DomainError(validation.errors);
 
-		const userRepository = this.unitOfWork.getUserRepository();
-		const roomRepository = this.unitOfWork.getRoomRepository();
+		const roomCode = await this.roomRepository.getCodeByUserId(userId);
 
-		const user = await userRepository.getUserById(userId);
+		if(roomCode) throw new UnauthorizedError("Você já tem uma sala criada, exclua essa para poder criar outra");
 
-		if(user.managedRoom) throw new UnauthorizedError("Você já tem uma sala criada, exclua essa para poder criar outra");
-
-		let room: RoomModel;
-
-		await this.unitOfWork.transaction(async () => {
-			await userRepository.updateUserById(userId, { managedRoom: code });
-			room = await roomRepository.createRoom(code, roomName, userId);
-		});
+		const room = await this.roomRepository.createRoom(code, roomName, userId);
 
 		return room;
 	}

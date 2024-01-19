@@ -3,8 +3,7 @@ import {
 	CacheProtocol, 
 	NotFoundError, 
 	RoomRepositoryProtocol, 
-	UnauthorizedError, 
-	UserRepositoryProtocol
+	UnauthorizedError
 } from "@/layers/application";
 import { DeleteRoomUseCaseProtocol } from "./protocol";
 import { DeleteRoomDTO, DeleteRoomResponseDTO } from "./dtos";
@@ -13,7 +12,6 @@ export class DeleteRoomUseCase implements DeleteRoomUseCaseProtocol {
 
 	constructor(
 		private readonly roomRepository: RoomRepositoryProtocol,
-		private readonly userRepository: UserRepositoryProtocol,
 		private readonly cache: CacheProtocol,
 	) { }
 
@@ -30,8 +28,6 @@ export class DeleteRoomUseCase implements DeleteRoomUseCaseProtocol {
 
 		if(databaseRoomCode !== roomCode) throw new UnauthorizedError("Só o administrador pode excluir sua sala");
 		
-		await this.userRepository.updateUserById(userId, { managedRoom: null });
-
 		this.cache.del(`room-${roomCode}`);
 
 		return await this.roomRepository.deleteRoomByCode(roomCode);

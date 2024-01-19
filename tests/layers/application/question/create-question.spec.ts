@@ -1,8 +1,6 @@
 import { 
-	UserRepositoryStub, 
 	RoomRepositoryStub, 
 	QuestionRepositoryStub, 
-	testUserModel, 
 	testQuestionModel, 
 	CacheStub
 } from "../__mocks__";
@@ -12,14 +10,12 @@ import { CreateQuestionUseCase, NotFoundError, UnauthorizedError } from "@/layer
 const makeSut = () => {
 	const questionRepositoryStub = new QuestionRepositoryStub();
 	const roomRepositoryStub = new RoomRepositoryStub();
-	const userRepositoryStub = new UserRepositoryStub();
 	const cacheStub = new CacheStub();
-	const sut = new CreateQuestionUseCase(questionRepositoryStub, roomRepositoryStub, userRepositoryStub, cacheStub);
+	const sut = new CreateQuestionUseCase(questionRepositoryStub, roomRepositoryStub, cacheStub);
 
 	return {
 		questionRepositoryStub,
 		roomRepositoryStub,
-		userRepositoryStub,
 		sut
 	};
 };
@@ -53,8 +49,8 @@ describe("Use case - CreateQuestionUseCase", () => {
 		const userId = "1";
 		const roomCode = "000000";
 		const question = "question";
-		const { sut, userRepositoryStub } = makeSut();
-		jest.spyOn(userRepositoryStub, "getUserById").mockResolvedValueOnce({ ...testUserModel, managedRoom: "000000" });
+		const { sut, roomRepositoryStub } = makeSut();
+		jest.spyOn(roomRepositoryStub, "getCodeByUserId").mockResolvedValueOnce("000000");
 
 		const result = sut.execute({ userId, roomCode, question });
 
@@ -65,7 +61,8 @@ describe("Use case - CreateQuestionUseCase", () => {
 		const userId = "2";
 		const roomCode = "000000";
 		const question = "question";
-		const { sut } = makeSut();
+		const { sut, roomRepositoryStub } = makeSut();
+		jest.spyOn(roomRepositoryStub, "getCodeByUserId").mockResolvedValueOnce("111111");
 
 		const result = sut.execute({ userId, roomCode, question });
 

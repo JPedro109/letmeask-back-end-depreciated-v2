@@ -1,10 +1,9 @@
-import { userRepositoryAdapter, roomRepositoryAdapter, questionRepositoryAdapter, cacheAdapter } from "@/main/factories";
+import { roomRepositoryAdapter, questionRepositoryAdapter, cacheAdapter } from "@/main/factories";
 import { CreateQuestionUseCase, GetUserQuestionsUseCase, DeleteQuestionUseCase } from "@/layers/application";
 
 export const createQuestion = new CreateQuestionUseCase(
 	questionRepositoryAdapter, 
 	roomRepositoryAdapter, 
-	userRepositoryAdapter,
 	cacheAdapter
 );
 

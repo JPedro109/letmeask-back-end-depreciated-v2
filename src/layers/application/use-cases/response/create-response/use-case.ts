@@ -6,7 +6,6 @@ import {
 	RoomModel, 
 	RoomRepositoryProtocol, 
 	UnauthorizedError, 
-	UserRepositoryProtocol,
 	CacheProtocol
 } from "@/layers/application";
 import { CreateResponseUseCaseProtocol } from "./protocol";
@@ -16,7 +15,6 @@ export class CreateResponseUseCase implements CreateResponseUseCaseProtocol {
 
 	constructor(
         private readonly responseRepository: ResponseRepositoryProtocol, 
-        private readonly userRepository: UserRepositoryProtocol,
         private readonly questionRepository: QuestionRepositoryProtocol,
         private readonly roomRepository: RoomRepositoryProtocol,
 		private readonly cache: CacheProtocol
@@ -37,15 +35,15 @@ export class CreateResponseUseCase implements CreateResponseUseCaseProtocol {
 
 		if(!question) throw new NotFoundError("A pergunta que você quer responder não existe");
 
-		const user = await this.userRepository.getUserById(userId);
+		const roomCode = await this.roomRepository.getCodeByUserId(userId);
 
-		if(user.managedRoom !== question.roomCode) 
+		if(roomCode !== question.roomCode) 
 			throw new UnauthorizedError("Só o administrador da sala pode responder perguntas");
 
 		if(question.response) throw new UnauthorizedError("Essa pergunta já tem uma resposta");
 
 		const createdResponse = await this.responseRepository.createResponse(question.id, response);
-		await this.addCache(user.managedRoom);
+		await this.addCache(roomCode);
 		return createdResponse;
 	}
 }

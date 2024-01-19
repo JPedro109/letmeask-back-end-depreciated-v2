@@ -1,5 +1,4 @@
 import { 
-	UserRepositoryStub, 
 	RoomRepositoryStub,
 	testRoomModel,
 	CacheStub, 
@@ -9,13 +8,11 @@ import { DeleteRoomUseCase, NotFoundError, UnauthorizedError } from "@/layers/ap
 
 const makeSut = () => {
 	const roomRepositoryStub = new RoomRepositoryStub();
-	const userRepositoryStub = new UserRepositoryStub();
 	const cacheStub = new CacheStub();
-	const sut = new DeleteRoomUseCase(roomRepositoryStub, userRepositoryStub, cacheStub);
+	const sut = new DeleteRoomUseCase(roomRepositoryStub, cacheStub);
 
 	return {
 		roomRepositoryStub,
-		userRepositoryStub,
 		sut
 	};
 };

@@ -1,6 +1,5 @@
 import { 
 	responseRepositoryAdapter,
-	userRepositoryAdapter,
 	questionRepositoryAdapter,
 	cacheAdapter,
 	roomRepositoryAdapter
@@ -9,7 +8,6 @@ import { CreateResponseUseCase } from "@/layers/application";
 
 export const createResponse = new CreateResponseUseCase(
 	responseRepositoryAdapter, 
-	userRepositoryAdapter,
 	questionRepositoryAdapter,
 	roomRepositoryAdapter,
 	cacheAdapter
