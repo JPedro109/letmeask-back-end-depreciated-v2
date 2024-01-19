@@ -1,7 +1,6 @@
 export class DomainError extends Error {
-	constructor(paramName: string) {
-		super();
-		this.message = paramName;
+	constructor(message: string) {
+		super(message);
 		this.name = "DomainError";
 	}
 }

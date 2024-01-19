@@ -1,4 +1,4 @@
-import { DomainError, QuestionEntity } from "@/layers/domain";
+import { QuestionEntity } from "@/layers/domain";
 import { 
 	NotFoundError, 
 	QuestionRepositoryProtocol, 
@@ -25,9 +25,9 @@ export class CreateQuestionUseCase implements CreateQuestionUseCaseProtocol {
 	}
 
 	async execute({ userId, roomCode, question }: CreateQuestionDTO): Promise<CreateQuestionResponseDTO> {
-		const validation = QuestionEntity.validate(question);
-
-		if(validation.invalid) throw new DomainError(validation.errors);
+		const questionEntity = QuestionEntity.create({
+			questionDescription: question
+		});
 
 		if(!(await this.roomRepository.roomExists(roomCode))) 
 			throw new NotFoundError("A sala em que você quer criar a sua pergunta não existe");
@@ -37,7 +37,7 @@ export class CreateQuestionUseCase implements CreateQuestionUseCaseProtocol {
 		if(databaseRoomCode === roomCode) 
 			throw new UnauthorizedError("O administrador da sala não pode criar perguntas em sua própria sala");
 
-		const createdQuestion = await this.questionRepository.store(roomCode, question, userId);
+		const createdQuestion = await this.questionRepository.store(roomCode, questionEntity.questionDescription, userId);
 
 		await this.addCache(roomCode);
 		

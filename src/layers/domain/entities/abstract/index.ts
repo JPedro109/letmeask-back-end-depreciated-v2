@@ -1,23 +1,22 @@
-export abstract class AbstractEntity {
-	protected static validateEntityAttributes(values: { invalid: boolean; error: string; }[]) {
+export abstract class AbstractEntity<Props> {
+	constructor(
+        protected props: Props, 
+        private readonly idProps: string = "1"
+	) { }
+
+	protected static validate<T>(validations: T) {
 		const errors = [];
-		
-		for(const value of values) {
-			if(value.invalid) errors.push(value.error);
+
+		for(const key in validations) {
+			if(validations[key] instanceof Error) {
+				const error = validations[key] as Error;
+				errors.push(error.message);
+			}
 		}
 
 		return {
-			invalid: errors.length !== 0,
+			valid: errors.length === 0,
 			errors: errors.join(", ")
-		};
-	}
-}
-
-export abstract class AbstractValidate {
-	protected static validate(condition: boolean, error: Error) {
-		return {
-			invalid: condition,
-			error: condition ? `${error.name}: ${error.message}` : null
 		};
 	}
 }

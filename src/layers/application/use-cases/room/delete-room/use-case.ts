@@ -1,4 +1,4 @@
-import { DomainError, RoomValidate } from "@/layers/domain";
+import { RoomCode } from "@/layers/domain";
 import { 
 	CacheProtocol, 
 	NotFoundError, 
@@ -16,20 +16,20 @@ export class DeleteRoomUseCase implements DeleteRoomUseCaseProtocol {
 	) { }
 
 	async execute({ userId, roomCode }: DeleteRoomDTO): Promise<DeleteRoomResponseDTO> {
-		const validaiton = RoomValidate.roomCode(roomCode);
+		const roomCodeOrError = RoomCode.create(roomCode);
 
-		if(validaiton.invalid) throw new DomainError(validaiton.error);
+		if(roomCodeOrError instanceof Error) throw roomCodeOrError;
 
-		const roomExists = await this.roomRepository.roomExists(roomCode);
+		const roomExists = await this.roomRepository.roomExists(roomCodeOrError.value);
 
 		if(!roomExists) throw new NotFoundError("Essa sala que você quer excluir não existe");
 
 		const databaseRoomCode = await this.roomRepository.getRoomCodeByUserId(userId);
 
-		if(databaseRoomCode !== roomCode) throw new UnauthorizedError("Só o administrador pode excluir sua sala");
+		if(databaseRoomCode !== roomCodeOrError.value) throw new UnauthorizedError("Só o administrador pode excluir sua sala");
 		
-		this.cache.del(`room-${roomCode}`);
+		this.cache.del(`room-${roomCodeOrError.value}`);
 
-		return await this.roomRepository.deleteRoomByCode(roomCode);
+		return await this.roomRepository.deleteRoomByCode(roomCodeOrError.value);
 	}
 }

@@ -1,4 +1,4 @@
-import { DomainError, UserEntity } from "@/layers/domain";
+import { UserEntity } from "@/layers/domain";
 import { 
 	UnitOfWorkProtocol, 
 	MailProtocol, 
@@ -23,24 +23,27 @@ export class CreateUserUseCase implements CreateUserUseCaseProtocol {
 	) { }
 
 	async execute({ email, username, password, passwordConfirm }: CreateUserDTO): Promise<CreateUserResponseDTO> {
-		const validation = UserEntity.validate(email, username, password);
-
-		if(validation.invalid) throw new DomainError(validation.errors);
+		const user = UserEntity.create({
+			email,
+			username,
+			password,
+			verifiedEmail: false
+		});
 
 		if(password !== passwordConfirm) throw new InvalidParamError("As senhas não coincidem");
 
 		const userRepository = this.unitOfWork.getUserRepository();
 		const userVerificationCodeRepository = this.unitOfWork.getUserVerificationCodeRepository();
 
-		if((await userRepository.getUserByEmail(email))) throw new InvalidParamError("Email já cadastrado");
+		if((await userRepository.getUserByEmail(user.email))) throw new InvalidParamError("Email já cadastrado");
 
-		const hashPassword = await this.cryptography.hash(password);
+		const hashPassword = await this.cryptography.hash(user.password);
 
 		const code = this.generation.code();
 
 		await this.unitOfWork.transaction(async () => {
-			const user = await userRepository.createUser(email, username, hashPassword);
-			await userVerificationCodeRepository.createUserVerificationCode(code, 0, false, user.id);
+			const userCreated = await userRepository.createUser(user.email, user.username, hashPassword);
+			await userVerificationCodeRepository.createUserVerificationCode(code, 0, false, userCreated.id);
 			await this.mail.sendMail(email, "Criação de Usuário", EmailBody.CreateUserBody, {
 				appUrl: this.secrets.getRequiredSecret(SecretsEnum.AppUrl),
 				email,

@@ -1,4 +1,4 @@
-import { DomainError, UserValidate } from "@/layers/domain";
+import { UserPassword } from "@/layers/domain";
 import { CryptographyProtocol, UnitOfWorkProtocol, InvalidParamError, NotFoundError } from "@/layers/application";
 import { RecoverUserPasswordUseCaseProtocol } from "./protocol";
 import { RecoverUserPasswordDTO, RecoverUserPasswordResponseDTO } from "./dtos";
@@ -11,11 +11,11 @@ export class RecoverUserPasswordUseCase implements RecoverUserPasswordUseCasePro
 	) { }
 
 	async execute({ email, code, password, passwordConfirm }: RecoverUserPasswordDTO): Promise<RecoverUserPasswordResponseDTO> {
-		const validation = UserValidate.password(password);
+		const passwordOrError = UserPassword.create(password);
 
-		if(validation.invalid) throw new DomainError(validation.error);
+		if(passwordOrError instanceof Error) throw passwordOrError;
 
-		if(password !== passwordConfirm) throw new InvalidParamError("As senhas não coincidem");
+		if(passwordOrError.value !== passwordConfirm) throw new InvalidParamError("As senhas não coincidem");
 
 		const userRepository = this.unitOfWork.getUserRepository();
 		const userVerificationCodeRepository = this.unitOfWork.getUserVerificationCodeRepository();
@@ -28,11 +28,11 @@ export class RecoverUserPasswordUseCase implements RecoverUserPasswordUseCasePro
 
 		if(Date.now() > user.userVerificationCode.verificationCodeExpiryDate) throw new InvalidParamError("Código expirado");
 
-		const passwordEqual = await this.cryptography.compareHash(user.password, password);
+		const passwordEqual = await this.cryptography.compareHash(user.password, passwordOrError.value);
 
 		if(passwordEqual) throw new InvalidParamError("A sua nova senha não pode ser igual a anterior");
 
-		const hashPassword = await this.cryptography.hash(password);
+		const hashPassword = await this.cryptography.hash(passwordOrError.value);
 
 		await this.unitOfWork.transaction(async () => {
 			await userRepository.updateUserByEmail(email, { password: hashPassword });

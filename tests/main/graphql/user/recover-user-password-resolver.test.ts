@@ -145,7 +145,7 @@ describe("recoverUserPassword - MUTATION", () => {
 			});
 
 
-		expect(response.body.errors[0].code).toBe("DomainError");
+		expect(response.body.errors[0].code).toBe("InvalidUserPasswordError");
 	});
 
 	test("Should not recover user password, because new password is match current password", async () => {

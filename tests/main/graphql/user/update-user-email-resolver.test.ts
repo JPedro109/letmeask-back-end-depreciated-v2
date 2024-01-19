@@ -46,7 +46,7 @@ describe("updateUserEmail - MUTATION", () => {
 				variables: { data: body },
 			});
 
-		expect(response.body.errors[0].code).toBe("DomainError");
+		expect(response.body.errors[0].code).toBe("InvalidUserEmailError");
 	});
 
 	test("Should not update user email, because code is empty", async () => {

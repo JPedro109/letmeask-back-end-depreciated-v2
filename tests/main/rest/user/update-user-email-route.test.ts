@@ -38,7 +38,7 @@ describe("/api/users/email - PATCH", () => {
 			.set("authorization", `Bearer ${token}`);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("DomainError");
+		expect(response.body.code).toBe("InvalidUserEmailError");
 	});
 
 	test("Should not update user email, because code is empty", async () => {
