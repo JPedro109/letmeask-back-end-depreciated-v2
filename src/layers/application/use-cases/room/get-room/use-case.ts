@@ -16,7 +16,7 @@ export class GetRoomUseCase implements GetRoomUseCaseProtocol {
 
 		if(cachedRoom) return cachedRoom;
 
-		const room = await this.repository.getRoomByCode(roomCode);
+		const room = await this.repository.getRoomByRoomCode(roomCode);
 
 		if(!room) throw new NotFoundError("Essa sala não existe");
 

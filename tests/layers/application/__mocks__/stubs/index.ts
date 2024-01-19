@@ -81,7 +81,7 @@ export class RoomRepositoryStub implements RoomRepositoryProtocol {
 		return testRoomModel;
 	}
 
-	async getRoomByCode(code: string): Promise<RoomModel> {
+	async getRoomByRoomCode(code: string): Promise<RoomModel> {
 		return testRoomModel;
 	}
 
@@ -89,7 +89,7 @@ export class RoomRepositoryStub implements RoomRepositoryProtocol {
 		return testRoomModel;
 	}
 
-	async getCodeByUserId(userId: string): Promise<string> {
+	async getRoomCodeByUserId(userId: string): Promise<string> {
 		return testRoomModel.code;
 	}
 
@@ -110,11 +110,11 @@ export class QuestionRepositoryStub implements QuestionRepositoryProtocol {
 		return testQuestionModel;
 	}
 
-	async getById(id: string): Promise<QuestionModel> {
+	async getQuestionById(id: string): Promise<QuestionModel> {
 		return testQuestionModel;
 	}
 
-	async getRoomByUserId(userId: string): Promise<QuestionModel[]> {
+	async getQuestionsByUserId(userId: string): Promise<QuestionModel[]> {
 		return [testQuestionModel];
 	}
 

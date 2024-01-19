@@ -25,7 +25,7 @@ describe("Use case - DeleteQuestionUseCase", () => {
 		const userId = "1";
 		const questionId = "2";
 		const { sut, questionRepositoryStub } = makeSut();
-		jest.spyOn(questionRepositoryStub, "getById").mockResolvedValueOnce(null);
+		jest.spyOn(questionRepositoryStub, "getQuestionById").mockResolvedValueOnce(null);
 
 		const result = sut.execute({ userId, questionId });
 
@@ -36,7 +36,7 @@ describe("Use case - DeleteQuestionUseCase", () => {
 		const userId = "3";
 		const questionId = "1";
 		const { sut, roomRepositoryStub } = makeSut();
-		jest.spyOn(roomRepositoryStub, "getCodeByUserId").mockResolvedValueOnce("000001");
+		jest.spyOn(roomRepositoryStub, "getRoomCodeByUserId").mockResolvedValueOnce("000001");
 
 		const result = sut.execute({ userId, questionId });
 
@@ -47,7 +47,7 @@ describe("Use case - DeleteQuestionUseCase", () => {
 		const userId = "2";
 		const questionId = "1";
 		const { sut, questionRepositoryStub } = makeSut();
-		jest.spyOn(questionRepositoryStub, "getById").mockResolvedValueOnce({ ...testQuestionModel, userId: "2" });
+		jest.spyOn(questionRepositoryStub, "getQuestionById").mockResolvedValueOnce({ ...testQuestionModel, userId: "2" });
 
 		const result = sut.execute({ userId, questionId });
 
@@ -59,9 +59,9 @@ describe("Use case - DeleteQuestionUseCase", () => {
 		const questionId = "1";
 		const { sut, questionRepositoryStub, roomRepositoryStub } = makeSut();
 		jest
-			.spyOn(questionRepositoryStub, "getById")
+			.spyOn(questionRepositoryStub, "getQuestionById")
 			.mockResolvedValueOnce({ ...testQuestionModel, roomCode: "000000" });
-		jest.spyOn(roomRepositoryStub, "getCodeByUserId").mockResolvedValueOnce("000000");
+		jest.spyOn(roomRepositoryStub, "getRoomCodeByUserId").mockResolvedValueOnce("000000");
 
 		const result = sut.execute({ userId, questionId });
 

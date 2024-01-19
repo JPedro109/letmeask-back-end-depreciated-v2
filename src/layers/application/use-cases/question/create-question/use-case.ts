@@ -20,7 +20,7 @@ export class CreateQuestionUseCase implements CreateQuestionUseCaseProtocol {
 
 	private async addCache(roomCode: string) {
 		this.cache.del(`room-${roomCode}`);
-		const room = await this.roomRepository.getRoomByCode(roomCode);
+		const room = await this.roomRepository.getRoomByRoomCode(roomCode);
 		this.cache.set<RoomModel>(`room-${roomCode}`, room, 3600);
 	}
 
@@ -32,7 +32,7 @@ export class CreateQuestionUseCase implements CreateQuestionUseCaseProtocol {
 		if(!(await this.roomRepository.roomExists(roomCode))) 
 			throw new NotFoundError("A sala em que você quer criar a sua pergunta não existe");
 
-		const databaseRoomCode = await this.roomRepository.getCodeByUserId(userId);
+		const databaseRoomCode = await this.roomRepository.getRoomCodeByUserId(userId);
 
 		if(databaseRoomCode === roomCode) 
 			throw new UnauthorizedError("O administrador da sala não pode criar perguntas em sua própria sala");

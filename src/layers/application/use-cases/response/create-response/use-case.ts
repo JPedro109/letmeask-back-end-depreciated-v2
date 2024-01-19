@@ -22,7 +22,7 @@ export class CreateResponseUseCase implements CreateResponseUseCaseProtocol {
 
 	private async addCache(roomCode: string) {
 		this.cache.del(`room-${roomCode}`);
-		const room = await this.roomRepository.getRoomByCode(roomCode);
+		const room = await this.roomRepository.getRoomByRoomCode(roomCode);
 		this.cache.set<RoomModel>(`room-${roomCode}`, room, 3600);
 	}
 
@@ -31,11 +31,11 @@ export class CreateResponseUseCase implements CreateResponseUseCaseProtocol {
 
 		if(validation.invalid) throw new DomainError(validation.errors);
 
-		const question = await this.questionRepository.getById(questionId);
+		const question = await this.questionRepository.getQuestionById(questionId);
 
 		if(!question) throw new NotFoundError("A pergunta que você quer responder não existe");
 
-		const roomCode = await this.roomRepository.getCodeByUserId(userId);
+		const roomCode = await this.roomRepository.getRoomCodeByUserId(userId);
 
 		if(roomCode !== question.roomCode) 
 			throw new UnauthorizedError("Só o administrador da sala pode responder perguntas");

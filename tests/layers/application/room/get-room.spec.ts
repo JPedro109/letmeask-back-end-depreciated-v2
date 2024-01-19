@@ -28,7 +28,7 @@ describe("Use case - GetRoomUseCase", () => {
 	test("Should not get room, because the room is not exists", () => {
 		const roomCode = "000001"; 
 		const { sut, roomRepositoryStub } = makeSut();
-		jest.spyOn(roomRepositoryStub, "getRoomByCode").mockResolvedValueOnce(null);
+		jest.spyOn(roomRepositoryStub, "getRoomByRoomCode").mockResolvedValueOnce(null);
 
 		const response = sut.execute({ roomCode });
 

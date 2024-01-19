@@ -42,7 +42,7 @@ describe("Use case - CreateResponseUseCase", () => {
 		const questionId = "3";
 		const response = "response";
 		const { sut, questionRepositoryStub } = makeSut();
-		jest.spyOn(questionRepositoryStub, "getById").mockResolvedValueOnce(null);
+		jest.spyOn(questionRepositoryStub, "getQuestionById").mockResolvedValueOnce(null);
 
 		const result = sut.execute({ userId, questionId, response });
 
@@ -55,7 +55,7 @@ describe("Use case - CreateResponseUseCase", () => {
 		const response = "response";
 		const { sut, roomRepositoryStub } = makeSut();
 		jest
-			.spyOn(roomRepositoryStub, "getCodeByUserId")
+			.spyOn(roomRepositoryStub, "getRoomCodeByUserId")
 			.mockResolvedValueOnce("111111");
 
 		const result = sut.execute({ userId, questionId, response });
@@ -69,14 +69,14 @@ describe("Use case - CreateResponseUseCase", () => {
 		const response = "response";
 		const { sut, questionRepositoryStub, roomRepositoryStub } = makeSut();
 		jest
-			.spyOn(questionRepositoryStub, "getById")
+			.spyOn(questionRepositoryStub, "getQuestionById")
 			.mockResolvedValueOnce({ 
 				...testQuestionModel,
 				roomCode: "000000",
 				response: new ResponseModel("1", "1", "response")
 			});
 		jest
-			.spyOn(roomRepositoryStub, "getCodeByUserId")
+			.spyOn(roomRepositoryStub, "getRoomCodeByUserId")
 			.mockResolvedValueOnce("000000");
 
 		const result = sut.execute({ userId, questionId, response });
@@ -90,7 +90,7 @@ describe("Use case - CreateResponseUseCase", () => {
 		const response = "response";
 		const { sut, roomRepositoryStub } = makeSut();
 		jest
-			.spyOn(roomRepositoryStub, "getCodeByUserId")
+			.spyOn(roomRepositoryStub, "getRoomCodeByUserId")
 			.mockResolvedValueOnce("000000");
 
 		const result = sut.execute({ userId, questionId, response });

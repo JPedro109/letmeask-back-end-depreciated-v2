@@ -24,7 +24,7 @@ export class DeleteRoomUseCase implements DeleteRoomUseCaseProtocol {
 
 		if(!roomExists) throw new NotFoundError("Essa sala que você quer excluir não existe");
 
-		const databaseRoomCode = await this.roomRepository.getCodeByUserId(userId);
+		const databaseRoomCode = await this.roomRepository.getRoomCodeByUserId(userId);
 
 		if(databaseRoomCode !== roomCode) throw new UnauthorizedError("Só o administrador pode excluir sua sala");
 		

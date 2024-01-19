@@ -19,12 +19,12 @@ export class DeleteQuestionUseCase implements DeleteQuestionUseCaseProtocol {
 
 	private async addCache(roomCode: string) {
 		this.cache.del(`room-${roomCode}`);
-		const room = await this.roomRepository.getRoomByCode(roomCode);
+		const room = await this.roomRepository.getRoomByRoomCode(roomCode);
 		this.cache.set<RoomModel>(`room-${roomCode}`, room, 3600);
 	}
 
 	async execute({ userId, questionId }: DeleteQuestionDTO): Promise<DeleteQuestionResponseDTO> { 
-		const question = await this.questionRepository.getById(questionId);
+		const question = await this.questionRepository.getQuestionById(questionId);
 
 		if(!question) throw new NotFoundError("Essa pergunta não existe");
 
@@ -34,7 +34,7 @@ export class DeleteQuestionUseCase implements DeleteQuestionUseCaseProtocol {
 			return question;
 		}
 
-		const roomCode = await this.roomRepository.getCodeByUserId(userId);
+		const roomCode = await this.roomRepository.getRoomCodeByUserId(userId);
 
 		if(roomCode === question.roomCode) {
 			const question = await this.questionRepository.deleteQuestionById(questionId);

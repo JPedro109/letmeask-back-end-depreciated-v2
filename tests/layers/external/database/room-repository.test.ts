@@ -32,20 +32,20 @@ describe("External - RoomRepositoryAdapter", () => {
 		expect(room.userId).toBe("5");
 	});
 
-	test("Should get room | getRoomByCode", async () => {
+	test("Should get room | getRoomByRoomCode", async () => {
 		const sut = new RoomRepositoryAdapter(databaseSQLHelper);
 
-		const room = await sut.getRoomByCode("000000");
+		const room = await sut.getRoomByRoomCode("000000");
 
 		expect(room.code).toBe("000000");
 		expect(room.name).toBe("Room");
 		expect(room.userId).toBe("4");
 	});
 
-	test("Should get null | getRoomByCode", async () => {
+	test("Should get null | getRoomByRoomCode", async () => {
 		const sut = new RoomRepositoryAdapter(databaseSQLHelper);
 
-		const room = await sut.getRoomByCode("000001");
+		const room = await sut.getRoomByRoomCode("000001");
 
 		expect(room).toBe(null);
 	});
@@ -84,18 +84,18 @@ describe("External - RoomRepositoryAdapter", () => {
 		expect(room).toBe(false);
 	});
 
-	test("Should get code | getCodeByUserId", async () => {
+	test("Should get code | getRoomCodeByUserId", async () => {
 		const sut = new RoomRepositoryAdapter(databaseSQLHelper);
 
-		const room = await sut.getCodeByUserId("4");
+		const room = await sut.getRoomCodeByUserId("4");
 
 		expect(room).toBe("000000");
 	});
 
-	test("Should get code | getCodeByUserId", async () => {
+	test("Should get code | getRoomCodeByUserId", async () => {
 		const sut = new RoomRepositoryAdapter(databaseSQLHelper);
 
-		const room = await sut.getCodeByUserId("12345");
+		const room = await sut.getRoomCodeByUserId("12345");
 
 		expect(room).toBe(null);
 	});

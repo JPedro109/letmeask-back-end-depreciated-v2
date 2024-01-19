@@ -54,7 +54,7 @@ export class RoomRepositoryAdapter implements RoomRepositoryProtocol {
 		return this.toMapperRoomModel(room);
 	}
 
-	async getRoomByCode(roomCode: string): Promise<RoomModel | null> {
+	async getRoomByRoomCode(roomCode: string): Promise<RoomModel | null> {
 		const room = await this.context.room.findUnique({
 			where: {
 				code: roomCode
@@ -92,7 +92,7 @@ export class RoomRepositoryAdapter implements RoomRepositoryProtocol {
 		return this.toMapperRoomModelWithQuestions(room);
 	}
 
-	async getCodeByUserId(userId: string): Promise<string | null> {
+	async getRoomCodeByUserId(userId: string): Promise<string | null> {
 		const room = await this.context.room.findUnique({
 			where: {
 				user_id: userId

@@ -16,7 +16,7 @@ describe("Use case - GetUserRoomCodeUseCase", () => {
 	test("Should not get user room, because the user has not a room", () => {
 		const userId = "2"; 
 		const { sut, roomRepositoryStub } = makeSut();
-		jest.spyOn(roomRepositoryStub, "getCodeByUserId").mockResolvedValueOnce(null);
+		jest.spyOn(roomRepositoryStub, "getRoomCodeByUserId").mockResolvedValueOnce(null);
 
 		const response = sut.execute({ userId });
 

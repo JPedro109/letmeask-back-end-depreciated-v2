@@ -36,7 +36,7 @@ describe("External - QuestionRepositoryAdapter", () => {
 	test("Should get user questions  | getRoomByUserId", async () => {
 		const sut = new QuestionRepositoryAdapter(databaseSQLHelper);
 
-		const room = await sut.getRoomByUserId("5");
+		const room = await sut.getQuestionsByUserId("5");
 
 		expect(room[0].roomCode).toBe("000000");
 		expect(room[0].question).toBe("question");
@@ -51,7 +51,7 @@ describe("External - QuestionRepositoryAdapter", () => {
 	test("Should get question with response | getById", async () => {
 		const sut = new QuestionRepositoryAdapter(databaseSQLHelper);
 
-		const room = await sut.getById("7");
+		const room = await sut.getQuestionById("7");
 
 		expect(room.roomCode).toBe("000000");
 		expect(room.question).toBe("question");
@@ -62,7 +62,7 @@ describe("External - QuestionRepositoryAdapter", () => {
 	test("Should get question without response | getById", async () => {
 		const sut = new QuestionRepositoryAdapter(databaseSQLHelper);
 
-		const room = await sut.getById("9");
+		const room = await sut.getQuestionById("9");
 
 		expect(room.roomCode).toBe("000000");
 		expect(room.question).toBe("question-two");

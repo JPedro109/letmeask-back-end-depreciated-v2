@@ -16,7 +16,7 @@ export class CreateRoomUseCase implements CreateRoomUseCaseProtocol {
 
 		if(validation.invalid) throw new DomainError(validation.errors);
 
-		const roomCode = await this.roomRepository.getCodeByUserId(userId);
+		const roomCode = await this.roomRepository.getRoomCodeByUserId(userId);
 
 		if(roomCode) throw new UnauthorizedError("Você já tem uma sala criada, exclua essa para poder criar outra");
 

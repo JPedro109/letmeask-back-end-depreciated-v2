@@ -46,7 +46,7 @@ describe("Use case - CreateRoomUseCase", () => {
 		const userId = "2"; 
 		const roomName = "room"; 
 		const { sut, roomRepositoryStub } = makeSut();
-		jest.spyOn(roomRepositoryStub, "getCodeByUserId").mockResolvedValueOnce(null);
+		jest.spyOn(roomRepositoryStub, "getRoomCodeByUserId").mockResolvedValueOnce(null);
 
 		const response = sut.execute({ userId, roomName });
         

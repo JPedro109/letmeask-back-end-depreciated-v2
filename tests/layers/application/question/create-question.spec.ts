@@ -50,7 +50,7 @@ describe("Use case - CreateQuestionUseCase", () => {
 		const roomCode = "000000";
 		const question = "question";
 		const { sut, roomRepositoryStub } = makeSut();
-		jest.spyOn(roomRepositoryStub, "getCodeByUserId").mockResolvedValueOnce("000000");
+		jest.spyOn(roomRepositoryStub, "getRoomCodeByUserId").mockResolvedValueOnce("000000");
 
 		const result = sut.execute({ userId, roomCode, question });
 
@@ -62,7 +62,7 @@ describe("Use case - CreateQuestionUseCase", () => {
 		const roomCode = "000000";
 		const question = "question";
 		const { sut, roomRepositoryStub } = makeSut();
-		jest.spyOn(roomRepositoryStub, "getCodeByUserId").mockResolvedValueOnce("111111");
+		jest.spyOn(roomRepositoryStub, "getRoomCodeByUserId").mockResolvedValueOnce("111111");
 
 		const result = sut.execute({ userId, roomCode, question });
 
