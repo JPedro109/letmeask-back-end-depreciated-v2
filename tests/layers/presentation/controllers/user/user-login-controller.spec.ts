@@ -1,4 +1,4 @@
-import { UserLoginController, MissingParamError, badRequest, ok, unauthorized, InvalidTypeError } from "@/layers/presentation";
+import { UserLoginController, InvalidRequestError, HttpHelper } from "@/layers/presentation";
 import { UserLoginStub } from "./stubs";
 
 const makeSut = () => {
@@ -24,54 +24,44 @@ describe("Presentation - UserLoginController", () => {
 		const data = makeBody("", "Password1234");
 		const { sut } = makeSut();
 
-		const result = await sut.http({ data });
-        
-		expect(result).toEqual(badRequest(new MissingParamError("email")));
+		const result = sut.http({ data });
+
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not login user, because password is empty", async () => {
 		const data = makeBody("email@test.com", "");
 		const { sut } = makeSut();
 
-		const result = await sut.http({ data });
-        
-		expect(result).toEqual(badRequest(new MissingParamError("password")));
+		const result = sut.http({ data });
+
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not login user, because email is with type error", async () => {
 		const data = makeBody(100, "Password1234");
 		const { sut } = makeSut();
 
-		const result = await sut.http({ data });
-        
-		expect(result).toEqual(badRequest(new InvalidTypeError("email")));
+		const result = sut.http({ data });
+
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not login user, because password is with type error", async () => {
 		const data = makeBody("email@test.com", 100);
 		const { sut } = makeSut();
 
-		const result = await sut.http({ data });
-        
-		expect(result).toEqual(badRequest(new InvalidTypeError("password")));
-	});
+		const result = sut.http({ data });
 
-	test("Should not login user, because use case returned error", async () => {
-		const data = makeBody("email.com", "password");
-		const { sut, userLoginStub } = makeSut();
-		jest.spyOn(userLoginStub, "execute").mockResolvedValueOnce(Promise.resolve(new Error("error")));
-
-		const result = await sut.http({ data });
-        
-		expect(result).toEqual(unauthorized(new Error("error")));
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should login user", async () => {
 		const data = makeBody("email@test.com", "Password1234");
 		const { sut } = makeSut();
 
-		const result = await sut.http({ data });
-        
-		expect(result).toEqual(ok("code"));
+		const result = sut.http({ data });
+
+		await expect(result).resolves.toEqual(HttpHelper.ok("code"));
 	});
 });

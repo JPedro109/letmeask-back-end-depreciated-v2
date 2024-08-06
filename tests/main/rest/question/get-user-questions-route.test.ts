@@ -1,5 +1,5 @@
 import { setup, loginRest } from "../../__mocks__";
-import { setupRest } from "@/main/rest";
+import { setupServer } from "@/main/server";
 import request from "supertest";
 
 describe("/api/questions - GET", () => {
@@ -9,7 +9,7 @@ describe("/api/questions - GET", () => {
 	test("Should get user questions", async () => {
 		const token = await loginRest("email_verified_code_expiry@test.com");
 			
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.get("/api/questions")
 			.set("authorization", `Bearer ${token}`);
 

@@ -1,4 +1,4 @@
-import { QuestionRepositoryProtocol, QuestionModel, ResponseModel } from "@/layers/use-cases";
+import { QuestionRepositoryProtocol, QuestionModel, ResponseModel } from "@/layers/application";
 import { Context, DatabaseSQLHelper } from "@/layers/external";
 
 import { question as QuestionPrismaModel, response as ResponsePrismaModel } from "@prisma/client";
@@ -50,7 +50,7 @@ export class QuestionRepositoryAdapter implements QuestionRepositoryProtocol {
 		return this.toMapperQuestionModel(questionModel);
 	}
 
-	async getById(id: string): Promise<QuestionModel | null> {
+	async getQuestionById(id: string): Promise<QuestionModel | null> {
 		const question = await this.context.question.findUnique({
 			where: {
 				id
@@ -65,7 +65,7 @@ export class QuestionRepositoryAdapter implements QuestionRepositoryProtocol {
 		return this.toMapperQuestionModelWithResponse(question);
 	}
 
-	async getRoomByUserId(userId: string): Promise<QuestionModel[]> {
+	async getQuestionsByUserId(userId: string): Promise<QuestionModel[]> {
 		const questions = await this.context.question.findMany({
 			where: {
 				user_id: userId

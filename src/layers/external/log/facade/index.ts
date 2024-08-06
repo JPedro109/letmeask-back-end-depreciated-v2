@@ -1,4 +1,4 @@
-import { LogProtocol } from "@/layers/use-cases";
+import { LogProtocol } from "@/layers/application";
 import { LogBashAdapter, LogNoSQLAdapter } from "../adapters";
 
 export class LogFacade implements LogProtocol {
@@ -8,29 +8,40 @@ export class LogFacade implements LogProtocol {
 		private readonly logNoSQLAdapter: LogNoSQLAdapter
 	) { }
 
-	private executeLogAdapters(type: "trace" | "info" | "warning" | "error", title: string, message: string, trace?: string) {
-		type === "trace" ? this.logBashAdapter[type](title, message, trace) : this.logBashAdapter[type](title, message);
-		
-		type === "trace" ? this.logNoSQLAdapter[type](title, message, trace) : this.logNoSQLAdapter[type](title, message);
+	private executeLogAdapters(type: "trace" | "info" | "warning" | "error", message: string, error?: Error, trace?: string) {
+		if(type === "trace") {
+			this.logBashAdapter.trace(message, trace);
+			this.logNoSQLAdapter.trace(message, trace);
+		}
+
+		if(type === "error") {
+			this.logBashAdapter.error(message, error);
+			this.logNoSQLAdapter.error(message, error);
+		}
+
+		if(type === "info" || type === "warning") {
+			this.logBashAdapter[type](message);
+			this.logNoSQLAdapter[type](message);
+		}
 	}
 
-	trace(title: string, message: string, trace: string): boolean {
-		this.executeLogAdapters("trace", title, message, trace);
+	trace(message: string, trace: string): boolean {
+		this.executeLogAdapters("trace", message, null, trace);
 		return true;
 	}
 	
-	info(title: string, message: string): boolean {
-		this.executeLogAdapters("info", title, message);
+	info(message: string): boolean {
+		this.executeLogAdapters("info", message);
 		return true;
 	}
 
-	warning(title: string, message: string): boolean {
-		this.executeLogAdapters("warning", title, message);
+	warning(message: string): boolean {
+		this.executeLogAdapters("warning", message);
 		return true;
 	}
 
-	error(title: string, message: string): boolean {
-		this.executeLogAdapters("error", title, message);
+	error(message: string, error: Error): boolean {
+		this.executeLogAdapters("error", message, error);
 		return true;
 	}
 }

@@ -1,7 +1,12 @@
-import { Metrics } from "@/shared";
-import { LogProtocol } from "@/layers/use-cases";
-import { HttpProtocol, HttpRequest, HttpResponse } from "../ports";
-import { serverError } from "../helpers";
+import { DomainError } from "@/layers/domain";
+import { InvalidParamError, LogProtocol, NotFoundError, UnauthorizedError } from "@/layers/application";
+import { 
+	HttpHelper,
+	HttpProtocol, 
+	HttpRequest, 
+	HttpResponse, 
+	InvalidRequestError
+} from "@/layers/presentation";
 
 export class TreatmentDecoratorHttp implements HttpProtocol {
 
@@ -10,43 +15,32 @@ export class TreatmentDecoratorHttp implements HttpProtocol {
 		private readonly log: LogProtocol
 	) { }
 
-	private maskSensitiveBodyInformation(data: object) {
-		for(const key in data) if(key.includes("password") || key.includes("Password")) data[key] = "********";
-
-		return data;
+	private setErrorStatusCode(e: Error) {
+		if(e instanceof UnauthorizedError) return HttpHelper.unauthorized(e);
+		if(e instanceof NotFoundError) return HttpHelper.notFound(e);
+		if(e instanceof DomainError || e instanceof InvalidRequestError || e instanceof InvalidParamError) return HttpHelper.badRequest(e);
+		return HttpHelper.serverError();
 	}
 
 	async http(request: HttpRequest): Promise<HttpResponse> {
-		let end: (arg: { route: string; code: string; method: string, controller: string; }) => void;
-
 		try {
-			end = Metrics.httpRequestTimer.startTimer();
-			
 			const { statusCode, response } = await this.controller.http(request);
 
-			const log = { body: this.maskSensitiveBodyInformation(request.data), response, statusCode };
-
-			if(request.userId) log["userId"] = request.userId;
-
-			if(statusCode > 399 && statusCode <= 500 || response instanceof Error) {
-				end({ route: request.path, code: "4XX", method: request.method, controller: this.controller.constructor.name });
-				this.log.warning(`${request.path} - ${request.method} - ${this.controller.constructor.name}`, JSON.stringify(log));
-			} else {
-				end({ route: request.path, code: "2XX", method: request.method, controller: this.controller.constructor.name });
-				this.log.info(`${request.path} - ${request.method} - ${this.controller.constructor.name}`, JSON.stringify(log));
-			}
+			this.log.info(
+				`${request.path} ${request.method} ${statusCode} ${this.controller.constructor.name} | Operation completed successfully`
+			);
 
 			return { statusCode, response };
 		} catch(e) {
-			const log = { body: this.maskSensitiveBodyInformation(request.data), error: e, statusCode: 500 };
-
-			if(request.userId) log["userId"] = request.userId;
-
-			end({ route: request.path, code: "5XX", method: request.method, controller: this.controller.constructor.name });
-
-			this.log.error(`${request.path} - ${request.method} - ${this.controller.constructor.name}`, JSON.stringify(log));
+			const { statusCode, response } = this.setErrorStatusCode(e);
 			
-			return serverError();
+			if(statusCode !== 500) {
+				this.log.warning(`${request.path} ${request.method} ${statusCode} ${this.controller.constructor.name} | ${e.message}`);
+			} else {
+				this.log.error(`${request.path} ${request.method} ${statusCode} ${this.controller.constructor.name}`, e);
+			}
+
+			return { statusCode, response };
 		}
 	}
 }

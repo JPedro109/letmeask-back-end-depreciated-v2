@@ -1,4 +1,4 @@
-import { badRequestError, notFoundError, internalServerError } from "@/main/rest/docs/components";
+import { badInvalidRequestError, notFoundError, internalServerError } from "@/main/rest/docs/components";
 
 export const recoverUserPassword = {
 	tags: [ "Usuário" ],
@@ -43,7 +43,7 @@ export const recoverUserPassword = {
 			}
 		},
 
-		400: badRequestError,
+		400: badInvalidRequestError,
 
 		404: notFoundError,
 

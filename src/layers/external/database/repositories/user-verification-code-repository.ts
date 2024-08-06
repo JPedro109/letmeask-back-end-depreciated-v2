@@ -1,4 +1,4 @@
-import { UserVerificationCodeModel, UserVerificationCodeRepositoryProtocol } from "@/layers/use-cases";
+import { UserVerificationCodeModel, UserVerificationCodeRepositoryProtocol } from "@/layers/application";
 import { Context, DatabaseSQLHelper } from "@/layers/external";
 
 import { user_verification_code as UserVerificationCodeRepositoryPrismaModel } from "@prisma/client";

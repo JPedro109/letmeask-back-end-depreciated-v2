@@ -1,4 +1,4 @@
-import { badRequestError, unauthorizedError, internalServerError } from "@/main/rest/docs/components";
+import { badInvalidRequestError, unauthorizedError, internalServerError } from "@/main/rest/docs/components";
 
 import { authorizationHeaderSchema } from "@/main/rest/docs/schemas";
 
@@ -39,7 +39,7 @@ export const updateUserPassword = {
 			}
 		},
 
-		400: badRequestError,
+		400: badInvalidRequestError,
 
 		401: unauthorizedError,
 

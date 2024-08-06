@@ -1,7 +1,7 @@
 jest.setTimeout(10000);
 
 import { setup } from "../../__mocks__";
-import { setupGraphQL } from "@/main/graphql";
+import { setupServer } from "@/main/server";
 import request from "supertest";
 
 const makeBodyCreateUser = (email: unknown, username: unknown, password: unknown, passwordConfirm: unknown) => {
@@ -22,72 +22,72 @@ describe("createUser - MUTATION", () => {
 	test("Should not create user, because email is empty", async () => {
 		const body = makeBodyCreateUser("", "username", "Password1234", "Password1234");
         
-		const response = await request(setupGraphQL())
+		const response = await request(setupServer())
 			.post("/graphql")
 			.send({
 				query,
 				variables: { data: body },
 			});
 
-		expect(response.body.errors[0].code).toBe("MissingParamError");
+		expect(response.body.errors[0].code).toBe("InvalidRequestError");
 	});
 
 	test("Should not create user, because username is empty", async () => {
 		const body = makeBodyCreateUser("email@test.com", "", "Password1234", "Password1234");
         
-		const response = await request(setupGraphQL())
+		const response = await request(setupServer())
 			.post("/graphql")
 			.send({
 				query,
 				variables: { data: body },
 			});
 
-		expect(response.body.errors[0].code).toBe("MissingParamError");
+		expect(response.body.errors[0].code).toBe("InvalidRequestError");
 	});
 
 	test("Should not create user, because password is empty", async () => {
 		const body = makeBodyCreateUser("email@test.com", "username", "", "Password1234");
 
-		const response = await request(setupGraphQL())
+		const response = await request(setupServer())
 			.post("/graphql")
 			.send({
 				query,
 				variables: { data: body },
 			});
 
-		expect(response.body.errors[0].code).toBe("MissingParamError");
+		expect(response.body.errors[0].code).toBe("InvalidRequestError");
 	});
 
 	test("Should not create user, because email is invalid", async () => {
 		const body = makeBodyCreateUser("email.com", "username", "Password1234", "Password1234");
 
-		const response = await request(setupGraphQL())
+		const response = await request(setupServer())
 			.post("/graphql")
 			.send({
 				query,
 				variables: { data: body },
 			});
 		
-		expect(response.body.errors[0].code).toBe("InvalidUserEmailError");
+		expect(response.body.errors[0].code).toBe("DomainError");
 	});
 
 	test("Should not create user, because username is invalid", async () => {
 		const body = makeBodyCreateUser("email@test.com", "u".repeat(300), "Password1234", "Password1234");
 
-		const response = await request(setupGraphQL())
+		const response = await request(setupServer())
 			.post("/graphql")
 			.send({
 				query,
 				variables: { data: body },
 			});
 		
-		expect(response.body.errors[0].code).toBe("InvalidUsernameError");
+		expect(response.body.errors[0].code).toBe("DomainError");
 	});
 
 	test("Should not create user, because email already is register", async () => {
 		const body = makeBodyCreateUser("email_verified_and_with_room@test.com", "username", "Password1234", "Password1234");
 
-		const response = await request(setupGraphQL())
+		const response = await request(setupServer())
 			.post("/graphql")
 			.send({
 				query,
@@ -100,20 +100,20 @@ describe("createUser - MUTATION", () => {
 	test("Should not create user, because password is not respect rules", async () => {
 		const body = makeBodyCreateUser("email@test.com", "username", "password", "password");
 
-		const response = await request(setupGraphQL())
+		const response = await request(setupServer())
 			.post("/graphql")
 			.send({
 				query,
 				variables: { data: body },
 			});
 		
-		expect(response.body.errors[0].code).toBe("InvalidUserPasswordError");
+		expect(response.body.errors[0].code).toBe("DomainError");
 	});
 
 	test("Should not create user, because passwords is not match", async () => {
 		const body = makeBodyCreateUser("email@test.com", "username", "Password1234", "Password12345");
 
-		const response = await request(setupGraphQL())
+		const response = await request(setupServer())
 			.post("/graphql")
 			.send({
 				query,
@@ -126,7 +126,7 @@ describe("createUser - MUTATION", () => {
 	test("Should create user", async () => {
 		const body = makeBodyCreateUser("email@test.com", "username", "Password1234", "Password1234");
 
-		const response = await request(setupGraphQL())
+		const response = await request(setupServer())
 			.post("/graphql")
 			.send({
 				query,

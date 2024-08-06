@@ -1,5 +1,5 @@
-import { HttpProtocol, HttpRequest, HttpResponse, badRequest, ok, Validate } from "@/layers/presentation";
-import { GetUserRoomCodeUseCaseProtocol } from "@/layers/use-cases";
+import { HttpProtocol, HttpRequest, HttpResponse, HttpHelper, Validate, InvalidRequestError } from "@/layers/presentation";
+import { GetUserRoomCodeUseCaseProtocol } from "@/layers/application";
 
 export class GetUserRoomCodeController implements HttpProtocol {
 
@@ -15,10 +15,10 @@ export class GetUserRoomCodeController implements HttpProtocol {
 			{ userId }
 		);
 
-		if(validation instanceof Error) return badRequest(validation); 
+		if(!validation.valid) throw new InvalidRequestError(validation.errors);  
 
 		const response = await this.useCase.execute({ userId });
 
-		return ok(response);
+		return HttpHelper.ok(response);
 	}
 }

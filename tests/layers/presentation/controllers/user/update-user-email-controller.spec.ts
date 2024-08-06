@@ -1,4 +1,4 @@
-import { UpdateUserEmailController, MissingParamError, badRequest, ok, InvalidTypeError } from "@/layers/presentation";
+import { UpdateUserEmailController, InvalidRequestError, HttpHelper } from "@/layers/presentation";
 import { UpdateUserEmailStub } from "./stubs";
 
 const makeSut = () => {
@@ -25,7 +25,7 @@ describe("Presentation - UpdateUserEmailController", () => {
 		const body = makeBody("", "email@test.com", "code");
 		const { sut } = makeSut();
 
-		const result = await sut.http({ 
+		const result = sut.http({ 
 			userId: body.id as string,
 			data: {
 				email: body.email,
@@ -33,15 +33,14 @@ describe("Presentation - UpdateUserEmailController", () => {
 			} 
 		});
         
-		expect(result).toEqual(badRequest(new MissingParamError("id")));
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
-
 
 	test("Should not update user email, because email is empty", async () => {
 		const body = makeBody("1", "", "code");
 		const { sut } = makeSut();
 
-		const result = await sut.http({ 
+		const result = sut.http({ 
 			userId: body.id as string,
 			data: {
 				email: body.email,
@@ -49,14 +48,14 @@ describe("Presentation - UpdateUserEmailController", () => {
 			} 
 		});
         
-		expect(result).toEqual(badRequest(new MissingParamError("email")));
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not update user email, because code is empty", async () => {
 		const body = makeBody("1", "email@test.com", "");
 		const { sut } = makeSut();
 
-		const result = await sut.http({ 
+		const result = sut.http({ 
 			userId: body.id as string,
 			data: {
 				email: body.email,
@@ -64,14 +63,14 @@ describe("Presentation - UpdateUserEmailController", () => {
 			} 
 		});
         
-		expect(result).toEqual(badRequest(new MissingParamError("code")));
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not update user email, because id is with type error", async () => {
 		const body = makeBody(100, "email@test.com", "code");
 		const { sut } = makeSut();
 
-		const result = await sut.http({ 
+		const result = sut.http({ 
 			userId: body.id as string,
 			data: {
 				email: body.email,
@@ -79,15 +78,14 @@ describe("Presentation - UpdateUserEmailController", () => {
 			} 
 		});
         
-		expect(result).toEqual(badRequest(new InvalidTypeError("id")));
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
-
 
 	test("Should not update user email, because email is with type error", async () => {
 		const body = makeBody("1", 100, "code");
 		const { sut } = makeSut();
 
-		const result = await sut.http({ 
+		const result = sut.http({ 
 			userId: body.id as string,
 			data: {
 				email: body.email,
@@ -95,14 +93,14 @@ describe("Presentation - UpdateUserEmailController", () => {
 			} 
 		});
         
-		expect(result).toEqual(badRequest(new InvalidTypeError("email")));
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not update user email, because code is with type error", async () => {
 		const body = makeBody("1", "email@test.com", 100);
 		const { sut } = makeSut();
 
-		const result = await sut.http({ 
+		const result = sut.http({ 
 			userId: body.id as string,
 			data: {
 				email: body.email,
@@ -110,23 +108,7 @@ describe("Presentation - UpdateUserEmailController", () => {
 			} 
 		});
         
-		expect(result).toEqual(badRequest(new InvalidTypeError("code")));
-	});
-
-	test("Should not update user email, because use returned error", async () => {
-		const body = makeBody("2", "email.com", "token_invalid");
-		const { sut, updateUserEmailStub } = makeSut();
-		jest.spyOn(updateUserEmailStub, "execute").mockReturnValueOnce(Promise.resolve(new Error("error")));
-
-		const result = await sut.http({ 
-			userId: body.id as string,
-			data: {
-				email: body.email,
-				code: body.code
-			} 
-		});
-        
-		expect(result).toEqual(badRequest(new Error("error")));
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should update user email", async () => {
@@ -141,6 +123,6 @@ describe("Presentation - UpdateUserEmailController", () => {
 			} 
 		});
         
-		expect(result).toEqual(ok(body.id));
+		expect(result).toEqual(HttpHelper.ok(body.id));
 	});
 });

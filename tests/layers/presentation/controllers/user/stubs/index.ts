@@ -34,7 +34,7 @@ import {
 	UserVerifyEmailDTO,
 	UserVerifyEmailResponseDTO,
 	UserVerifyEmailUseCaseProtocol    
-} from "@/layers/use-cases";
+} from "@/layers/application";
 
 export class CreateUserStub implements CreateUserUseCaseProtocol {
 	async execute({ email, password, passwordConfirm }: CreateUserDTO): Promise<CreateUserResponseDTO> {

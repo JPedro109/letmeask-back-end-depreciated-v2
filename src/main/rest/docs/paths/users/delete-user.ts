@@ -1,4 +1,4 @@
-import { badRequestError, notFoundError, unauthorizedError, internalServerError } from "@/main/rest/docs/components";
+import { badInvalidRequestError, notFoundError, unauthorizedError, internalServerError } from "@/main/rest/docs/components";
 import { authorizationHeaderSchema } from "@/main/rest/docs/schemas";
 
 export const deleteUser = {
@@ -34,7 +34,7 @@ export const deleteUser = {
 			}
 		},
 
-		400: badRequestError,
+		400: badInvalidRequestError,
 
 		404: notFoundError,
 

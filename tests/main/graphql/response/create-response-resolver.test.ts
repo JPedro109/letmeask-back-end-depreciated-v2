@@ -1,5 +1,5 @@
 import { setup, loginGraphql } from "../../__mocks__";
-import { setupGraphQL } from "@/main/graphql";
+import { setupServer } from "@/main/server";
 import request from "supertest";
 
 const makeBodyCreateResponse = (questionId: unknown, response: unknown) => {
@@ -20,7 +20,7 @@ describe("createResponse - MUTATION", () => {
 
 		const token = await loginGraphql("email_verified_and_with_room@test.com");
 
-		const response = await request(setupGraphQL())
+		const response = await request(setupServer())
 			.post("/graphql")
 			.set("authorization", `Bearer ${token}`)
 			.send({
@@ -28,7 +28,7 @@ describe("createResponse - MUTATION", () => {
 				variables: { data: body },
 			});
 
-		expect(response.body.errors[0].code).toBe("MissingParamError");
+		expect(response.body.errors[0].code).toBe("InvalidRequestError");
 	});
 
 	test("Should not create response, because response field is empty", async () => {
@@ -36,7 +36,7 @@ describe("createResponse - MUTATION", () => {
 
 		const token = await loginGraphql("email_verified_and_with_room@test.com");
 
-		const response = await request(setupGraphQL())
+		const response = await request(setupServer())
 			.post("/graphql")
 			.set("authorization", `Bearer ${token}`)
 			.send({
@@ -44,7 +44,7 @@ describe("createResponse - MUTATION", () => {
 				variables: { data: body },
 			});
 
-		expect(response.body.errors[0].code).toBe("MissingParamError");
+		expect(response.body.errors[0].code).toBe("InvalidRequestError");
 	});
 
 	test("Should not create response, because the question alredy is answered", async () => {
@@ -52,7 +52,7 @@ describe("createResponse - MUTATION", () => {
 
 		const token = await loginGraphql("email_verified_and_with_room@test.com");
 
-		const response = await request(setupGraphQL())
+		const response = await request(setupServer())
 			.post("/graphql")
 			.set("authorization", `Bearer ${token}`)
 			.send({
@@ -68,7 +68,7 @@ describe("createResponse - MUTATION", () => {
 
 		const token = await loginGraphql("email_verified_code_expiry@test.com");
 
-		const response = await request(setupGraphQL())
+		const response = await request(setupServer())
 			.post("/graphql")
 			.set("authorization", `Bearer ${token}`)
 			.send({
@@ -84,7 +84,7 @@ describe("createResponse - MUTATION", () => {
 
 		const token = await loginGraphql("email_verified_and_with_room@test.com");
 
-		const response = await request(setupGraphQL())
+		const response = await request(setupServer())
 			.post("/graphql")
 			.set("authorization", `Bearer ${token}`)
 			.send({

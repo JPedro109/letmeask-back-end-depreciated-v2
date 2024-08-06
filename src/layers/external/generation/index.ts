@@ -1,4 +1,4 @@
-import { GenerationProtocol } from "@/layers/use-cases";
+import { GenerationProtocol } from "@/layers/application";
 
 import { randomBytes } from "crypto";
 

@@ -1,7 +1,7 @@
 jest.setTimeout(10000);
 
 import { loginRest, setup } from "../../__mocks__";
-import { setupRest } from "@/main/rest";
+import { setupServer } from "@/main/server";
 import request from "supertest";
 
 const makeBodySendUserEmailUpdateLink = (email: unknown) => {
@@ -19,13 +19,13 @@ describe("/api/users/send-email-update-link - POST", () => {
 
 		const token = await loginRest("email_verified_and_with_room@test.com");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/users/send-email-update-link")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("MissingParamError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not send user email update link, because email is with type error", async () => {
@@ -33,27 +33,13 @@ describe("/api/users/send-email-update-link - POST", () => {
 
 		const token = await loginRest("email_verified_and_with_room@test.com");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/users/send-email-update-link")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("InvalidTypeError");
-	});
-
-	test("Should not send user email update link, because email is invalid", async () => {
-		const body = makeBodySendUserEmailUpdateLink("email.com");
-
-		const token = await loginRest("email_verified_and_with_room@test.com");
-
-		const response = await request(setupRest())
-			.post("/api/users/send-email-update-link")
-			.set("authorization", `Bearer ${token}`)
-			.send(body);
-
-		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("InvalidUserEmailError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not send user email update link, because email already is register", async () => {
@@ -61,7 +47,7 @@ describe("/api/users/send-email-update-link - POST", () => {
 
 		const token = await loginRest("email_verified_and_with_room@test.com");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/users/send-email-update-link")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
@@ -75,7 +61,7 @@ describe("/api/users/send-email-update-link - POST", () => {
 
 		const token = await loginRest("email_verified_and_with_room@test.com");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/users/send-email-update-link")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);

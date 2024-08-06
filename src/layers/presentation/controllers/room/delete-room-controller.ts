@@ -1,14 +1,5 @@
-import { 
-	HttpProtocol, 
-	HttpRequest, 
-	HttpResponse, 
-	badRequest, 
-	ok, 
-	notFound, 
-	Validate, 
-	unauthorized  
-} from "@/layers/presentation";
-import { DeleteRoomUseCaseProtocol, NotFoundError, UnauthorizedError } from "@/layers/use-cases";
+import { HttpProtocol, HttpRequest, HttpResponse, HttpHelper, Validate, InvalidRequestError } from "@/layers/presentation";
+import { DeleteRoomUseCaseProtocol } from "@/layers/application";
 
 export class DeleteRoomController implements HttpProtocol {
 
@@ -27,16 +18,10 @@ export class DeleteRoomController implements HttpProtocol {
 			{ userId, roomCode }
 		);
 
-		if(validation instanceof Error) return badRequest(validation); 
+		if(!validation.valid) throw new InvalidRequestError(validation.errors);  
 
 		const response = await this.useCase.execute({ roomCode, userId });
 
-		if(response instanceof NotFoundError) return notFound(response); 
-
-		if(response instanceof UnauthorizedError) return unauthorized(response); 
-
-		if(response instanceof Error) return badRequest(response); 
-
-		return ok(response);
+		return HttpHelper.ok(response);
 	}
 }

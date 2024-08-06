@@ -1,5 +1,5 @@
-import { HttpProtocol, HttpRequest, HttpResponse, badRequest, ok, Validate } from "@/layers/presentation";
-import { UpdateUserEmailUseCaseProtocol } from "@/layers/use-cases";
+import { HttpHelper, HttpProtocol, HttpRequest, HttpResponse, InvalidRequestError, Validate } from "@/layers/presentation";
+import { UpdateUserEmailUseCaseProtocol } from "@/layers/application";
 
 export class UpdateUserEmailController implements HttpProtocol {
 
@@ -19,12 +19,10 @@ export class UpdateUserEmailController implements HttpProtocol {
 			{ id, email, code }
 		);
 
-		if(validation instanceof Error) return badRequest(validation); 
+		if(!validation.valid) throw new InvalidRequestError(validation.errors);  
 
 		const response = await this.useCase.execute({ id, email, code });
 
-		if(response instanceof Error) return badRequest(response);
-
-		return ok(response);
+		return HttpHelper.ok(response);
 	}
 }

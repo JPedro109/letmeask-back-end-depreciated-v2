@@ -1,5 +1,5 @@
-import { HttpProtocol, HttpRequest, HttpResponse, badRequest, ok, Validate } from "@/layers/presentation";
-import { UpdateUserPasswordUseCaseProtocol } from "@/layers/use-cases";
+import { HttpHelper, HttpProtocol, HttpRequest, HttpResponse, InvalidRequestError, Validate } from "@/layers/presentation";
+import { UpdateUserPasswordUseCaseProtocol } from "@/layers/application";
 
 export class UpdateUserPasswordController implements HttpProtocol {
 
@@ -20,12 +20,10 @@ export class UpdateUserPasswordController implements HttpProtocol {
 			{ id, password, newPassword, newPasswordConfirm }
 		);
 
-		if(validation instanceof Error) return badRequest(validation); 
+		if(!validation.valid) throw new InvalidRequestError(validation.errors);  
 
 		const response = await this.useCase.execute({ id, password, newPassword, newPasswordConfirm });
 
-		if(response instanceof Error) return badRequest(response);
-
-		return ok(response);
+		return HttpHelper.ok(response);
 	}
 }

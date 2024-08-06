@@ -1,7 +1,7 @@
 jest.setTimeout(10000);
 
 import { loginRest, setup } from "../../__mocks__";
-import { setupRest } from "@/main/rest";
+import { setupServer } from "@/main/server";
 import request from "supertest";
 
 const makeBodyUpdateUsername = (username: unknown) => {
@@ -19,13 +19,13 @@ describe("/api/users/username - PATCH", () => {
 
 		const token = await loginRest("email_verified_and_with_room@test.com");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.patch("/api/users/username")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("MissingParamError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not update username, because username is with type error", async () => {
@@ -33,13 +33,13 @@ describe("/api/users/username - PATCH", () => {
 
 		const token = await loginRest("email_verified_and_with_room@test.com");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.patch("/api/users/username")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("InvalidTypeError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not update username, because username is invalid", async () => {
@@ -47,7 +47,7 @@ describe("/api/users/username - PATCH", () => {
 
 		const token = await loginRest("email_verified_and_with_room@test.com");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.patch("/api/users/username")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
@@ -61,7 +61,7 @@ describe("/api/users/username - PATCH", () => {
 
 		const token = await loginRest("email_verified_and_with_room@test.com");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.patch("/api/users/username")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);

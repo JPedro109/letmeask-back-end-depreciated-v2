@@ -1,7 +1,7 @@
 jest.setTimeout(10000);
 
 import { loginGraphql, setup } from "../../__mocks__";
-import { setupGraphQL } from "@/main/graphql";
+import { setupServer } from "@/main/server";
 import request from "supertest";
 
 const makeBodyUpdateUserEmail = (email: string, code: string) => {
@@ -22,7 +22,7 @@ describe("updateUserEmail - MUTATION", () => {
         
 		const token = await loginGraphql("email_verified_and_with_room@test.com");
 
-		const response = await request(setupGraphQL())
+		const response = await request(setupServer())
 			.post("/graphql")
 			.set("authorization", `Bearer ${token}`)
 			.send({
@@ -30,7 +30,7 @@ describe("updateUserEmail - MUTATION", () => {
 				variables: { data: body },
 			});
 
-		expect(response.body.errors[0].code).toBe("MissingParamError");
+		expect(response.body.errors[0].code).toBe("InvalidRequestError");
 	});
 
 	test("Should not update user email, because email is invalid", async () => {
@@ -38,7 +38,7 @@ describe("updateUserEmail - MUTATION", () => {
         
 		const token = await loginGraphql("email_verified_and_with_room@test.com");
 
-		const response = await request(setupGraphQL())
+		const response = await request(setupServer())
 			.post("/graphql")
 			.set("authorization", `Bearer ${token}`)
 			.send({
@@ -54,7 +54,7 @@ describe("updateUserEmail - MUTATION", () => {
         
 		const token = await loginGraphql("email_verified_and_with_room@test.com");
 
-		const response = await request(setupGraphQL())
+		const response = await request(setupServer())
 			.post("/graphql")
 			.set("authorization", `Bearer ${token}`)
 			.send({
@@ -62,7 +62,7 @@ describe("updateUserEmail - MUTATION", () => {
 				variables: { data: body },
 			});
 
-		expect(response.body.errors[0].code).toBe("MissingParamError");
+		expect(response.body.errors[0].code).toBe("InvalidRequestError");
 	});
 
 	test("Should not update user email, because code is invalid", async () => {
@@ -70,7 +70,7 @@ describe("updateUserEmail - MUTATION", () => {
         
 		const token = await loginGraphql("email_verified_and_with_room@test.com");
 
-		const response = await request(setupGraphQL())
+		const response = await request(setupServer())
 			.post("/graphql")
 			.set("authorization", `Bearer ${token}`)
 			.send({
@@ -86,7 +86,7 @@ describe("updateUserEmail - MUTATION", () => {
         
 		const token = await loginGraphql("email_verified_code_expiry@test.com");
 
-		const response = await request(setupGraphQL())
+		const response = await request(setupServer())
 			.post("/graphql")
 			.set("authorization", `Bearer ${token}`)
 			.send({
@@ -102,7 +102,7 @@ describe("updateUserEmail - MUTATION", () => {
         
 		const token = await loginGraphql("email_verified_and_with_room@test.com");
 
-		const response = await request(setupGraphQL())
+		const response = await request(setupServer())
 			.post("/graphql")
 			.set("authorization", `Bearer ${token}`)
 			.send({

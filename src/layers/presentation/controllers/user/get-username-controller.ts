@@ -1,5 +1,5 @@
-import { NotFoundError, GetUsernameUseCaseProtocol } from "@/layers/use-cases";
-import { HttpProtocol, HttpRequest, HttpResponse, badRequest, notFound, ok, Validate } from "@/layers/presentation";
+import { HttpHelper, HttpProtocol, HttpRequest, HttpResponse,  InvalidRequestError, Validate } from "@/layers/presentation";
+import { GetUsernameUseCaseProtocol } from "@/layers/application";
 
 export class GetUsernameController implements HttpProtocol {
 
@@ -11,14 +11,13 @@ export class GetUsernameController implements HttpProtocol {
 		const validation = Validate.fields([
 			{ name: "id", type: "string" },
 		],
-		{ id });
+		{ id }
+		);
 
-		if(validation instanceof Error) return badRequest(validation);
+		if(!validation.valid) throw new InvalidRequestError(validation.errors);  
 
 		const response = await this.useCase.execute({ id });
 
-		if(response instanceof Error) return response instanceof NotFoundError ? notFound(response) : badRequest(response);
-
-		return ok(response);
+		return HttpHelper.ok(response);
 	}
 }

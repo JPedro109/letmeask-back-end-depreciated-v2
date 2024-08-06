@@ -1,6 +1,5 @@
 import { GetRoomCodeStub } from "./stubs";
-import { NotFoundError } from "@/layers/use-cases";
-import { GetRoomCodeController, InvalidTypeError, MissingParamError, badRequest, notFound, ok } from "@/layers/presentation";
+import { GetRoomCodeController, HttpHelper, InvalidRequestError } from "@/layers/presentation";
 
 const makeSut = () => {
 	const getRoomCodeStub = new GetRoomCodeStub();
@@ -24,46 +23,26 @@ describe("Presentation - GetRoomCodeController", () => {
 		const body = makeBody("");
 		const { sut } = makeSut();
 
-		const result = await sut.http({ data: { roomCode: body.roomCode } });
+		const result = sut.http({ data: { roomCode: body.roomCode } });
 
-		expect(result).toEqual(badRequest(new MissingParamError("roomCode")));
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not get true, because room code is with type error", async () => {
 		const body = makeBody(100);
 		const { sut } = makeSut();
 
-		const result = await sut.http({ data: { roomCode: body.roomCode } });
+		const result = sut.http({ data: { roomCode: body.roomCode } });
 
-		expect(result).toEqual(badRequest(new InvalidTypeError("roomCode")));
-	});
-
-	test("Should not get true, because room use case returned not found error", async () => {
-		const body = makeBody("00001");
-		const { sut, getRoomCodeStub } = makeSut();
-		jest.spyOn(getRoomCodeStub, "execute").mockResolvedValueOnce(Promise.resolve(new NotFoundError("error")));
-
-		const result = await sut.http({ data: { roomCode: body.roomCode } });
-
-		expect(result).toEqual(notFound(new NotFoundError("error")));
-	});
-
-	test("Should not get true, because room use case returned error", async () => {
-		const body = makeBody("000");
-		const { sut, getRoomCodeStub } = makeSut();
-		jest.spyOn(getRoomCodeStub, "execute").mockResolvedValueOnce(Promise.resolve(new Error("error")));
-
-		const result = await sut.http({ data: { roomCode: body.roomCode } });
-
-		expect(result).toEqual(badRequest(new Error("error")));
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should get true", async () => {
 		const body = makeBody("000000");
 		const { sut } = makeSut();
 
-		const result = await sut.http({ data: { roomCode: body.roomCode } });
+		const result = sut.http({ data: { roomCode: body.roomCode } });
 
-		expect(result).toEqual(ok(true));
+		await expect(result).resolves.toEqual(HttpHelper.ok(true));
 	});
 });

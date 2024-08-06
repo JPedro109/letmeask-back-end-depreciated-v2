@@ -1,7 +1,6 @@
 import { CreateResponseStub } from "./stubs";
 import { testResponseModel } from "./datas";
-import { NotFoundError, UnauthorizedError } from "@/layers/use-cases";
-import { CreateResponseController, InvalidTypeError, MissingParamError, badRequest, created, notFound, unauthorized } from "@/layers/presentation";
+import { CreateResponseController, HttpHelper, InvalidRequestError } from "@/layers/presentation";
 
 const makeSut = () => {
 	const createResponseSpy = new CreateResponseStub();
@@ -27,132 +26,90 @@ describe("Presentation - CreateResponseController", () => {
 		const data = makeBody("", "1", "response");
 		const { sut } = makeSut();
 
-		const response = await sut.http(
+		const response = sut.http(
 			{ 
 				userId: data.userId as string, 
 				data: { questionId: data.questionId, response: data.response } 
 			});
 
-		expect(response).toEqual(badRequest(new MissingParamError("userId")));
+		await expect(response).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not create response, because question id is empty", async () => {
 		const data = makeBody("1", "", "response");
 		const { sut } = makeSut();
 
-		const response = await sut.http(
+		const response = sut.http(
 			{ 
 				userId: data.userId as string, 
 				data: { questionId: data.questionId, response: data.response } 
 			});
 
-		expect(response).toEqual(badRequest(new MissingParamError("questionId")));
+		await expect(response).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not create response, because response is empty", async () => {
 		const data = makeBody("1", "1", "");
 		const { sut } = makeSut();
 
-		const response = await sut.http(
+		const response = sut.http(
 			{ 
 				userId: data.userId as string, 
 				data: { questionId: data.questionId, response: data.response } 
 			});
 
-		expect(response).toEqual(badRequest(new MissingParamError("response")));
+		await expect(response).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not create response, because user id is with type error", async () => {
 		const data = makeBody(100, "1", "response");
 		const { sut } = makeSut();
 
-		const response = await sut.http(
+		const response = sut.http(
 			{ 
 				userId: data.userId as string, 
 				data: { questionId: data.questionId, response: data.response } 
 			});
 
-		expect(response).toEqual(badRequest(new InvalidTypeError("userId")));
+		await expect(response).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not create response, because question id is with type error", async () => {
 		const data = makeBody("1", 100, "response");
 		const { sut } = makeSut();
 
-		const response = await sut.http(
+		const response = sut.http(
 			{ 
 				userId: data.userId as string, 
 				data: { questionId: data.questionId, response: data.response } 
 			});
 
-		expect(response).toEqual(badRequest(new InvalidTypeError("questionId")));
+		await expect(response).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not create response, because response is with type error", async () => {
 		const data = makeBody("1", "1", 100);
 		const { sut } = makeSut();
 
-		const response = await sut.http(
+		const response = sut.http(
 			{ 
 				userId: data.userId as string, 
 				data: { questionId: data.questionId, response: data.response } 
 			});
 
-		expect(response).toEqual(badRequest(new InvalidTypeError("response")));
-	});
-
-	test("Should not create response, because use case returned not found error", async () => {
-		const data = makeBody("2", "2", "response");
-		const { sut, createResponseSpy } = makeSut();
-		jest.spyOn(createResponseSpy, "execute").mockReturnValueOnce(Promise.resolve(new NotFoundError("error")));
-
-		const response = await sut.http(
-			{ 
-				userId: data.userId as string, 
-				data: { questionId: data.questionId, response: data.response } 
-			});
-
-		expect(response).toEqual(notFound(new NotFoundError("error")));
-	});
-
-	test("Should not create response, because use case returned unauthorized error", async () => {
-		const data = makeBody("2", "2", "response");
-		const { sut, createResponseSpy } = makeSut();
-		jest.spyOn(createResponseSpy, "execute").mockReturnValueOnce(Promise.resolve(new UnauthorizedError("error")));
-
-		const response = await sut.http(
-			{ 
-				userId: data.userId as string, 
-				data: { questionId: data.questionId, response: data.response } 
-			});
-
-		expect(response).toEqual(unauthorized(new UnauthorizedError("error")));
-	});
-
-	test("Should not create response, because use case returned error", async () => {
-		const data = makeBody("2", "1", "response");
-		const { sut, createResponseSpy } = makeSut();
-		jest.spyOn(createResponseSpy, "execute").mockReturnValueOnce(Promise.resolve(new Error("error")));
-
-		const response = await sut.http(
-			{ 
-				userId: data.userId as string, 
-				data: { questionId: data.questionId, response: data.response } 
-			});
-
-		expect(response).toEqual(badRequest(new Error("error")));
+		await expect(response).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should create response", async () => {
 		const data = makeBody("1", "1", "response");
 		const { sut } = makeSut();
 
-		const response = await sut.http(
+		const response = sut.http(
 			{ 
 				userId: data.userId as string, 
 				data: { questionId: data.questionId, response: data.response } 
 			});
 
-		expect(response).toEqual(created(testResponseModel));
+		await expect(response).resolves.toEqual(HttpHelper.created(testResponseModel));
 	});
 });

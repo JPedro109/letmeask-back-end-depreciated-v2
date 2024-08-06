@@ -1,6 +1,5 @@
-import { DeleteUserController, MissingParamError, InvalidTypeError, badRequest, notFound, ok } from "@/layers/presentation";
+import { DeleteUserController, HttpHelper, InvalidRequestError } from "@/layers/presentation";
 import { DeleteUserStub } from "./stubs";
-import { InvalidParamError, NotFoundError } from "@/layers/use-cases";
 
 const makeSut = () => {
 	const deleteUserStub = new DeleteUserStub();
@@ -26,7 +25,7 @@ describe("Presentation - DeleteUserController", () => {
 		const data = makeBody("", "Password1234", "Password1234");
 		const { sut } = makeSut();
 
-		const result = await sut.http(
+		const result = sut.http(
 			{ 
 				data: { 
 					password: data.password, 
@@ -36,14 +35,14 @@ describe("Presentation - DeleteUserController", () => {
 			}
 		);
         
-		expect(result).toEqual(badRequest(new MissingParamError("id")));
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not delete user, because password is empty", async () => {
 		const data = makeBody("1", "", "Password1234");
 		const { sut } = makeSut();
 
-		const result = await sut.http(
+		const result = sut.http(
 			{ 
 				data: { 
 					password: data.password, 
@@ -53,14 +52,14 @@ describe("Presentation - DeleteUserController", () => {
 			}
 		);
         
-		expect(result).toEqual(badRequest(new MissingParamError("password")));
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not delete user, because passwordConfirm is empty", async () => {
 		const data = makeBody("1", "Password1234", "");
 		const { sut } = makeSut();
 
-		const result = await sut.http(
+		const result = sut.http(
 			{ 
 				data: { 
 					password: data.password, 
@@ -70,14 +69,14 @@ describe("Presentation - DeleteUserController", () => {
 			}
 		);
         
-		expect(result).toEqual(badRequest(new MissingParamError("passwordConfirm")));
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not delete user, because id is with type error", async () => {
 		const data = makeBody(100, "Password1234", "Password1234");
 		const { sut } = makeSut();
 
-		const result = await sut.http(
+		const result = sut.http(
 			{ 
 				data: { 
 					password: data.password, 
@@ -87,14 +86,14 @@ describe("Presentation - DeleteUserController", () => {
 			}
 		);
         
-		expect(result).toEqual(badRequest(new InvalidTypeError("id")));
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not delete user, because password is with type error", async () => {
 		const data = makeBody("1", 100, "Password1234");
 		const { sut } = makeSut();
 
-		const result = await sut.http(
+		const result = sut.http(
 			{ 
 				data: { 
 					password: data.password, 
@@ -104,14 +103,14 @@ describe("Presentation - DeleteUserController", () => {
 			}
 		);
         
-		expect(result).toEqual(badRequest(new InvalidTypeError("password")));
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should not delete user, because passwordConfirm is with type error", async () => {
 		const data = makeBody("1", "Password1234", 100);
 		const { sut } = makeSut();
 
-		const result = await sut.http(
+		const result = sut.http(
 			{ 
 				data: { 
 					password: data.password, 
@@ -121,43 +120,7 @@ describe("Presentation - DeleteUserController", () => {
 			}
 		);
         
-		expect(result).toEqual(badRequest(new InvalidTypeError("passwordConfirm")));
-	});
-
-	test("Should not delete user, because use case returned invalid param error", async () => {
-		const data = makeBody("1", "password", "password");
-		const { sut, deleteUserStub } = makeSut();
-		jest.spyOn(deleteUserStub, "execute").mockReturnValueOnce(Promise.resolve(new InvalidParamError("error")));
-
-		const result = await sut.http(
-			{ 
-				data: { 
-					password: data.password, 
-					passwordConfirm: data.passwordConfirm 
-				}, 
-				userId: data.id as string 
-			}
-		);
-        
-		expect(result).toEqual(badRequest(new InvalidParamError("error")));
-	});
-
-	test("Should not delete user, because use case returned not found error", async () => {
-		const data = makeBody("2", "password", "password");
-		const { sut, deleteUserStub } = makeSut();
-		jest.spyOn(deleteUserStub, "execute").mockReturnValueOnce(Promise.resolve(new NotFoundError("error")));
-
-		const result = await sut.http(
-			{ 
-				data: { 
-					password: data.password, 
-					passwordConfirm: data.passwordConfirm 
-				}, 
-				userId: data.id as string 
-			}
-		);
-        
-		expect(result).toEqual(notFound(new NotFoundError("error")));
+		expect(result).rejects.toThrow(InvalidRequestError);
 	});
 
 	test("Should delete user", async () => {
@@ -174,6 +137,6 @@ describe("Presentation - DeleteUserController", () => {
 			}
 		);
         
-		expect(result).toEqual(ok(data.id));
+		expect(result).toEqual(HttpHelper.ok(data.id));
 	});
 });

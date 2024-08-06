@@ -1,14 +1,5 @@
-import { 
-	HttpProtocol, 
-	HttpRequest, 
-	HttpResponse, 
-	badRequest, 
-	created,
-	notFound,
-	unauthorized,
-	Validate  
-} from "@/layers/presentation";
-import { CreateQuestionUseCaseProtocol, NotFoundError, UnauthorizedError } from "@/layers/use-cases";
+import { HttpProtocol, HttpRequest, HttpResponse, HttpHelper, Validate, InvalidRequestError } from "@/layers/presentation";
+import { CreateQuestionUseCaseProtocol } from "@/layers/application";
 
 export class CreateQuestionController implements HttpProtocol {
 
@@ -28,16 +19,10 @@ export class CreateQuestionController implements HttpProtocol {
 			{ userId, roomCode, question }
 		);
 
-		if(validation instanceof Error) return badRequest(validation); 
+		if(!validation.valid) throw new InvalidRequestError(validation.errors);  
 
 		const response = await this.useCase.execute({ userId, roomCode, question });
 
-		if(response instanceof NotFoundError) return notFound(response); 
-
-		if(response instanceof UnauthorizedError) return unauthorized(response); 
-
-		if(response instanceof Error) return badRequest(response); 
-
-		return created(response);
+		return HttpHelper.created(response);
 	}
 }

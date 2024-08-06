@@ -1,5 +1,5 @@
-import { HttpProtocol, HttpRequest, HttpResponse, badRequest, notFound, ok, unauthorized, Validate } from "@/layers/presentation";
-import { NotFoundError, UnauthorizedError, UserVerifyEmailUseCaseProtocol } from "@/layers/use-cases";
+import { HttpHelper, HttpProtocol, HttpRequest, HttpResponse, InvalidRequestError, Validate } from "@/layers/presentation";
+import {  UserVerifyEmailUseCaseProtocol } from "@/layers/application";
 
 export class UserVerifyEmailController implements HttpProtocol {
 
@@ -16,16 +16,10 @@ export class UserVerifyEmailController implements HttpProtocol {
 			{ email, code }
 		);
 
-		if(validation instanceof Error) return badRequest(validation); 
+		if(!validation.valid) throw new InvalidRequestError(validation.errors);  
 
 		const response = await this.useCase.execute({ email, code });
 
-		if(response instanceof NotFoundError) return notFound(response);
-
-		if(response instanceof UnauthorizedError) return unauthorized(response);
-
-		if(response instanceof Error) return badRequest(response);
-
-		return ok(response);
+		return HttpHelper.ok(response);
 	}
 }

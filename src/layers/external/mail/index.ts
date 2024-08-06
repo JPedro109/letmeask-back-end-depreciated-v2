@@ -1,4 +1,4 @@
-import { MailProtocol, QueueProtocol, SecretsEnum, SecretsProtocol } from "@/layers/use-cases";
+import { MailProtocol, QueueProtocol, SecretsEnum, SecretsProtocol } from "@/layers/application";
 
 export class MailAdapter implements MailProtocol {
 

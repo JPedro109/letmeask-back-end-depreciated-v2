@@ -1,4 +1,4 @@
-import { UserModel, UserRepositoryProtocol, UserVerificationCodeModel } from "@/layers/use-cases";
+import { UserModel, UserRepositoryProtocol, UserVerificationCodeModel } from "@/layers/application";
 import { Context, DatabaseSQLHelper, camelToSnakeCaseMapper } from "@/layers/external";
 
 import { user as UserPrismaModel, user_verification_code as UserVerificationCodePrismaModel } from "@prisma/client";
@@ -20,8 +20,7 @@ export class UserRepositoryAdapter implements UserRepositoryProtocol {
 			user.username, 
 			user.password, 
 			user.verified_email, 
-			null,
-			user.managed_room,
+			null
 		);
 	}
 
@@ -41,8 +40,7 @@ export class UserRepositoryAdapter implements UserRepositoryProtocol {
 				Number(user.user_verification_code[0].verification_code_expiry_date),
 				user.user_verification_code[0].valid,
 				user.user_verification_code[0].password_recovery
-			) : null,
-			user.managed_room,
+			) : null
 		);
 	}
 

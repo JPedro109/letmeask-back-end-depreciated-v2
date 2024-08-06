@@ -1,5 +1,5 @@
 import { setup, loginRest } from "../../__mocks__";
-import { setupRest } from "@/main/rest";
+import { setupServer } from "@/main/server";
 import request from "supertest";
 
 const makeBodyCreateRoom = (roomName: unknown) => {
@@ -16,33 +16,33 @@ describe("/api/rooms - POST", () => {
 		const body = makeBodyCreateRoom("");
 		const token = await loginRest("email_verified_code_expiry@test.com");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/rooms")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
 		
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("MissingParamError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not create room, because the room name with is type error", async () => {
 		const body = makeBodyCreateRoom(100);
 		const token = await loginRest("email_verified_code_expiry@test.com");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/rooms")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("InvalidTypeError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not create room, because user alredy created has a room", async () => {
 		const body = makeBodyCreateRoom("room-two");
 		const token = await loginRest("email_verified_and_with_room@test.com");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/rooms")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
@@ -55,7 +55,7 @@ describe("/api/rooms - POST", () => {
 		const body = makeBodyCreateRoom("room-two");
 		const token = await loginRest("email_verified_code_expiry@test.com");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/rooms")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);

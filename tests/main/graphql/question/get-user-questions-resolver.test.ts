@@ -1,5 +1,5 @@
 import { setup, loginGraphql } from "../../__mocks__";
-import { setupGraphQL } from "@/main/graphql";
+import { setupServer } from "@/main/server";
 import request from "supertest";
 
 describe("getUserQuestions - QUERY", () => {
@@ -12,7 +12,7 @@ describe("getUserQuestions - QUERY", () => {
 	test("Should get user questions", async () => {
 		const token = await loginGraphql("email_verified_code_expiry@test.com");
 			
-		const response = await request(setupGraphQL())
+		const response = await request(setupServer())
 			.post("/graphql")
 			.set("authorization", `Bearer ${token}`)
 			.send({

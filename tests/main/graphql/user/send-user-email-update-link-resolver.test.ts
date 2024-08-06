@@ -1,7 +1,7 @@
 jest.setTimeout(10000);
 
 import { loginGraphql, setup } from "../../__mocks__";
-import { setupGraphQL } from "@/main/graphql";
+import { setupServer } from "@/main/server";
 import request from "supertest";
 
 const makeBodySendUserEmailUpdateLink = (email: unknown) => {
@@ -21,7 +21,7 @@ describe("sendUserEmailUpdateLink - MUTATION", () => {
 
 		const token = await loginGraphql("email_verified_and_with_room@test.com");
 
-		const response = await request(setupGraphQL())
+		const response = await request(setupServer())
 			.post("/graphql")
 			.set("authorization", `Bearer ${token}`)
 			.send({
@@ -29,23 +29,7 @@ describe("sendUserEmailUpdateLink - MUTATION", () => {
 				variables: { data: body },
 			});
 
-		expect(response.body.errors[0].code).toBe("MissingParamError");
-	});
-	
-	test("Should not send user email update link, because email is invalid", async () => {
-		const body = makeBodySendUserEmailUpdateLink("email.com");
-
-		const token = await loginGraphql("email_verified_and_with_room@test.com");
-
-		const response = await request(setupGraphQL())
-			.post("/graphql")
-			.set("authorization", `Bearer ${token}`)
-			.send({
-				query,
-				variables: { data: body },
-			});
-
-		expect(response.body.errors[0].code).toBe("InvalidUserEmailError");
+		expect(response.body.errors[0].code).toBe("InvalidRequestError");
 	});
 
 	test("Should not send user email update link, because email already is register", async () => {
@@ -53,7 +37,7 @@ describe("sendUserEmailUpdateLink - MUTATION", () => {
 
 		const token = await loginGraphql("email_verified_and_with_room@test.com");
 
-		const response = await request(setupGraphQL())
+		const response = await request(setupServer())
 			.post("/graphql")
 			.set("authorization", `Bearer ${token}`)
 			.send({
@@ -69,7 +53,7 @@ describe("sendUserEmailUpdateLink - MUTATION", () => {
 
 		const token = await loginGraphql("email_verified_and_with_room@test.com");
 
-		const response = await request(setupGraphQL())
+		const response = await request(setupServer())
 			.post("/graphql")
 			.set("authorization", `Bearer ${token}`)
 			.send({

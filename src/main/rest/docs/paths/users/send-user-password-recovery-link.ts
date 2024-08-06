@@ -1,4 +1,4 @@
-import { badRequestError, notFoundError, unauthorizedError, internalServerError } from "@/main/rest/docs/components";
+import { badInvalidRequestError, notFoundError, unauthorizedError, internalServerError } from "@/main/rest/docs/components";
 
 export const sendUserPasswordRecoverLink = {
 	tags: [ "Usuário" ],
@@ -27,7 +27,7 @@ export const sendUserPasswordRecoverLink = {
 			}
 		},
 
-		400: badRequestError,
+		400: badInvalidRequestError,
 
 		404: notFoundError,
 

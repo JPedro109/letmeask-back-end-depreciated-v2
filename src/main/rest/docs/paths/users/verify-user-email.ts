@@ -1,4 +1,4 @@
-import { badRequestError, notFoundError, unauthorizedError, internalServerError } from "@/main/rest/docs/components";
+import { badInvalidRequestError, notFoundError, unauthorizedError, internalServerError } from "@/main/rest/docs/components";
 
 export const verifyUserEmail = {
 	tags: [ "Usuário" ],
@@ -25,7 +25,7 @@ export const verifyUserEmail = {
 			}
 		},
 
-		400: badRequestError,
+		400: badInvalidRequestError,
 
 		401: unauthorizedError,
 

@@ -1,5 +1,5 @@
 import { setup, loginRest } from "../../__mocks__";
-import { setupRest } from "@/main/rest";
+import { setupServer } from "@/main/server";
 import request from "supertest";
 
 const makeBodyCreateQuestion = (roomCode: unknown, question: unknown) => {
@@ -17,59 +17,59 @@ describe("/api/questions - POST", () => {
 		const body = makeBodyCreateQuestion("", "question");
 		const token = await loginRest("email_verified_code_expiry@test.com");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/questions")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("MissingParamError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not create question, because question field is empty", async () => {
 		const body = makeBodyCreateQuestion("000000", "");
 		const token = await loginRest("email_verified_code_expiry@test.com");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/questions")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("MissingParamError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not create question, because room code field is with type error", async () => {
 		const body = makeBodyCreateQuestion(100, "question");
 		const token = await loginRest("email_verified_code_expiry@test.com");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/questions")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("InvalidTypeError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not create question, because question field is with type error", async () => {
 		const body = makeBodyCreateQuestion("000000", 100);
 		const token = await loginRest("email_verified_code_expiry@test.com");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/questions")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
 
 		expect(response.statusCode).toBe(400);
-		expect(response.body.code).toBe("InvalidTypeError");
+		expect(response.body.code).toBe("InvalidRequestError");
 	});
 
 	test("Should not create question, because room is not exists", async () => {
 		const body = makeBodyCreateQuestion("000001", "question");
 
 		const token = await loginRest("email_verified_code_expiry@test.com");
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/questions")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
@@ -82,7 +82,7 @@ describe("/api/questions - POST", () => {
 		const body = makeBodyCreateQuestion("000000", "question");
 		const token = await loginRest("email_verified_and_with_room@test.com");
 
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/questions")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);
@@ -95,7 +95,7 @@ describe("/api/questions - POST", () => {
 		const body = makeBodyCreateQuestion("000000", "question");
 
 		const token = await loginRest("email_verified_code_expiry@test.com");
-		const response = await request(setupRest())
+		const response = await request(setupServer())
 			.post("/api/questions")
 			.set("authorization", `Bearer ${token}`)
 			.send(body);

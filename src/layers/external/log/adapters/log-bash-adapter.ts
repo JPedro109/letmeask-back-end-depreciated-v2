@@ -1,53 +1,68 @@
-import { LogProtocol } from "@/layers/use-cases";
+import { LogProtocol } from "@/layers/application";
+import winston from "winston";
 
 export class LogBashAdapter implements LogProtocol {
+	private logger: winston.Logger = LogBashAdapter.create();
 
-	trace(title: string, message: string, trace: string): boolean {
-		console.log();
-		console.trace({
-			title,
-			message,
-			trace,
-			level: "[TRACE]",
-			timestamp: new Date()
+	private static create(): winston.Logger {
+		const levels = {
+			error: 0,
+			warn: 1,
+			info: 2,
+			http: 3,
+			debug: 4,
+		};
+
+		const colors = {
+			error: "red",
+			warn: "yellow",
+			info: "green",
+			http: "magenta",
+			debug: "white",
+		};
+
+		winston.addColors(colors);
+
+		const format = winston.format.combine(
+			winston.format.timestamp({ format: "DD/MM/YYYY HH:mm:ss:ms" }),
+			winston.format.colorize({ all: true }),
+			winston.format.printf((info) => `${info.timestamp} ${info.level}: ${info.message}`)
+		);
+
+		const transports = [
+			new winston.transports.Console(),
+		];
+
+		return winston.createLogger({
+			levels,
+			format,
+			transports,
 		});
-        
+	}
+
+	trace(message: string, trace: string): boolean {
+		this.logger.info(`${message} - ${trace}`);
+
 		return true;
 	}
-	
-	info(title: string, message: string): boolean {
-		console.log();
-		console.info({
-			title,
-			message,
-			level: "[INFO]",
-			timestamp: new Date()
-		});
-        
+
+	info(message: string): boolean {
+		this.logger.info(message);
+
 		return true;
 	}
 
-	warning(title: string, message: string): boolean {
-		console.log();
-		console.warn({
-			title,
-			message,
-			level: "[WARNING]",
-			timestamp: new Date()
-		});
-        
+	warning(message: string): boolean {
+		this.logger.warn(message);
+
 		return true;
 	}
 
-	error(title: string, message: string): boolean {
-		console.log();
-		console.error({
-			title,
-			message,
-			level: "[ERROR]",
-			timestamp: new Date()
-		});
-        
+	error(message: string, error: Error): boolean {
+		this.logger.error(
+			`${message}\n${error.stack}`
+		);
+
 		return true;
 	}
 }

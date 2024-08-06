@@ -1,14 +1,5 @@
-import { 
-	HttpProtocol, 
-	HttpRequest, 
-	HttpResponse, 
-	badRequest, 
-	ok,
-	notFound,
-	unauthorized,
-	Validate
-} from "@/layers/presentation";
-import { DeleteQuestionUseCaseProtocol, NotFoundError, UnauthorizedError } from "@/layers/use-cases";
+import { HttpHelper, HttpProtocol, HttpRequest, HttpResponse, InvalidRequestError, Validate } from "@/layers/presentation";
+import { DeleteQuestionUseCaseProtocol } from "@/layers/application";
 
 export class DeleteQuestionController implements HttpProtocol {
 
@@ -27,16 +18,10 @@ export class DeleteQuestionController implements HttpProtocol {
 			{ userId, questionId }
 		);
 
-		if(validation instanceof Error) return badRequest(validation); 
+		if(!validation.valid) throw new InvalidRequestError(validation.errors);  
 
 		const response = await this.useCase.execute({ questionId, userId });
 
-		if(response instanceof NotFoundError) return notFound(response); 
-
-		if(response instanceof UnauthorizedError) return unauthorized(response); 
-
-		if(response instanceof Error) return badRequest(response); 
-
-		return ok(response);
+		return HttpHelper.ok(response);
 	}
 }

@@ -1,5 +1,5 @@
-import { AuthenticationProtocol, UnauthorizedError } from "@/layers/use-cases";
-import { HttpProtocol, HttpRequest, HttpResponse, noBody, unauthorized } from "@/layers/presentation";
+import { AuthenticationProtocol, UnauthorizedError } from "@/layers/application";
+import { HttpProtocol, HttpRequest, HttpResponse, HttpHelper } from "@/layers/presentation";
 
 export class AuthUserMiddleware implements HttpProtocol {
 
@@ -8,18 +8,18 @@ export class AuthUserMiddleware implements HttpProtocol {
 	async http(request: HttpRequest): Promise<HttpResponse> {
 		const { authorization } = request.headers;
 
-		if (!authorization) return unauthorized(new UnauthorizedError("Você não está logado"));
+		if (!authorization) return HttpHelper.unauthorized(new UnauthorizedError("Você não está logado"));
     
 		const [bearer, token] = authorization.split(" ");
 
-		if(bearer !== "Bearer") return unauthorized(new UnauthorizedError("Código inválido"));
+		if(bearer !== "Bearer") return HttpHelper.unauthorized(new UnauthorizedError("Código inválido"));
     
 		const decode = this.jsonWebToken.verifyJsonWebToken(token);
 
-		if(decode instanceof Error) return unauthorized(decode);
+		if(decode instanceof Error) return HttpHelper.unauthorized(decode);
 
 		request.userId = decode.id as string;
 
-		return noBody();
+		return HttpHelper.noBody();
 	}
 }

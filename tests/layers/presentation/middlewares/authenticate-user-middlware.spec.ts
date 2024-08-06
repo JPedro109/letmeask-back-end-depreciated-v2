@@ -1,6 +1,6 @@
 import { JsonWebTokenStub } from "./stubs";
-import { JsonWebTokenInvalidError, UnauthorizedError } from "@/layers/use-cases";
-import { AuthUserMiddleware, noBody, unauthorized } from "@/layers/presentation";
+import { JsonWebTokenInvalidError, UnauthorizedError } from "@/layers/application";
+import { AuthUserMiddleware, HttpHelper } from "@/layers/presentation";
 
 const makeSut = () => {
 	const jsonWebTokenStub = new JsonWebTokenStub();
@@ -28,7 +28,7 @@ describe("Presentation - AuthUserMiddleware", () => {
 			authorization
 		}});
 
-		expect(result).toEqual(unauthorized(new UnauthorizedError("Você não está logado")));
+		expect(result).toEqual(HttpHelper.unauthorized(new UnauthorizedError("Você não está logado")));
 	});
 
 	test("Should not authenticate user, because Bearer is invalid ", async () => {
@@ -39,7 +39,7 @@ describe("Presentation - AuthUserMiddleware", () => {
 			authorization
 		}});
 
-		expect(result).toEqual(unauthorized(new UnauthorizedError("Código inválido")));
+		expect(result).toEqual(HttpHelper.unauthorized(new UnauthorizedError("Código inválido")));
 	});
 
 	test("Should not authenticate user, because token is invalid", async () => {
@@ -51,7 +51,7 @@ describe("Presentation - AuthUserMiddleware", () => {
 			authorization
 		}});
 
-		expect(result).toEqual(unauthorized(new JsonWebTokenInvalidError()));
+		expect(result).toEqual(HttpHelper.unauthorized(new JsonWebTokenInvalidError()));
 	});
 
 	test("Should authenticate user", async () => {
@@ -62,6 +62,6 @@ describe("Presentation - AuthUserMiddleware", () => {
 			authorization
 		}});
 
-		expect(result).toEqual(noBody());
+		expect(result).toEqual(HttpHelper.noBody());
 	});
 });

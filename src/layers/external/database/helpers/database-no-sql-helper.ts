@@ -1,4 +1,4 @@
-import { SecretsEnum, SecretsProtocol } from "@/layers/use-cases";
+import { SecretsEnum, SecretsProtocol } from "@/layers/application";
 
 import { MongoClient, Collection } from "mongodb";
 
